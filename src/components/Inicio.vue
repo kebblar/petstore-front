@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Página de inicio</h3>
+    <h3>Página de inicio Goose</h3>
   </div>
 </template>
 

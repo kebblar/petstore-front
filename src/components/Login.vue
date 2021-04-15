@@ -97,10 +97,8 @@ export default {
                 usuario: this.usr,
                 clave: this.psw
             }).then(response => {
-                if(response.status<300) {
-                    console.log(response.status);
-                    console.log(response.data);
-                }
+                console.log(response.status);
+                console.log(response.data);
             }).catch(error => {
                 console.log(error.response.status);
                 console.log(error.response.data);
