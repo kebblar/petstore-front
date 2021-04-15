@@ -22,5 +22,6 @@ cp -r dist lib/src/main/resources/static
 cp pom.xml lib
 
 ## echo "Copiando a Nexus..."
-#mvn -U -f lib/pom.xml clean deploy
+mvn -U -f lib/pom.xml clean deploy
+#mvn -U -f lib/pom.xml clean install
 #/home/ruta/work/proyecto-backend/build-run/run-docker.sh
