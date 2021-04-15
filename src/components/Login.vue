@@ -72,7 +72,6 @@ export default {
           usr: "",
           psw: "",
           msgErr: "",
-          url: process.env.VUE_APP_URL,
           version: process.env.VUE_APP_VERSION
         }
     },
@@ -92,29 +91,21 @@ export default {
             router.push({'name':'regenera-clave'});
         },
         checkCredentials: function() {
-            axios.post('/api/login.json', 
-            {
-                usr: this.usr,
-                pass: this.psw
-            }, 
-            {
-                headers: {
-                    'Content-type': 'application/json',
-                    'crossDomain': true,
-                    'Acces-Control-Allow-Origin': '*'
+            axios.post('/api/login.json', {
+                usuario: this.usr,
+                clave: this.psw
+            
+            }).then(response => {
+                if(response.status<300) {
+                    console.log(response.status);
+                    console.log(response.data);
                 }
-            }
-        ).catch(error => {
-            this.msgErr = "Ha ocurrido un error de red: " + error;
-            this.$modal.show('mensaje-login');
-        }).then(response => {            
-            if(response.status===200) {
-                console.log('todo bien')
-            } else {
-                this.msgErr = response.data['desc-exception'];
+            }).catch(error => {
+                console.log(error.response.status);
+                console.log(error.response.data);
+                this.msgErr = error.response.status + " Error: " + error.response.data['desc-exception'];
                 this.$modal.show('mensaje-login');
-            }
-          });
+            })
         }
     }
 }
