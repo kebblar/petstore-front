@@ -2,6 +2,7 @@
     <div class="ancho centra">
 
         <div class="card" style="width: 380px;">
+
             <div class="card-header">
                 <div class="row">
                     <div class="col-sm-6">
@@ -11,7 +12,8 @@
                         <label>V. {{ version }}</label>
                     </div>
                 </div>
-            </div>
+            </div><!-- ends header-->
+
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 text-left">
@@ -39,8 +41,9 @@
                         <a href="#" @click="openRegistroPage" >Deseo registrarme al sistema</a>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div><!-- ends body-->
+
+        </div><!-- ends card-->
 
         <modal 
             name="mensaje-login" 
@@ -58,8 +61,9 @@
                     </div>
                 </div>
             </div>
-        </modal>
-    </div>    
+        </modal><!-- ends modal-->
+
+    </div>
 </template>
 
 <script>
@@ -74,8 +78,6 @@ export default {
           msgErr: "",
           version: process.env.VUE_APP_VERSION
         }
-    },
-    created() {
     },
     methods: {
         detecta: function(input) {
@@ -94,7 +96,6 @@ export default {
             axios.post('/api/login.json', {
                 usuario: this.usr,
                 clave: this.psw
-            
             }).then(response => {
                 if(response.status<300) {
                     console.log(response.status);
@@ -109,7 +110,6 @@ export default {
         }
     }
 }
-
 </script>
 
 <style>
