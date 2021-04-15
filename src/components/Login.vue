@@ -65,7 +65,6 @@
 <script>
 import axios from 'axios';
 import router from '../router'
-import store from '../store'
 
 export default {
     data: function () {
@@ -81,31 +80,16 @@ export default {
     },
     methods: {
         detecta: function(input) {
-            if(store.state.destination.length>0) {
-                var target = store.state.destination;
-                store.commit('setDestination','');
-                return target;
-            }
-            if (typeof input === 'string') {
-                return '/ui/inicio';
-            } else {
-                for(var i=0; i<input.length; i++) {
-                    switch(input[i].name) {
-                        case 'admin': return '/ui/admin'; // rol 1 = administrador
-                        case 'user': return '/ui/user'; // rol 2 = usuario comun y corriente
-                        default: return '/ui/inicio'; // otro rol cualquiera
-                    } 
-                } // ends for cycle with switch inside
-            }
+            console.log(input);
         },
         closeModal: function() {
             this.$modal.hide('mensaje-login');
         },
         openRegistroPage: function() {
-            router.push('/ui/registro');
+            router.push({'name':'registro'});
         },
         openForgotPage: function() {
-            router.push('/ui/forgot');
+            router.push({'name':'regenera-clave'});
         },
         checkCredentials: function() {
             axios.post('/api/login.json', 
@@ -125,11 +109,7 @@ export default {
             this.$modal.show('mensaje-login');
         }).then(response => {            
             if(response.status===200) {
-                store.commit('setState', response.data);
-                store.commit('setFirmado', true);
-                const target = this.detecta(response.data.roles);
-                //console.log(response.data);     
-                router.push(target);
+                console.log('todo bien')
             } else {
                 this.msgErr = response.data['desc-exception'];
                 this.$modal.show('mensaje-login');
