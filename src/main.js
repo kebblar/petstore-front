@@ -19,7 +19,7 @@ Vue.use(IconsPlugin)
 Vue.use(VueAxios, axios)
 
 axios.defaults.baseURL = process.env.VUE_APP_URL
-
+ 
 new Vue({
   router,
   render: h => h(App)

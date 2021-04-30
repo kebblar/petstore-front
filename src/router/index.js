@@ -7,6 +7,9 @@ import Login from '@/components/Login'
 import Registro from '@/components/Registro'
 import RegeneraClave from '@/components/RegeneraClave'
 
+import Reg from '@/components/Reg'
+
+
 Vue.use(Router);
 
 const routes = [
@@ -24,6 +27,11 @@ const routes = [
     path: '/ui/registro',
     name: 'registro',
     component: Registro
+  },
+  {
+    path: '/ui/reg',
+    name: 'reg',
+    component: Reg
   },
   {
     path: '/ui/regenera-clave',

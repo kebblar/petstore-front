@@ -97,12 +97,14 @@ export default {
                 usuario: this.usr,
                 clave: this.psw
             }).then(response => {
+                console.log("hola");
+                console.log(response);
                 console.log(response.status);
                 console.log(response.data);
             }).catch(error => {
                 console.log(error.response.status);
                 console.log(error.response.data);
-                this.msgErr = error.response.status + " Error: " + error.response.data['desc-exception'];
+                this.msgErr = error.response.data['exceptionLongDescription'];
                 this.$modal.show('mensaje-login');
             })
         }
