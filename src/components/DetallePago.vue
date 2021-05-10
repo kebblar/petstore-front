@@ -41,11 +41,11 @@
                     <div class="col-sm-7">
                       <b style="font-size: 14px;">{{pa.nombre}}</b>
                       <div class="w-100 d-none d-md-block"></div>
-                      <p class="shortSpace">{{pa.breveDesc}}</p>
+                      <p class="shortSpace">{{pa.breveDescripcion}}</p>
                     </div>
                     <div class="col-sm-1"></div>
                     <div class="col text-primary">
-                      ${{pa.costo}}
+                      ${{pa.precio}}
                     </div>
                   </div>
                 </div>
@@ -218,18 +218,20 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "DetallePago.vue",
+
+  mounted () {
+    this.getPaqueterias();
+  },
+
   data(){
     return {
       nombreCliente : "Ana Guevara",
       nombreMascota: "Camaleon pantera macho 13 meses",
       precio: 6000,
-      paqueterias: [
-          {'id':1, 'nombre': 'Estafeta', 'breveDesc': 'Entrega proritaria de 1 a 2 días', 'costo': 250},
-          {'id':2, 'nombre': 'DHL', 'breveDesc': 'Entrega al día siguiente', 'costo': 350},
-          {'id':3, 'nombre': 'Aeromexico Cargo', 'breveDesc': 'Entrega en unas horas o al día siguiente', 'costo': 950}
-      ],
+      paqueterias: [],
       paqSelected: 0,
       direcciones: [
           {'id': 1, 'calleNumero': 'Calle 1', 'colonia': 'Colonia 1', 'pais': 'Mexico', 'estado': 'DF', 'municipio': 'Benito Juarez', 'tipoDireccion': 'casa', 'cp': '00040', 'referencias': '' },
@@ -256,6 +258,15 @@ methods: {
     },
     getLastDigits(obj){
       return obj.slice(-4);
+    },
+    getPaqueterias(){
+      axios.get('/api/paqueterias.json', {}).then(response => {
+        console.log(response.data);
+        this.paqueterias=response.data;
+      }).catch(e => {
+        console.log(e.response.status);
+        console.log(e.response.data);
+      });
     }
 
   // getCarteraBTC(){
@@ -300,7 +311,7 @@ hr.dotted {
   box-shadow: 1px 1px 3px #d8dcdd;
 }
 .shortSpace{
-  line-height: 95%;
+  line-height: 96%;
   font-size: 12px;
 }
 .separation{
