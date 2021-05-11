@@ -52,14 +52,43 @@
                 <div class="row">
                   <div class="col-sm-1"></div>
                   <div class="col"  style="margin-top: 10px;">
-                    <a href="#" class="text-primary">Más información sobre envíos y paqueterías</a>
+                    <a href="#" class="text-primary" data-toggle="modal" data-target="#infoEnvios">Más información sobre envíos y paqueterías</a>
                   </div>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="infoEnvios" role="dialog" tabindex="-1" aria-labelledby="titulo" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="titulo">Información de las paqueterías</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <ul align="left">
+                            <div v-for="pa in paqueterias" :key="pa.id">
+                              <div class="container">
+                                <li><b>{{pa.nombre}}</b>  ${{pa.precio}}<br>
+                                <small>{{pa.breveDescripcion}}</small><br>
+                                <div class="text-primary my-3" style="font-size: 12px;">
+                                  {{pa.htmlDescripcion}}
+                                </div>
+                                </li>
+                              </div>
+                            </div>
+                          </ul>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!--end Modal-->
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {{paqSelected}}
+{{paqSelected}}
         <hr class="dotted">
 
         <div class="card-body">
@@ -83,8 +112,86 @@
               <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col text-primary">
-                  <a href="#">Añadir una nueva dirección</a>
+                  <a href="#" data-toggle="modal" data-target="#nuevaDireccion">Añadir una nueva dirección</a>
                 </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="nuevaDireccion" role="dialog" tabindex="-1" aria-labelledby="direccionTitulo" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header mt-2">
+                        <h5 class="modal-title ml-4" id="direccionTitulo">Añadir nueva dirección</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form class="mx-4">
+                          <div class="form-row form-group">
+                            <div class="col-md-8">
+                              <label for="nombre">
+                                  Nombre y Apellido
+                              </label>
+                              <input type="text" class="form-control" :placeholder="nombreCliente" disabled>
+                            </div>
+                            <div class="col">
+                              <label for="tipo">Tipo dirección</label>
+                              <select id="inputState" class="form-control">
+                                <option selected>Tipo</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-row form-group">
+                            <div class="col">
+                              <label for="calle">Calle y Número</label>
+                              <input type="text" class="form-control" placeholder="Calle y Número">
+                            </div>
+                            <div class="col">
+                              <label for="colonia">Colonia</label>
+                              <input type="text" class="form-control" placeholder="Colonia">
+                            </div>
+                          </div>
+                          <div class="form-row form-group">
+                            <div class="col-md-9">
+                              <label for="refs">Referencias</label>
+                              <input type="text" class="form-control" placeholder="Entre calles, color de la fachada, etc.">
+                            </div>
+                            <div class="col">
+                              <label for="cp">C.P.</label>
+                              <input type="text" placeholder="00000" class="form-control">
+                            </div>
+                          </div>
+                          <div class="form-row form-group">
+                            <div class="col-md-4">
+                              <label for="pais">Pais</label>
+                              <select id="inputPais" class="form-control">
+                                <option selected>Pais</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <label for="estado">Estado</label>
+                              <select id="inputEstado" class="form-control">
+                                <option selected>Estado</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <label for="mun">Municipio</label>
+                              <select id="inputMun" class="form-control">
+                                <option selected>Municipio</option>
+                              </select>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer mr-4">
+                        <button type="button" class="btn btn-success">Aceptar</button>
+                        <button type="button" class="btn btn-warning">Cancelar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--end Modal-->
+
               </div>
               {{dirSelected}}
             </div>
@@ -223,7 +330,8 @@ export default {
   name: "DetallePago.vue",
 
   mounted () {
-    this.getPaqueterias();
+    this.getPaqueterias(),
+    this.getDirecciones()
   },
 
   data(){
@@ -233,10 +341,7 @@ export default {
       precio: 6000,
       paqueterias: [],
       paqSelected: 0,
-      direcciones: [
-          {'id': 1, 'calleNumero': 'Calle 1', 'colonia': 'Colonia 1', 'pais': 'Mexico', 'estado': 'DF', 'municipio': 'Benito Juarez', 'tipoDireccion': 'casa', 'cp': '00040', 'referencias': '' },
-          {'id': 2, 'calleNumero': 'Calle 7', 'colonia': 'Colonia 3', 'pais': 'Mexico', 'estado': 'DF', 'municipio': 'Benito Juarez', 'tipoDireccion': 'trabajo', 'cp': '00060', 'referencias': '' }
-        ],
+      direcciones: [],
       dirSelected: 0,
       metodosPago: [
           {'idCliente': 1, 'tipoPago': 1, 'numeroPago': '1243777789093623', 'expiracion':'10-22' },
@@ -247,14 +352,9 @@ export default {
     }
   },
 
-watch:{
-    direcciones(){
-
-    }
-},
 methods: {
     procesada(obj){
-      return obj.calleNumero + ", " + obj.municipio + ", " + obj.colonia + ", " + obj.cp + ", " + obj.estado + ", " + obj.pais;
+      return obj.calleNumero + ", " + obj.idMunicipio + ", " + obj.colonia + ", " + obj.cp + ", " + obj.idEstado + ", " + obj.idPais;
     },
     getLastDigits(obj){
       return obj.slice(-4);
@@ -267,7 +367,17 @@ methods: {
         console.log(e.response.status);
         console.log(e.response.data);
       });
+    },
+    getDirecciones(){
+      axios.get('/api/direcciones.json', {}).then(response => {
+        console.log(response.data);
+        this.direcciones=response.data;
+      }).catch(e => {
+        console.log(e.response.status);
+        console.log(e.response.data);
+      });
     }
+
 
   // getCarteraBTC(){
   //     for(let i=0;i<this.metodosPago.length;i++){
@@ -284,7 +394,7 @@ methods: {
 computed: {
     getPrecioEnvio(){
       if(this.paqSelected!=0){
-        return this.paqueterias[this.paqSelected-1].costo;
+        return this.paqueterias[this.paqSelected-1].precio;
       }
       return 0;
     },
@@ -311,7 +421,7 @@ hr.dotted {
   box-shadow: 1px 1px 3px #d8dcdd;
 }
 .shortSpace{
-  line-height: 96%;
+  line-height: 98%;
   font-size: 12px;
 }
 .separation{
