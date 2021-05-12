@@ -88,7 +88,6 @@
             </div>
           </div>
         </div>
-{{paqSelected}}
         <hr class="dotted">
 
         <div class="card-body">
@@ -103,7 +102,7 @@
                     <input type="radio" v-model="dirSelected" name="dirSelected" :value="dir.id">
                   </div>
                   <div class="col">
-                    <b style="font-size: 14px;">{{nombreCliente}}</b>
+                    <b style="font-size: 14px;">{{dir.destinatario}}</b>
                     <div class="w-100 d-none d-md-block"></div>
                     <p class="shortSpace">{{procesada(dir)}}</p>
                   </div>
@@ -112,7 +111,7 @@
               <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col text-primary">
-                  <a href="#" data-toggle="modal" data-target="#nuevaDireccion">Añadir una nueva dirección</a>
+                  <a href="#" data-toggle="modal" data-target="#nuevaDireccion" @click="cargaDatos()">Añadir una nueva dirección</a>
                 </div>
 
                 <!-- Modal -->
@@ -132,60 +131,63 @@
                               <label for="nombre">
                                   Nombre y Apellido
                               </label>
-                              <input type="text" class="form-control" :placeholder="nombreCliente" disabled>
+                              <input type="text" class="form-control" v-model="nuevaDireccion.nombre">
                             </div>
                             <div class="col">
                               <label for="tipo">Tipo dirección</label>
-                              <select id="inputState" class="form-control">
-                                <option selected>Tipo</option>
+                              <select id="inputState" class="form-control" v-model="nuevaDireccion.tipo">
+                                <option :value="tipo.id" v-for="tipo in tipoDirecciones" :key="tipo.id">
+                                  {{tipo.nombre}}
+                                </option>
                               </select>
                             </div>
                           </div>
                           <div class="form-row form-group">
                             <div class="col">
                               <label for="calle">Calle y Número</label>
-                              <input type="text" class="form-control" placeholder="Calle y Número">
+                              <input type="text" v-model="nuevaDireccion.calleNumero" class="form-control" placeholder="Calle y Número">
                             </div>
                             <div class="col">
                               <label for="colonia">Colonia</label>
-                              <input type="text" class="form-control" placeholder="Colonia">
+                              <input type="text" v-model="nuevaDireccion.colonia" class="form-control" placeholder="Colonia">
                             </div>
                           </div>
                           <div class="form-row form-group">
                             <div class="col-md-9">
                               <label for="refs">Referencias</label>
-                              <input type="text" class="form-control" placeholder="Entre calles, color de la fachada, etc.">
+                              <input type="text" v-model="nuevaDireccion.referencias" class="form-control" placeholder="Entre calles, color de la fachada, etc.">
                             </div>
                             <div class="col">
                               <label for="cp">C.P.</label>
-                              <input type="text" placeholder="00000" class="form-control">
+                              <input type="text" v-model="nuevaDireccion.cp" placeholder="00000" class="form-control">
                             </div>
                           </div>
                           <div class="form-row form-group">
                             <div class="col-md-4">
                               <label for="pais">Pais</label>
-                              <select id="inputPais" class="form-control">
-                                <option selected>Pais</option>
+                              <select id="inputPais" class="form-control" v-model="nuevaDireccion.idPais" @change="cargaEstados">
+                                <option :value="p.id" v-for="p in paises" :key="p.id">{{ p.nombre }}</option>
                               </select>
                             </div>
                             <div class="col-md-4">
                               <label for="estado">Estado</label>
-                              <select id="inputEstado" class="form-control">
-                                <option selected>Estado</option>
+                              <select id="inputEstado" class="form-control" v-model="nuevaDireccion.idEstado" @change="cargaMunicipios">
+                                <option :value="e.id" v-for="e in estados" :key="e.id">{{e.nombre}}</option>
                               </select>
                             </div>
                             <div class="col">
                               <label for="mun">Municipio</label>
-                              <select id="inputMun" class="form-control">
-                                <option selected>Municipio</option>
+                              <select id="inputMun" class="form-control" v-model="nuevaDireccion.idMunicipio">
+                                <option :value="m.id" v-for="m in municipios" :key="m.id">{{m.nombre}}</option>
                               </select>
                             </div>
                           </div>
                         </form>
                       </div>
                       <div class="modal-footer mr-4">
-                        <button type="button" class="btn btn-success">Aceptar</button>
-                        <button type="button" class="btn btn-warning">Cancelar</button>
+                        <button type="button" class="btn btn-success" :disabled="habilitaBoton" >Aceptar</button>
+<!--                        @click="guardaDireccion"-->
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" @click="reiniciaDatos">Cancelar</button>
                       </div>
                     </div>
                   </div>
@@ -193,7 +195,7 @@
                 <!--end Modal-->
 
               </div>
-              {{dirSelected}}
+
             </div>
           </div>
         </div>
@@ -317,7 +319,6 @@
         <div class="container mb-2" align="center">
           <button type="button" class="btn btn-success">Realizar pedido</button>
         </div>
-
       </div>
     </div>
   </div>
@@ -330,19 +331,42 @@ export default {
   name: "DetallePago.vue",
 
   mounted () {
-    this.getPaqueterias(),
     this.getDirecciones()
+    this.getPaqueterias()
   },
 
   data(){
     return {
-      nombreCliente : "Ana Guevara",
+      usuario : {id : 1},
+      usuarioDetalle: {id : 1, nombre: "Ana Luisa", apellidoPaterno: "Castrejon"},
+
       nombreMascota: "Camaleon pantera macho 13 meses",
       precio: 6000,
+
       paqueterias: [],
       paqSelected: 0,
+
       direcciones: [],
       dirSelected: 0,
+
+      nuevaDireccion: {
+        id : 0,
+        nombre : "store.state.estado.usuarioDetalle.nombre"+"store.state.estado.usuarioDetalle.apellidoPaterno",
+        tipo : 1,
+        calleNumero : null,
+        colonia : null,
+        referencias : null,
+        cp : null,
+        idPais : 1,
+        idEstado : null,
+        idMunicipio : null
+      },
+
+      tipoDirecciones: [],
+      paises: [],
+      estados: [],
+      municipios : [],
+
       metodosPago: [
           {'idCliente': 1, 'tipoPago': 1, 'numeroPago': '1243777789093623', 'expiracion':'10-22' },
           {'idCliente': 1, 'tipoPago': 1, 'numeroPago': '1234567890564534', 'expiracion': '11-25'}
@@ -353,8 +377,54 @@ export default {
   },
 
 methods: {
+    // guardaDireccion() {
+    //   axios.post()
+    // },
+    cargaMunicipios(){
+      axios.get('/api/municipio-por-estado/'+this.nuevaDireccion.idEstado+'.json', {}).then(response => {
+        console.log(response.data);
+        this.municipios = response.data;
+        this.nuevaDireccion.idMunicipio = this.municipios[0].id;
+        console.log(this.nuevaDireccion.idMunicipio);
+      }).catch(e => {
+        console.log(e.response.status);
+        console.log(e.response.data);
+      });
+    },
+    cargaEstados() {
+      axios.get('/api/estado-por-pais/'+this.nuevaDireccion.idPais+'.json', {}).then(response => {
+        console.log(response.data);
+        this.estados = response.data;
+        this.nuevaDireccion.idEstado = this.estados[0].id;
+        console.log(this.nuevaDireccion.idEstado);
+      }).catch(e => {
+        console.log(e.response.status);
+        console.log(e.response.data);
+      });
+    },
+    cargaDatos(){
+      axios.get('/api/tipo-direcciones.json', {}).then(response => {
+        console.log(response.data);
+        this.tipoDirecciones = response.data;
+      }).catch(e => {
+        console.log(e.response.status);
+        console.log(e.response.data);
+      });
+      axios.get('/api/paises.json', {}).then(response => {
+        console.log(response.data);
+        this.paises =response.data;
+      }).catch(e => {
+        console.log(e.response.status);
+        console.log(e.response.data);
+      });
+    },
     procesada(obj){
-      return obj.calleNumero + ", " + obj.idMunicipio + ", " + obj.colonia + ", " + obj.cp + ", " + obj.idEstado + ", " + obj.idPais;
+      return obj.calleNumero + ", "
+           + obj.colonia + ", "
+           + obj.cp + ", "
+           + obj.municipioNombre + ", "
+           + obj.estadoNombre + ","
+           + obj.paisNombre;
     },
     getLastDigits(obj){
       return obj.slice(-4);
@@ -369,29 +439,43 @@ methods: {
       });
     },
     getDirecciones(){
-      axios.get('/api/direcciones.json', {}).then(response => {
+      axios.get('/api/direcciones-con-nombre/'+this.usuario.id+'.json', {}).then(response => {
         console.log(response.data);
         this.direcciones=response.data;
       }).catch(e => {
         console.log(e.response.status);
         console.log(e.response.data);
       });
+    },
+  reiniciaDatos(){
+    this.nuevaDireccion = {
+      id : 0,
+      nombre : "store.state.estado.usuarioDetalle.nombre"+"store.state.estado.usuarioDetalle.apellidoPaterno",
+      tipo : 1,
+      calleNumero : null,
+      colonia : null,
+      referencias : null,
+      cp : null,
+      idPais : 1,
+      idEstado : null,
+      idMunicipio : null
     }
+  },
 
-
-  // getCarteraBTC(){
-  //     for(let i=0;i<this.metodosPago.length;i++){
-  //       if(this.checkIsBTC(this.metodosPago[i],3)){
-  //         return this.metodosPago[i].numeroPago;
-  //       }
-  //     }
-  //     return null;
-  //   },
-  //   checkIsBTC(obj,num){
-  //     return obj.tipoPago===num;
-  //   }
 },
 computed: {
+    habilitaBoton() {
+      var dato = true
+          && this.nuevaDireccion.nombre.length>2
+          && this.nuevaDireccion.calleNumero
+          && this.nuevaDireccion.colonia
+          && this.nuevaDireccion.referencias
+          && this.nuevaDireccion.cp
+          && this.nuevaDireccion.idEstado
+          && this.nuevaDireccion.idMunicipio
+      return !dato;
+    },
+
     getPrecioEnvio(){
       if(this.paqSelected!=0){
         return this.paqueterias[this.paqSelected-1].precio;
