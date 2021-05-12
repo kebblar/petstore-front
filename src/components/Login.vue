@@ -69,6 +69,7 @@
 <script>
 import axios from 'axios';
 import router from '../router'
+import store from '../store'
 
 export default {
     data: function () {
@@ -81,7 +82,22 @@ export default {
     },
     methods: {
         detecta: function(input) {
-            console.log(input);
+            if(store.state.destination.length>0) {
+                var target = store.state.destination;
+                store.commit('setDestination','');
+                return target;
+            }
+            if (typeof input === 'string') {
+                return '/ui/inicio';
+            } else {
+                for(var i=0; i<input.length; i++) {
+                    switch(input[i].name) {
+                        case 'admin': return '/ui/admin'; // rol 1 = administrador
+                        case 'user': return '/ui/user'; // rol 2 = usuario comun y corriente
+                        default: return '/ui/inicio'; // otro rol cualquiera
+                    } 
+                } // ends for cycle with switch inside
+            }
         },
         closeModal: function() {
             this.$modal.hide('mensaje-login');
@@ -101,6 +117,16 @@ export default {
                 console.log(response);
                 console.log(response.status);
                 console.log(response.data);
+                //router.push(s); // lugar a donde ir....
+                store.commit('setSession', {
+                    name: response.data.correo,
+                    roles: response.data.roles,
+                    signed: true,
+                    jwt: response.data.jwt
+                });
+                const target = this.detecta(response.data.roles);
+                //console.log(response.data);     
+                router.push(target);
             }).catch(error => {
                 console.log(error.response.status);
                 console.log(error.response.data);

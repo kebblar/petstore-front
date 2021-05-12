@@ -6,25 +6,26 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        estado: '',
-        firmado: false,
-        destination: '/ui/upload'
+        destination: '/ui/upload',
+        session: {
+            name: '',
+            roles: [],
+            signed: false,
+            jwt: '' 
+        }
     },
     mutations: {
-        setState(state, estado) {
-            state.estado = estado;
-        },
-        setDetalles(state, detalle) {
-            state.estado.usuarioDetalles = detalle;
-        },
-        setFirmado(state, firmado) {
-            state.firmado = firmado;
+        setSession(state, ss) {
+            state.session = ss;
         },
         setDestination(state, destination) {
             state.destination = destination;
+        },
+        setFirmado(state, firmado) {
+            state.session.signed = firmado;
         }
     },
     plugins: [createPersistedState()]
 })
-export default store
+export default store;
 
