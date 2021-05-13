@@ -7,6 +7,7 @@ import Login from '@/components/Login'
 import Registro from '@/components/Registro'
 import RegeneraClave from '@/components/RegeneraClave'
 import RegeneraClaveConfirma from '@/components/RegeneraClaveConfirma'
+import HistorialPedidos from '@/components/HistorialPedidos'
 import Reg from '@/components/Reg'
 import DetallePago from '@/components/DetallePago'
 
@@ -22,6 +23,11 @@ const routes = [
     path: '/ui/detalle-pago',
     name: 'detalle-pago',
     component: DetallePago
+  },
+  {
+    path: '/ui/compras',
+    name: 'compras',
+    component: HistorialPedidos
   },
   {
     path: '/ui/reg',
