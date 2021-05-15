@@ -10,13 +10,24 @@ import Login from '@/components/Login'
 import Registro from '@/components/Registro'
 import ConfirmaRegistro from '@/components/ConfirmaRegistro'
 import RegeneraClave from '@/components/RegeneraClave'
-
+import RegeneraClaveConfirma from '@/components/RegeneraClaveConfirma'
+import DetallePago from '@/components/DetallePago'
 import Reg from '@/components/Reg'
 
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/regenera-clave-confirma',
+    name: 'regenera-clave-confirma',
+    component: RegeneraClaveConfirma
+  },
+  {
+    path: '/ui/detalle-pago',
+    name: 'detalle-pago',
+    component: DetallePago
+  },
   {
     path: '/',
     name: 'inicio',
