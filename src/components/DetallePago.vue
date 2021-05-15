@@ -102,7 +102,7 @@
                     <input type="radio" v-model="dirSelected" name="dirSelected" :value="dir.id">
                   </div>
                   <div class="col">
-                    <b style="font-size: 14px;">{{dir.destinatario}}</b>
+                    <b style="font-size: 14px;">{{usuarioDetalle.nombre}}</b>
                     <div class="w-100 d-none d-md-block"></div>
                     <p class="shortSpace">{{procesada(dir)}}</p>
                   </div>
@@ -185,8 +185,7 @@
                         </form>
                       </div>
                       <div class="modal-footer mr-4">
-                        <button type="button" class="btn btn-success" :disabled="habilitaBoton" >Aceptar</button>
-<!--                        @click="guardaDireccion"-->
+                        <button type="button" class="btn btn-success" data-dismiss="modal" :disabled="habilitaBoton" @click="guardaDireccion">Aceptar</button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal" @click="reiniciaDatos">Cancelar</button>
                       </div>
                     </div>
@@ -351,14 +350,15 @@ export default {
 
       nuevaDireccion: {
         id : 0,
+        idUsuario : 1, //info del store
         nombre : "store.state.estado.usuarioDetalle.nombre"+"store.state.estado.usuarioDetalle.apellidoPaterno",
         tipo : 1,
         calleNumero : null,
         colonia : null,
         referencias : null,
         cp : null,
-        idPais : 1,
-        idEstado : null,
+        idPais : 0,
+        idEstado : -1,
         idMunicipio : null
       },
 
@@ -377,14 +377,19 @@ export default {
   },
 
 methods: {
-    // guardaDireccion() {
-    //   axios.post()
-    // },
+    guardaDireccion() {
+      axios.post('/api/nueva-direccion.json', this.nuevaDireccion).then(response => {
+        console.log("post enviado");
+        console.log(response.data);
+        this.getDirecciones();
+        this.reiniciaDatos();
+      })
+    },
     cargaMunicipios(){
       axios.get('/api/municipio-por-estado/'+this.nuevaDireccion.idEstado+'.json', {}).then(response => {
         console.log(response.data);
         this.municipios = response.data;
-        this.nuevaDireccion.idMunicipio = this.municipios[0].id;
+        this.nuevaDireccion.idMunicipio=this.municipios[0].id;
         console.log(this.nuevaDireccion.idMunicipio);
       }).catch(e => {
         console.log(e.response.status);
@@ -395,7 +400,7 @@ methods: {
       axios.get('/api/estado-por-pais/'+this.nuevaDireccion.idPais+'.json', {}).then(response => {
         console.log(response.data);
         this.estados = response.data;
-        this.nuevaDireccion.idEstado = this.estados[0].id;
+        this.estados.unshift({'id' : -1, 'nombre' : 'Selecciona uno'});
         console.log(this.nuevaDireccion.idEstado);
       }).catch(e => {
         console.log(e.response.status);
@@ -413,6 +418,7 @@ methods: {
       axios.get('/api/paises.json', {}).then(response => {
         console.log(response.data);
         this.paises =response.data;
+        this.paises.unshift({'id' : 0, 'nombre' : 'Selecciona uno'});
       }).catch(e => {
         console.log(e.response.status);
         console.log(e.response.data);
