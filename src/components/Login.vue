@@ -81,17 +81,17 @@ export default {
         }
     },
     methods: {
-        detecta: function(input) {
+        detecta: function(roles) {
             if(store.state.destination.length>0) {
                 var target = store.state.destination;
                 store.commit('setDestination','');
                 return target;
             }
-            if (typeof input === 'string') {
+            if (typeof roles === 'string') {
                 return '/ui/inicio';
             } else {
-                for(var i=0; i<input.length; i++) {
-                    switch(input[i].name) {
+                for(var i=0; i<roles.length; i++) {
+                    switch(roles[i].nombre) {
                         case 'admin': return '/ui/admin'; // rol 1 = administrador
                         case 'user': return '/ui/user'; // rol 2 = usuario comun y corriente
                         default: return '/ui/inicio'; // otro rol cualquiera
@@ -113,23 +113,20 @@ export default {
                 usuario: this.usr,
                 clave: this.psw
             }).then(response => {
-                console.log("hola");
-                console.log(response);
-                console.log(response.status);
-                console.log(response.data);
-                //router.push(s); // lugar a donde ir....
+                var rd = response.data;
+                var ud = rd.usuarioDetalle;
                 store.commit('setSession', {
-                    name: response.data.correo,
-                    roles: response.data.roles,
-                    signed: true,
-                    jwt: response.data.jwt
+                    nombreCompleto: ud.nombre + ' ' + ud.apellidoPaterno + ' ' + ud.apellidoMaterno,
+                    roles:        rd.roles,
+                    correo:       rd.correo,
+                    ultimoAcceso: rd.ultimoAcceso,
+                    jwt:          rd.jwt
                 });
-                const target = this.detecta(response.data.roles);
-                //console.log(response.data);     
+                const target = this.detecta(rd.roles);     
                 router.push(target);
             }).catch(error => {
-                console.log(error.response.status);
-                console.log(error.response.data);
+                //console.log(error.response.status);
+                //console.log(error.response.data);
                 this.msgErr = error.response.data['exceptionLongDescription'];
                 this.$modal.show('mensaje-login');
             })

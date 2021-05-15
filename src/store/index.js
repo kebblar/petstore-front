@@ -8,10 +8,11 @@ const store = new Vuex.Store({
     state: {
         destination: '/ui/upload',
         session: {
-            name: '',
+            nombreCompleto: '',
+            correo: '',
+            ultimoAcceso: '',
             roles: [],
-            signed: false,
-            jwt: '' 
+            jwt: '' //  jwt='' => signed: false,
         }
     },
     mutations: {

@@ -1,5 +1,8 @@
 <template>
 <div class="ancho centra">
+
+  <div v-if="loading" class="loader"/>
+
   <div class="card defaultColor" style="width:450px;">
     <div class="card-header">
          <label class="control-label h4">Registro</label>
@@ -10,32 +13,12 @@
         <!-- Nombre -->
         <div class ="form-row form-group">
           <div class="col-md-4">
-            <label for="nombre">Nombre:</label>
+            <label for="nombre">Nick:</label>
           </div>
           <div class="col">
             <input type="text" required class="form-control" :class="className" placeholder="Alma" v-model="name">
             <small class="notValid">{{msgName}}</small>
 
-          </div>
-        </div>
-        <!-- Apellido P -->
-        <div class ="form-row form-group">
-          <div class="col-md-4">
-            <label for="nombre">Apellido Paterno:</label>
-          </div>
-          <div class="col">
-            <input type="text" required class="form-control" :class="classLast" id="apellidoP" placeholder="Cruz" v-model="last">
-            <small class="notValid">{{msgLast}}</small>
-          </div>
-        </div>
-        <!-- Appelido M -->
-        <div class ="form-row form-group">
-          <div class="col-md-4">
-            <label for="nombre">Apellido Materno:</label>
-          </div>
-          <div class="col">
-            <input type="text" required class="form-control" :class="classSndLast" id="apellidoM" placeholder="Ibarra" v-model="sndLast">
-            <small class="notValid">{{msgSndLast}}</small>
           </div>
         </div>
         <!-- correo -->
@@ -160,7 +143,6 @@
   </div><!-- ends header-->
 
   <!-- Modal -->
-
   <div class="modal fade" name="modalExito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered " role="document">
       <div class="modal-content">
@@ -182,7 +164,7 @@
   </div>
 
   </div>
-
+  
 </template>
 
 
@@ -190,11 +172,10 @@
 <script>
   import VueRecaptcha from 'vue-recaptcha';
   import axios from 'axios';
-  import store from '../store';
+  //import store from '../store';
   import router from '../router';
   import RangeSlider from "vue-range-slider";
   import "vue-range-slider/dist/vue-range-slider.css";
-  //import { mapMutations } from 'vuex'
 
   const emaiRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   const passRegex = new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
@@ -208,8 +189,6 @@
     data() {
       return {
         name: 'Gustavo',
-        last : 'Arellano',
-        sndLast : 'Sandoval',
         email : 'gus@aol.com',
         password : 'Gustavo1',
         confirm : 'Gustavo1',
@@ -217,9 +196,7 @@
         tel : '525516913070',
 
         msgName : null,
-        msgLast : null,
         msgMail : null,
-        msgSndLast : null,
         msgPasswd : null,
         msgConfirm : null,
         msgCalendar : null,
@@ -227,8 +204,6 @@
 
         className: 'defaultColor',
         classMail: 'defaultColor',
-        classLast: 'defaultColor',
-        classSndLast: 'defaultColor',
         classPasswd: 'defaultColor',
         classConfirm: 'defaultColor',
         classCalendar: 'defaultColor',
@@ -252,7 +227,9 @@
           max : new Date(2003,11,30)
         },
         sliderValue : 100,
-        pwConfDisabled: true
+        pwConfDisabled: true,
+
+        loading: false,
      }
     },
     watch: {
@@ -264,26 +241,6 @@
           this.className="redColor incorrect";
         }
         this.name= this.name.length===1 ? this.name.toUpperCase() : this.name;
-      },
-
-      last(){
-        this.msgLast="";
-        this.classLast="greenColor correct";
-        if(this.last.trim().length<3) {
-          this.msgLast="El apellido paterno debe contener más de 3 letras";
-          this.classLast="redColor incorrect";
-        }
-        this.last= this.last.length===1 ? this.last.toUpperCase() : this.last;
-      },
-
-      sndLast(){
-        this.msgSndLast="";
-        this.classSndLast="greenColor correct";
-        if(this.sndLast.trim().length<3) { 
-          this.msgSndLast="El apellido materno debe contener más de 3 letras";
-          this.classSndLast="redColor incorrect";
-        }
-        this.sndLast= this.sndLast.length===1 ? this.sndLast.toUpperCase() : this.sndLast;
       },
 
       email(){
@@ -350,8 +307,6 @@
       habilitaBoton: function() {
         var dato = true
           && this.name && this.name.length>2
-          && this.last && this.last.length>2
-          && this.sndLast && this.sndLast.length>2
           && this.email && emaiRegex.test(this.email)
           && this.password && passRegex.test(this.password)
           && this.tel && this.tel.length==14
@@ -369,34 +324,26 @@
     },
     methods: {
       submition() {
-        console.log(store.state)
-        axios.post('api/usuario-detalles.json', { 
+        this.loading = true;
+        axios.post('api/usuario-preregistro.json', { 
           id:0,
-          nombre : this.name,
-          apellidoPaterno : this.last,
-          apellidoMaterno : "",
-          fechaNacimiento : this.fNacimiento,
-          nickName : "",
-          telefonoCasa : this.tel,
-          telefonoCelular : ""
+          nick: this.name,
+          claveHash: this.password,
+          correo: this.email,
+          telefono : this.tel,
+          fechaNacimiento : this.fNacimiento
         }).then(response => {
-          console.log("enviado");
           console.log(response);
           console.log(response.data);
-          console.log(response.data.jwt);
           console.log(response.status);
-          store.commit('setSession', {
-            name:'gus',
-            roles: response.data.roles,
-            signed: true,
-            jwt:response.data.jwt
-          });
-          router.push('regenera-clave');
+          router.push('confirma-registro');
         }).catch(error => {
           console.log(error.response.status);
           console.log(error.response.data);
           this.msgErr = error.response.data['exceptionLongDescription'];
-        })
+        }).finally(
+          () => this.loading = false
+        );
       }
     }
     

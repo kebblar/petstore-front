@@ -8,6 +8,7 @@ import axios from 'axios';
 import Inicio from '@/components/Inicio'
 import Login from '@/components/Login'
 import Registro from '@/components/Registro'
+import ConfirmaRegistro from '@/components/ConfirmaRegistro'
 import RegeneraClave from '@/components/RegeneraClave'
 
 import Reg from '@/components/Reg'
@@ -30,7 +31,12 @@ const routes = [
     path: '/ui/registro',
     name: 'registro',
     component: Registro,
-    meta: { role: ['admin','user'] }
+    meta: { allowedRoles: ['admin','user'] }
+  },
+  {
+    path: '/ui/confirma-registro',
+    name: 'confirma-registro',
+    component: ConfirmaRegistro
   },
   {
     path: '/ui/reg',
@@ -80,15 +86,15 @@ function checaJwt (dato, active) {
 router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   //checaJwt(store.state.session.jwt, true);
-  if (to.matched.some(record => record.meta.role )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
+  if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:
-    if (store.state.session.signed===false) { 
+    if (store.state.session.jwt==='') { 
       store.commit('setDestination', to.fullPath);
       router.push("/ui/login");
       return;
     }
     // SI estoy autenticado actualmente, asi que solo voy a checar si mi rol es el adecuado:
-    if(to.matched.some(ok => !ok.meta.role.includes(store.state.session.roles[0].nombre))) {
+    if(to.matched.some(ok => !ok.meta.allowedRoles.includes(store.state.session.roles[0].nombre))) {
       router.push('/ui/forbidden'); // no tengo el rol asociado a esa interfaz
       return;
     }

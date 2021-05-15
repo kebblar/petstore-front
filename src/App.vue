@@ -13,7 +13,7 @@ export default {
 <style>
 #app {
     position: relative;
-    padding-top: 100px;
+    padding-top: 10px;
     padding-bottom: 26px;
     color: #2c3e50;
     text-align: center;
