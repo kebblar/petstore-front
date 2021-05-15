@@ -39,7 +39,7 @@
 # PAGA LA PRIMERA VEZ Y LAS SUBSECUENTES YA NO ES CARGADO !!!!!!! !!!!!!!!
 ###########################################################################
 
-npm install --save vue-range-slider vue-range-slider/dist/vue-range-slider.css
+npm install --save vue-range-slider
 
 
 echo "Ejecutando la parte invariante de este script..."
