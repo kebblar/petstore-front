@@ -10,8 +10,8 @@
 
 #  ESTE ARCHIVO SE BAJA UNA SOLA VEZ. (LA PRIMERA VEZ) Y LUEGO YA NO SE VUELVE A USAR:
 #  wget https://www.gustavo-arellano.com/wp-content/node_modules.tar.gz
-tar xzvf node_modules.tar.gz
-rm -rf node_modules.tar.gz
+#tar xzvf node_modules.tar.gz
+#rm -rf node_modules.tar.gz
 
 
 # LAS SIGUIENTES DEPENDENCIAS SE SUPONE QUE YA SIEMPRE ESTÁN EN EL package.json:
@@ -39,6 +39,7 @@ rm -rf node_modules.tar.gz
 # PAGA LA PRIMERA VEZ Y LAS SUBSECUENTES YA NO ES CARGADO !!!!!!! !!!!!!!!
 ###########################################################################
 
+npm install --save vue-range-slider vue-range-slider/dist/vue-range-slider.css
 
 
 echo "Ejecutando la parte invariante de este script..."
