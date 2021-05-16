@@ -4,6 +4,7 @@
           href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
           crossorigin="anonymous">
+    <Header/>
     <router-view></router-view>
     <Footer/>
   </div>
@@ -11,10 +12,12 @@
 
 <script>
 import Footer from './Footer';
+import Header from './Header';
 export default {
   name: "App",
   components: {
-    'Footer' : Footer
+    'Footer' : Footer,
+    'Header': Header
   }
 }
 </script>
@@ -27,8 +30,6 @@ html,body {
 
 #app {
   position: relative;
-  padding-top: 100px;
-  padding-bottom: 26px;
   color: #2c3e50;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1,0 +1,45 @@
+<template>
+    <div>
+        <div class="top">
+        <img id="image" src="./assets/pajaro.jpg" width="50%" />
+        </div>
+
+        <div class="buscador">
+        <label>Bienvenido</label>
+        <div class="row">
+            <div class="col-sm-9">
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="palabras de búsqueda" 
+                value="" />
+            </div>
+            <div class="col-sm4">
+            <input type="button" class="btn btn-success" value="Buscar" />
+            </div>
+        </div>
+        </div>
+    </div>
+</template>
+
+<style>
+.top {
+  text-align: right;
+  background-color: #5DACFD;
+}
+.top img {
+  margin-right: 10%;
+}
+.buscador {
+  width: 300px;
+  min-width: 300px;
+  text-align: left;
+  margin-top: -140px;
+  margin-left: 10%;
+  z-index: 10;
+}
+.buscador label {
+  color: #ffff;
+  font-size: 28px;
+}
+</style>
