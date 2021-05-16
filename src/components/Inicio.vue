@@ -1,7 +1,7 @@
 <template>
   <div class="ancho centra">
-    <div class="card defaultColor" style="width:650px;">
-      <div class="card-header" style="text-align: center;">
+    <div class="card defaultColor">
+      <div class="card-header text-white" style="text-align: center; background-color: #363636;">
           <label class="control-label h4" >Categorías</label>
           <br/>
           <label class="control-label" >Una selección de las mascotas mas buscadas</label>
