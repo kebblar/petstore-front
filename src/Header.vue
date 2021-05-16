@@ -1,6 +1,16 @@
 <template>
     <div>
-      
+        <div class="barra">
+          <div class="row">
+              <div class="col-sm-6">x</div>
+              <div class="col-sm-6" style="text-align: right;">
+                <input type="button" class="btn btn-success" value="Registrarse" />
+                &nbsp;
+                <input type="button" class="btn btn-info" value="Ingresar" />
+              </div>
+          </div>
+        </div>
+
         <div class="top">
         <img id="image" src="./assets/pajaro_01.png" width="50%" />
         </div>
@@ -43,5 +53,8 @@
 .buscador label {
   color: #ffff;
   font-size: 28px;
+}
+.barra {
+  margin: 10px;
 }
 </style>
