@@ -15,7 +15,7 @@
           <br>
           <div class="form-group row text-center">
             <div class="col text-center">
-              <button type="button" class="btn btn-success">Recuperar mi clave</button>
+              <button type="button" @click="goConfirma" class="btn btn-success">Recuperar mi clave</button>
             </div>
           </div>
         </form>
@@ -24,6 +24,17 @@
   </div>
 
 </template>
+
+<script>
+  import router from '../router'
+  export default {
+      methods: {
+        goConfirma: function() {
+          router.push('/ui/regenera-clave-confirma').catch(()=>{});
+        }
+      }
+  }
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>

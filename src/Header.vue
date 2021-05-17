@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <div class="barra">
           <div class="row">
               <div class="col-sm-6">
@@ -20,7 +21,7 @@
         </div>
 
         <div class="top">
-        <img id="image" src="./assets/pajaro_01.png" width="50%" />
+          <img id="image" src="./assets/pajaro_01.png" width="50%" />
         </div>
 
         <div class="buscador">
@@ -77,7 +78,7 @@ export default {
         router.push('/ui/login').catch(()=>{});
       },
       registro: function() {
-        router.push('/ui/reg').catch(()=>{});
+        router.push('/ui/registro').catch(()=>{});
       }
     }
 }

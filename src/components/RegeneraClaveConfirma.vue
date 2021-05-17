@@ -2,7 +2,7 @@
   <div class="ancho centra">
     <div class="card" style="width:390px;">
       <div class="card-header">
-        <label class="h4">Cambia tu clave</label>
+        <label class="h4">Regenera tu clave</label>
       </div>
       <div class="card-body align">
         <form>
@@ -31,7 +31,7 @@
               <label for="clave">Clave nueva:</label>
             </div>
             <div class = "col form-group">
-              <input type="password" class="form-control" id="token" placeholder="******" readonly>
+              <input type="password" class="form-control" id="token" placeholder="******" >
             </div>
           </div>
 
@@ -40,7 +40,7 @@
               <label for="clave">Confirmación:</label>
             </div>
             <div class = "col form-group">
-              <input type="password" class="form-control" id="token" placeholder="******" readonly>
+              <input type="password" class="form-control" id="token" placeholder="******" >
             </div>
           </div>
         </form>
