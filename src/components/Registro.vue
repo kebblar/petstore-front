@@ -370,14 +370,14 @@
           telefono : this.tel,
           fechaNacimiento : this.fNacimiento
         }).then(response => {
-          console.log(response);
           console.log(response.data);
-          console.log(response.status);
           router.push('confirma-registro');
         }).catch(error => {
-          console.log(error.response.status);
-          console.log(error.response.data);
-          this.msgErr = error.response.data['exceptionLongDescription'];
+          this.msgErr = error;
+          if(error.response) {
+              this.msgErr = error.response.data['exceptionLongDescription'];
+          }
+          this.$modal.show('mensaje-login');
         }).finally(
           () => this.loading = false
         );
