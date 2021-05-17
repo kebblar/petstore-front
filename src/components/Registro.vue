@@ -15,7 +15,7 @@
             <label for="nombre">Nick:</label>
           </div>
           <div class="col">
-            <input type="text" required class="form-control" :class="className" placeholder="Alma" v-model="name">
+            <input type="text" required class="form-control" :class="className" placeholder="Mi apodo" v-model="name">
             <small class="notValid">{{msgName}}</small>
 
           </div>
@@ -105,10 +105,18 @@
           <small class="notValid">{{msgTel}}</small>
           </div>
         </div>
-        <!-- captcha -->
+        <!-- Google Re captcha V 2.0-->
+        <!-- https://www.google.com/recaptcha/admin/site/450433503 -->
+        <!-- account: garellanos@ultrasist.com.mx -->
         <div style="margin:14.5%;">
         <div class="form-row ">
-            <vue-recaptcha sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"></vue-recaptcha>
+            <vue-recaptcha
+                id="solvecaptcha"
+                ref="recaptcha"
+                sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
+                @expired="onCaptchaExpired"
+                @verify="onCaptchaVerified" 
+            />
         </div>
         </div>
         <!-- slider -->
@@ -175,6 +183,11 @@
   import RangeSlider from "vue-range-slider";
   import "vue-range-slider/dist/vue-range-slider.css";
 
+  const HTTP_STATUS = {
+    OK : 200,
+    FORBIDDEN: 403
+  }
+
   const emaiRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   const passRegex = new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
 
@@ -186,12 +199,13 @@
     },
     data() {
       return {
-        name: 'Gustavo',
-        email : 'gus@aol.com',
-        password : 'Gustavo1',
-        confirm : 'Gustavo1',
+        name: '',
+        email : '',
+        password : '',
+        confirm : '',
         fNacimiento : null,
-        tel : '525516913070',
+        tel : '',
+        captcha: false,
 
         msgName : null,
         msgMail : null,
@@ -310,6 +324,7 @@
           && this.tel && this.tel.length==14
           && this.password===this.confirm
           && this.fNacimiento
+          && this.captcha
           return !dato;
       },
       estiloClave1 (){
@@ -321,6 +336,30 @@
       
     },
     methods: {
+      onCaptchaVerified(recaptchaToken) {
+          axios.post('api/check-captcha.json', {
+            response: recaptchaToken, 
+            ip: '127.0.0.1'
+          })
+          .then(response => {
+            if (response.status === HTTP_STATUS.OK) {
+              this.captcha = true;
+            } else {
+              this.msgErr = 'Regreso con un estatus: ' + response.status;
+              this.$bvModal.show('mensaje-login');
+            }
+          })
+          .catch(error => {
+            console.log(error.data)
+              this.msgErr = "Ha ocurrido un error de red: " + error;
+              this.$bvModal.show('mensaje-login');
+          })
+          .finally(() => this.loading = false)
+      },
+      onCaptchaExpired() {
+        this.captcha = false;
+        this.$refs.recaptcha.reset();
+      },
       submition() {
         this.loading = true;
         axios.post('api/usuario-preregistro.json', { 

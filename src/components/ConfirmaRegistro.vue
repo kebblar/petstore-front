@@ -1,60 +1,38 @@
 <template>
-  <div>
+  <div class="ancho centra">
+    <div class="card" style="width:390px;">
+      <div class="card-header">
+        <label class="h4">Confirma tu registro</label>
+      </div>
 
-    <div class="categorias">
-      <h3>Confirma Registro !!!</h3>
-      <ul>
-        <li><input type="text" :value=this.a /></li>
-      </ul>
-    </div>
+      <div class="card-body align">
+          <small class="form-text text-muted text-center">Un token de 6 dígitos fue enviado a tu correo electrónico, por favor introdúcelo a continuación:</small>
+          <br>
+          <div class ="form-group form-row">
+            <div class="col-sm-4">
+              <label for="correo">Token:</label>
+            </div>
+            <div class = "col form-group">
+              <input type="text" class="form-control" id="token" placeholder="XXXXXX" />
+            </div>
+          </div>
+          <hr class="dashed">
+          <div class="form-group row text-center">
+            <div class="col text-center">
+              <button type="button" class="btn btn-success">Completar registro</button>
+            </div>
+          </div>
+      </div><!-- card-body ends -->
 
-
-
+    </div><!-- card ends -->
   </div>
+
 </template>
 
-<script>
-import store from '../store'
-
-export default {
-    data: function () {
-        return {
-          a: store.state.session.nombreCompleto,
-          b: store.state.session.correo,
-          c: store.state.session.jwt,
-          d: store.state.session.ultimoAcceso,
-          e: store.state.session.roles,
-          f: store.state.destination
-        }
-    },
-}
-</script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-h3 {
-  margin: 40px 0 0;
-  display: block;
-  margin-top: 2.7em;
-  font-weight: bold;
-  color: rgb(7, 7, 7);
-}
 
-.categorias {
-  width: 400px;
-  margin: auto;
-  margin-top: -50px;
-  background-color:blue;
-}
-
-
-.footer2 {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: red;
-  color: white;
-  text-align: center;
+hr.dashed {
+  border-top: 3px dashed #bbb;
 }
 
 </style>
