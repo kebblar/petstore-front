@@ -2,7 +2,7 @@
   <div class="ancho centra">
     <div class="card" style="width:450px;">
       <div class="card-header">
-        <h4 class="control-label">Detalles de la compra</h4>
+        <h4 class="control-label mt-2" align="center">Detalles de la compra</h4>
       </div>
       <div class="card-body align">
 
@@ -27,6 +27,55 @@
             </div>
           </div>
         </div>
+
+
+        <div class="mt-2"></div>
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Collapsible Group Item #1
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Collapsible Group Item #2
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Collapsible Group Item #3
+                </button>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
           <div class="card-body">
@@ -318,6 +367,7 @@
         <div class="container mb-2" align="center">
           <button type="button" class="btn btn-success">Realizar pedido</button>
         </div>
+        <div class="mx-auto w-50" ref="paypal"></div>
       </div>
     </div>
   </div>
@@ -325,17 +375,25 @@
 </template>
 
 <script>
+
 import axios from 'axios';
+
 export default {
   name: "DetallePago.vue",
 
   mounted () {
     this.getDirecciones()
     this.getPaqueterias()
+
+    const paypal = document.createElement("script");
+    paypal.src = "https://www.paypal.com/sdk/js?client-id=ASKLSAfRgs3tG08RNVRpe6DwG0NMuHHsXqEMfIW65vjYyF2-cI8JQW6ylnWA-eBhFgx0hd-VLIp4yPFP&disable-funding=mercadopago";
+    paypal.addEventListener("load", this.setLoaded);
+    document.body.appendChild(paypal);
   },
 
   data(){
     return {
+
       usuario : {id : 1},
       usuarioDetalle: {id : 1, nombre: "Ana Luisa", apellidoPaterno: "Castrejon"},
 
@@ -377,6 +435,33 @@ export default {
   },
 
   methods: {
+
+    setLoaded: function () {
+      window.paypal.Buttons({
+        createOrder : (data, actions) => {
+          return actions.order.create({
+            purchase_units: [
+              {
+                description: this.nombreMascota,
+                amount: { currency_code: "USD", value: this.precio}
+              }
+            ]
+          });
+        },
+        onApprove: async (data, actions, resp) => {
+          const order = await actions.order.capture();
+          this.data;
+          this.paidFor=true;
+          this.loading=false;
+          this.submitDomain();
+          console.log(resp, order);
+        },
+        onError: err => {
+          console.log(err);
+        }
+      }).render(this.$refs.paypal);
+    },
+
     guardaDireccion() {
       axios.post('/api/nueva-direccion.json', this.nuevaDireccion).then(response => {
         console.log("post enviado");
@@ -466,7 +551,7 @@ export default {
         idEstado : null,
         idMunicipio : null
       }
-    },
+    }
 
   },
   computed: {
