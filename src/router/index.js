@@ -13,7 +13,8 @@ import RegeneraClave from '@/components/RegeneraClave'
 import RegeneraClaveConfirma from '@/components/RegeneraClaveConfirma'
 import DetallePago from '@/components/DetallePago'
 import Reg from '@/components/Reg'
-
+import Admin from '@/components/Admin'
+import Forbidden from '@/components/Forbidden'
 
 Vue.use(Router);
 
@@ -24,6 +25,10 @@ const routes = [
     component: RegeneraClaveConfirma
   },
   {
+    path: '/ui/forbidden',
+    name: 'forbidden',
+    component: Forbidden
+  },  {
     path: '/ui/detalle-pago',
     name: 'detalle-pago',
     component: DetallePago
@@ -42,7 +47,12 @@ const routes = [
     path: '/ui/registro',
     name: 'registro',
     component: Registro,
-    meta: { allowedRoles: ['admin','user'] }
+  },
+  {
+    path: '/ui/admin',
+    name: 'admin',
+    component: Admin,
+    meta: { allowedRoles: ['admin'] }
   },
   {
     path: '/ui/confirma-registro',

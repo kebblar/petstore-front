@@ -2,11 +2,19 @@
     <div>
         <div class="barra">
           <div class="row">
-              <div class="col-sm-6">x</div>
+              <div class="col-sm-6">
+                <img src="./assets/logo.png" width="50px;"/> <label style="font-size:32px;">The Petstore App</label>
+              </div>
               <div class="col-sm-6" style="text-align: right;">
-                <input type="button" class="btn btn-success" value="Registrarse" />
-                &nbsp;
-                <input type="button" class="btn btn-info" value="Ingresar" />
+                <div v-if="logged">
+                  <label>{{nombre}}</label> &nbsp;
+                  <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
+                </div>
+                <div v-else>
+                  <input @click="registro" type="button" class="btn btn-success" value="Registrarse" />
+                  &nbsp;
+                  <input @click='login' type="button" class="btn btn-info" value="Ingresar" />
+                </div>
               </div>
           </div>
         </div>
@@ -33,6 +41,47 @@
 
     </div>
 </template>
+
+
+<script>
+import router from './router'
+import store from './store'
+
+export default {
+    data: function () {
+        return {
+          logged3: store.state.session.jwt && store.state.session.jwt.length>10,
+          nombre3: store.state.session.nombreCompleto,
+        }
+    },
+    computed: {
+      logged: function() {
+        return store.state.session.jwt && store.state.session.jwt.length>10; 
+      },
+      nombre: function() {
+        return store.state.session.nombreCompleto; 
+      }
+    },
+    methods: {
+      logout: function() {
+        store.commit('setSession', {
+            nombreCompleto: '',
+            roles:        [],
+            correo:       '',
+            ultimoAcceso: '',
+            jwt:          ''
+        });
+        router.push('/');
+      },
+      login: function() {
+        router.push('/ui/login').catch(()=>{});
+      },
+      registro: function() {
+        router.push('/ui/reg').catch(()=>{});
+      }
+    }
+}
+</script>
 
 <style>
 .top {

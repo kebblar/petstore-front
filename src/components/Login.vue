@@ -122,12 +122,14 @@ export default {
                     ultimoAcceso: rd.ultimoAcceso,
                     jwt:          rd.jwt
                 });
-                const target = this.detecta(rd.roles);     
+                const target = this.detecta(rd.roles);
                 router.push(target);
             }).catch(error => {
-                //console.log(error.response.status);
-                //console.log(error.response.data);
-                this.msgErr = error.response.data['exceptionLongDescription'];
+                // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
+                this.msgErr = error;
+                if(error.response) {
+                    this.msgErr = error.response.data['exceptionLongDescription'];
+                }
                 this.$modal.show('mensaje-login');
             })
         }
