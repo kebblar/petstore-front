@@ -11,326 +11,235 @@
         </div>
         <hr class="dotted">
         <div class="row">
+          <div class="col-sm-1"></div>
           <div class="col-sm-4 " align="center" >
-            <img class="rounded img-thumbnail" src="../assets/bicho1.jpg" alt="imagen mascota" style="max-height: 130px; width: auto;">
+            <img class="rounded img-thumbnail" src="../assets/bicho1.jpg" alt="imagen mascota" style="max-height: 100px; width: auto;">
           </div>
           <div class="col" style="margin-top: 15px;">
             <div class="row">
-              <div class="row">
-                <h5 class="col-sm-11" align="center"><b>{{nombreMascota}}</b></h5>
+
+                <h5 class="col-sm-11" align="left"><span class="text-primary">Mascota:</span> {{nombreMascota}}</h5>
                 <div class="w-100 d-none d-md-block"></div>
-                <div class="col-sm-11" style="margin-top: 10px;">
-                  <button class="shadowing btn btn-link dropdown-toggle btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Paquetería de envío</button>
-                </div>
-              </div>
 
             </div>
           </div>
         </div>
 
-
+        <div v-show="showDetalles">
         <div class="mt-2"></div>
         <div id="accordion">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Collapsible Group Item #1
+              <h5 class="mb-2">
+                <button class="shadowing btn btn-link dropdown-toggle btn-block" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Paquetería de envío
                 </button>
               </h5>
+
+            <div id="collapseOne" class="collapse show" data-parent="#accordion">
+
+              <div class="card-body">
+                <div class="row ">
+                  <div class="col-sm-1"></div>
+                  <div class="col">
+                    <div v-for="pa in paqueterias" :key="pa.id">
+                      <div class="row" style="margin-bottom: 5px;">
+                        <div class="col-sm-1" style="margin-top: 5px;">
+                          <input type="radio" v-model="paqSelected" name="paqSelected" :value="pa.id">
+                        </div>
+                        <div class="col-sm-7">
+                          <b style="font-size: 14px;">{{pa.nombre}}</b>
+                          <div class="w-100 d-none d-md-block"></div>
+                          <p class="shortSpace">{{pa.breveDescripcion}}</p>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col text-primary">
+                          ${{pa.precio}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-1"></div>
+                      <div class="col"  style="margin-top: 10px;">
+                        <a href="#" class="text-primary" data-toggle="modal" data-target="#infoEnvios">Más información sobre envíos y paqueterías</a>
+                      </div>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="infoEnvios" role="dialog" tabindex="-1" aria-labelledby="titulo" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="titulo">Información de las paqueterías</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <ul align="left">
+                                <div v-for="pa in paqueterias" :key="pa.id">
+                                  <div class="container">
+                                    <li><b>{{pa.nombre}}</b>  ${{pa.precio}}<br>
+                                      <small>{{pa.breveDescripcion}}</small><br>
+                                      <div class="text-primary my-3" style="font-size: 12px;">
+                                        {{pa.htmlDescripcion}}
+                                      </div>
+                                    </li>
+                                  </div>
+                                </div>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--end Modal-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Collapsible Group Item #2
+
+              <h5 class="mb-2">
+                <button class="shadowing btn btn-link collapsed dropdown-toggle btn-block" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Dirección de envío
                 </button>
               </h5>
-            </div>
+
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h5 class="mb-0">
-                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Collapsible Group Item #3
-                </button>
-              </h5>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-          <div class="card-body">
-            <div class="row ">
-              <div class="col-sm-1"></div>
-              <div class="col">
-                <div v-for="pa in paqueterias" :key="pa.id">
-                  <div class="row" style="margin-bottom: 5px;">
-                    <div class="col-sm-1" style="margin-top: 5px;">
-                      <input type="radio" v-model="paqSelected" name="paqSelected" :value="pa.id">
-                    </div>
-                    <div class="col-sm-7">
-                      <b style="font-size: 14px;">{{pa.nombre}}</b>
-                      <div class="w-100 d-none d-md-block"></div>
-                      <p class="shortSpace">{{pa.breveDescripcion}}</p>
-                    </div>
-                    <div class="col-sm-1"></div>
-                    <div class="col text-primary">
-                      ${{pa.precio}}
-                    </div>
-                  </div>
-                </div>
                 <div class="row">
-                  <div class="col-sm-1"></div>
-                  <div class="col"  style="margin-top: 10px;">
-                    <a href="#" class="text-primary" data-toggle="modal" data-target="#infoEnvios">Más información sobre envíos y paqueterías</a>
+                  <div class="col-sm-3">
+                    <small class="text-secondary">Enviar a</small>
                   </div>
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="infoEnvios" role="dialog" tabindex="-1" aria-labelledby="titulo" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="titulo">Información de las paqueterías</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                  <div class="col">
+                    <div v-for="dir in direcciones" :key="dir.id">
+                      <div class="row">
+                        <div class="col-sm-1" style="margin-top: 5px;">
+                          <input type="radio" v-model="dirSelected" name="dirSelected" :value="dir.id">
                         </div>
-                        <div class="modal-body">
-                          <ul align="left">
-                            <div v-for="pa in paqueterias" :key="pa.id">
-                              <div class="container">
-                                <li><b>{{pa.nombre}}</b>  ${{pa.precio}}<br>
-                                  <small>{{pa.breveDescripcion}}</small><br>
-                                  <div class="text-primary my-3" style="font-size: 12px;">
-                                    {{pa.htmlDescripcion}}
-                                  </div>
-                                </li>
-                              </div>
-                            </div>
-                          </ul>
+                        <div class="col">
+                          <b style="font-size: 14px;">{{usuarioDetalle.nombre}}</b>
+                          <div class="w-100 d-none d-md-block"></div>
+                          <p class="shortSpace">{{procesada(dir)}}</p>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <!--end Modal-->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr class="dotted">
-
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-3">
-              <small class="text-secondary">Enviar a</small>
-            </div>
-            <div class="col">
-              <div v-for="dir in direcciones" :key="dir.id">
-                <div class="row">
-                  <div class="col-sm-1" style="margin-top: 5px;">
-                    <input type="radio" v-model="dirSelected" name="dirSelected" :value="dir.id">
-                  </div>
-                  <div class="col">
-                    <b style="font-size: 14px;">{{usuarioDetalle.nombre}}</b>
-                    <div class="w-100 d-none d-md-block"></div>
-                    <p class="shortSpace">{{procesada(dir)}}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-1"></div>
-                <div class="col text-primary">
-                  <a href="#" data-toggle="modal" data-target="#nuevaDireccion" @click="cargaDatos()">Añadir una nueva dirección</a>
-                </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="nuevaDireccion" role="dialog" tabindex="-1" aria-labelledby="direccionTitulo" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header mt-2">
-                        <h5 class="modal-title ml-4" id="direccionTitulo">Añadir nueva dirección</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <form class="mx-4">
-                          <div class="form-row form-group">
-                            <div class="col-md-8">
-                              <label for="nombre">
-                                Nombre y Apellido
-                              </label>
-                              <input type="text" class="form-control" v-model="nuevaDireccion.nombre">
-                            </div>
-                            <div class="col">
-                              <label for="tipo">Tipo dirección</label>
-                              <select id="inputState" class="form-control" v-model="nuevaDireccion.tipo">
-                                <option :value="tipo.id" v-for="tipo in tipoDirecciones" :key="tipo.id">
-                                  {{tipo.nombre}}
-                                </option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="form-row form-group">
-                            <div class="col">
-                              <label for="calle">Calle y Número</label>
-                              <input type="text" v-model="nuevaDireccion.calleNumero" class="form-control" placeholder="Calle y Número">
-                            </div>
-                            <div class="col">
-                              <label for="colonia">Colonia</label>
-                              <input type="text" v-model="nuevaDireccion.colonia" class="form-control" placeholder="Colonia">
-                            </div>
-                          </div>
-                          <div class="form-row form-group">
-                            <div class="col-md-9">
-                              <label for="refs">Referencias</label>
-                              <input type="text" v-model="nuevaDireccion.referencias" class="form-control" placeholder="Entre calles, color de la fachada, etc.">
-                            </div>
-                            <div class="col">
-                              <label for="cp">C.P.</label>
-                              <input type="text" v-model="nuevaDireccion.cp" placeholder="00000" class="form-control">
-                            </div>
-                          </div>
-                          <div class="form-row form-group">
-                            <div class="col-md-4">
-                              <label for="pais">Pais</label>
-                              <select id="inputPais" class="form-control" v-model="nuevaDireccion.idPais" @change="cargaEstados">
-                                <option :value="p.id" v-for="p in paises" :key="p.id">{{ p.nombre }}</option>
-                              </select>
-                            </div>
-                            <div class="col-md-4">
-                              <label for="estado">Estado</label>
-                              <select id="inputEstado" class="form-control" v-model="nuevaDireccion.idEstado" @change="cargaMunicipios">
-                                <option :value="e.id" v-for="e in estados" :key="e.id">{{e.nombre}}</option>
-                              </select>
-                            </div>
-                            <div class="col">
-                              <label for="mun">Municipio</label>
-                              <select id="inputMun" class="form-control" v-model="nuevaDireccion.idMunicipio">
-                                <option :value="m.id" v-for="m in municipios" :key="m.id">{{m.nombre}}</option>
-                              </select>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer mr-4">
-                        <button type="button" class="btn btn-success" data-dismiss="modal" :disabled="habilitaBoton" @click="guardaDireccion">Aceptar</button>
-                        <button type="button" class="btn btn-warning" data-dismiss="modal" @click="reiniciaDatos">Cancelar</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!--end Modal-->
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <hr class="dotted">
-
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-3">
-              <small class="text-secondary">Pagar con</small>
-            </div>
-            <div class="col">
-              <div class="row">
-                <div class="col-sm-1" style="margin-top: 2px;">
-                  <input type="radio" v-model="paymentSelected" name="paymentSelected" :value="2">
-                </div>
-                <div class="col">
-                  <b style="font-size: 14px;">Pagar con <i class="text-primary">PayPal</i></b>
-                </div>
-              </div>
-              <div class="row separation">
-                <div class="col-sm-1" >
-                  <img src="../assets/bb-bitcoin.jpg" width="20px">
-                </div>
-                <div class="col" >
-                  <b >Pago con Cripto-monedas</b>
-                </div>
-              </div>
-              <div class="row" style="margin-top: 5px;">
-                <div class="col-sm-1">
-                  <input type="radio" v-model="paymentSelected" name="paymentSelected" :value="3">
-                </div>
-                <div class="col">
-                  <p class="shortSpace">Bitcoin</p>
-                </div>
-                <div class="col-sm-1">
-                  <input type="radio" v-model="paymentSelected" name="paymentSelected" :value="4">
-                </div>
-                <div class="col">
-                  <p class="shortSpace">Ethereum</p>
-                </div>
-              </div>
-              <div class="row" style="margin-top: -5px;">
-                <div class="col-sm-1"></div>
-                <div class="col">
-                  <a href="#">Ver mis carteras digitales</a>
-                </div>
-              </div>
-
-              <div class="row separation">
-                <div class="col-sm-1" >
-                  <img src="../assets/cc.png" width="20px">
-                </div>
-                <div class="col" >
-                  <b >Pago con tarjeta bancaria</b>
-                </div>
-              </div>
-              <div v-for="ta in getTarjetas" :key="ta.numeroPago">
-                <div class="row">
-                  <div class="col-sm-1" >
-                    <input type="radio" v-model="paymentSelected" name="paymentSelected" :value="ta.numeroPago">
-                  </div>
-                  <div class="col">
                     <div class="row">
-                      <div class="col-sm-8">
-                        <p class="shortSpace" style="line-height: 115%">Tarjeta terminada en <b>{{getLastDigits(ta.numeroPago)}}</b>
-                          Expira el: {{ta.expiracion}}</p>
+                      <div class="col-sm-1"></div>
+                      <div class="col text-primary">
+                        <a href="#" data-toggle="modal" data-target="#nuevaDireccion" @click="cargaDatos()">Añadir una nueva dirección</a>
                       </div>
-                      <div class="col">
-                        <input v-if="paymentSelected===ta.numeroPago" type="text" v-model="cvv" maxlength="3" placeholder="CVV" style="width: 50px; font-size: 10px;">
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="nuevaDireccion" role="dialog" tabindex="-1" aria-labelledby="direccionTitulo" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header mt-2">
+                              <h5 class="modal-title ml-4" id="direccionTitulo">Añadir nueva dirección</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form class="mx-4">
+                                <div class="form-row form-group">
+                                  <div class="col-md-8">
+                                    <label for="nombre">
+                                      Nombre y Apellido
+                                    </label>
+                                    <input type="text" class="form-control" v-model="nuevaDireccion.nombre">
+                                  </div>
+                                  <div class="col">
+                                    <label for="tipo">Tipo dirección</label>
+                                    <select id="inputState" class="form-control" v-model="nuevaDireccion.tipo">
+                                      <option :value="tipo.id" v-for="tipo in tipoDirecciones" :key="tipo.id">
+                                        {{tipo.nombre}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="form-row form-group">
+                                  <div class="col">
+                                    <label for="calle">Calle y Número</label>
+                                    <input type="text" v-model="nuevaDireccion.calleNumero" class="form-control" placeholder="Calle y Número">
+                                  </div>
+                                  <div class="col">
+                                    <label for="colonia">Colonia</label>
+                                    <input type="text" v-model="nuevaDireccion.colonia" class="form-control" placeholder="Colonia">
+                                  </div>
+                                </div>
+                                <div class="form-row form-group">
+                                  <div class="col-md-9">
+                                    <label for="refs">Referencias</label>
+                                    <input type="text" v-model="nuevaDireccion.referencias" class="form-control" placeholder="Entre calles, color de la fachada, etc.">
+                                  </div>
+                                  <div class="col">
+                                    <label for="cp">C.P.</label>
+                                    <input type="text" v-model="nuevaDireccion.cp" placeholder="00000" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="form-row form-group">
+                                  <div class="col-md-4">
+                                    <label for="pais">Pais</label>
+                                    <select id="inputPais" class="form-control" v-model="nuevaDireccion.idPais" @change="cargaEstados">
+                                      <option :value="p.id" v-for="p in paises" :key="p.id">{{ p.nombre }}</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label for="estado">Estado</label>
+                                    <select id="inputEstado" class="form-control" v-model="nuevaDireccion.idEstado" @change="cargaMunicipios">
+                                      <option :value="e.id" v-for="e in estados" :key="e.id">{{e.nombre}}</option>
+                                    </select>
+                                  </div>
+                                  <div class="col">
+                                    <label for="mun">Municipio</label>
+                                    <select id="inputMun" class="form-control" v-model="nuevaDireccion.idMunicipio">
+                                      <option :value="m.id" v-for="m in municipios" :key="m.id">{{m.nombre}}</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <div class="modal-footer mr-4">
+                              <button type="button" class="btn btn-success" data-dismiss="modal" :disabled="habilitaBoton" @click="guardaDireccion">Aceptar</button>
+                              <button type="button" class="btn btn-warning" data-dismiss="modal" @click="reiniciaDatos">Cancelar</button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                      <!--end Modal-->
+
                     </div>
+
                   </div>
                 </div>
               </div>
-              <div class="row" style="margin-top: -5px;">
-                <div class="col-sm-1"></div>
-                <div class="col">
-                  <a href="#">Añadir una nueva tarjeta</a>
-                  {{paymentSelected}}
-                </div>
+            </div>
+
+        </div>
+        </div>
+
+        <div class="container my-4" align="center">
+          <button v-show="showDetalles" type="button" class="btn btn-success" @click="invierteVista">Proceder al pago</button>
+        </div>
+
+        <div class="row" v-show="showPagos">
+          <div class="col">
+          <div class="card py-0">
+            <div class="card-header pb-0">
+              <p>Informacion de envio</p>
+            </div>
+            <div class="card-body">
+              <p>Tu pedido sera entregado a: {{dirSelected}}
+                Paqueteria: {{paqSelected}}</p>
+              <div class="container" v-show="showPagos">
+                <button v-show="showPagos" type="button" class="btn btn-warning btn-sm" @click="invierteVista">Editar Detalles</button>
               </div>
             </div>
           </div>
-
+          </div>
         </div>
 
-        <hr class="dotted">
+        <hr class="dotted" v-show="showDetalles">
 
         <div class="card-body">
           <div class="row">
@@ -364,10 +273,23 @@
 
           </div>
         </div>
-        <div class="container mb-2" align="center">
-          <button type="button" class="btn btn-success">Realizar pedido</button>
+        <hr class="dotted" v-show="showPagos">
+
+        <div class="card-body" v-show="showPagos">
+
+          <div class="row">
+            <div class="col-sm-3">
+              <small class="text-secondary">Pagar con</small>
+            </div>
+            </div>
+          <div class="row mt-4">
+            <div class="col">
+              <div class="mx-auto w-100" ref="paypal"></div>
+            </div>
+          </div>
+
         </div>
-        <div class="mx-auto w-50" ref="paypal"></div>
+
       </div>
     </div>
   </div>
@@ -377,6 +299,7 @@
 <script>
 
 import axios from 'axios';
+import router from '../router'
 
 export default {
   name: "DetallePago.vue",
@@ -393,12 +316,14 @@ export default {
 
   data(){
     return {
+      showDetalles: true,
+      showPagos:false,
 
       usuario : {id : 1},
       usuarioDetalle: {id : 1, nombre: "Ana Luisa", apellidoPaterno: "Castrejon"},
 
       nombreMascota: "Camaleon pantera macho 13 meses",
-      precio: 6000,
+      precio: 60,
 
       paqueterias: [],
       paqSelected: 0,
@@ -425,17 +350,16 @@ export default {
       estados: [],
       municipios : [],
 
-      metodosPago: [
-        {'idCliente': 1, 'tipoPago': 1, 'numeroPago': '1243777789093623', 'expiracion':'10-22' },
-        {'idCliente': 1, 'tipoPago': 1, 'numeroPago': '1234567890564534', 'expiracion': '11-25'}
-      ],
-      paymentSelected: 0,
-      cvv:""
+      anuncio : {id : 1}
+
     }
   },
 
   methods: {
-
+    invierteVista() {
+      this.showPagos=this.showDetalles;
+      this.showDetalles=!this.showDetalles;
+    },
     setLoaded: function () {
       window.paypal.Buttons({
         createOrder : (data, actions) => {
@@ -451,8 +375,6 @@ export default {
         onApprove: async (data, actions, resp) => {
           const order = await actions.order.capture();
           this.data;
-          this.paidFor=true;
-          this.loading=false;
           this.submitDomain();
           console.log(resp, order);
         },
@@ -462,13 +384,36 @@ export default {
       }).render(this.$refs.paypal);
     },
 
+    submitDomain(){
+      let data = {idUsuario : this.usuario.id,
+                  idDireccion : this.dirSelected,
+                  idPaqueteria : this.paqSelected,
+                  descripcion: this.nombreMascota,
+                  idMoneda : 1,
+                  idAnuncio : this.anuncio.id,
+                  precio : this.precio,
+                  total : this.precio + this.getPrecioEnvio,
+                  fecha : new Date()
+                  };
+      console.log(data);
+      axios.post('/api/pago-paypal.json', data).then(response => {
+        router.push('/ui/inicio');
+        console.log(response);
+      }).catch(e => {
+        console.log(e.response.data);
+      });
+    },
+
     guardaDireccion() {
       axios.post('/api/nueva-direccion.json', this.nuevaDireccion).then(response => {
         console.log("post enviado");
         console.log(response.data);
         this.getDirecciones();
         this.reiniciaDatos();
-      })
+      }).catch(e => {
+        console.log(e.response.status);
+        console.log(e.response.data);
+      });
     },
     cargaMunicipios(){
       axios.get('/api/municipio-por-estado/'+this.nuevaDireccion.idEstado+'.json', {}).then(response => {
@@ -517,9 +462,7 @@ export default {
           + obj.estadoNombre + ","
           + obj.paisNombre;
     },
-    getLastDigits(obj){
-      return obj.slice(-4);
-    },
+
     getPaqueterias(){
       axios.get('/api/paqueterias.json', {}).then(response => {
         console.log(response.data);
@@ -573,15 +516,7 @@ export default {
       }
       return 0;
     },
-    getTarjetas(){
-      var arr=[];
-      for (var i=0;i<this.metodosPago.length;i++){
-        if (this.metodosPago[i].tipoPago===1){
-          arr.push(this.metodosPago[i]);
-        }
-      }
-      return arr;
-    }
+
   },
 
 }
