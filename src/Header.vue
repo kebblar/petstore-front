@@ -49,12 +49,6 @@ import router from './router'
 import store from './store'
 
 export default {
-    data: function () {
-        return {
-          logged3: store.state.session.jwt && store.state.session.jwt.length>10,
-          nombre3: store.state.session.nombreCompleto,
-        }
-    },
     computed: {
       logged: function() {
         return store.state.session.jwt && store.state.session.jwt.length>10; 
