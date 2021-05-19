@@ -12,11 +12,17 @@ import RegeneraClave from '@/components/RegeneraClave'
 import RegeneraClaveConfirma from '@/components/RegeneraClaveConfirma'
 import DetallePago from '@/components/DetallePago'
 import Reg from '@/components/Reg'
+import CompraConfirmada from '@/components/CompraConfirmada'
 
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/compra-confirmada',
+    name: 'compra-confirmada',
+    component: CompraConfirmada
+  },
   {
     path: '/ui/regenera-clave-confirma',
     name: 'regenera-clave-confirma',

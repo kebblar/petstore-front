@@ -219,7 +219,7 @@
         </div>
 
         <div class="container my-4" align="center">
-          <button v-show="showDetalles" type="button" class="btn btn-success" @click="invierteVista">Proceder al pago</button>
+          <button v-show="showDetalles" type="button" :disabled="validaDetalles" class="btn btn-success" @click="invierteVista">Proceder al pago</button>
         </div>
 
         <div class="row" v-show="showPagos">
@@ -367,16 +367,17 @@ export default {
             purchase_units: [
               {
                 description: this.nombreMascota,
-                amount: { currency_code: "USD", value: this.precio}
+                amount: { currency_code: "USD", value: this.precio + this.getPrecioEnvio}
               }
             ]
           });
         },
-        onApprove: async (data, actions, resp) => {
+        onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           this.data;
-          this.submitDomain();
-          console.log(resp, order);
+          this.submitDomain(order);
+          console.log(order);
+          router.push({'name':'compra-confirmada'});
         },
         onError: err => {
           console.log(err);
@@ -384,8 +385,10 @@ export default {
       }).render(this.$refs.paypal);
     },
 
-    submitDomain(){
-      let data = {idUsuario : this.usuario.id,
+    submitDomain(order){
+      let data = {
+                  idOrden : order.id,
+                  idUsuario : this.usuario.id,
                   idDireccion : this.dirSelected,
                   idPaqueteria : this.paqSelected,
                   descripcion: this.nombreMascota,
@@ -393,11 +396,10 @@ export default {
                   idAnuncio : this.anuncio.id,
                   precio : this.precio,
                   total : this.precio + this.getPrecioEnvio,
-                  fecha : new Date()
+                  fecha : order.update_time
                   };
       console.log(data);
-      axios.post('/api/pago-paypal.json', data).then(response => {
-        router.push('/ui/inicio');
+      axios.post('/api/procesa-orden.json', data).then(response => {
         console.log(response);
       }).catch(e => {
         console.log(e.response.data);
@@ -498,6 +500,11 @@ export default {
 
   },
   computed: {
+    validaDetalles(){
+      var x = true && (this.dirSelected!==0) && (this.paqSelected!==0)
+      return !x;
+    },
+
     habilitaBoton() {
       var dato = true
           && this.nuevaDireccion.nombre.length>2
