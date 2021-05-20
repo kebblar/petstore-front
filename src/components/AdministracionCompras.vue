@@ -99,6 +99,8 @@ methods: {
           this.titulo = "Error!"
           this.descripcion = "Ha ocurrido un error de nuestro lado, por favor vuelva a intentarlo más tarde."
       })
+      this.compras = [];
+      this.getHistorial();
     },
 },
 

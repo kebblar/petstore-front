@@ -92,7 +92,7 @@ const routes = [
     component: RegeneraClaveConfirma
   },
   {
-    path: '/ui/admin/compras',
+    path: '/ui/admin-compras',
     name: 'AdministracionCompras',
     component: AdministracionCompras
   },
