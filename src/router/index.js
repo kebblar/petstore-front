@@ -15,6 +15,8 @@ import DetallePago from '@/components/DetallePago'
 import Reg from '@/components/Reg'
 import Admin from '@/components/Admin'
 import Forbidden from '@/components/Forbidden'
+import HistorialPedidos from '@/components/HistorialPedidos'
+import AdministracionCompras from '@/components/AdministracionCompras';
 
 Vue.use(Router);
 
@@ -37,6 +39,21 @@ const routes = [
     path: '/',
     name: 'inicio',
     component: Inicio
+  },
+  {
+    path: '/ui/detalle-pago',
+    name: 'detalle-pago',
+    component: DetallePago
+  },
+  {
+    path: '/ui/compras',
+    name: 'compras',
+    component: HistorialPedidos
+  },
+  {
+    path: '/ui/reg',
+    name: 'reg',
+    component:  Reg
   },
   {
     path: '/ui/login',
@@ -68,7 +85,18 @@ const routes = [
     path: '/ui/regenera-clave',
     name: 'regenera-clave',
     component: RegeneraClave
-  }
+  },
+  {
+    path: '/ui/regenera-clave-confirma',
+    name: 'regenera-clave-confirma',
+    component: RegeneraClaveConfirma
+  },
+  {
+    path: '/ui/admin/compras',
+    name: 'AdministracionCompras',
+    component: AdministracionCompras
+  },
+
 ]
 
 const router = new Router({

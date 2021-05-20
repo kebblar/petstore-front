@@ -10,6 +10,7 @@
       <li>{{f}}</li>
     </ul>
   </div>
+
 </template>
 
 <script>
@@ -30,11 +31,37 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-h3 {
-  margin: 40px 0 0;
-  display: block;
-  margin-top: 2.7em;
-  font-weight: bold;
-  color: rgb(7, 7, 7);
+.align {
+ text-align: left;
 }
+
+.notValid{
+  color:red;
+}
+
+.greenColor:focus{
+  border-color:green;
+  background-color: #eefaee;
+}
+
+.correct{
+  border-color:green;
+}
+
+.redColor:focus{
+  border-color:red;
+  background-color: #f0e4e4;
+}
+
+.incorrect{
+  border-color:red;
+}
+
+.defaultColor{
+  border-Color:rgba(165, 183, 190, 0.918);
+  background-color: white;
+}
+
+
+
 </style>

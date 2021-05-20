@@ -70,10 +70,12 @@
                             <div v-for="pa in paqueterias" :key="pa.id">
                               <div class="container">
                                 <li><b>{{pa.nombre}}</b>  ${{pa.precio}}<br>
+
                                   <small>{{pa.breveDescripcion}}</small><br>
                                   <div class="text-primary my-3" style="font-size: 12px;">
                                     {{pa.htmlDescripcion}}
                                   </div>
+
                                 </li>
                               </div>
                             </div>
