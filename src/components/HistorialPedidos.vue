@@ -7,11 +7,11 @@
       <div class="card-body align">
         <hr style="background-color:black">
           <div class="container">
-            <div class="row" v-for="compra in compras" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
+            <div class="row" v-for="compra in comprasActivas" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
                     <img class="rounded img-thumbnail" :src="compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
-                    <p><b>{{compra.descripcion}}</b></p>
-                    <div class="container" v-if="!compra.entregado">
+                    <p><b>{{compra.nombreAnuncio}}</b></p>
+                    <div class="container">
                         <div class="row">
                             <div class="col-sm" style="color:#c2b280;font-size:small">
                                 Entrega pendiente
@@ -21,11 +21,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container" v-if="compra.entregado">
+                </div>
+                <div class="col-sm">
+                    <p style="margin-bottom:0%">Compra realizada el {{compra.fechaHoraCompra}}</p>
+                    <a :href="compra.urlPdf" class="btn btn-primary btn-sm">Factura en pdf</a>
+                    <p style="color:blue;font-size:small;margin-bottom:0%">{{compra.metodoPago}}</p>
+                    <p style="color:blue;font-size:xx-small">{{compra.correo}}</p>
+                </div>
+            </div>
+
+            <div class="row" v-for="compra in comprasInactivas" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
+                <div class="col-sm" >
+                    <img class="rounded img-thumbnail" :src="compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
+                    <p><b>{{compra.nombreAnuncio}}</b></p>
+                    <div class="container">
                         <div class="row">
                             <div class="col-sm" style="color:blue">
-                                <p style="margin-bottom:0%">Entregado el</p>
-                                <p style="font-size:x-small">{{compra.fechaEntrega}}</p>
+                                <p style="margin-bottom:0%">Enviado</p>
                             </div>
                             <div class="col-sm">
                                 <p style="font-size:x-large">&#x2705;</p>
@@ -34,8 +46,8 @@
                     </div>
                 </div>
                 <div class="col-sm">
-                    <p style="margin-bottom:0%">Compra realizada el {{compra.fechaCompra}}</p>
-                    <button @click="generarFactura(compra.urlFactura)" class="btn btn-primary btn-sm">Factura en pdf</button>
+                    <p style="margin-bottom:0%">Compra realizada el {{compra.fechaHoraCompra}}</p>
+                    <a :href="compra.urlPdf" class="btn btn-primary btn-sm">Factura en pdf</a>
                     <p style="color:blue;font-size:small;margin-bottom:0%">{{compra.metodoPago}}</p>
                     <p style="color:blue;font-size:xx-small">{{compra.correo}}</p>
                 </div>
@@ -43,44 +55,59 @@
           </div>
     </div>
   </div>
+            <modal 
+            name="aviso" 
+            :clickToClose="false" 
+            :reset="true"
+            :width="480"
+            :height="260">
+            <div class="card">
+                <div class="card-header">Advertencia del sistema</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{titulo}}</h5>
+                    <p class="card-text">{{ descripcion }}</p>
+                    <div style="text-align: right;">
+                        <a href="#" class="btn btn-primary" @click="closeModal">Aceptar</a>
+                    </div>
+                </div>
+            </div>
+        </modal>
 </div>
 
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "HistorialPedidos.vue",
   data(){
     return {
-      compras: [
-        {
-          idCompra: 1,
-          fechaCompra : "09/09/2020",
-          entregado: false,
-          fechaEntrega: "",
-          descripcion: "Hermoso camaleon",
-          metodoPago: "Paypal",
-          correo: "mail@mail.com",
-          urlFactura: "www.foo.com",
-          urlImagen: "/img/bicho1.3bbaca63.jpg"
-        },
-        {
-          idCompra: 2,
-          fechaCompra : "09/09/2020",
-          entregado: true,
-          fechaEntrega: "11/02/2021",
-          descripcion: "Hermoso camaleon de nuevo",
-          metodoPago: "Paypal",
-          correo: "mail@mail.com",
-          urlFactura: "www.foo2.com",
-          urlImagen: "/img/bicho1.3bbaca63.jpg"
-        }
-      ]
+      comprasActivas: [],
+      comprasInactivas: [],
+      compras: [],
+      titulo : '',
+      descripcion: '',
     }
   },
+  mounted () {
+    this.getHistorial();
+  },
 methods: {
-    generarFactura(urlFactura){
-      alert("se ha generado la factura :v con la url ".concat(urlFactura))
+
+    getHistorial(){
+      axios.get('api/historial-compras.json/'.concat(1)).then(response => {
+          response.data.forEach((value) => {
+            if(!value.estadoEnvio){
+              this.comprasActivas.push(value);
+            }else{
+              this.comprasInactivas.push(value);
+            }
+          });
+      }).catch(() => {
+          this.$modal.show('aviso');
+          this.titulo = "Error!"
+          this.descripcion = "Ha ocurrido un error de nuestro lado, por favor vuelva a intentarlo más tarde."
+      })
     }
 },
 

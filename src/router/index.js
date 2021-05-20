@@ -10,6 +10,7 @@ import RegeneraClaveConfirma from '@/components/RegeneraClaveConfirma'
 import HistorialPedidos from '@/components/HistorialPedidos'
 import Reg from '@/components/Reg'
 import DetallePago from '@/components/DetallePago'
+import AdministracionCompras from '@/components/AdministracionCompras';
 
 Vue.use(Router);
 
@@ -53,7 +54,13 @@ const routes = [
     path: '/ui/regenera-clave-confirma',
     name: 'regenera-clave-confirma',
     component: RegeneraClaveConfirma
-  }
+  },
+  {
+    path: '/ui/admin/compras',
+    name: 'AdministracionCompras',
+    component: AdministracionCompras
+  },
+
 ]
 
 const router = new Router({
