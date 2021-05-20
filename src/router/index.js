@@ -31,7 +31,8 @@ const routes = [
   {
     path: '/ui/detalle-pago',
     name: 'detalle-pago',
-    component: DetallePago
+    component: DetallePago,
+    meta: { role: ['admin','user'] }
   },
   {
     path: '/',

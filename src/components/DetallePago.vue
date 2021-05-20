@@ -222,21 +222,25 @@
           <button v-show="showDetalles" type="button" :disabled="validaDetalles" class="btn btn-success" @click="invierteVista">Proceder al pago</button>
         </div>
 
-        <div class="row" v-show="showPagos">
+        <div class="row mb-4" v-show="showPagos">
+          <div class="col-sm-1"></div>
           <div class="col">
           <div class="card py-0">
-            <div class="card-header pb-0">
+            <div class="card-header pb-0 text-center">
               <p>Informacion de envio</p>
             </div>
-            <div class="card-body">
-              <p>Tu pedido sera entregado a: {{dirSelected}}
-                Paqueteria: {{paqSelected}}</p>
-              <div class="container" v-show="showPagos">
+            <div class="card-body" >
+              <b style="font-size: 14px;">Tu pedido sera entregado a</b>
+              <p><b class="format">{{dirText}}</b></p>
+              <b style="font-size: 14px;">Por medio de</b>
+              <p v-html="paqText"></p>
+              <div class="container" align="center" v-show="showPagos">
                 <button v-show="showPagos" type="button" class="btn btn-warning btn-sm" @click="invierteVista">Editar Detalles</button>
               </div>
             </div>
           </div>
           </div>
+          <div class="col-sm-1"></div>
         </div>
 
         <hr class="dotted" v-show="showDetalles">
@@ -300,6 +304,7 @@
 
 import axios from 'axios';
 import router from '../router'
+//import store from '../store'
 
 export default {
   name: "DetallePago.vue",
@@ -307,6 +312,7 @@ export default {
   mounted () {
     this.getDirecciones()
     this.getPaqueterias()
+    //this.idAnuncio = this.$route.query.test
 
     const paypal = document.createElement("script");
     paypal.src = "https://www.paypal.com/sdk/js?client-id=ASKLSAfRgs3tG08RNVRpe6DwG0NMuHHsXqEMfIW65vjYyF2-cI8JQW6ylnWA-eBhFgx0hd-VLIp4yPFP&disable-funding=mercadopago";
@@ -319,8 +325,11 @@ export default {
       showDetalles: true,
       showPagos:false,
 
+      anuncio : {id : 2},
       usuario : {id : 1},
+      //usuario : store.state.estado.usuarioDetalles,
       usuarioDetalle: {id : 1, nombre: "Ana Luisa", apellidoPaterno: "Castrejon"},
+      //usuarioDetalle: store.state.estado.usuarioDetalles,
 
       nombreMascota: "Camaleon pantera macho 13 meses",
       precio: 60,
@@ -350,8 +359,18 @@ export default {
       estados: [],
       municipios : [],
 
-      anuncio : {id : 1}
+      dirText : "",
+      paqText : ""
+    }
+  },
 
+  watch: {
+    paqSelected(value){
+      for(const e of this.paqueterias){
+        if(e.id == value){
+          this.paqText = '<b><span class="format">'+ e.nombre + '</span></b>' + ' <span style="font-size: 12px;">'+ e.breveDescripcion + '</span>';
+        }
+      }
     }
   },
 
@@ -387,7 +406,8 @@ export default {
 
     submitDomain(order){
       let data = {
-                  idOrden : order.id,
+                  idMetodoPago : 1,
+                  cveOrdenCompra: order.id,
                   idUsuario : this.usuario.id,
                   idDireccion : this.dirSelected,
                   idPaqueteria : this.paqSelected,
@@ -396,7 +416,9 @@ export default {
                   idAnuncio : this.anuncio.id,
                   precio : this.precio,
                   total : this.precio + this.getPrecioEnvio,
-                  fecha : order.update_time
+                  fecha : order.update_time,
+                  estadoEnvio : false,
+                  recibo : ""
                   };
       console.log(data);
       axios.post('/api/procesa-orden.json', data).then(response => {
@@ -457,12 +479,14 @@ export default {
       });
     },
     procesada(obj){
-      return obj.calleNumero + ", "
+      var dir =  obj.calleNumero + ", "
           + obj.colonia + ", "
           + obj.cp + ", "
           + obj.municipioNombre + ", "
           + obj.estadoNombre + ","
           + obj.paisNombre;
+      this.dirText = dir;
+      return dir;
     },
 
     getPaqueterias(){
@@ -545,6 +569,10 @@ hr.dotted {
   font-size: 14px;
   margin-top: 30px;
   margin-bottom: 10px;
+}
+.format {
+  color:dodgerblue;
+  font-size: 13px;
 }
 
 </style>
