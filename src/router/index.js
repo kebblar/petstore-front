@@ -17,10 +17,17 @@ import Admin from '@/components/Admin'
 import Forbidden from '@/components/Forbidden'
 import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras';
+import CompraConfirmada from '@/components/CompraConfirmada'
+
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/compra-confirmada',
+    name: 'compra-confirmada',
+    component: CompraConfirmada
+  },
   {
     path: '/ui/regenera-clave-confirma',
     name: 'regenera-clave-confirma',
@@ -33,7 +40,8 @@ const routes = [
   },  {
     path: '/ui/detalle-pago',
     name: 'detalle-pago',
-    component: DetallePago
+    component: DetallePago,
+    meta: { role: ['admin','user'] }
   },
   {
     path: '/',
