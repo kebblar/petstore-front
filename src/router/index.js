@@ -15,6 +15,9 @@ import DetallePago from '@/components/DetallePago'
 import Reg from '@/components/Reg'
 import Admin from '@/components/Admin'
 import Forbidden from '@/components/Forbidden'
+import ConsultaPais from '@/components/ConsultaPais'
+import ConsultaEstado from '@/components/ConsultaEstado'
+import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 
 Vue.use(Router);
 
@@ -68,6 +71,21 @@ const routes = [
     path: '/ui/regenera-clave',
     name: 'regenera-clave',
     component: RegeneraClave
+  },
+  {
+    path: '/ui/consulta-paises',
+    name: 'consultapais',
+    component: ConsultaPais
+  },
+  {
+    path: '/ui/consulta-estados',
+    name: 'consultaestado',
+    component: ConsultaEstado
+  },
+  {
+    path: '/ui/consulta-municipios',
+    name: 'consultamunicipio',
+    component: ConsultaMunicipio
   }
 ]
 
