@@ -291,6 +291,46 @@
               <div class="mx-auto w-100" ref="paypal"></div>
             </div>
           </div>
+          <div class="row">
+            <div class="col">
+              <div class="container">
+                <button type="button" class="btn btn-block btn-outline-success" @click="getCartera" data-toggle="modal" data-target="#carteraBtc">Bitcoin</button>
+
+                <div class="modal fade" id="carteraBtc" role="dialog" tabindex="-1" aria-labelledby="MyWallet" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header mt-2">
+                        <h5 class="modal-title ml-4" id="MyBtcWallet">Mi cartera Bitcoin</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="card centra" style="width: 400px;">
+                          <div class="card-body text-center">
+                            <h5>{{cartera}}</h5>
+                          </div>
+                          </div>
+                        <div class="row my-4 text-center">
+                          <div class="col-sm-1"></div>
+                          <div class="col">
+                            <h5>Transfiere ${{precio+getPrecioEnvio}} a esta dirección y oprime continuar</h5>
+                            <small>Una vez que la transacción aparezca en la blockchain te enviaremos el correo de confirmación y tu compra comenzará a procesarse.</small>
+                          </div>
+                          <div class="col-sm-1"></div>
+                          </div>
+                        <div class="container my-2" align="center">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal" @click="generaBtcOrden">Continuar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -360,7 +400,8 @@ export default {
       municipios : [],
 
       dirText : "",
-      paqText : ""
+      paqText : "",
+      cartera : ''
     }
   },
 
@@ -375,6 +416,14 @@ export default {
   },
 
   methods: {
+    getCartera(){
+      axios.get('/api/wallet/'+this.usuario.id+'.json', {}).then(response => {
+        this.cartera = response.data;
+        console.log(response.data);
+      }).catch(e => {
+        console.log(e);
+      })
+    },
     invierteVista() {
       this.showPagos=this.showDetalles;
       this.showDetalles=!this.showDetalles;
@@ -403,7 +452,25 @@ export default {
         }
       }).render(this.$refs.paypal);
     },
-
+    generaBtcOrden(){
+      let data = {
+        id : 0,
+        idUsuario : this.usuario.id,
+        idDireccion: this.dirSelected,
+        wallet : this.cartera,
+        idAnuncio : this.anuncio.id,
+        status : false,
+        monto : this.precio + this.getPrecioEnvio,
+        fecha : new Date(),
+        descripcion: this.nombreMascota
+      };
+      axios.post('/api/orden.json', data).then(response => {
+        console.log(response);
+        router.push({'name':'compra-confirmada'});
+      }).catch(e => {
+        console.log(e);
+      })
+    },
     submitDomain(order){
       let data = {
                   idMetodoPago : 1,
