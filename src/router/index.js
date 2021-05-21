@@ -48,7 +48,8 @@ const routes = [
   {
     path: '/ui/compras',
     name: 'compras',
-    component: HistorialPedidos
+    component: HistorialPedidos,
+    meta: { role: ['admin','user'] }
   },
   {
     path: '/ui/reg',
@@ -94,7 +95,8 @@ const routes = [
   {
     path: '/ui/admin-compras',
     name: 'AdministracionCompras',
-    component: AdministracionCompras
+    component: AdministracionCompras,
+    meta: { role: ['user'] }
   },
 
 ]
