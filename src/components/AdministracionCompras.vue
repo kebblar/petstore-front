@@ -31,7 +31,6 @@
                     <p >Compra realizada el {{compra.fechaCompra}}</p>
                     <p style="color:blue;margin-bottom:0%">Enviar a:</p>
                     <p style="color:blue;font-size:small;margin-bottom:0%">{{compra.calleNumero}}, {{compra.colonia}}, cp: {{compra.cp}}</p>
-                    <a href="ui/chat" class="btn btn-primary btn-md">Enviar mensaje al comprador</a>
                 </div>
             </div>
           </div>
