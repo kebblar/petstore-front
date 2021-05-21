@@ -22,7 +22,7 @@
                                 <a :href="compra.urlFactura" class="btn btn-primary btn-sm">Factura</a>
                             </div>
                             <div class="col-sm">
-                              <button  :disabled="compra.estadoEnvio" @click="sent(compra.idCompra,$event)" style="margin-left:-10%" class="btn btn-primary btn-sm">¿Enviado?</button>
+                              <button  :disabled="compra.estadoEnvio" @click="sent(compra.idCompra,$event)" style="margin-left:-10%" class="btn btn-primary btn-sm">¿Entregado?</button>
                             </div>
                         </div>
                     </div>
@@ -77,6 +77,15 @@ methods: {
         this.$modal.hide('aviso');
     },
     getHistorial(){
+      let admin_rol = false;
+      this.$store.state.session.roles.forEach((value) => {
+        if(value.nombre === "admin"){
+          admin_rol = true;
+        }
+      });
+      if(!admin_rol){
+        this.$router.push('/');
+      }
       axios.get('api/administracion-compras.json/').then(response => {
           response.data.forEach((value) => {
               this.compras.push(value);
@@ -93,7 +102,7 @@ methods: {
       axios.get('api/administracion-compras-update.json/'.concat(1).concat('/').concat(idCompra)).then(() => {
           this.$modal.show('aviso');
           this.titulo = "Exito!"
-          this.descripcion = "Se ha enviado el paquete"
+          this.descripcion = "Se ha entregado el paquete"
       }).catch(() => {
           this.$modal.show('aviso');
           this.titulo = "Error!"
@@ -105,7 +114,6 @@ methods: {
 },
 
 }
-'create view administracion_compras(estado_envio,calle_numero,colonia,cp,id_direccion,cve_orden_compra,id_mascota,nombre_anuncio,recibo,id_compra,fecha_hora_comprar) as (SELECT estado_envio,calle_numero,colonia,cp,direccion.id as id_direccion,cve_orden_compra,id_mascota,nombre_anuncio,recibo,id_compra,fecha_hora_comprar FROM direccion INNER JOIN ((SELECT estado_envio,id_direccion_envio,cve_orden_compra,id_mascota,nombre_anuncio,recibo,orden_compra.id as id_compra,fecha_hora_comprar FROM orden_compra INNER JOIN anuncio ON anuncio.id = orden_compra.id_anuncio) as s1) ON s1.id_direccion_envio = direccion.id);';
 </script>
 
 <style>
