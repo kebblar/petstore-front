@@ -339,7 +339,7 @@
       onCaptchaVerified(recaptchaToken) {
           axios.post('api/check-captcha.json', {
             response: recaptchaToken, 
-            ip: '127.0.0.1'
+            ip: '10.0.2.15'
           })
           .then(response => {
             if (response.status === HTTP_STATUS.OK) {
