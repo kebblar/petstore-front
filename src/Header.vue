@@ -19,11 +19,11 @@
                       {{ nombre }}
                     </a>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Cambiar clave</a>
-                      <a class="dropdown-item" href="#">Cambiar datos personales</a>
-                      <a class="dropdown-item" href="#">Mis compras</a>
-                      <a class="dropdown-item" href="#">Mis direcciones</a>
-                      <a class="dropdown-item" href="#">Mis medios de pago</a>
+                      <a class="dropdown-item" href="#" @click="navega('/ui/cambia-clave')" >Cambiar clave</a>
+                      <a class="dropdown-item" href="#" @click="navega('/ui/cambia-datos-personales')">Cambiar datos personales</a>
+                      <a class="dropdown-item" href="#" @click="navega('/ui/mis-compras')">Mis compras</a>
+                      <a class="dropdown-item" href="#" @click="navega('/ui/mis-direcciones')">Mis direcciones</a>
+                      <a class="dropdown-item" href="#" @click="navega('/ui/mis-metodos-pago')">Mis métodos de pago</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#" @click="logout">Salir</a>
                     </div>
@@ -32,9 +32,9 @@
                   <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
                 </div>
                 <div v-else>
-                  <input @click="registro" type="button" class="btn btn-success" value="Registrarse" />
+                  <input @click="navega('/ui/registro')" type="button" class="btn btn-success" value="Registrarse" />
                   &nbsp;
-                  <input @click='login' type="button" class="btn btn-info" value="Ingresar" />
+                  <input @click="navega('/ui/login')" type="button" class="btn btn-info" value="Ingresar" />
                 </div>
               </div>
           </div>
@@ -88,15 +88,9 @@ export default {
         });
         this.navega('/');
       },
-      login: function() {
-        this.navega('/ui/login');
-      },
-      registro: function() {
-        this.navega('/ui/registro');
-      },
       navega: function(url) {
         router.push(url).catch(()=>{});
-      }
+      },
     }
 }
 </script>

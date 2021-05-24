@@ -19,9 +19,40 @@ import Upload from '@/components/Upload'
 import Upload2 from '@/components/Up2'
 import Upload3 from '@/components/Up3'
 
+import CambiaClave from '@/components/CambiaClave'
+import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
+import MisCompras from '@/components/MisCompras'
+import MisDirecciones from '@/components/MisDirecciones'
+import MisMetodosPago from '@/components/MisMetodosPago'
+
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/cambia-datos-personales',
+    name: 'cambia-datos-personales',
+    component: CambiaDatosPersonales
+  },
+  {
+    path: '/ui/cambia-clave',
+    name: 'cambia-clave',
+    component: CambiaClave
+  },
+  {
+    path: '/ui/mis-compras',
+    name: 'mis-compras',
+    component: MisCompras
+  },
+  {
+    path: '/ui/mis-direcciones',
+    name: 'mis-direcciones',
+    component: MisDirecciones
+  },
+  {
+    path: '/ui/mis-metodos-pago',
+    name: 'mis-metodos-pago',
+    component: MisMetodosPago
+  },
   {
     path: '/ui/regenera-clave-confirma',
     name: 'regenera-clave-confirma',
