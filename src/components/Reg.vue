@@ -8,12 +8,17 @@
     <!-- 
       https://hodgef.com//simple-keyboard/documentation/options/layout/
     -->
+    <img :src="'data:image/jpeg;base64,'+imageBytes" />
+    <!-- 
+      https://stackoverflow.com/questions/58682247/loading-images-in-vue-js-from-an-api
+    -->
   </div>
 </template>
 
 <script>
 import Keyboard from "simple-keyboard";
 import "simple-keyboard/build/css/index.css";
+import axios from 'axios';
 
 export default {
   name: "SimpleKeyboard",
@@ -28,12 +33,16 @@ export default {
   },
   data: () => ({
     keyboard: null,
-    texto: ''
+    texto: '',
+    imageBytes:[]
   }),
   mounted() {
+    axios.get('api/qr-base64/gustavo').then((response) => {
+        this.imageBytes = response.data;
+    }); 
     this.keyboard = new Keyboard(this.keyboardClass, {
-      onChange: this.onChange,
-      onKeyPress: this.onKeyPress
+        onChange: this.onChange,
+        onKeyPress: this.onKeyPress
     });
     this.keyboard.setOptions({
         baseClass: this.id,
