@@ -370,16 +370,18 @@
           telefono : this.tel,
           fechaNacimiento : this.fNacimiento
         }).then(response => {
+          this.loading = false
           console.log(response.data);
           router.push('confirma-registro');
         }).catch(error => {
+          this.loading = false
           this.msgErr = error;
           if(error.response) {
               this.msgErr = error.response.data['exceptionLongDescription'];
           }
           this.$modal.show('mensaje-login');
         }).finally(
-          () => this.loading = false
+          console.log('end ulpoad')
         );
       }
     }
@@ -390,7 +392,10 @@
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped> 
+.ancho {
+    max-width: 450px;
+}
 .align {
  text-align: left;
 }

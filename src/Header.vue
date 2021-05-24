@@ -8,7 +8,27 @@
               </div>
               <div class="col-sm-6" style="text-align: right;">
                 <div v-if="logged">
-                  <label>{{nombre}}</label> &nbsp;
+
+                  <div class="btn-group divider">
+                    <a 
+                      class="dropdown-toggle verde"
+                      id="opcionesUsuario" 
+                      data-toggle="dropdown" 
+                      aria-haspopup="true" 
+                      aria-expanded="false">
+                      {{ nombre }}
+                    </a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Cambiar clave</a>
+                      <a class="dropdown-item" href="#">Cambiar datos personales</a>
+                      <a class="dropdown-item" href="#">Mis compras</a>
+                      <a class="dropdown-item" href="#">Mis direcciones</a>
+                      <a class="dropdown-item" href="#">Mis medios de pago</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" @click="logout">Salir</a>
+                    </div>
+                  </div>
+
                   <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
                 </div>
                 <div v-else>
@@ -66,13 +86,16 @@ export default {
             ultimoAcceso: '',
             jwt:          ''
         });
-        router.push('/');
+        this.navega('/');
       },
       login: function() {
-        router.push('/ui/login').catch(()=>{});
+        this.navega('/ui/login');
       },
       registro: function() {
-        router.push('/ui/registro').catch(()=>{});
+        this.navega('/ui/registro');
+      },
+      navega: function(url) {
+        router.push(url).catch(()=>{});
       }
     }
 }
@@ -100,5 +123,14 @@ export default {
 }
 .barra {
   margin: 10px;
+}
+.divider {
+  padding-right: 20px;
+}
+.verde {
+  color:green;
+}
+.verde:hover {
+  color:green;
 }
 </style>

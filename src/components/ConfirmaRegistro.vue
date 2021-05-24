@@ -99,8 +99,10 @@
 </script>
 
 
-
-<style>
+<style scoped> 
+.ancho {
+    max-width: 390px;
+}
 hr.dashed {
   border-top: 3px dashed #bbb;
 }

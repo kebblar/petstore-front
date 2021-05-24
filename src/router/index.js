@@ -15,6 +15,9 @@ import DetallePago from '@/components/DetallePago'
 import Reg from '@/components/Reg'
 import Admin from '@/components/Admin'
 import Forbidden from '@/components/Forbidden'
+import Upload from '@/components/Upload'
+import Upload2 from '@/components/Up2'
+import Upload3 from '@/components/Up3'
 
 Vue.use(Router);
 
@@ -23,6 +26,21 @@ const routes = [
     path: '/ui/regenera-clave-confirma',
     name: 'regenera-clave-confirma',
     component: RegeneraClaveConfirma
+  },
+  {
+    path: '/ui/upload',
+    name: 'upload',
+    component: Upload
+  },
+  {
+    path: '/ui/up2',
+    name: 'upload2',
+    component: Upload2
+  },
+  {
+    path: '/ui/up3',
+    name: 'upload3',
+    component: Upload3
   },
   {
     path: '/ui/forbidden',
