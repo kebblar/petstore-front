@@ -40,6 +40,7 @@
                         <hr/>
                         <a href="#" @click="openRegistroPage" >Deseo registrarme al sistema</a>
                     </div>
+
                 </div>
             </div><!-- ends body-->
 
@@ -94,7 +95,7 @@ export default {
                     switch(roles[i].nombre) {
                         case 'admin': return '/ui/admin'; // rol 1 = administrador
                         case 'user': return '/ui/user'; // rol 2 = usuario comun y corriente
-                        default: return '/ui/inicio'; // otro rol cualquiera
+                        default: return '/'; // otro rol cualquiera
                     } 
                 } // ends for cycle with switch inside
             }
@@ -133,11 +134,11 @@ export default {
                 this.$modal.show('mensaje-login');
             })
         }
-    }
+    },
 }
 </script>
 
-<style>
+<style scoped>
 .ancho {
     max-width: 400px;
 }

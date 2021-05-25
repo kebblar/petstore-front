@@ -8,13 +8,33 @@
               </div>
               <div class="col-sm-6" style="text-align: right;">
                 <div v-if="logged">
-                  <label>{{nombre}}</label> &nbsp;
+
+                  <div class="btn-group divider">
+                    <a 
+                      class="dropdown-toggle verde"
+                      id="opcionesUsuario" 
+                      data-toggle="dropdown" 
+                      aria-haspopup="true" 
+                      aria-expanded="false">
+                      {{ nombre }}
+                    </a>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#" @click="navega('/ui/cambia-clave')" >Cambiar clave</a>
+                      <a class="dropdown-item" href="#" @click="navega('/ui/cambia-datos-personales')">Cambiar datos personales</a>
+                      <a class="dropdown-item" href="#" @click="navega('/ui/mis-compras')">Mis compras</a>
+                      <a class="dropdown-item" href="#" @click="navega('/ui/mis-direcciones')">Mis direcciones</a>
+                      <a class="dropdown-item" href="#" @click="navega('/ui/mis-metodos-pago')">Mis métodos de pago</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" @click="logout">Salir</a>
+                    </div>
+                  </div>
+
                   <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
                 </div>
                 <div v-else>
-                  <input @click="registro" type="button" class="btn btn-success" value="Registrarse" />
+                  <input @click="navega('/ui/registro')" type="button" class="btn btn-success" value="Registrarse" />
                   &nbsp;
-                  <input @click='login' type="button" class="btn btn-info" value="Ingresar" />
+                  <input @click="navega('/ui/login')" type="button" class="btn btn-info" value="Ingresar" />
                 </div>
               </div>
           </div>
@@ -49,12 +69,6 @@ import router from './router'
 import store from './store'
 
 export default {
-    data: function () {
-        return {
-          logged3: store.state.session.jwt && store.state.session.jwt.length>10,
-          nombre3: store.state.session.nombreCompleto,
-        }
-    },
     computed: {
       logged: function() {
         return store.state.session.jwt && store.state.session.jwt.length>10; 
@@ -72,14 +86,11 @@ export default {
             ultimoAcceso: '',
             jwt:          ''
         });
-        router.push('/');
+        this.navega('/');
       },
-      login: function() {
-        router.push('/ui/login').catch(()=>{});
+      navega: function(url) {
+        router.push(url).catch(()=>{});
       },
-      registro: function() {
-        router.push('/ui/registro').catch(()=>{});
-      }
     }
 }
 </script>
@@ -106,5 +117,14 @@ export default {
 }
 .barra {
   margin: 10px;
+}
+.divider {
+  padding-right: 20px;
+}
+.verde {
+  color:green;
+}
+.verde:hover {
+  color:green;
 }
 </style>

@@ -11,15 +11,16 @@
 </template>
 
 <script>
-import Footer from './Footer';
-import Header from './Header';
-export default {
-  name: "App",
-  components: {
-    'Footer' : Footer,
-    'Header': Header
+  import Footer from './Footer';
+  import Header from './Header';
+  
+  export default {
+    name: "App",
+    components: {
+      'Footer' : Footer,
+      'Header': Header
+    }
   }
-}
 </script>
 
 <style>
