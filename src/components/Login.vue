@@ -40,6 +40,7 @@
                         <hr/>
                         <a href="#" @click="openRegistroPage" >Deseo registrarme al sistema</a>
                     </div>
+
                 </div>
             </div><!-- ends body-->
 
@@ -133,7 +134,7 @@ export default {
                 this.$modal.show('mensaje-login');
             })
         }
-    }
+    },
 }
 </script>
 

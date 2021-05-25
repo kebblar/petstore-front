@@ -102,6 +102,7 @@
 </template>
 
 <style>
+
 .stylish-color-dark{
   background-color: rgba(3, 14, 31, 0.93);
   color: #e7e7c9;
