@@ -6,10 +6,9 @@
       </div>
 
       <div class="card-body align">
-        <small class="form-text text-muted text-center"
-          >Un token de 6 dígitos fue enviado a tu correo electrónico, por favor
-          introdúcelo a continuación:</small
-        >
+        <small class="form-text text-muted text-center">
+          Un token de 6 dígitos fue enviado a tu correo electrónico, por favor introdúcelo a continuación:
+        </small>
         <br />
         <div class="form-group form-row">
           <div class="col-sm-4">
@@ -33,10 +32,11 @@
         <hr class="dashed" />
         <div class="form-group row text-center">
           <div class="col text-center">
-            <button type="button"
-            :disabled="habilitaBoton"
-            @click="confirma" 
-            class="btn btn-success">
+            <button 
+              type="button"
+              :disabled="habilitaBoton"
+              @click="confirma" 
+              class="btn btn-success">
               Completar registro
             </button>
           </div>
@@ -52,13 +52,9 @@
       :clickToClose="false"
       :reset="true"
       :width="420"
-      :height="220"
-    >
+      :height="220">
       <div class="card">
-        <div
-          class="card-header text-white"
-          style="text-align: center; background-color: #363636"
-        >
+        <div class="card-header text-white" style="text-align: center; background-color: #363636">
           <label class="control-label h4">{{ modalTitulo }}</label>
         </div>
         <div class="card-body">
@@ -72,7 +68,6 @@
   </div>
 </template>
 
-
 <script>
 import axios from "axios";
 import router from "../router";
@@ -84,9 +79,7 @@ export default {
       modalShowsError: false,
       modalTitulo: "",
       modalMessage: "",
-
       msgToken: null,
-
       classToken: "defaultColor",
     };
   },
@@ -95,12 +88,10 @@ export default {
       this.msgToken = "";
       this.classToken = "greenColor correct";
       if (this.token.trim().length < 3) {
-        this.msgToken =
-          "El token debe contener más de 3 letras y maximo 6 letras";
+        this.msgToken = "El token debe contener más de 3 letras y maximo 6 letras";
         this.classToken = "redColor incorrect";
       }
-      this.token =
-        this.token.length === 1 ? this.token.toUpperCase() : this.token;
+      this.token = this.token.length === 1 ? this.token.toUpperCase() : this.token;
     },
   },
   computed: {
@@ -119,34 +110,30 @@ export default {
       }
     },
     confirma() {
-      axios
-        .get("api/confirma-preregistro.json?token=" + this.token, {
-          token: this.token,
-        })
-        .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          console.log(response.status);
-          this.modalShowsError = false;
-          this.modalTitulo = "Registro exitoso";
-          this.modalMessage =
-            "Has quedado registrado en el sistema, ahora puedes iniciar sesión !";
-        })
-        .catch((error) => {
-          this.modalShowsError = true;
-          this.modalTitulo = "Error en el proceso de confirmación";
-          this.modalMessage = error;
-          if (error.response) {
-            this.modalMessage = error.response.data["exceptionLongDescription"];
-          }
-        })
-        .finally(this.$modal.show("aviso"));
+      axios.get("api/confirma-preregistro.json?token=" + this.token, {
+        token: this.token,
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        console.log(response.status);
+        this.modalShowsError = false;
+        this.modalTitulo = "Registro exitoso";
+        this.modalMessage = "Has quedado registrado en el sistema, ahora puedes iniciar sesión !";
+      })
+      .catch((error) => {
+        this.modalShowsError = true;
+        this.modalTitulo = "Error en el proceso de confirmación";
+        this.modalMessage = error;
+        if (error.response) {
+          this.modalMessage = error.response.data["exceptionLongDescription"];
+        }
+      })
+      .finally(this.$modal.show("aviso"));
     },
   },
 };
 </script>
-
-
 
 <style>
 hr.dashed {
