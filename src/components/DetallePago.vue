@@ -284,6 +284,7 @@
           <div class="row">
             <div class="col-sm-3">
               <small class="text-secondary">Pagar con</small>
+
             </div>
             </div>
           <div class="row mt-4">
@@ -309,6 +310,7 @@
                         <div class="card centra" style="width: 400px;">
                           <div class="card-body text-center">
                             <h5>{{cartera}}</h5>
+                            <img :src="'data:image/jpeg;base64,'+getQR"/>
                           </div>
                           </div>
                         <div class="row my-4 text-center">
@@ -326,17 +328,14 @@
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>
+
 
 </template>
 
@@ -366,10 +365,10 @@ export default {
       showPagos:false,
 
       anuncio : {id : 2},
-      usuario : {id : 1},
-      //usuario : store.state.estado.usuarioDetalles,
-      usuarioDetalle: {id : 1, nombre: "Ana Luisa", apellidoPaterno: "Castrejon"},
-      //usuarioDetalle: store.state.estado.usuarioDetalles,
+      usuario : {id : 7},
+      //usuario : this.$store.state.session.usuario,
+      usuarioDetalle: {id : 7, nombre: "Ana Luisa", apellidoPaterno: "Castrejon"},
+      //usuarioDetalle: this.$store.state.session.usuarioDetalles,
 
       nombreMascota: "Camaleon pantera macho 13 meses",
       precio: 60,
@@ -382,7 +381,7 @@ export default {
 
       nuevaDireccion: {
         id : 0,
-        idUsuario : 1, //info del store
+        idUsuario : 7, // this.$store.state.session.usuario.id
         nombre : "store.state.estado.usuarioDetalle.nombre"+"store.state.estado.usuarioDetalle.apellidoPaterno",
         tipo : 1,
         calleNumero : null,
@@ -401,7 +400,7 @@ export default {
 
       dirText : "",
       paqText : "",
-      cartera : ''
+      cartera : '',
     }
   },
 
@@ -410,6 +409,13 @@ export default {
       for(const e of this.paqueterias){
         if(e.id == value){
           this.paqText = '<b><span class="format">'+ e.nombre + '</span></b>' + ' <span style="font-size: 12px;">'+ e.breveDescripcion + '</span>';
+        }
+      }
+    },
+    dirSelected(value){
+      for(const e of this.direcciones){
+        if(e.id == value){
+          this.dirText = this.procesada(e);
         }
       }
     }
@@ -422,7 +428,15 @@ export default {
         console.log(response.data);
       }).catch(e => {
         console.log(e);
-      })
+      });
+      this.getQR();
+    },
+    getQR(){
+      axios.get('/api/qr/'+this.cartera+ '.json', {}).then(response => {
+        console.log(response.data);
+        return response.data;
+
+      });
     },
     invierteVista() {
       this.showPagos=this.showDetalles;
@@ -552,7 +566,6 @@ export default {
           + obj.municipioNombre + ", "
           + obj.estadoNombre + ","
           + obj.paisNombre;
-      this.dirText = dir;
       return dir;
     },
 
