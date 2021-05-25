@@ -138,6 +138,9 @@ export default {
 .ancho {
     max-width: 390px;
 }
+.notValid{
+  color:rgb(235, 74, 74);
+}
 hr.dashed {
   border-top: 3px dashed #bbb;
 }
