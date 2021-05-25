@@ -87,8 +87,8 @@ export default {
     token() {
       this.msgToken = "";
       this.classToken = "greenColor correct";
-      if (this.token.trim().length < 3) {
-        this.msgToken = "El token debe contener más de 3 letras y maximo 6 letras";
+      if (this.token.trim().length != 6) {
+        this.msgToken = "El token debe contener exactamanete 6 caracteres";
         this.classToken = "redColor incorrect";
       }
       this.token = this.token.length === 1 ? this.token.toUpperCase() : this.token;
@@ -96,7 +96,7 @@ export default {
   },
   computed: {
     habilitaBoton: function(){
-      var dato = true && this.token && this.token.length>2
+      var dato = true && this.token && this.token.length==6
       return !dato;
     }
   },
