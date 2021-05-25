@@ -96,8 +96,7 @@ export default {
   },
   computed: {
     habilitaBoton: function(){
-      var dato = true 
-      && this.token && this.token.length>2
+      var dato = true && this.token && this.token.length>2
       return !dato;
     }
   },
