@@ -365,9 +365,9 @@ export default {
       showPagos:false,
 
       anuncio : {id : 2},
-      usuario : {id : 7},
+      usuario : {id : 1},
       //usuario : this.$store.state.session.usuario,
-      usuarioDetalle: {id : 7, nombre: "Ana Luisa", apellidoPaterno: "Castrejon"},
+      usuarioDetalle: {id : 1, nombre: "Ana Luisa", apellidoPaterno: "Castrejon"},
       //usuarioDetalle: this.$store.state.session.usuarioDetalles,
 
       nombreMascota: "Camaleon pantera macho 13 meses",
@@ -381,7 +381,7 @@ export default {
 
       nuevaDireccion: {
         id : 0,
-        idUsuario : 7, // this.$store.state.session.usuario.id
+        idUsuario : 1, // this.$store.state.session.usuario.id
         nombre : "store.state.estado.usuarioDetalle.nombre"+"store.state.estado.usuarioDetalle.apellidoPaterno",
         tipo : 1,
         calleNumero : null,
