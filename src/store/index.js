@@ -12,6 +12,7 @@ const store = new Vuex.Store({
             correo: '',
             ultimoAcceso: '',
             roles: [],
+            idUser: 0,
             jwt: '' //  jwt='' => signed: false,
         }
     },

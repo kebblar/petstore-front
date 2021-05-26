@@ -103,7 +103,7 @@
                   Dirección de envío
                 </button>
               </h5>
-
+{{session}}
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
               <div class="card-body">
                 <div class="row">
@@ -117,7 +117,7 @@
                           <input type="radio" v-model="dirSelected" name="dirSelected" :value="dir.id">
                         </div>
                         <div class="col">
-                          <b style="font-size: 14px;">{{usuarioDetalle.nombre}}</b>
+                          <b style="font-size: 14px;">{{nuevaDireccion.nombre}}</b>
                           <div class="w-100 d-none d-md-block"></div>
                           <p class="shortSpace">{{procesada(dir)}}</p>
                         </div>
@@ -310,7 +310,7 @@
                         <div class="card centra" style="width: 400px;">
                           <div class="card-body text-center">
                             <h5>{{cartera}}</h5>
-                            <img :src="'data:image/jpeg;base64,'+getQR"/>
+                            <img :src="'data:image/jpeg;base64,'+imagenQR"/>
                           </div>
                           </div>
                         <div class="row my-4 text-center">
@@ -343,7 +343,7 @@
 
 import axios from 'axios';
 import router from '../router'
-//import store from '../store'
+import store from '../store'
 
 export default {
   name: "DetallePago.vue",
@@ -351,7 +351,7 @@ export default {
   mounted () {
     this.getDirecciones()
     this.getPaqueterias()
-    //this.idAnuncio = this.$route.query.test
+    //this.idAnuncio = this.route.query.test
 
     const paypal = document.createElement("script");
     paypal.src = "https://www.paypal.com/sdk/js?client-id=ASKLSAfRgs3tG08RNVRpe6DwG0NMuHHsXqEMfIW65vjYyF2-cI8JQW6ylnWA-eBhFgx0hd-VLIp4yPFP&disable-funding=mercadopago";
@@ -365,10 +365,7 @@ export default {
       showPagos:false,
 
       anuncio : {id : 2},
-      usuario : {id : 1},
-      //usuario : this.$store.state.session.usuario,
-      usuarioDetalle: {id : 1, nombre: "Ana Luisa", apellidoPaterno: "Castrejon"},
-      //usuarioDetalle: this.$store.state.session.usuarioDetalles,
+      usuario : store.state.session.idUser,
 
       nombreMascota: "Camaleon pantera macho 13 meses",
       precio: 60,
@@ -381,8 +378,8 @@ export default {
 
       nuevaDireccion: {
         id : 0,
-        idUsuario : 1, // this.$store.state.session.usuario.id
-        nombre : "store.state.estado.usuarioDetalle.nombre"+"store.state.estado.usuarioDetalle.apellidoPaterno",
+        idUsuario : store.state.session.userId,
+        nombre : store.state.session.nombreCompleto,
         tipo : 1,
         calleNumero : null,
         colonia : null,
@@ -401,6 +398,7 @@ export default {
       dirText : "",
       paqText : "",
       cartera : '',
+      imagenQR : []
     }
   },
 
@@ -423,21 +421,21 @@ export default {
 
   methods: {
     getCartera(){
-      axios.get('/api/wallet/'+this.usuario.id+'.json', {}).then(response => {
+      axios.get('/api/wallet/'+this.usuario+'.json', {}).then(response => {
         this.cartera = response.data;
-        console.log(response.data);
+        this.getQR(response.data);
       }).catch(e => {
         console.log(e);
       });
-      this.getQR();
-    },
-    getQR(){
-      axios.get('/api/qr/'+this.cartera+ '.json', {}).then(response => {
-        console.log(response.data);
-        return response.data;
 
+    },
+
+    getQR(obj){
+      axios.get('/api/qr-base64/'+obj).then(response => {
+        this.imagenQR = response.data;
       });
     },
+
     invierteVista() {
       this.showPagos=this.showDetalles;
       this.showDetalles=!this.showDetalles;
@@ -469,7 +467,7 @@ export default {
     generaBtcOrden(){
       let data = {
         id : 0,
-        idUsuario : this.usuario.id,
+        idUsuario : this.usuario,
         idDireccion: this.dirSelected,
         wallet : this.cartera,
         idAnuncio : this.anuncio.id,
@@ -489,7 +487,7 @@ export default {
       let data = {
                   idMetodoPago : 1,
                   cveOrdenCompra: order.id,
-                  idUsuario : this.usuario.id,
+                  idUsuario : this.usuario,
                   idDireccion : this.dirSelected,
                   idPaqueteria : this.paqSelected,
                   descripcion: this.nombreMascota,
@@ -579,7 +577,7 @@ export default {
       });
     },
     getDirecciones(){
-      axios.get('/api/direcciones-con-nombre/'+this.usuario.id+'.json', {}).then(response => {
+      axios.get('/api/direcciones-con-nombre/'+this.usuario+'.json', {}).then(response => {
         console.log(response.data);
         this.direcciones=response.data;
       }).catch(e => {
@@ -590,14 +588,14 @@ export default {
     reiniciaDatos(){
       this.nuevaDireccion = {
         id : 0,
-        nombre : "store.state.estado.usuarioDetalle.nombre"+"store.state.estado.usuarioDetalle.apellidoPaterno",
+        nombre : store.state.session.nombreCompleto,
         tipo : 1,
         calleNumero : null,
         colonia : null,
         referencias : null,
         cp : null,
-        idPais : 1,
-        idEstado : null,
+        idPais : 0,
+        idEstado : -1,
         idMunicipio : null
       }
     }
@@ -642,7 +640,6 @@ hr.dotted {
   box-shadow: 1px 1px 3px #d8dcdd;
 }
 .shortSpace{
-  line-height: 98%;
   font-size: 12px;
 }
 .separation{

@@ -115,11 +115,13 @@ export default {
             }).then(response => {
                 var rd = response.data;
                 var ud = rd.usuarioDetalle;
+                console.log(response.data);
                 store.commit('setSession', {
                     nombreCompleto: ud.nombre + ' ' + ud.apellidoPaterno + ' ' + ud.apellidoMaterno,
                     roles:        rd.roles,
                     correo:       rd.correo,
                     ultimoAcceso: rd.ultimoAcceso,
+                    idUser:       ud.id,
                     jwt:          rd.jwt
                 });
                 const target = this.detecta(rd.roles);

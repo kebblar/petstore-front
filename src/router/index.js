@@ -90,7 +90,7 @@ const routes = [
     path: '/ui/detalle-pago',
     name: 'detalle-pago',
     component: DetallePago,
-    meta: { role: ['admin','user'] }
+    meta: { allowedRoles: ['admin','user'] }
   },
   {
     path: '/',
@@ -106,7 +106,7 @@ const routes = [
     path: '/ui/compras',
     name: 'compras',
     component: HistorialPedidos,
-    meta: { role: ['admin','user'] }
+    meta: { allowedRoles: ['admin','user'] }
   },
   {
     path: '/ui/reg',
@@ -153,7 +153,7 @@ const routes = [
     path: '/ui/admin-compras',
     name: 'AdministracionCompras',
     component: AdministracionCompras,
-    meta: { role: ['user'] }
+    meta: { allowedRoles: ['user'] }
   },
 
 ]

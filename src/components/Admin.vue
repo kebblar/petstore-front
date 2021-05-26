@@ -8,6 +8,7 @@
       <li>{{d}}</li>
       <li>{{e}}</li>
       <li>{{f}}</li>
+      <li>{{g}}</li>
     </ul>
   </div>
 </template>
@@ -23,7 +24,8 @@ export default {
           c: store.state.session.jwt,
           d: store.state.session.ultimoAcceso,
           e: store.state.session.roles,
-          f: store.state.destination
+          f: store.state.destination,
+          g: store.state.session.idUser
         }
     },
 }
