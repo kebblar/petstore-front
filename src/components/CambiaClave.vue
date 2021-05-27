@@ -101,6 +101,7 @@ export default {
             this.clavesDiferentes = '';
             this.confirmaClass ='greenColor correct';
             this.info='';
+            this.claveClass='';
 
             if(this.clave != this.confirma) {
                 this.clavesDiferentes = 'La clave y su confirmación no coinciden';
@@ -126,6 +127,7 @@ export default {
                 this.modalMessage = error;
                 if(error.response) {
                     this.info = error.response.data['strengthViolations'];
+                    this.claveClass='redColor incorrect';
                 } else {
                     this.$modal.show('aviso');
                 }
@@ -141,7 +143,6 @@ export default {
   max-width: 460px;
 }
 .small {
-  font-size: 8px;
   color:#ff0000;
 }
 .aceptar {
