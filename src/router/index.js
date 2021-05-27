@@ -90,17 +90,12 @@ const routes = [
     path: '/ui/detalle-pago',
     name: 'detalle-pago',
     component: DetallePago,
-    meta: { allowedRoles: ['admin','user'] }
+    meta: { allowedRoles: ['admin','user','normal'] }
   },
   {
     path: '/',
     name: 'inicio',
     component: Inicio
-  },
-  {
-    path: '/ui/detalle-pago',
-    name: 'detalle-pago',
-    component: DetallePago
   },
   {
     path: '/ui/compras',
@@ -153,7 +148,7 @@ const routes = [
     path: '/ui/admin-compras',
     name: 'AdministracionCompras',
     component: AdministracionCompras,
-    meta: { allowedRoles: ['user'] }
+    meta: { allowedRoles: ['admin'] }
   },
 
 ]

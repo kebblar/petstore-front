@@ -378,7 +378,7 @@ export default {
 
       nuevaDireccion: {
         id : 0,
-        idUsuario : store.state.session.userId,
+        idUsuario : store.state.session.idUser,
         nombre : store.state.session.nombreCompleto,
         tipo : 1,
         calleNumero : null,
