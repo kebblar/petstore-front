@@ -38,7 +38,8 @@ const routes = [
   {
     path: '/ui/cambia-clave',
     name: 'cambia-clave',
-    component: CambiaClave
+    component: CambiaClave,
+    meta: { allowedRoles: ['normal'] }
   },
   {
     path: '/ui/mis-compras',
