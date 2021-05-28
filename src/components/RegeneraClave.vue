@@ -96,7 +96,7 @@ export default {
       this.classToken = "greenColor correct";
       if (this.token.trim().length < 6) {
         this.msgToken =
-          "El token debe contener máximo 6 dígitos";
+          "El token debe contener máximo 6 dígitos ";
         this.classToken = "redColor incorrect";
       }
       this.token =
