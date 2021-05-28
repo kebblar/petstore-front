@@ -7,7 +7,7 @@
       <div class="card-body align">
         <hr style="background-color:black">
           <div class="container">
-            <div class="row" v-for="compra in compras" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
+            <div class="row" v-for="(compra, index) in compras" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
                     <div class="container" >
                         <div class="row">
@@ -22,7 +22,7 @@
                                 <a :href="compra.urlFactura" class="btn btn-primary btn-sm">Factura</a>
                             </div>
                             <div class="col-sm">
-                              <button  :disabled="compra.estadoEnvio" @click="sent(compra.idCompra,$event)" style="margin-left:-10%" class="btn btn-primary btn-sm">¿Enviado?</button>
+                              <button :disabled="compra.estadoEnvio" @click="sent(compra.idCompra,index)" style="margin-left:-10%" class="btn btn-primary btn-sm">¿Enviado?</button>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,6 @@
                     <p >Compra realizada el {{compra.fechaCompra}}</p>
                     <p style="color:blue;margin-bottom:0%">Enviar a:</p>
                     <p style="color:blue;font-size:small;margin-bottom:0%">{{compra.calleNumero}}, {{compra.colonia}}, cp: {{compra.cp}}</p>
-                    <a href="ui/chat" class="btn btn-primary btn-md">Enviar mensaje al comprador</a>
                 </div>
             </div>
           </div>
@@ -44,7 +43,7 @@
             :width="480"
             :height="260">
             <div class="card">
-                <div class="card-header">Advertencia del sistema</div>
+                <div class="card-header" style="text-align:center">Advertencia del sistema</div>
                 <div class="card-body">
                     <h5 class="card-title">{{titulo}}</h5>
                     <p class="card-text">{{ descripcion }}</p>
@@ -89,23 +88,22 @@ methods: {
           this.descripcion = "Ha ocurrido un error al cargar los datos, por favor vuelva a intentarlo más tarde."
       })
     },
-    sent(idCompra){
+    sent(idCompra, index){
       axios.get('api/administracion-compras-update.json/'.concat(1).concat('/').concat(idCompra)).then(() => {
+          console.log(this.compras);
           this.$modal.show('aviso');
-          this.titulo = "Exito!"
+          this.titulo = "Exito!";
+          this.compras[index].estadoEnvio = true;
           this.descripcion = "Se ha enviado el paquete"
       }).catch(() => {
           this.$modal.show('aviso');
           this.titulo = "Error!"
           this.descripcion = "Ha ocurrido un error de nuestro lado, por favor vuelva a intentarlo más tarde."
       })
-      this.compras = [];
-      this.getHistorial();
     },
 },
 
 }
-'create view administracion_compras(estado_envio,calle_numero,colonia,cp,id_direccion,cve_orden_compra,id_mascota,nombre_anuncio,recibo,id_compra,fecha_hora_comprar) as (SELECT estado_envio,calle_numero,colonia,cp,direccion.id as id_direccion,cve_orden_compra,id_mascota,nombre_anuncio,recibo,id_compra,fecha_hora_comprar FROM direccion INNER JOIN ((SELECT estado_envio,id_direccion_envio,cve_orden_compra,id_mascota,nombre_anuncio,recibo,orden_compra.id as id_compra,fecha_hora_comprar FROM orden_compra INNER JOIN anuncio ON anuncio.id = orden_compra.id_anuncio) as s1) ON s1.id_direccion_envio = direccion.id);';
 </script>
 
 <style>
