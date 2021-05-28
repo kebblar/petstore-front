@@ -25,6 +25,8 @@ import MisCompras from '@/components/MisCompras'
 import MisDirecciones from '@/components/MisDirecciones'
 import MisMetodosPago from '@/components/MisMetodosPago'
 
+import DetalleProducto from '@/components/DetalleProducto'
+
 Vue.use(Router);
 
 const routes = [
@@ -117,6 +119,11 @@ const routes = [
     path: '/ui/regenera-clave',
     name: 'regenera-clave',
     component: RegeneraClave
+  },
+  {
+    path: '/ui/detalle-producto/:idp',
+    name: 'detalle',
+    component: DetalleProducto,
   }
 ]
 
