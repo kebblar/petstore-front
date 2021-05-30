@@ -27,6 +27,8 @@ import MisMetodosPago from '@/components/MisMetodosPago'
 
 import DetalleProducto from '@/components/DetalleProducto'
 
+import AdminAnuncio from '@/components/admin/Anuncio'
+
 Vue.use(Router);
 
 const routes = [
@@ -125,6 +127,12 @@ const routes = [
     path: '/ui/detalle-producto/:idp',
     name: 'detalle',
     component: DetalleProducto,
+  },
+  {
+    path: '/ui/admin-anuncio/:id?',
+    name: 'anuncio',
+    component: AdminAnuncio,
+    meta: { allowedRoles: ['admin'] }
   }
 ]
 
