@@ -147,7 +147,7 @@
           </div>
         </div>
         <hr class="dotted" />
-        <input @click='modal()' type="button" class="btn btn-info" value="Modal" />
+        <input @click='modal()' type="button" class="btn btn-info" value="Modals" />
                                 
         <div>
           <h6 style="text-align: center; font-size: 14px; font-weight: bold">
@@ -283,6 +283,7 @@
         </div>
       </div>
     </div>
+    <vue-confirm-dialog></vue-confirm-dialog>
   </div>
 </template>
 
@@ -291,8 +292,14 @@ import Vue from "vue";
 import axios from "axios";
 import VueToast from "vue-toast-notification";
 import router from '../router';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import "vue-toast-notification/dist/theme-sugar.css";
 import VueConfirmDialog from 'vue-confirm-dialog';
+
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 Vue.use(VueConfirmDialog);
 Vue.use(VueToast);
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
@@ -421,7 +428,7 @@ export default {
         });
     },
     modal(){
-    //  console.log(idAnuncio);
+      console.log("Confirmar");
       this.$confirm({
       title: 'Are you sure?',
       message: 'Are you sure you want to logout?',
