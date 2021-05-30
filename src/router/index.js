@@ -25,6 +25,9 @@ import MisCompras from '@/components/MisCompras'
 import MisDirecciones from '@/components/MisDirecciones'
 import MisMetodosPago from '@/components/MisMetodosPago'
 
+
+import ConsultaAnuncio from '@/components/ConsultaAnuncio'
+
 Vue.use(Router);
 
 const routes = [
@@ -118,6 +121,12 @@ const routes = [
     path: '/ui/regenera-clave',
     name: 'regenera-clave',
     component: RegeneraClave
+  },
+  {
+    path: '/ui/consulta-anuncio',
+    name: 'consulta-anuncio',
+    component: ConsultaAnuncio,
+    meta: { allowedRoles: ['admin','user'] }
   }
 ]
 
