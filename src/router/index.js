@@ -26,7 +26,7 @@ import MisDirecciones from '@/components/MisDirecciones'
 import MisMetodosPago from '@/components/MisMetodosPago'
 
 import DetalleProducto from '@/components/DetalleProducto'
-
+import ConsultaAnuncio from '@/components/ConsultaAnuncio'
 import AdminAnuncio from '@/components/admin/Anuncio'
 
 Vue.use(Router);
@@ -133,6 +133,12 @@ const routes = [
     name: 'anuncio',
     component: AdminAnuncio,
     meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/consulta-anuncio',
+    name: 'consulta-anuncio',
+    component: ConsultaAnuncio,
+    meta: { allowedRoles: ['admin','user'] }
   }
 ]
 
