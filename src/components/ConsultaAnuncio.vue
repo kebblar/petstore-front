@@ -146,9 +146,7 @@
             </button>
           </div>
         </div>
-        <hr class="dotted" />
-        <input @click='modal()' type="button" class="btn btn-info" value="Modals" />
-                                
+        <hr class="dotted" />                        
         <div>
           <h6 style="text-align: center; font-size: 14px; font-weight: bold">
             Resultado de la búsqueda
@@ -226,7 +224,7 @@
                               <div v-if="entry.descripcionEstatus != 'Eliminado'">
                                 <p class="h6 mb-1">
                                   <b-button
-                                    @click='modal(entry.id)'
+                                    @click='modalEliminar(entry.id,entry.sku,entry.numPaginas)'
                                     title="borrar anuncio"
                                     class="btn btn-danger btn-xs m-2"
                                   >
@@ -374,7 +372,7 @@ export default {
   },
   created() {
     this.anuncios = [];
-    this.titulo = ""
+    this.titulo = "";
   },
   computed: {
     tablaVacia: function () {
@@ -427,44 +425,57 @@ export default {
           this.rows = response.data.totalAnuncios;
         });
     },
-    modal(){
-      console.log("Confirmar");
+    modalEliminar(idAnuncio,idSKU){
+      console.log(idAnuncio);
+      console.log("Eliminar");
       this.$confirm({
-      title: 'Are you sure?',
-      message: 'Are you sure you want to logout?',
+      title: 'Eliminar anuncio',
+      message: '¿Estás seguro que quieres eliminar el anuncio?    '+idSKU,
         button: {
-          yes: 'Yes',
-          no: 'Cancel'
+          yes: 'Si',
+          no: 'Cancelar'
         },
         callback: confirm => {
-            // ...do something
           if (confirm == true) {
-           // console.log("Confirmado? true", idAnuncio);
+            this.eliminar(idAnuncio,idSKU);
+            console.log("Confirmado? true", idAnuncio);
           }else{
-           // console.log("Confirmado? false", idAnuncio);
+            //console.log("Confirmado? false", idAnuncio);
           }  
         }
       })
     },
-    borrar(idAnuncio) {
+    eliminar (idAnuncio,idSKU) {
         this.loading = true;
-        console.log(idAnuncio);
+        console.log(idAnuncio,idSKU);
         axios.delete('/api/anuncios.json?id='+ idAnuncio, { 
           id : idAnuncio
         }).then(response => {
           console.log(response);
           console.log(response.data);
           console.log(response.status);
-          this.modalShowsError = false;
-          this.modalTitulo ='Borrado exitoso';
-          this.modalMessage = 'Se ha borrado exitosamente el anuncio del sistema.'; 
-          router.push('confirma-borrar');
+          let msgEliminar =
+            "<center>Anuncio eliminado correctamente</center>";
+          Vue.$toast.open({
+              message: msgEliminar,
+              type: "success",
+              duration: 7000,
+              position: "top"
+          });
+          router.go('/ui/consulta-anuncio');
         }).catch(error => {
           this.msgErr = error;
           if(error.response) {
               this.msgErr = error.response.data['exceptionLongDescription'];
           }
-          this.$modal.show('mensaje-login');
+          let msgEliminar =
+            "<center>El anuncio no fue eliminado correctamente</center>";
+          Vue.$toast.open({
+            message: msgEliminar,
+            type: "error",
+            duration: 7000,
+            position: "top",
+          });
         }).finally(
           () => this.loading = false
         );
