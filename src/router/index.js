@@ -28,10 +28,16 @@ import MisMetodosPago from '@/components/MisMetodosPago'
 import DetalleProducto from '@/components/DetalleProducto'
 import ConsultaAnuncio from '@/components/ConsultaAnuncio'
 import AdminAnuncio from '@/components/admin/Anuncio'
+import ConsultaAnunciosPublico from '@/components/ConsultaAnunciosPublico'
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/consulta-anuncios-publico',
+    name: 'consulta-anuncios-publico',
+    component: ConsultaAnunciosPublico
+  },
   {
     path: '/ui/cambia-datos-personales',
     name: 'cambia-datos-personales',
