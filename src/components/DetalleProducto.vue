@@ -69,11 +69,11 @@
                     </b-table>
                   </div>
                   <div>
-                    <b-button block variant="success">
+                    <b-button block variant="success"  @click="comprar">
                       <b-icon style="margin-right: 2%"
                         icon="check-circle-fill"
                         aria-hidden="true"></b-icon>Comprar</b-button>
-                    <b-button block variant="danger">
+                    <b-button block variant="danger" @click="regresar">
                       <b-icon style="margin-right: 2%"
                         icon="arrow-left-circle-fill"
                         aria-hidden="true"></b-icon>Regresar</b-button>
@@ -96,7 +96,7 @@
   } from "hooper";
   import "hooper/dist/hooper.css";
   import axios from 'axios';
-
+  import router from '../router'
   export default {
     name: "DetalleProducto",
     components: {
@@ -121,10 +121,7 @@
         precio:'',
         descripcion:'',
         atributos :[],
-        imagenes: [  
-          {'uuid':'https://picsum.photos/400/400/?image=7'},
-          {'uuid':'https://picsum.photos/400/400/?image=10'}
-          ],
+        imagenes: [],
         fields: [{
             key: 'caracteristica',
             label: 'Caracteristicas'
@@ -147,10 +144,10 @@
       cargarDetalle(idProd){
         console.log(idProd);
         axios.get('/api/anuncios/'+idProd+'.json', {}).then(response => {
+          this.error=false;
           this.titulo=response.data.titulo;
           this.precio=response.data.precio;
           this.descripcion=response.data.descripcion;
-         // let etiqueta={ 'id':1 , 'labelAtributo':'PESO','valor':1,'labelValor': '2kg'};
           if(response.data.atributos!=null){
             response.data.atributos.forEach(i=>{
               console.log("indice: "+i.descAtributo+", valor: "+i.descValor);
@@ -172,6 +169,16 @@
           this.descripcionError=e.response.data.exceptionLongDescription;
         });
       },
+      comprar(){
+        let id=this.idprod;
+        console.log("Va a la pantalla de compras: "+id);
+        router.push({path:"ui/detalle-pago"});
+      },
+      regresar(){
+        console.log("regresa a busqueda");
+        //router.go(-1);
+        router.back()
+      }
     },
   }
 </script>
