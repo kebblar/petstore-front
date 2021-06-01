@@ -97,9 +97,7 @@ methods: {
         this.$modal.hide('aviso');
     },
     getHistorial(){
-      axios.post('api/historial-compras.json/', {
-            mail: this.$store.state.session.correo,
-      }).then(response => {
+      axios.get('api/historial-compras.json/'.concat(this.$store.state.session.idUser)).then(response => {
           response.data.forEach((value) => {
             if(!value.estadoEnvio){
               this.comprasActivas.push(value);
