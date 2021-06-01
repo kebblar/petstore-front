@@ -108,8 +108,7 @@
     },
    mounted () {
       this.cargarDetalle(this.idprod),
-      //this.ruta = process.env.VUE_APP_URL+"upload/";
-      this.ruta = "http://localhost:8081/upload/";
+      this.ruta = process.env.VUE_APP_URL+"upload/";
       this.esAdmin = store.state.session.roles[0].nombre == 'admin';
     },
     data() {

@@ -196,12 +196,9 @@ Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 
 export default {
   name: "ConsultaAnunciosPublico.vue",
-
   mounted () {
-    this.ruta = "http://localhost:8081/upload/";
-    //this.ruta = process.env.VUE_APP_URL+"upload/";
+    this.ruta = process.env.VUE_APP_URL+"upload/";
   },
-
   data(){
     return {
 
