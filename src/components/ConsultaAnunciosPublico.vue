@@ -316,7 +316,7 @@ export default {
 
       currentPage: null,
       rows: null,
-      perPage: 1
+      perPage: 9
     }
   },
   created(){
