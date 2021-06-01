@@ -217,7 +217,7 @@ import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 import Imagen from '@/components/admin/Imagen';
-
+import moment from 'moment';
 import Vue from 'vue';
 import axios from 'axios';
 
@@ -425,8 +425,12 @@ export default {
           this.sku = anuncio.sku;
           this.titulo = anuncio.titulo;
           this.descripcion = anuncio.descripcion;
-          this.fechaInicioVigencia = anuncio.fechaInicioVigencia;
-          this.fechaFinVigencia = anuncio.fechaFinVigencia;
+          if(anuncio.fechaInicioVigencia != null){
+            this.fechaInicioVigencia = moment(anuncio.fechaInicioVigencia).format('YYYY-MM-DD');
+          }
+          if(anuncio.fechaFinVigencia != null){
+            this.fechaFinVigencia = moment(anuncio.fechaFinVigencia).format('YYYY-MM-DD');
+          }
           this.idCategoria = anuncio.idCategoria;
           this.precio = anuncio.precio;
           this.atributos = anuncio.atributos;
@@ -688,9 +692,6 @@ export default {
   .required:after {
     content:"*";
     color: red;
-  }
-  .ancho {
-    max-width: 60%;
   }
 
   .notValid{

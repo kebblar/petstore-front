@@ -26,18 +26,13 @@ import MisDirecciones from '@/components/MisDirecciones'
 import MisMetodosPago from '@/components/MisMetodosPago'
 
 import DetalleProducto from '@/components/DetalleProducto'
-import ConsultaAnuncio from '@/components/ConsultaAnuncio'
+import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
 import AdminAnuncio from '@/components/admin/Anuncio'
 import ConsultaAnunciosPublico from '@/components/ConsultaAnunciosPublico'
 
 Vue.use(Router);
 
 const routes = [
-  {
-    path: '/ui/consulta-anuncios-publico',
-    name: 'consulta-anuncios-publico',
-    component: ConsultaAnunciosPublico
-  },
   {
     path: '/ui/cambia-datos-personales',
     name: 'cambia-datos-personales',
@@ -141,10 +136,15 @@ const routes = [
     meta: { allowedRoles: ['admin'] }
   },
   {
-    path: '/ui/consulta-anuncio',
+    path: '/ui/admin-consulta-anuncio',
     name: 'consulta-anuncio',
-    component: ConsultaAnuncio,
-    meta: { allowedRoles: ['admin','user'] }
+    component: AdminConsultaAnuncio,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/consulta-anuncios-publico',
+    name: 'consulta-anuncios-publico',
+    component: ConsultaAnunciosPublico
   }
 ]
 

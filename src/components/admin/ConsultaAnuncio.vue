@@ -2,7 +2,7 @@
   <div class="ancho centra">
     <div class="card letrasBusqueda" style="width:900px;">
       <div class="card-header">
-        <h5 class="control-label">Consultar anuncios</h5>
+        <h5 class="control-label">Administración de anuncios</h5>
       </div>
       <div class="card-body align">
         <div class="form-row form-group">
@@ -198,6 +198,7 @@
                                   class="btn btn-success btn-xs m-2"
                                 >
                                   <b-icon
+                                    @click='verAnuncio(entry.id)'
                                     icon="eye-fill"
                                     aria-hidden="false"
                                   ></b-icon>
@@ -289,7 +290,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueToast from "vue-toast-notification";
-import router from '../router';
+import router from '../../router';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -462,7 +463,7 @@ export default {
               duration: 7000,
               position: "top"
           });
-          router.go('/ui/consulta-anuncio');
+          router.go('/ui/admin-consulta-anuncio');
         }).catch(error => {
           this.msgErr = error;
           if(error.response) {
@@ -480,24 +481,26 @@ export default {
           () => this.loading = false
         );
       },
+    verAnuncio(idAnuncio){
+      this.loading = true;
+      router.push({path:'/ui/detalle-producto/'+idAnuncio}).catch(()=>{});
+    },
     editarAnuncio(idAnuncio) {
         this.loading = true;
-        console.log(idAnuncio);
         router.push({path:'/ui/admin-anuncio/'+idAnuncio}).catch(()=>{});
     },
     crearAnuncio(){
         this.loading = true;
         router.push('/ui/admin-anuncio').catch(()=>{});
     }
-  
   },
 };
 </script>
 
 <style>
-hr.dotted {
+/* hr.dotted {
   border-top: 2px dotted #bbb;
-}
+} */
 .shadowing {
   box-shadow: 1px 1px 3px #d8dcdd;
 }

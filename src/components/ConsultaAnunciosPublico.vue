@@ -122,9 +122,9 @@
               </b-button>
             </div>
             <div >
-              <b-card-group v-for="(entry, i) in anuncios" :key="i" class="inline padding" v-bind:class="{ 'col-md-4': isActive, 'col-md-12': notActive }"> 
-                <b-card :title=" entry.titulo " :img-src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top >
-                <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
+              <b-card-group  v-for="(entry, i) in anuncios" :key="i" class="inline padding" v-bind:class="{ 'col-md-4': isActive, 'col-md-12': notActive }"> 
+                <b-card v-if="entry.imagenes != null" :title=" entry.titulo " :img-src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top >
+                  <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
                   <b-card-text>
                     {{ entry.descripcion }}
                   </b-card-text>
@@ -198,7 +198,8 @@ export default {
   name: "ConsultaAnunciosPublico.vue",
 
   mounted () {
-    this.ruta = process.env.VUE_APP_URL+"upload/";
+    this.ruta = "http://localhost:8081/upload/";
+    //this.ruta = process.env.VUE_APP_URL+"upload/";
   },
 
   data(){
@@ -318,7 +319,7 @@ export default {
 
       currentPage: null,
       rows: null,
-      perPage: 2,
+      perPage: 1
     }
   },
   created(){
@@ -472,28 +473,10 @@ export default {
 .padding {
   padding: 1%;
 }
-.form-row, .inline {
+.inline {
   display: inline-block!important;
 }
 
-hr.dotted {
-  border-top: 2px dotted #bbb;
-}
-.shadowing {
-  box-shadow: 1px 1px 3px #d8dcdd;
-}
-.shortSpace{
-  line-height: 98%;
-  font-size: 12px;
-}
-.separation{
-  font-size: 14px;
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-.letrasBusqueda{
-  font-size: 14px;
-}
 .estiloAcciones{
   font-size: 20px;
   line-height: 50px;
@@ -501,16 +484,13 @@ hr.dotted {
   width: 50px;
   height: 20px;
 }
-.pagination {
-  display: flex;
-  justify-content: center;
-}
+
 .ancho {
   max-width: 80%;
 }
 @media (max-width: 600px) {  
-.ancho {
-  max-width: 90%;
-}
-}
+  .ancho {
+    max-width: 90%;
+  }
+} 
 </style>

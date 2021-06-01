@@ -35,7 +35,7 @@
                 <hooper group="group1" style="height: 400px; padding: 2%">               
                   <slide v-for="imagen in imagenes" :key="imagen.uuid">
                     <b-card-img
-                      :src=imagen.uuid
+                      :src="ruta +imagen.uuid"
                       alt="Image"
                       class="rounded-0">
                     </b-card-img>
@@ -45,7 +45,7 @@
                 <hooper group="group1" :itemsToShow="4" :centerMode="true" style="padding: 1%">
                   <slide v-for="imagen in imagenes" :key="imagen.uuid">
                     <b-card-img
-                      :src=imagen.uuid
+                      :src="ruta +imagen.uuid"
                       alt="Image" 
                       style="width: 150px;">
                     </b-card-img>
@@ -69,7 +69,7 @@
                     </b-table>
                   </div>
                   <div>
-                    <b-button block variant="success"  @click="comprar">
+                    <b-button v-if="!esAdmin" block variant="success"  @click="comprar">
                       <b-icon style="margin-right: 2%"
                         icon="check-circle-fill"
                         aria-hidden="true"></b-icon>Comprar</b-button>
@@ -88,6 +88,7 @@
   </div>
 </template>
 <script>
+  import store from '../store'
   import {
     Hooper,
     Slide,
@@ -107,10 +108,13 @@
     },
    mounted () {
       this.cargarDetalle(this.idprod),
-      this.ruta = process.env.VUE_APP_URL+"upload/";
+      //this.ruta = process.env.VUE_APP_URL+"upload/";
+      this.ruta = "http://localhost:8081/upload/";
+      this.esAdmin = store.state.session.roles[0].nombre == 'admin';
     },
     data() {
       return {
+        esAdmin:false,
         slide: 0,
         sliding: null,
         error:true,
@@ -155,11 +159,12 @@
             });
           }
           if(response.data.imagenes!=null){
-            response.data.imagenes.forEach(i=>{
+            this.imagenes = response.data.imagenes;
+           /*  response.data.imagenes.forEach(i=>{
               console.log("imagen: "+this.ruta+""+i.uuid);
-              let itemImagen=[{'uuid':this.ruta+""+i.uuid}];
+             // let itemImagen=[{'uuid':this.ruta+""+i.uuid}];
               this.imagenes.push(itemImagen);
-            });
+            }); */
           }
         }).catch(e => {
           console.log(e);
