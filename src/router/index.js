@@ -179,6 +179,7 @@ function checaJwt (jwt, active) {
         roles:        [],
         correo:       '',
         ultimoAcceso: '',
+        idUser:        0,
         jwt:          '' // jwt: jwtPayload.exp
       });
       store.commit('setDestination', '/');
