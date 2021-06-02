@@ -78,6 +78,8 @@
 
 <script>
 import axios from 'axios';
+import store from '../store';
+
 export default {
   name: "HistorialPedidos.vue",
   data(){
@@ -97,7 +99,7 @@ methods: {
         this.$modal.hide('aviso');
     },
     getHistorial(){
-      axios.get('api/historial-compras.json/'.concat(this.$store.state.session.idUser)).then(response => {
+      axios.get('api/historial-compras.json/'.concat(store.state.session.idUser)).then(response => {
           response.data.forEach((value) => {
             if(!value.estadoEnvio){
               this.comprasActivas.push(value);
