@@ -24,6 +24,10 @@ import CambiaDatosPersonales from '@/components/CambiaDatosPersonales'
 import MisCompras from '@/components/MisCompras'
 import MisDirecciones from '@/components/MisDirecciones'
 import MisMetodosPago from '@/components/MisMetodosPago'
+import HistorialPedidos from '@/components/HistorialPedidos'
+import AdministracionCompras from '@/components/AdministracionCompras';
+import CompraConfirmada from '@/components/CompraConfirmada'
+
 
 Vue.use(Router);
 
@@ -55,6 +59,11 @@ const routes = [
     component: MisMetodosPago
   },
   {
+    path: '/ui/compra-confirmada',
+    name: 'compra-confirmada',
+    component: CompraConfirmada
+  },
+  {
     path: '/ui/regenera-clave-confirma',
     name: 'regenera-clave-confirma',
     component: RegeneraClaveConfirma
@@ -81,12 +90,24 @@ const routes = [
   },  {
     path: '/ui/detalle-pago',
     name: 'detalle-pago',
-    component: DetallePago
+    component: DetallePago,
+    meta: { allowedRoles: ['admin','user','normal'] }
   },
   {
     path: '/',
     name: 'inicio',
     component: Inicio
+  },
+  {
+    path: '/ui/compras',
+    name: 'compras',
+    component: HistorialPedidos,
+    meta: { allowedRoles: ['admin','user'] }
+  },
+  {
+    path: '/ui/reg',
+    name: 'reg',
+    component:  Reg
   },
   {
     path: '/ui/login',
@@ -118,7 +139,19 @@ const routes = [
     path: '/ui/regenera-clave',
     name: 'regenera-clave',
     component: RegeneraClave
-  }
+  },
+  {
+    path: '/ui/regenera-clave-confirma',
+    name: 'regenera-clave-confirma',
+    component: RegeneraClaveConfirma
+  },
+  {
+    path: '/ui/admin-compras',
+    name: 'AdministracionCompras',
+    component: AdministracionCompras,
+    meta: { allowedRoles: ['admin'] }
+  },
+
 ]
 
 const router = new Router({
@@ -147,6 +180,7 @@ function checaJwt (jwt, active) {
         roles:        [],
         correo:       '',
         ultimoAcceso: '',
+        idUser:        0,
         jwt:          '' // jwt: jwtPayload.exp
       });
       store.commit('setDestination', '/');
