@@ -12,8 +12,10 @@
                     <input type="text" required class="form-control mr-3" :class="className" placeholder="México" v-model="name">
                     <!--small class="notValid">{{msgName}}</small-->
 
-                    <button type="button" @click="submition" class="btn btn-primary mr-2">Consultar</button>
-                    <button type="button" @click="openAdd" class="btn btn-success mr-2">Agregar</button>
+                    <button type="button" @click="submition" class="btn btn-primary mr-2">
+                        <i class="fa fa-search fa-fw" aria-hidden="true"></i>Consultar</button>
+                    <button type="button" @click="openAdd" class="btn btn-success mr-2">
+                        <i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div> <!-- end row -->
             
@@ -33,8 +35,10 @@
                             <td>{{pais.id}}</td>
                             <td>{{pais.nombre}}</td>
                             <td>
-                                <button type="button" @click="openEdit(pais.id, pais.nombre)" class="btn btn-success mb-2 mr-4">Editar</button>
-                                <button type="button" @click="openDelete(pais.id)" class="btn btn-danger mb-2 mr-4">Eliminar</button>
+                                <button type="button" @click="openEdit(pais.id, pais.nombre)" class="btn btn-success mb-2 mr-4">
+                                    <i class="fa fa-edit" aria-hidden="true"></i></button>
+                                <button type="button" @click="openDelete(pais.id)" class="btn btn-danger mb-2 mr-4">
+                                    <i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -191,12 +195,12 @@
             :width="480"
             :height="245">
             <div class="card">
-                <div class="card-header">Error de sistema</div>
+                <div class="card-header">Información</div>
                 <div class="card-body">
                     <div class="form-group">
-                        <h4>Codigo de error:</h4>
+                        <h4>Se presenta lo siguiente:</h4>
                         <p>{{msnErrorIrreconocible}}</p>
-                        <small>Favor de comunicarse con el administrador del sistema.</small>
+                        <small>Favor de comunicar este mensaje con el administrador del sistema.</small>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
