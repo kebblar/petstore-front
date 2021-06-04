@@ -1,5 +1,6 @@
 <template>
   <div class="ancho centra">
+    <div v-if="loading" class="loader"/>
     <div class="card" style="width:450px;">
       <div class="card-header">
         <h4 class="control-label mt-2" align="center">Detalles de la compra</h4>
@@ -398,7 +399,9 @@ export default {
       dirText : "",
       paqText : "",
       cartera : '',
-      imagenQR : []
+      imagenQR : [],
+
+      loading : false
     }
   },
 
@@ -443,6 +446,7 @@ export default {
     setLoaded: function () {
       window.paypal.Buttons({
         createOrder : (data, actions) => {
+          this.loading = true;
           return actions.order.create({
             purchase_units: [
               {
@@ -460,6 +464,7 @@ export default {
           router.push({'name':'compra-confirmada'});
         },
         onError: err => {
+          this.loading=false;
           console.log(err);
         }
       }).render(this.$refs.paypal);
@@ -477,9 +482,11 @@ export default {
         descripcion: this.nombreMascota
       };
       axios.post('/api/orden.json', data).then(response => {
+        this.loading=true;
         console.log(response);
         router.push({'name':'compra-confirmada'});
       }).catch(e => {
+        this.loading=false;
         console.log(e);
       })
     },

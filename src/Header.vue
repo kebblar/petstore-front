@@ -6,8 +6,66 @@
               <div class="col-sm-6">
                 <img src="./assets/logo.png" width="50px;"/> <label style="font-size:32px;">The Petstore App</label>
               </div>
+
               <div class="col-sm-6" style="text-align: right;">
                 <div v-if="logged">
+
+                  <a href="#" class="mr-4" data-toggle="modal" data-target="#cartModal">
+                      <i class="fas fa-shopping-cart fa-lg"></i>
+                  </a>
+
+                  <!--          Modal-->
+                  <div class="modal fade" id="cartModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header mb-2 bg-light">
+                          <h5 class="modal-title ml-4" id="kart" >
+                            <b>Mi carrito de compras</b>
+                          </h5>
+                          <button type="button" class="close mr-2" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+
+                        <div class="modal-body mx-2">
+                          <div class="row ">
+                            <table class="table mx-4">
+                              <thead>
+                              <tr align="center">
+                                <th></th>
+                                <th scope="col" >Mascota</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Quitar</th>
+                              </tr>
+                              </thead>
+                              <tr align="center" >
+                                <td class="w-25">
+                                  <img src="./assets/bicho1.jpg" class="mw-100 img-thumbnail" style="max-height: 90px;">
+                                </td>
+                                <td style="padding: 3% 0;">Nombre mascota</td>
+                                <td style="padding: 3% 0;">$precio</td>
+                                <td style="padding: 3% 0;"><button type="button" class="btn btn-danger btn-sm px-2 py-0">x</button> </td>
+                              </tr>
+                              <tr align="center" >
+                                <td class="w-25">
+                                  <img src="./assets/bicho1.jpg" class="mw-100 img-thumbnail" style="max-height: 90px;">
+                                </td>
+                                <td style="padding: 3% 0;">Nombre mascota</td>
+                                <td style="padding: 3% 0;">$precio</td>
+                                <td style="padding: 3% 0;"><button type="button" class="btn btn-danger btn-sm px-2 py-0">x</button> </td>
+                              </tr>
+
+                            </table>
+                          </div>
+                        </div>
+                        <div class="modal-footer border-top-0 d-flex justify-content-between px-5">
+                          <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-success" @click="navega('/ui/detalle-pago')" data-dismiss="modal">Proceder al pago</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
 
                   <div class="btn-group divider">
                     <a 
@@ -31,6 +89,7 @@
 
                   <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
                 </div>
+
                 <div v-else>
                   <input @click="navega('/ui/registro')" type="button" class="btn btn-success" value="Registrarse" />
                   &nbsp;
@@ -38,6 +97,7 @@
                 </div>
               </div>
           </div>
+
         </div>
 
         <div class="top">
@@ -59,7 +119,6 @@
               </div>
           </div>
         </div>
-
     </div>
 </template>
 
