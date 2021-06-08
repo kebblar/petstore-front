@@ -148,17 +148,20 @@ const routes = [
   {
     path: '/ui/consulta-paises',
     name: 'consultapais',
-    component: ConsultaPais
+    component: ConsultaPais,
+    meta: { allowedRoles: ['admin'] }
   },
   {
     path: '/ui/consulta-estados',
     name: 'consultaestado',
-    component: ConsultaEstado
+    component: ConsultaEstado,
+    meta: { allowedRoles: ['admin'] }
   },
   {
     path: '/ui/consulta-municipios',
     name: 'consultamunicipio',
-    component: ConsultaMunicipio
+    component: ConsultaMunicipio,
+    meta: { allowedRoles: ['admin'] }
   },
   {
     path: '/ui/regenera-clave-confirma',

@@ -207,12 +207,12 @@
             :width="480"
             :height="245">
             <div class="card">
-                <div class="card-header">Información</div>
+                <div class="card-header">Error</div>
                 <div class="card-body">
                     <div class="form-group">
-                        <h4>Se presenta lo siguiente:</h4>
+                        <h4>Favor de mostrar este Código de error con el administrador del sistema.:</h4>
                         <p>{{msnErrorIrreconocible}}</p>
-                        <small>Favor de comunicar este mensaje con el administrador del sistema.</small>
+                        <small></small>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
@@ -230,7 +230,9 @@
     import axios from 'axios';
     import store from '../store';
     import "vue-range-slider/dist/vue-range-slider.css";
-    //import { mapMutations } from 'vuex'
+    import { BootstrapVue } from 'bootstrap-vue';
+    import Vue from "vue"; 
+    Vue.use(BootstrapVue);
 
     export default {
         components: { 
@@ -388,7 +390,7 @@
                         this.estados=response.data; 
                         this.perPage= 15;
                         this.currentPage= 1;
-                        this.items= this.municipios;
+                        this.items= this.estados;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -406,7 +408,7 @@
                         this.estados=response.data; 
                         this.perPage= 15;
                         this.currentPage= 1;
-                        this.items= this.municipios;
+                        this.items= this.estados;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -433,7 +435,7 @@
                             console.log("enviado");
                             console.log(response);
                             this.estados=response.data;
-                            this.items= this.municipios;
+                            this.items= this.estados;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -447,7 +449,7 @@
                             console.log("enviado");
                             console.log(response);
                             this.estados=response.data; 
-                            this.items= this.municipios;
+                            this.items= this.estados;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -481,7 +483,7 @@
                         console.log("enviado");
                         console.log(response);
                         this.estados=response.data; 
-                        this.items= this.municipios;
+                        this.items= this.estados;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
