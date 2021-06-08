@@ -1,7 +1,7 @@
 <template>
   <div class="ancho centra">
     <div v-if="loading" class="loader"/>
-    <div class="card" style="width:450px;">
+    <div class="card" style="width:75%;">
       <div class="card-header">
         <h4 class="control-label mt-2" align="center">Detalles de la compra</h4>
       </div>
@@ -10,20 +10,29 @@
         <div class="form-group" align="center">
           <div class="col" style="margin-top: 10px;"><h6 class="text-info" style=" line-height: 155%;">Por favor completa la siguiente información para comenzar a procesar tu compra</h6></div>
         </div>
-        <hr class="dotted">
         <div class="row">
-          <div class="col-sm-1"></div>
-          <div class="col-sm-4 " align="center" >
-            <img class="rounded img-thumbnail" src="../assets/bicho1.jpg" alt="imagen mascota" style="max-height: 100px; width: auto;">
-          </div>
-          <div class="col" style="margin-top: 15px;">
-            <div class="row">
+          <div class="col my-3" align="center"><h5><b>Tus artículos</b></h5></div>
+        </div>
+        <div class="row">
+          <div class="col mx-5">
+            <table class="table">
 
-                <h5 class="col-sm-11" align="left"><span class="text-primary">Mascota:</span> {{nombreMascota}}</h5>
-                <div class="w-100 d-none d-md-block"></div>
+              <tr v-for="mascota in shoppingKart" :key="mascota.idAnuncio" align="center" >
+                <td class="w-25 tamanoImg">
+                  <img :src="mascota.urlImagen" class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="80%">
+                </td>
+                <td style="padding: 3% 0;">{{mascota.nombre}}</td>
+                <td style="padding: 3% 0;" >${{mascota.precio}}</td>
+              </tr>
+              <tr align="center">
+                <th></th>
+                <th>Subtotal</th>
+                <th>${{total}}</th>
+              </tr>
 
-            </div>
+            </table>
           </div>
+
         </div>
 
         <div v-show="showDetalles">
@@ -257,8 +266,8 @@
               <table class="table table-sm table-borderless mb-0">
                 <tbody>
                 <tr>
-                  <td>Mascota</td>
-                  <td class="text-primary" align="right">$ {{precio}}</td>
+                  <td>Mascotas</td>
+                  <td class="text-primary" align="right">$ {{total}}</td>
                 </tr>
                 <tr>
                   <td>Envío</td>
@@ -269,7 +278,7 @@
               <table class="table table-sm mt-1">
                 <thead>
                 <td>Total</td>
-                <td class="text-primary" align="right">$ {{ precio + getPrecioEnvio }}</td>
+                <td class="text-primary" align="right">$ {{ total + getPrecioEnvio }}</td>
                 </thead>
               </table>
             </div>
@@ -317,7 +326,7 @@
                         <div class="row my-4 text-center">
                           <div class="col-sm-1"></div>
                           <div class="col">
-                            <h5>Transfiere ${{precio+getPrecioEnvio}} a esta dirección y oprime continuar</h5>
+                            <h5>Transfiere ${{total+getPrecioEnvio}} a esta dirección y oprime continuar</h5>
                             <small>Una vez que la transacción aparezca en la blockchain te enviaremos el correo de confirmación y tu compra comenzará a procesarse.</small>
                           </div>
                           <div class="col-sm-1"></div>
@@ -352,7 +361,7 @@ export default {
   mounted () {
     this.getDirecciones()
     this.getPaqueterias()
-    //this.idAnuncio = this.route.query.test
+    this.getCarrito()
 
     const paypal = document.createElement("script");
     paypal.src = "https://www.paypal.com/sdk/js?client-id=ASKLSAfRgs3tG08RNVRpe6DwG0NMuHHsXqEMfIW65vjYyF2-cI8JQW6ylnWA-eBhFgx0hd-VLIp4yPFP&disable-funding=mercadopago";
@@ -362,14 +371,15 @@ export default {
 
   data(){
     return {
+
+      shoppingKart : [],
+
       showDetalles: true,
       showPagos:false,
 
       anuncio : {id : 2},
       usuario : store.state.session.idUser,
-
-      nombreMascota: "Camaleon pantera macho 13 meses",
-      precio: 60,
+      total: 0,
 
       paqueterias: [],
       paqSelected: 0,
@@ -451,7 +461,7 @@ export default {
             purchase_units: [
               {
                 description: this.nombreMascota,
-                amount: { currency_code: "USD", value: this.precio + this.getPrecioEnvio}
+                amount: { currency_code: "USD", value: this.total + this.getPrecioEnvio}
               }
             ]
           });
@@ -477,7 +487,7 @@ export default {
         wallet : this.cartera,
         idAnuncio : this.anuncio.id,
         status : false,
-        monto : this.precio + this.getPrecioEnvio,
+        monto : this.total + this.getPrecioEnvio,
         fecha : new Date(),
         descripcion: this.nombreMascota
       };
@@ -500,8 +510,8 @@ export default {
                   descripcion: this.nombreMascota,
                   idMoneda : 1,
                   idAnuncio : this.anuncio.id,
-                  precio : this.precio,
-                  total : this.precio + this.getPrecioEnvio,
+                  precio : this.total,
+                  total : this.total + this.getPrecioEnvio,
                   fecha : order.update_time,
                   estadoEnvio : false,
                   recibo : ""
@@ -564,6 +574,24 @@ export default {
         console.log(e.response.data);
       });
     },
+
+    getCarrito() {
+      axios.get('/api/carritoPba/'+store.state.session.idUser+'.json', {}).then(response => {
+        this.shoppingKart = response.data;
+        this.total = this.getTotal(response.data);
+      }).catch(e => {
+        console.log(e);
+      });
+    },
+    getTotal(obj) {
+      console.log(obj);
+      var i = 0;
+      for (const elem of obj) {
+        i = i + elem.precio;
+      }
+      return i;
+    },
+
     procesada(obj){
       var dir =  obj.calleNumero + ", "
           + obj.colonia + ", "
@@ -649,11 +677,7 @@ hr.dotted {
 .shortSpace{
   font-size: 12px;
 }
-.separation{
-  font-size: 14px;
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
+
 .format {
   color:dodgerblue;
   font-size: 13px;
