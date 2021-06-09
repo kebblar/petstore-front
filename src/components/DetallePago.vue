@@ -1,7 +1,7 @@
 <template>
   <div class="ancho centra">
     <div v-if="loading" class="loader"/>
-    <div class="card" style="width:75%;">
+    <div class="card" style="width:85%;">
       <div class="card-header">
         <h4 class="control-label mt-2" align="center">Detalles de la compra</h4>
       </div>
@@ -364,7 +364,7 @@ export default {
     this.getCarrito()
 
     const paypal = document.createElement("script");
-    paypal.src = "https://www.paypal.com/sdk/js?client-id=ASKLSAfRgs3tG08RNVRpe6DwG0NMuHHsXqEMfIW65vjYyF2-cI8JQW6ylnWA-eBhFgx0hd-VLIp4yPFP&disable-funding=mercadopago";
+    paypal.src = "https://www.paypal.com/sdk/js?client-id=ASKLSAfRgs3tG08RNVRpe6DwG0NMuHHsXqEMfIW65vjYyF2-cI8JQW6ylnWA-eBhFgx0hd-VLIp4yPFP&disable-funding=mercadopago&currency=MXN";
     paypal.addEventListener("load", this.setLoaded);
     document.body.appendChild(paypal);
   },
@@ -460,12 +460,14 @@ export default {
           return actions.order.create({
             purchase_units: [
               {
-                description: this.nombreMascota,
-                amount: { currency_code: "USD", value: this.total + this.getPrecioEnvio}
+                description: 'Compra en comercio pet store',
+                amount: { currency_code: 'MXN', value: this.total + this.getPrecioEnvio}
               }
             ]
           });
         },
+
+
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
           this.data;
@@ -502,17 +504,14 @@ export default {
     },
     submitDomain(order){
       let data = {
-                  idMetodoPago : 1,
                   cveOrdenCompra: order.id,
+                  idMetodoPago : 1,
                   idUsuario : this.usuario,
-                  idDireccion : this.dirSelected,
+                  idDireccionEnvio : this.dirSelected,
                   idPaqueteria : this.paqSelected,
-                  descripcion: this.nombreMascota,
                   idMoneda : 1,
-                  idAnuncio : this.anuncio.id,
-                  precio : this.total,
-                  total : this.total + this.getPrecioEnvio,
-                  fecha : order.update_time,
+                  importeTotal : this.total + this.getPrecioEnvio,
+                  fechaHoraComprar : order.update_time,
                   estadoEnvio : false,
                   recibo : ""
                   };
@@ -521,6 +520,14 @@ export default {
         console.log(response);
       }).catch(e => {
         console.log(e.response.data);
+      });
+      axios.put('/api/carrito-compra.json', {
+                                            idUsuario : this.usuario,
+                                            cveOrdenCompra : order.id }
+      ).then(response => {
+        console.log(response);
+      }).catch(e => {
+        console.log(e.response);
       });
     },
 
@@ -638,7 +645,7 @@ export default {
   },
   computed: {
     validaDetalles(){
-      var x = true && (this.dirSelected!==0) && (this.paqSelected!==0)
+      var x = true && (this.dirSelected!==0) && (this.paqSelected!==0);
       return !x;
     },
 

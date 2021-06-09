@@ -19,7 +19,7 @@
                     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                       <div class="modal-content">
                         <div class="modal-header mb-2 bg-light">
-                          <h5 class="modal-title ml-4" id="kart" >
+                          <h5 class="modal-title ml-4" >
                             <b>Mi carrito de compras</b>
                           </h5>
                           <button type="button" class="close mr-2" data-dismiss="modal" aria-label="Close">
@@ -29,7 +29,7 @@
 
                         <div class="modal-body mx-2">
                           <div class="row ">
-                            <table class="table mx-4">
+                            <table v-if="!vacio" class="table mx-4">
                               <thead>
                               <tr align="center">
                                 <th></th>
@@ -49,13 +49,19 @@
                               <tr align="center">
                                 <th></th><th></th>
                                 <th>Subtotal: </th>
-                                <th align="left"> $ {{total}}</th>
+                                <th align="left"> ${{total}}</th>
                               </tr>
-
                             </table>
+                            <div v-if="vacio" class="row mx-auto">
+                              <div class="col" align="center">
+                                <p style="font-size: large; font-family: Purisa">Tu carrito está vacío</p>
+                                <img src="./assets/empty-cart.svg" alt="carro sin items" class="w-50 mb-4">
+                                <p style="font-family: Purisa">Comienza agregando una mascota</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div class="modal-footer border-top-0 d-flex justify-content-between px-5">
+                        <div v-if="!vacio" class="modal-footer border-top-0 d-flex justify-content-between px-5">
                             <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
                             <button type="button" class="btn btn-success" @click="navega('/ui/detalle-pago')" data-dismiss="modal">Proceder al pago</button>
                           </div>
@@ -139,6 +145,11 @@ import store from './store'
 import axios from 'axios';
 
 export default {
+    watch : {
+      shoppingKart (value){
+        this.vacio = (value.length===0) ? true : false;
+      }
+    },
     computed: {
       logged: function() {
         return store.state.session.jwt && store.state.session.jwt.length>10; 
@@ -146,13 +157,15 @@ export default {
       nombre: function() {
         return store.state.session.nombreCompleto; 
       }
+
     },
   data () {
       return{
         shoppingKart : [],
         bicho : require("./assets/bicho3.jpg"),
         total : 0,
-        tavo : ''
+        tavo : '',
+        vacio : true
       }
   },
     methods: {
