@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col-sm">
                               <p style="text-align: center;"><b>Orden No. {{compra.cve_orden}}</b></p>
-                                <p style="color:#c2b280;margin-bottom:0%;font-size:large;"><b>Mascota  {{compra.idMascota}}</b></p>
+                                <p style="color:#c2b280;margin-bottom:0%;font-size:large;"><b>Anuncio: </b></p>
                                 <p style="color:#c2b280;margin-top:0%;text-decoration: underline;font-size:large;"><b>{{compra.nombreAnuncio}}</b></p>
                             </div>
                         </div>
