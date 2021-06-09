@@ -21,7 +21,7 @@
                 <td class="w-25 tamanoImg">
                   <img :src="mascota.urlImagen" class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="80%">
                 </td>
-                <td style="padding: 3% 0;">{{mascota.nombre}}</td>
+                <td style="padding: 3% 0;">{{mascota.titulo}}</td>
                 <td style="padding: 3% 0;" >${{mascota.precio}}</td>
               </tr>
               <tr align="center">
@@ -576,7 +576,7 @@ export default {
     },
 
     getCarrito() {
-      axios.get('/api/carritoPba/'+store.state.session.idUser+'.json', {}).then(response => {
+      axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
         this.shoppingKart = response.data;
         this.total = this.getTotal(response.data);
       }).catch(e => {

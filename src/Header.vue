@@ -42,9 +42,9 @@
                                 <td class="w-25 tamanoImg">
                                   <img :src=mascota.urlImagen class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="60%">
                                 </td>
-                                <td style="padding: 3% 0;">{{mascota.nombre}}</td>
+                                <td style="padding: 3% 0;">{{mascota.titulo}}</td>
                                 <td style="padding: 3% 0;" >${{mascota.precio}}</td>
-                                <td style="padding: 3% 0;"><button type="button" class="btn btn-danger btn-sm px-2 py-0" @click="deleteElement(mascota.idAnuncio)">x</button> </td>
+                                <td style="padding: 3% 0;"><button type="button" class="btn btn-danger btn-sm px-2 py-0" @click="deleteElement(mascota.idCarrito)">x</button> </td>
                               </tr>
                               <tr align="center">
                                 <th></th><th></th>
@@ -170,7 +170,7 @@ export default {
         router.push(url).catch(()=>{});
       },
       getKart() {
-        axios.get('/api/carritoPba/'+store.state.session.idUser+'.json', {}).then(response => {
+        axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
           this.shoppingKart = response.data;
           this.total = this.getTotal(response.data);
         }).catch(e => {
@@ -185,8 +185,13 @@ export default {
         }
         return i;
       },
-      deleteElement(id) {
-        console.log(id);
+      deleteElement(i) {
+        axios.delete('/api/carrito/'+i+'.json').then (response => {
+          console.log(response);
+          this.getKart();
+        }).catch(e => {
+          console.log(e);
+        });
       }
     }
 }
