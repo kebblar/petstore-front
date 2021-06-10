@@ -23,8 +23,8 @@
            <tab-content title="Datos generales" :before-change="validarDatos">
             <div class="col-sm-12 text-left">
               <div v-if="id != 0" class="form-group">
-                <label for="sku">SKU</label>
-                <label class="font-weight-bold m-2">{{sku}}</label>
+                <label for="folio">FOLIO</label>
+                <label class="font-weight-bold m-2">{{folio}}</label>
                 <input type="hidden" v-model="id"/>
               </div>
               <div class="form-group">
@@ -52,7 +52,7 @@
               <div class="row">
                 <div class="col-6">
                    <label for="precio" class="required">Precio</label>
-                   <input type="text" pattern="[0-9]" required  :class="classPrecio" class="form-control" v-model="precio" maxlength="9" /> 
+                   <input type="number" pattern="[0-9]" required onkeypress="return event.charCode >= 48 || event.charCode == 46" step="1" :class="classPrecio" class="form-control" v-model="precio" min="0" maxlength="9" /> 
                    <small class="notValid">{{msgPrecio}}</small>
                 </div>
                 <div class="col-6">
@@ -109,9 +109,9 @@
               <div class="card-body">
                 <div class="container">
                   <div class="row">
-                    <div class="col-4 text-right font-weight-bold">SKU</div>
+                    <div class="col-4 text-right font-weight-bold">FOLIO</div>
                     <div class="text-left">
-                      {{ sku }}
+                      {{ folio }}
                     </div>
                   </div>
                   <div class="row">
@@ -236,7 +236,7 @@ export default {
       atributosByCategoria:[],
       tipoCategorias: [],
       atributosByCategoriaDefault:[],
-      sku: null,
+      folio: null,
       titulo: "",
       descripcion:"",
       fechaInicioVigencia: null,
@@ -276,99 +276,99 @@ export default {
             id: 1, //Peso
             nombre: "Peso",
             options: [
-              { id: 1, valor: "MENOS DE 1 KG" },
-              { id: 2, valor: "ENTRE 1 Y 2 KG" },
-              { id: 3, valor: "ENTRE 2 Y 5 KG" },
-              { id: 4, valor: "ENTRE 5 Y 10 KG" },
-              { id: 5, valor: "ENTRE 10 Y 20 KG" },
-              { id: 6, valor: "MAS DE 20 KG" },
+              { idValorAtributo: 1, valor: "MENOS DE 1 KG" },
+              { idValorAtributo: 2, valor: "ENTRE 1 Y 2 KG" },
+              { idValorAtributo: 3, valor: "ENTRE 2 Y 5 KG" },
+              { idValorAtributo: 4, valor: "ENTRE 5 Y 10 KG" },
+              { idValorAtributo: 5, valor: "ENTRE 10 Y 20 KG" },
+              { idValorAtributo: 6, valor: "MAS DE 20 KG" },
             ]
           },
           {
             id: 2, //Raza
             nombre: "Raza",
             options: [
-              { id: 1, valor: "TERRANOVA" },
-              { id: 2, valor: "MALTES" },
-              { id: 3, valor: "GOLDEN RETRIEVERS" },
-              { id: 4, valor: "HUSKIE SIBERIANO" },
-              { id: 5, valor: "POODLES" },
-              { id: 6, valor: "BEAGLES" },
-              { id: 7, valor: "PASTOR ALEMÁN" },
-              { id: 8, valor: "CORGIS" },
-              { id: 9, valor: "LABRADOR" },
-              { id: 10, valor: "CHIHUAHUA" },
-              { id: 11, valor: "MESTIZO" },
-              { id: 12, valor: "PUG" },
-              { id: 13, valor: "BULLDOG" },
+              { idValorAtributo: 1, valor: "TERRANOVA" },
+              { idValorAtributo: 2, valor: "MALTES" },
+              { idValorAtributo: 3, valor: "GOLDEN RETRIEVERS" },
+              { idValorAtributo: 4, valor: "HUSKIE SIBERIANO" },
+              { idValorAtributo: 5, valor: "POODLES" },
+              { idValorAtributo: 6, valor: "BEAGLES" },
+              { idValorAtributo: 7, valor: "PASTOR ALEMÁN" },
+              { idValorAtributo: 8, valor: "CORGIS" },
+              { idValorAtributo: 9, valor: "LABRADOR" },
+              { idValorAtributo: 10, valor: "CHIHUAHUA" },
+              { idValorAtributo: 11, valor: "MESTIZO" },
+              { idValorAtributo: 12, valor: "PUG" },
+              { idValorAtributo: 13, valor: "BULLDOG" },
             ]
           },
           {
             id: 3, //Color
             nombre: "Color",
             options: [
-              { id: 1, valor: "BLANCO" },
-              { id: 2, valor: "NEGRO" },
-              { id: 3, valor: "CAFE" },
-              { id: 4, valor: "AZUL" },
-              { id: 5, valor: "AMARILLO" },
-              { id: 6, valor: "VERDE" },
-              { id: 7, valor: "DORADO" },
-              { id: 8, valor: "PLATEADO" },
-              { id: 9, valor: "GRIS" },
-              { id: 10, valor: "ROSA" },
-              { id: 11, valor: "MIXTO" },
+              { idValorAtributo: 1, valor: "BLANCO" },
+              { idValorAtributo: 2, valor: "NEGRO" },
+              { idValorAtributo: 3, valor: "CAFE" },
+              { idValorAtributo: 4, valor: "AZUL" },
+              { idValorAtributo: 5, valor: "AMARILLO" },
+              { idValorAtributo: 6, valor: "VERDE" },
+              { idValorAtributo: 7, valor: "DORADO" },
+              { idValorAtributo: 8, valor: "PLATEADO" },
+              { idValorAtributo: 9, valor: "GRIS" },
+              { idValorAtributo: 10, valor: "ROSA" },
+              { idValorAtributo: 11, valor: "MIXTO" },
             ]
           },
           {
             id: 4, //Tamaño
             nombre: "Tamaño",
             options: [
-              { id: 1, valor: "CHICO" },
-              { id: 2, valor: "MEDIANO" },
-              { id: 3, valor: "GRANDE" },
-              { id: 4, valor: "ENORME" },
+              { idValorAtributo: 1, valor: "CHICO" },
+              { idValorAtributo: 2, valor: "MEDIANO" },
+              { idValorAtributo: 3, valor: "GRANDE" },
+              { idValorAtributo: 4, valor: "ENORME" },
             ]
           },
           {
             id: 5, //Edad
             nombre: "Edad",
             options: [
-              { id: 1, valor: "MENOS DE 1 MES" },
-              { id: 2, valor: "DE 1 A 6 MESES" },
-              { id: 3, valor: "DE 6 A 12 MESES" },
-              { id: 4, valor: "DE 1 A 2 AÑOS" },
-              { id: 5, valor: "DE 2 A 3 AÑOS" },
-              { id: 6, valor: "DE 3 A 4 AÑOS" },
-              { id: 7, valor: "DE 5 A 6 AÑOS" },
-              { id: 8, valor: "DE 6 A 7 AÑOS" },
-              { id: 9, valor: "DE 7 A 8 AÑOS" },
-              { id: 10, valor: "DE 8 A 9 AÑOS" },
-              { id: 11, valor: "DE 9 A 10 AÑOS" },
-              { id: 12, valor: "MAS DE 10 AÑOS" },
+              { idValorAtributo: 1, valor: "MENOS DE 1 MES" },
+              { idValorAtributo: 2, valor: "DE 1 A 6 MESES" },
+              { idValorAtributo: 3, valor: "DE 6 A 12 MESES" },
+              { idValorAtributo: 4, valor: "DE 1 A 2 AÑOS" },
+              { idValorAtributo: 5, valor: "DE 2 A 3 AÑOS" },
+              { idValorAtributo: 6, valor: "DE 3 A 4 AÑOS" },
+              { idValorAtributo: 7, valor: "DE 5 A 6 AÑOS" },
+              { idValorAtributo: 8, valor: "DE 6 A 7 AÑOS" },
+              { idValorAtributo: 9, valor: "DE 7 A 8 AÑOS" },
+              { iValorAtributod: 10, valor: "DE 8 A 9 AÑOS" },
+              { idValorAtributo: 11, valor: "DE 9 A 10 AÑOS" },
+              { idValorAtributo: 12, valor: "MAS DE 10 AÑOS" },
             ]
           },
           {
             id: 6, //Longevidad
             nombre: "Longevidad",
             options: [
-              { id: 1, valor: "MENOS DE 1 AÑO" },
-              { id: 2, valor: "DE 1 A 2 AÑOS" },
-              { id: 3, valor: "DE 2 A 5 AÑOS" },
-              { id: 4, valor: "DE 5 A 10 AÑOS" },
-              { id: 5, valor: "DE 10 A 15 AÑOS" },
-              { id: 6, valor: "DE 15 A 20 AÑOS" },
-              { id: 7, valor: "DE 20 A 30 AÑOS" },
-              { id: 8, valor: "MAS DE 30 AÑOS" },
+              { idValorAtributo: 1, valor: "MENOS DE 1 AÑO" },
+              { idValorAtributo: 2, valor: "DE 1 A 2 AÑOS" },
+              { idValorAtributo: 3, valor: "DE 2 A 5 AÑOS" },
+              { idValorAtributo: 4, valor: "DE 5 A 10 AÑOS" },
+              { idValorAtributo: 5, valor: "DE 10 A 15 AÑOS" },
+              { idValorAtributo: 6, valor: "DE 15 A 20 AÑOS" },
+              { idValorAtributo: 7, valor: "DE 20 A 30 AÑOS" },
+              { idValorAtributo: 8, valor: "MAS DE 30 AÑOS" },
             ]
           },
           {
             id: 7, //TipoAgua
             nombre: "Tipo de agua",
             options: [
-              { id: 1, valor: "AGUA DULCE" },
-              { id: 2, valor: "AGUA SALADA" },
-              { id: 3, valor: "DULCE Y SALADA" },
+              { idValorAtributo: 1, valor: "AGUA DULCE" },
+              { idValorAtributo: 2, valor: "AGUA SALADA" },
+              { ididValorAtributo: 3, valor: "DULCE Y SALADA" },
             ]
           },
       ];
@@ -422,7 +422,7 @@ export default {
           this.$refs.wizard.changeTab(0,2);
           let anuncio = response.data;
           this.id = anuncio.id;
-          this.sku = anuncio.sku;
+          this.folio = anuncio.folio;
           this.titulo = anuncio.titulo;
           this.descripcion = anuncio.descripcion;
           if(anuncio.fechaInicioVigencia != null){
@@ -459,6 +459,7 @@ export default {
   methods: {
     guardar(resolve){
       console.log("--> Guardando datos --- ");
+      console.log(this.atributos);
       if(this.id == 0){ //Registro
         axios.post('api/anuncios.json',  { 
           titulo: this.titulo,
@@ -467,13 +468,13 @@ export default {
           fechaFinVigencia: this.fechaFinVigencia,
           idCategoria: this.idCategoria,
           precio: this.precio,
-          atributos: this.atributos
+          mascotaValorAtributo: this.atributos
         }).then(response => {
           console.log(response.data);
           if(this.id == 0){
             this.id = response.data.id;
-            this.sku = response.data.sku;  
-            let msgOK = '<center>Anuncio registrado correctamente <br/> SKU <strong> '+this.sku +' </strong></center>';
+            this.folio = response.data.folio;  
+            let msgOK = '<center>Anuncio registrado correctamente <br/> FOLIO <strong> '+this.folio +' </strong></center>';
             Vue.$toast.open({
                 message: msgOK,
                 type: 'success',
@@ -512,7 +513,7 @@ export default {
           fechaFinVigencia: this.fechaFinVigencia,
           idCategoria: this.idCategoria,
           precio: this.precio,
-          atributos: this.atributos
+          mascotaValorAtributo: this.atributos
         }).then(response => {
           console.log(response.data); 
           resolve(true);
@@ -541,7 +542,7 @@ export default {
       }
     },
     onComplete() {
-      let msgOK = '<center>Se confirma el anuncio de manera correcta para su publicación <br/> SKU <strong> '+this.sku +' </strong></center>';
+      let msgOK = '<center>Se confirma el anuncio de manera correcta para su publicación <br/> FOLIO <strong> '+this.folio +' </strong></center>';
       axios.put('api/anuncios/confirmar/'+this.id+'.json').then(response => {
           console.log(response.data); 
           Vue.$toast.open({
@@ -575,7 +576,7 @@ export default {
          let obj = this.atributosByCategoriaDefault[(event.target.selectedIndex-1)];
          if(obj != null){
             obj.atributos.forEach((value, key) => {
-              Vue.set(this.atributos, key, { id: value, valor:0});
+              Vue.set(this.atributos, key, { idValorAtributo: value, valor:0});
               this.getOptiones(key,value);
             });
          }
@@ -590,7 +591,7 @@ export default {
       this.validarSelect();
     },
     onChangeAtributo(event){
-      Vue.set(this.atributos, parseInt(event.target.id), { id: parseInt(event.target.name), valor:event.target.selectedIndex});
+      Vue.set(this.atributos, parseInt(event.target.id), { idValorAtributo: parseInt(event.target.name), valor:event.target.selectedIndex});
       this.validarSelect();
     },
     validarSelect(){

@@ -36,6 +36,9 @@
                   <th>
                     
                   </th>
+                  <th>
+                    Principal
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -54,6 +57,15 @@
                             style="color:red;font-size: 2rem;cursor:hand" :id="index" @click="eliminarImagen(index,item)"
                             title="Elimina la imagen">
                         </b-icon>  
+                    </td>
+                    <td>
+                      <template>
+                        <div>
+                          <b-form-group label="" >
+                            <b-form-radio v-model="selected"  @change="seleccionarImagen(item)" name="some-radios" :value="item.principal"></b-form-radio>
+                          </b-form-group>
+                        </div>
+                      </template>
                     </td>
                   </tr>
               </tbody>
@@ -102,7 +114,8 @@ export default {
   data: function () {
     return {
         ruta:'',
-        titulo: 'Interfase de carga de imágenes'
+        titulo: 'Interfase de carga de imágenes',
+        selected: 'true',
     }
   }, 
   methods: {
@@ -133,7 +146,18 @@ export default {
             }).catch(error => {
                 console.log("--> error "+error);
             }); 
+        },
+        seleccionarImagen(item){
+            axios.put('api/anuncios/imagen/principal.json',  { 
+            idAnuncio:item.idAnuncio,
+            uuid: item.uuid
+          }).then(response => {
+            console.log("--> "+response);
+          }).catch(error => {
+            console.log("--> error "+error);            
+          });
         }
+        
   }
 }
 </script>
