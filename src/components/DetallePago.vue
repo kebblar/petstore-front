@@ -487,11 +487,9 @@ export default {
         idUsuario : this.usuario,
         idDireccion: this.dirSelected,
         wallet : this.cartera,
-        idAnuncio : this.anuncio.id,
         status : false,
         monto : this.total + this.getPrecioEnvio,
         fecha : new Date(),
-        descripcion: this.nombreMascota
       };
       axios.post('/api/orden.json', data).then(response => {
         this.loading=true;
@@ -504,15 +502,16 @@ export default {
     },
     submitDomain(order){
       let data = {
-                  cveOrdenCompra: order.id,
-                  idMetodoPago : 1,
                   idUsuario : this.usuario,
-                  idDireccionEnvio : this.dirSelected,
+                  idDireccion : this.dirSelected,
                   idPaqueteria : this.paqSelected,
+                  idMetodoPago : 1,
                   idMoneda : 1,
-                  importeTotal : this.total + this.getPrecioEnvio,
-                  fechaHoraComprar : order.update_time,
+                  cveOrdenCompra: order.id,
+                  fecha : order.update_time,
                   estadoEnvio : false,
+                  total : this.total + this.getPrecioEnvio,
+                  descripcion : "Compra en el pet store",
                   recibo : ""
                   };
       console.log(data);
@@ -520,14 +519,6 @@ export default {
         console.log(response);
       }).catch(e => {
         console.log(e.response.data);
-      });
-      axios.put('/api/carrito-compra.json', {
-                                            idUsuario : this.usuario,
-                                            cveOrdenCompra : order.id }
-      ).then(response => {
-        console.log(response);
-      }).catch(e => {
-        console.log(e.response);
       });
     },
 
