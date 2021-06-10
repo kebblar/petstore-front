@@ -7,20 +7,20 @@
       <div class="card-body align">
         <div class="form-row form-group">
           <div class="col-md-2">
-            <label for="nombre">SKU :</label>
+            <label for="nombre">Folio :</label>
           </div>
           <div class="col-md-4">
             <input
               type="text"
               required
               class="form-control letrasBusqueda"
-              :class="classSKU"
+              :class="classFolio"
               placeholder="20052101030001"
-              v-model="sku"
+              v-model="folio"
               maxlength="14"
               size="14"
             />
-            <small class="notValid">{{ msgSKU }}</small>
+            <small class="notValid">{{ msgFolio }}</small>
           </div>
         </div>
         <div class="form-row form-group">
@@ -52,6 +52,7 @@
               style="font-size: 14px"
               v-model="idCategoria"
             >
+              <option value="" selected disabled hidden>Seleccionar</option>
               <option :value="m.id" v-for="m in categorias2" :key="m.id">
                 {{ m.valor }}
               </option>
@@ -68,7 +69,7 @@
               style="font-size: 12px"
               v-model="idEstatus"
             >
-              <option value="" selected disabled hidden>Choose here</option>
+              <option value="" selected disabled hidden>Seleccionar</option>
               <option :value="m.id" v-for="m in estatus2" :key="m.id">
                 {{ m.valor }}
               </option>
@@ -167,7 +168,7 @@
                   style="text-align: center; font-size: 11px; font-weight: bold"
                 >
                   <tr>
-                    <th scope="col">SKU</th>
+                    <th scope="col">Folio</th>
                     <th scope="col">Titulo</th>
                     <th scope="col">Categoria</th>
                     <th scope="col">Estatus</th>
@@ -178,7 +179,7 @@
                 </thead>
                 <tbody style="text-align: center; font-size: 11px">
                   <tr v-for="(entry, i) in anuncios" :key="i">
-                    <td>{{ entry.sku }}</td>
+                    <td>{{ entry.folio }}</td>
                     <td>{{ entry.titulo }}</td>
                     <td>{{ entry.descripcionCategoria }}</td>
                     <td>{{ entry.descripcionEstatus }}</td>
@@ -206,7 +207,7 @@
                               </p>
                             </div>
                             <div class="col-3 align-self-center">
-                              <div v-if="entry.descripcionEstatus != 'Eliminado'">
+                              <div v-if="entry.idEstatus != 5 ">
                                 <p class="h6 mb-1">
                                   <b-button
                                     @click='editarAnuncio(entry.id)'
@@ -222,10 +223,10 @@
                               </div>
                             </div>
                             <div class="col-3 align-self-end">
-                              <div v-if="entry.descripcionEstatus != 'Eliminado'">
+                              <div v-if="entry.idEstatus != 5 ">
                                 <p class="h6 mb-1">
                                   <b-button
-                                    @click='modalEliminar(entry.id,entry.sku,entry.numPaginas)'
+                                    @click='modalEliminar(entry.id,entry.folio,entry.numPaginas)'
                                     title="borrar anuncio"
                                     class="btn btn-danger btn-xs m-2"
                                   >
@@ -303,20 +304,30 @@ Vue.use(VueConfirmDialog);
 Vue.use(VueToast);
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 
-const skuRegex = new RegExp(/^[0-9]*$/);
+const folioRegex = new RegExp(/^[0-9]*$/);
 
 export default {
   name: "ConsultaAnuncio.vue",
-  mounted() {},
+  mounted() {
+    // console.log("antes"+localStorage.anuncios);
+    // if (localStorage.anuncios) {
+    //   this.anuncios = localStorage.anuncios;
+    //   console.log("despues"+this.anuncios);
+    // }
+    // if (localStorage.rows) {
+    //   this.rows = localStorage.rows;
+    //   console.log("despues"+this.anuncios);
+    // }
+  },
   data() {
     return {
       showModal: false,
-      sku: '',
+      folio: '',
       titulo: '',
       categoria: [],
-      idCategoria: 0,
+      idCategoria: '',
       estatus: [],
-      idEstatus: 0,
+      idEstatus: '',
       dateConfigFI: {
         initial: new Date(2021, 4, 1),
         min: new Date(2021, 0, 1),
@@ -331,9 +342,9 @@ export default {
       fechaFinVigencia: null,
       fFinalV: null,
       fInicialV: null,
-      classSKU: "defaultColor",
+      classFolio: "defaultColor",
       classTitulo: "defaultColor",
-      msgSKU: null,
+      msgFolio: null,
       msgTitulo: null,
       styleCalendar: "",
       categorias2: [
@@ -362,18 +373,39 @@ export default {
     };
   },
   watch: {
-    sku() {
-      this.msgSKU = "";
-      this.classSKU = "greenColor correct";
-      if (!skuRegex.test(this.sku)) {
-        this.msgSKU = "El SKU debe contener solo números";
-        this.classSKU = "redColor incorrect";
+    folio() {
+      this.msgFolio = "";
+      this.classFolio = "greenColor correct";
+      if (!folioRegex.test(this.folio)) {
+        this.msgFolio = "El folio debe contener solo números";
+        this.classFolio = "redColor incorrect";
       }
-    },
+      localStorage.setItem('folio', this.folio);
+    }
+    // titulo() {
+    //   localStorage.setItem('titulo', this.titulo);
+    // },
+    // idCategoria () {
+    //   localStorage.setItem('idCategoria', this.idCategoria);
+    // },
+    // idEstatus () {
+    //   localStorage.setItem('idEstatus', this.idEstatus);
+    // }
   },
   created() {
     this.anuncios = [];
     this.titulo = "";
+    this.bandera = false;
+    //Validamos si existen datos en sección
+    if (localStorage.bandera) {
+      this.bandera = localStorage.bandera;
+    }
+    if (this.bandera == 'true') {
+      this.anuncios = JSON.parse(localStorage.getItem("anuncios"));
+      this.rows = localStorage.rows;
+    }
+    //Limpiamos los datos de la session
+    localStorage.clear();
   },
   computed: {
     tablaVacia: function () {
@@ -383,13 +415,13 @@ export default {
   methods: {
     paginaEvento(numero) {
       console.log(numero);
-      let skuBack2= this.sku;
-      if (this.sku == undefined || this.sku == '' ) {
-        skuBack2 = 0;
+      let folioBack2= this.folio;
+      if (this.folio == undefined || this.folio == '' ) {
+        folioBack2 = 0;
       }
       axios
         .post("/api/anuncio/search.json", {
-          sku: skuBack2,
+          folio: folioBack2,
           titulo: this.titulo,
           fechaInicioVigencia: this.fInicialV,
           fechaFinVigencia: this.fFinalV,
@@ -399,19 +431,29 @@ export default {
           tamPaginas: this.perPage,
         })
         .then((response) => {
-          console.log(response.data);
+          console.log(response.data);    
+          //Limpiamos los datos de la session
+          localStorage.clear();
+           
+          //asignamos la informaciòn recibida
           this.anuncios = response.data.listaAnuncios;
           this.rows = response.data.totalAnuncios;
+          //localStorage.anuncios = response.data.listaAnuncios;
+          localStorage.setItem('anuncios', JSON.stringify(response.data.listaAnuncios));
+          localStorage.rows = response.data.totalAnuncios;
+          
+          console.log(localStorage.anuncios);
+          console.log(localStorage.rows);
         });
     },
     buscarAnuncios() {
-      let skuBack = this.sku;
-      if (this.sku == undefined || this.sku == '' ) {
-        skuBack = 0;
+      let folioBack = this.folio;
+      if (this.folio == undefined || this.folio == '' ) {
+        folioBack = 0;
       }
       axios
         .post("/api/anuncio/search.json", {
-          sku: skuBack,
+          folio: folioBack,
           titulo: this.titulo,
           fechaInicioVigencia: this.fInicialV,
           fechaFinVigencia: this.fFinalV,
@@ -422,23 +464,41 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
+          //borramos datos 
+          this.titulo = "";
+          this.folio = "";
+          this.idCategoria = "";
+          this.idEstatus = "";
+          this.fFinalV = "";
+          this.fInicialV = "";
+          
+          //Limpiamos los datos de la session
+          localStorage.clear();
+           
+          //asignamos la informaciòn recibida
           this.anuncios = response.data.listaAnuncios;
           this.rows = response.data.totalAnuncios;
+          //localStorage.anuncios = response.data.listaAnuncios;
+          localStorage.setItem('anuncios', JSON.stringify(response.data.listaAnuncios));
+          localStorage.rows = response.data.totalAnuncios;
+          
+          console.log(localStorage.anuncios);
+          console.log(localStorage.rows);
         });
     },
-    modalEliminar(idAnuncio,idSKU){
+    modalEliminar(idAnuncio,idFolio){
       console.log(idAnuncio);
       console.log("Eliminar");
       this.$confirm({
       title: 'Eliminar anuncio',
-      message: '¿Estás seguro que quieres eliminar el anuncio?    '+idSKU,
+      message: '¿Estás seguro que quieres eliminar el anuncio?    '+idFolio,
         button: {
           yes: 'Si',
           no: 'Cancelar'
         },
         callback: confirm => {
           if (confirm == true) {
-            this.eliminar(idAnuncio,idSKU);
+            this.eliminar(idAnuncio,idFolio);
             console.log("Confirmado? true", idAnuncio);
           }else{
             //console.log("Confirmado? false", idAnuncio);
@@ -446,9 +506,9 @@ export default {
         }
       })
     },
-    eliminar (idAnuncio,idSKU) {
+    eliminar (idAnuncio,idFolio) {
         this.loading = true;
-        console.log(idAnuncio,idSKU);
+        console.log(idAnuncio,idFolio);
         axios.delete('/api/anuncios.json?id='+ idAnuncio, { 
           id : idAnuncio
         }).then(response => {
@@ -482,10 +542,24 @@ export default {
         );
       },
     verAnuncio(idAnuncio){
+      //Limpiamos los datos de la session
+      localStorage.clear();
+      //asignamos valores a la session
+      localStorage.setItem('anuncios', JSON.stringify(this.anuncios));
+      localStorage.rows = this.rows;
+      console.log(localStorage.anuncios);
+      console.log(localStorage.rows);
+      this.bandera = true;
+      console.log(this.bandera);
+      localStorage.bandera = this.bandera;
+
       this.loading = true;
       router.push({path:'/ui/detalle-producto/'+idAnuncio}).catch(()=>{});
     },
     editarAnuncio(idAnuncio) {
+        this.bandera = true;
+        console.log(this.bandera);
+        localStorage.bandera = this.bandera;
         this.loading = true;
         router.push({path:'/ui/admin-anuncio/'+idAnuncio}).catch(()=>{});
     },
