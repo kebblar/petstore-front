@@ -10,7 +10,7 @@
               <div class="col-sm-6" style="text-align: right;">
                 <div v-if="logged">
 
-                  <a href="#" class="mr-4" data-toggle="modal" data-target="#kartModal" @click="getKart">
+                  <a v-show="pageDetalle!== '/ui/detalle-pago'" href="#" class="mr-4" data-toggle="modal" data-target="#kartModal" @click="getKart" >
                       <i class="fas fa-shopping-cart fa-lg"></i>
                   </a>
 
@@ -165,7 +165,8 @@ export default {
         bicho : require("./assets/bicho3.jpg"),
         total : 0,
         tavo : '',
-        vacio : true
+        vacio : true,
+        pageDetalle : window.location.pathname
       }
   },
     methods: {

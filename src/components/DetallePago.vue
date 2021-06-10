@@ -1,7 +1,8 @@
 <template>
   <div class="ancho centra">
     <div v-if="loading" class="loader"/>
-    <div class="card" style="width:85%;">
+
+    <div class="card" style="width:85%;"> <!---->
       <div class="card-header">
         <h4 class="control-label mt-2" align="center">Detalles de la compra</h4>
       </div>
@@ -113,7 +114,6 @@
                   Dirección de envío
                 </button>
               </h5>
-{{session}}
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
               <div class="card-body">
                 <div class="row">
@@ -297,15 +297,20 @@
 
             </div>
             </div>
-          <div class="row mt-4">
+          <div v-show="shoppingKart.length>0" class="row mt-4">
             <div class="col">
               <div class="mx-auto w-100" ref="paypal"></div>
+            </div>
+          </div>
+          <div v-show="shoppingKart.length===0" class="row my-4">
+            <div class="col" align="center">
+              <p class="text-center text-danger">No puedes continuar porque tu carrito está vacío</p>
             </div>
           </div>
           <div class="row">
             <div class="col">
               <div class="container">
-                <button type="button" class="btn btn-block btn-outline-success" @click="getCartera" data-toggle="modal" data-target="#carteraBtc">Bitcoin</button>
+                <button v-show="shoppingKart.length>0" type="button" class="btn btn-block btn-outline-success" @click="getCartera" data-toggle="modal" data-target="#carteraBtc">Bitcoin</button>
 
                 <div class="modal fade" id="carteraBtc" role="dialog" tabindex="-1" aria-labelledby="MyWallet" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -326,8 +331,9 @@
                         <div class="row my-4 text-center">
                           <div class="col-sm-1"></div>
                           <div class="col">
-                            <h5>Transfiere ${{total+getPrecioEnvio}} a esta dirección y oprime continuar</h5>
-                            <small>Una vez que la transacción aparezca en la blockchain te enviaremos el correo de confirmación y tu compra comenzará a procesarse.</small>
+                            <h5>Transfiere {{precioEnCripto.monto}} BTC a esta dirección y oprime continuar</h5>
+                            <small class="text-primary">Cambio 1 BTC = {{precioEnCripto.cambio}} MXN</small><br>
+                            <p class="mt-3"><small>Una vez que la transacción aparezca en la blockchain te enviaremos el correo de confirmación y tu compra comenzará a procesarse.</small></p>
                           </div>
                           <div class="col-sm-1"></div>
                           </div>
@@ -344,6 +350,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
 
@@ -373,6 +380,8 @@ export default {
     return {
 
       shoppingKart : [],
+      precioEnCripto : { monto: 0.000456,
+                         cambio : 764567.0 },
 
       showDetalles: true,
       showPagos:false,
@@ -437,10 +446,20 @@ export default {
       axios.get('/api/wallet/'+this.usuario+'.json', {}).then(response => {
         this.cartera = response.data;
         this.getQR(response.data);
+        this.getMontoBtc();
       }).catch(e => {
         console.log(e);
       });
 
+    },
+
+    getMontoBtc(){
+      axios.get('/api/monto-btc/'+(this.total + this.getPrecioEnvio)+'.json').then(response => {
+        this.precioEnCripto = response.data;
+        console.log(response.data);
+      }).catch(e => {
+        console.log(e);
+      });
     },
 
     getQR(obj){
@@ -456,7 +475,6 @@ export default {
     setLoaded: function () {
       window.paypal.Buttons({
         createOrder : (data, actions) => {
-          this.loading = true;
           return actions.order.create({
             purchase_units: [
               {
@@ -481,15 +499,18 @@ export default {
         }
       }).render(this.$refs.paypal);
     },
-    generaBtcOrden(){
+      generaBtcOrden(){
       let data = {
         id : 0,
         idUsuario : this.usuario,
         idDireccion: this.dirSelected,
         wallet : this.cartera,
+        idPaqueteria : this.paqSelected,
         status : false,
-        monto : this.total + this.getPrecioEnvio,
+        monto : this.precioEnCripto.monto,
         fecha : new Date(),
+        descripcion : "Compra por criptomonedas",
+        lastBalance : 0
       };
       axios.post('/api/orden.json', data).then(response => {
         this.loading=true;
