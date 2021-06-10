@@ -15,6 +15,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idCategoria" class="form-control" style="font-size:11px;" v-model="idCategoria">
+                <option value="0">Seleccione</option>
                 <option :value="m.id" v-for="m in categorias" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -23,10 +24,9 @@
             <div class="col-md-12">
               <label for="nombre">Precio :</label>
             </div>
-            <div class="col-md-12">
-              <input type="text" required class="form-control letrasBusqueda" :class="classPrecio" placeholder="0.00" v-model="precio" maxlength="10" size="10">
-              <small class="notValid">{{msgPrecio}}</small>
-            </div>
+            <input type="number" pattern="[0-9]" required 
+                   onkeypress="return event.charCode >= 48 || event.charCode == 46" 
+                   step="1" :class="classPrecio" class="form-control" v-model="precio" min="0" maxlength="9" />
           </div>
           <div class="form-row form-group col-md-10">
             <div class="col-md-12">
@@ -34,6 +34,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idColor" class="form-control" style="font-size:11px;" v-model="idColor">
+                <option value="0">Seleccione</option>
                 <option :value="m.id" v-for="m in colores" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -44,6 +45,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idTamano" class="form-control" style="font-size:11px;" v-model="idTamano">
+                <option value="0">Seleccione</option>
                 <option :value="m.id" v-for="m in tamanos" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -54,6 +56,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idRaza" class="form-control" style="font-size:11px;" v-model="idRaza">
+                <option value="0">Seleccione</option>
                 <option :value="m.id" v-for="m in razas" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -64,6 +67,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idPeso" class="form-control" style="font-size:11px;" v-model="idPeso">
+                <option value="0">Seleccione</option>
                 <option :value="m.id" v-for="m in pesos" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -74,6 +78,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idEdad" class="form-control" style="font-size:11px;" v-model="idEdad">
+                <option value="0">Seleccione</option>
                 <option :value="m.id" v-for="m in edades" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -84,6 +89,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idLongevidad" class="form-control" style="font-size:11px;" v-model="idLongevidad">
+                <option value="0">Seleccione</option>
                 <option :value="m.id" v-for="m in longevidades" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -94,6 +100,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idAguas" class="form-control" style="font-size:11px;" v-model="idAguas">
+                <option value="0">Seleccione</option>
                 <option :value="m.id" v-for="m in aguas" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -103,7 +110,7 @@
               <button type="button" class="col-xs-6 text-center btn btn-primary font-weight-bold "
                   @click="limpiar()" >LImpiar</button>&nbsp;
               <button type="button" class="col-xs-6 text-center btn btn-success font-weight-bold "
-                  @click="testEvento(1)">Buscar</button>
+                  @click="buscarAnuncios(1)">Buscar</button>
             </div>
           </div>
         </div>
@@ -144,28 +151,28 @@
               class="mt-4 text-center"
             >
               <template #first-text
-                ><span @click="testEvento(1)" class="text-success"
+                ><span @click="buscarAnuncios(1)" class="text-success"
                   >Primero</span
                 ></template
               >
               <template v-if="currentPage != 1" #prev-text
-                ><span @click="testEvento(currentPage)" class="text-danger"
+                ><span @click="buscarAnuncios(currentPage)" class="text-danger"
                   >Anterior</span
                 ></template
               >
               <template v-if="rows / perPage != currentPage" #next-text
-                ><span @click="testEvento(currentPage)" class="text-warning"
+                ><span @click="buscarAnuncios(currentPage)" class="text-warning"
                   >Siguiente</span
                 ></template
               >
               <template #last-text
-                ><span @click="testEvento(currentPage)" class="text-info"
+                ><span @click="buscarAnuncios(currentPage)" class="text-info"
                   >Último</span
                 ></template
               >
               <template #page="{ page, active }">
-                <b @click="testEvento(currentPage)" v-if="active">{{ page }}</b>
-                <b @click="testEvento(currentPage)" v-else>{{ page }}</b>
+                <b @click="buscarAnuncios(currentPage)" v-if="active">{{ page }}</b>
+                <b @click="buscarAnuncios(currentPage)" v-else>{{ page }}</b>
               </template>
             </b-pagination>
           </div>   
@@ -319,9 +326,32 @@ export default {
       perPage: 9
     }
   },
+  watch: {
+    
+  },
   created(){
-    this.anuncios= null
-
+    this.anuncios = null;
+    this.titulo = "";
+    this.bandera = false;
+    //Validamos si existen datos en sección
+    if (localStorage.bandera) {
+      this.bandera = localStorage.bandera;
+    }
+    if (this.bandera == 'true') {
+      this.anuncios = JSON.parse(localStorage.getItem("anuncios"));
+      this.rows = localStorage.rows;
+      this.idCategoria = localStorage.idCategoria;
+      this.precio = localStorage.precio;
+      this.idColor = localStorage.idColor;
+      this.idTamano = localStorage.idTamano;
+      this.idRaza = localStorage.idRaza;
+      this.idPeso = localStorage.idPeso;
+      this.idPeso = localStorage.idEdad;
+      this.idAguas = localStorage.idAguas;
+      this.idLongevidad = localStorage.idLongevidad;
+    }
+    //Limpiamos los datos de la session
+    localStorage.clear()
   },
   computed: {
     tablaVacia: function (){
@@ -344,6 +374,27 @@ export default {
       this.idAguas = '';
     },      
     redireccion(idAnuncio){
+    //Limpiamos los datos de la session
+    //localStorage.clear();
+           
+    //Guardamos información en la vista
+    localStorage.setItem('anuncios', JSON.stringify(this.anuncios));
+    localStorage.rows = this.rows;
+    localStorage.idCategoria = this.idCategoria;
+    localStorage.precio = this.precio;
+    localStorage.idColor = this.idColor;
+    localStorage.idTamano = this.idTamano;
+    localStorage.idRaza = this.idRaza;
+    localStorage.idPeso = this.idPeso;
+    localStorage.idEdad = this.idPeso;
+    localStorage.idAguas = this.idAguas;
+    localStorage.idLongevidad = this.idLongevidad;
+    
+    this.bandera = true;
+    console.log(this.bandera);
+    localStorage.bandera = this.bandera;
+
+
     router.push({path:'/ui/detalle-producto/'+idAnuncio}).catch(()=>{});
     },
     lista(){
@@ -358,7 +409,7 @@ export default {
 
     },
  
-    testEvento(numero) {
+    buscarAnuncios(numero) {
       // this.anuncios.splice(0);
       console.log(numero);
       
@@ -415,47 +466,23 @@ export default {
             this.anuncios=null;
           }
           
-          //totalpaginas
+          //Limpiamos los datos de la session
+          localStorage.clear();
+           
+          //Guardamos información en la vista
+          localStorage.setItem('anuncios', JSON.stringify(response.data.listaAnuncios));
+          localStorage.rows = response.data.totalAnuncios;
+          localStorage.idCategoria = this.idCategoria;
+          localStorage.precio = this.precio;
+          localStorage.idColor = this.idColor;
+          localStorage.idTamano = this.idTamano;
+          localStorage.idRaza = this.idRaza;
+          localStorage.idPeso = this.idPeso;
+          localStorage.idEdad = this.idPeso;
+          localStorage.idAguas = this.idAguas;
+          localStorage.idLongevidad = this.idLongevidad;
         });
-
-
-      // let contador = (numero==1)?1:(numero*this.perPage)-this.perPage;
-      // for (let a=0; a<this.perPage; a++){
-      //   this.anuncios.push({
-      //       "sku": contador,
-      //       "titulo": "Titulo",
-      //       "categoria": "canino",
-      //       "fechaInicioVigencia": "12/01/2021",
-      //       "fechaFinVigencia": "12/01/2021",
-      //       "idCategoria": "1",
-      //       "estatus": "eliminado",
-      //       "precio": "100"
-      //   });
-      //   contador++;
-      // }
-    },
-    buscarAnuncios() {
-      this.anuncios = this.metodosPagoDatos;
-      // axios
-      //   .post("/api/anuncio/search.json", {
-      //     sku: this.sku,
-      //     titulo: this.titulo,
-      //     fechaInicioVigencia: this.fInicialV,
-      //     fechaFinVigencia: this.fFinalV,
-      //     estatus: this.idEstatus,
-      //     idCategoria: this.idCategoria,
-      //     numPaginas: this.currentPage,
-      //     tamPaginas: this.perPage,
-      //   })
-      //   .then((response) => {
-      //     console.log(response.data);
-      //     //this.anuncios = response.data.listaAnuncios;
-      //     this.anuncios = this.metodosPagoDatos;
-      //     //this.rows = response.data.totalAnuncios;
-      //     //totalpaginas
-      //   });
-    },
-    
+    }
   }
 }
 </script>
