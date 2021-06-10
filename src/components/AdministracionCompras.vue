@@ -7,7 +7,7 @@
       <div class="card-body align">
         <hr style="background-color:black">
           <div class="container">
-            <div class="row" v-for="(compra, index) in compras" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
+            <div class="row" v-for="(compra, index) in compras" :key="compra.cve_orden" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
                     <div class="container" >
                         <div class="row">
@@ -22,7 +22,7 @@
                                 <a :href="compra.urlFactura" class="btn btn-primary btn-sm">Factura</a>
                             </div>
                             <div class="col-sm">
-                              <button :disabled="compra.estadoEnvio" @click="sent(compra.idCompra,index)" style="margin-left:-10%" class="btn btn-primary btn-sm">¿Enviado?</button>
+                              <button :disabled="compra.estadoEnvio" @click="sent(compra.cve_orden,index)" style="margin-left:-10%" class="btn btn-primary btn-sm">¿Enviado?</button>
                             </div>
                         </div>
                     </div>
@@ -88,9 +88,8 @@ methods: {
           this.descripcion = "Ha ocurrido un error al cargar los datos, por favor vuelva a intentarlo más tarde."
       })
     },
-    sent(idCompra, index){
-      axios.get('api/administracion-compras-update.json/'.concat(1).concat('/').concat(idCompra)).then(() => {
-          console.log(this.compras);
+    sent(cve_orden, index){
+      axios.get('api/administracion-compras-update.json/'.concat(1).concat('/').concat(cve_orden)).then(() => {
           this.$modal.show('aviso');
           this.titulo = "Exito!";
           this.compras[index].estadoEnvio = true;
