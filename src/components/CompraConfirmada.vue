@@ -11,10 +11,10 @@
         </div>
         <h5 class="my-3">Tu compra está siendo procesada</h5>
 
-        <p class="my-4">Recién te enviamos un correo electrónico con los detalles de tu compra</p>
+        <p class="my-4">En breve te enviaremos un correo electrónico con los detalles de tu compra</p>
 
         <div class="container">
-          <button type="button" class="btn btn-primary btn-sm mx-2" >Ir a mi cuenta</button>
+          <button type="button" class="btn btn-primary btn-sm mx-2" @click="goOrders">Ver mis compras</button>
           <button type="button" class="btn btn-primary btn-sm mx-2" @click="goHome">Ir al inicio</button>
         </div>
 
@@ -32,9 +32,9 @@ export default {
     goHome(){
       router.push({'name':'inicio'});
     },
-    // goMiCuenta(){
-    //   router.push('mi-cuenta');
-    // }
+    goOrders(){
+      router.push('compras');
+    }
   }
 
 }
