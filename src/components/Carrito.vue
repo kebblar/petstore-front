@@ -61,19 +61,6 @@
     </div>
   </div>
 
-  <!--                  <div class="modal fade" id="seguro" tabindex="-1" role="dialog" style="border-color: black; border-width: 2px">-->
-  <!--                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">-->
-  <!--                      <div class="modal-content">-->
-  <!--                        <div class="modal-body" align="center">-->
-  <!--                          <b>Seguro que desea eliminar el artiículo?</b>-->
-  <!--                        </div>-->
-  <!--                        <div class="modal-footer">-->
-  <!--                          <button type="button" class="btn btn-danger btn-sm">Sí</button>-->
-  <!--                          <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">No</button>-->
-  <!--                        </div>-->
-  <!--                      </div>-->
-  <!--                    </div>-->
-  <!--                  </div>-->
   </div>
 
 </template>
