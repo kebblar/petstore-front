@@ -89,7 +89,7 @@ methods: {
       })
     },
     sent(cve_orden, index){
-      axios.post('api/administracion-compras-update.json/'.concat(1).concat('/').concat(cve_orden)).then(() => {
+      axios.post('api/administracion-compras-update.json/1/'.concat(cve_orden)).then(() => {
           this.$modal.show('aviso');
           this.titulo = "Exito!";
           this.compras[index].estadoEnvio = true;
