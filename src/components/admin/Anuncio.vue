@@ -75,11 +75,11 @@
                         <div class="form-group">
                           <label>{{c.nombre}}</label> 
                           <select class="form-control select" :id="index" :name="c.id" @change="onChangeAtributo">
-                             <option value="0" selected>Selecione</option>
-                              <option :value="o.id" v-for="o in c.options" :key="o.id"
-                                :selected="(atributos[index].valor ===  o.id)?'selected':''">
-                                {{ o.valor }}
-                             </option>   
+                            <option value="0" selected>Selecione</option>
+                            <option :value="o.idValorAtributo" v-for="o in c.options" :key="o.id" 
+                                 :selected="(atributos[index].valor ===  o.idValorAtributo)?'selected':''">
+                                {{ o.valor }}  
+                             </option> 
                          </select>  
                         </div>
                     </div>
@@ -177,12 +177,9 @@
                         <div class="col-12 font-weight-bold">
                            {{ atributosByCategoria[index].nombre}}  
                         </div> 
-                        <div v-if="((atributo.valor)-1) > -1">
-                          {{atributosByCategoria[index].options[(atributo.valor)-1].valor}}
+                        <div>
+                           {{getOptionSelect(atributosByCategoria[index].options, atributo.valor)}}
                         </div>
-                        <div v-else-if="((atributo.valor)-1) <= -1">  
-                            ------------
-                        </div> 
                     </div>
                   </div>
                 </div>
@@ -261,7 +258,17 @@ export default {
     };
   },
   created() {
-     this.tipoCategorias = [
+    console.log("--> created ()");
+
+    console.log("--> Cargando categorias---");
+    axios.get('api/categorias.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            console.log("--> Obj "+obj +" Key "+key);
+            Vue.set(this.tipoCategorias, key, { id: obj.id, valor:obj.categoria});
+        });
+    });
+     /* this.tipoCategorias = [
         {id:1, valor:"Caninos"},
         {id:2, valor:"Felinos"},
         {id:3, valor:"Aracnidos"},
@@ -269,8 +276,28 @@ export default {
         {id:5, valor:"Peces"},
         {id:6, valor:"Aves"},
         {id:7, valor:"Roedores"}
-      ];
-     this.optionsGeneral= [
+      ]; */
+
+     console.log("--> Cargando categorias---");
+     axios.get('api/atributos-detalles.json').then(response => {
+       /*  console.log(response.data);  */
+        response.data.forEach((obj) => {
+            let optionsS = [];
+            obj.rangos.forEach((obj) => {
+               optionsS.push({ idValorAtributo: obj.id, valor: obj.rango});
+            });
+            this.optionsGeneral.push(
+                {
+                  id: obj.id, //Peso
+                  nombre: obj.nombre,
+                  options: optionsS
+                }
+            );
+            //Vue.set(this.optionsGeneral, key, { id: obj.id, valor:obj.categoria});
+        });
+    });
+     
+    /*  this.optionsGeneral= [
           {id:0,nombre:"Default", options:[{id:0,valor:"Seleccione"}]},
           {
             id: 1, //Peso
@@ -371,8 +398,41 @@ export default {
               { ididValorAtributo: 3, valor: "DULCE Y SALADA" },
             ]
           },
-      ];
-      this.atributosByCategoriaDefault = [
+      ]; */
+      
+      ///api/atributos.json
+     /*  axios.get('api/atributos.json').then(response => {
+          console.log(response.data); 
+          response.data.forEach((obj, key) => {
+              console.log("--> Obj "+obj +" Key "+key);
+              Vue.set(this.atributosByCategoriaDefault, key, { id: obj.id, valor:obj.categoria});
+          });
+      }); */
+
+      axios.get('api/categoria-atributos.json').then(response => {
+    /*     console.log(response.data);  */
+        let idCategoria = 0;
+        let atributosGenerales = response.data;
+        response.data.forEach((obj) => {
+/*             console.log("--> Obj "+obj +" Key "+key); */
+            if(idCategoria < obj.idCategoria){
+              idCategoria =  obj.idCategoria;
+              let atributosS = [];
+              atributosGenerales.forEach((aux) => {
+                if(aux.idCategoria === obj.idCategoria){
+                    atributosS.push(aux.idAtributo);
+                }
+              });
+              this.atributosByCategoriaDefault.push(
+                  {
+                    id: obj.idCategoria, 
+                    atributos:atributosS
+                  }
+              );
+            }
+        });
+      });
+      /* this.atributosByCategoriaDefault = [
         {
           id:1, //Caninos
           atributos:[1,2,3,4,5,6]
@@ -402,7 +462,7 @@ export default {
           atributos:[1,3,4,5,6]
         }
         
-      ];
+      ]; */
       
   },
    mounted () {
@@ -433,10 +493,37 @@ export default {
           }
           this.idCategoria = anuncio.idCategoria;
           this.precio = anuncio.precio;
-          this.atributos = anuncio.atributos;
+         
+          anuncio.atributos.forEach((aux) => {
+              this.atributos.push({idValorAtributo: aux.idAtributo, valor: aux.valor });
+          });
+          axios.get('api/categoria-atributos.json').then(response => {
+          /*     console.log(response.data);  */
+              let idCategoria = 0;
+              let atributosGenerales = response.data;
+              response.data.forEach((obj) => {
+      /*             console.log("--> Obj "+obj +" Key "+key); */
+                  if(idCategoria < obj.idCategoria){
+                    idCategoria =  obj.idCategoria;
+                    let atributosS = [];
+                    atributosGenerales.forEach((aux) => {
+                      if(aux.idCategoria === obj.idCategoria){
+                          atributosS.push(aux.idAtributo);
+                      }
+                    });
+                    this.atributosByCategoriaDefault.push(
+                        {
+                          id: obj.idCategoria, 
+                          atributos:atributosS
+                        }
+                    );
+                  }
+              });
+            });
           this.imagenes = anuncio.imagenes;
           this.atributos.forEach((value, key) => {
-            this.getOptiones(key,value.id);
+            
+            this.getOptiones(key,value.idValorAtributo);
           });
           this.$nextTick(() => {
               this.validarSelect();
@@ -591,7 +678,9 @@ export default {
       this.validarSelect();
     },
     onChangeAtributo(event){
-      Vue.set(this.atributos, parseInt(event.target.id), { idValorAtributo: parseInt(event.target.name), valor:event.target.selectedIndex});
+      Vue.set(this.atributos, parseInt(event.target.id), { 
+        idValorAtributo: parseInt(event.target.name), valor:parseInt(event.target.value)
+      });
       this.validarSelect();
     },
     validarSelect(){
@@ -646,8 +735,17 @@ export default {
           resolve(valido);
         }
      })
+    },
+    getOptionSelect(options,valor){
+         var leyenda = "----------";
+         console.log("--> Aqui");
+        options.forEach((option) =>{
+           if(option.idValorAtributo === valor){
+              leyenda = option.valor;
+           }
+        });
+        return leyenda;
     }
-
   },
   watch: {
     titulo(){

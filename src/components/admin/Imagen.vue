@@ -98,7 +98,7 @@ export default {
   created(){
     this.dropzoneOptions = {
           url: this.calcula(),
-          maxFilesize: 0.5,
+          maxFilesize: 2,
           thumbnailWidth: 140,
           thumbnailMethod: 'contain',
           addRemoveLinks: true,
