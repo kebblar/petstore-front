@@ -318,6 +318,20 @@ export default {
     //   this.rows = localStorage.rows;
     //   console.log("despues"+this.anuncios);
     // }
+    axios.get('api/categorias.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {/* 
+            console.log("--> Obj "+obj +" Key "+key); */
+            Vue.set(this.categorias2, key, { id: obj.id, valor:obj.categoria});
+        });
+    });
+    axios.get('api/estatus-anuncios.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            /* console.log("--> Obj "+obj +" Key "+key); */
+            Vue.set(this.estatus2, key, { id: obj.id, valor:obj.descripcion});
+        });
+    });
   },
   data() {
     return {
@@ -340,31 +354,18 @@ export default {
       },
       fechaInicioVigencia: null,
       fechaFinVigencia: null,
-      fFinalV: null,
-      fInicialV: null,
+      fFinalV: '',
+      fInicialV: '',
       classFolio: "defaultColor",
       classTitulo: "defaultColor",
       msgFolio: null,
       msgTitulo: null,
       styleCalendar: "",
       categorias2: [
-        { id: 1, valor: "Caninos" },
-        { id: 2, valor: "Felinos" },
-        { id: 3, valor: "Aracnidos" },
-        { id: 4, valor: "Reptiles" },
-        { id: 5, valor: "Peces" },
-        { id: 6, valor: "Aves" },
-        { id: 7, valor: "Roedores" },
       ],
       estatus2: [
-        { id: 1, valor: "Edición" },
-        { id: 2, valor: "Activo" },
-        { id: 3, valor: "Publicado" },
-        { id: 4, valor: "Vencido" },
-        { id: 5, valor: "Eliminado" },
-        { id: 6, valor: "Cancelado" },
       ],
-      anuncios: [],
+      anuncios: null,
       paymentSelected: 0,
       cvv: "",
       currentPage: 1,
@@ -393,7 +394,7 @@ export default {
     // }
   },
   created() {
-    this.anuncios = [];
+    this.anuncios = null;
     this.titulo = "";
     this.bandera = false;
     //Validamos si existen datos en sección
@@ -403,18 +404,56 @@ export default {
     if (this.bandera == 'true') {
       this.anuncios = JSON.parse(localStorage.getItem("anuncios"));
       this.rows = localStorage.rows;
+      this.currentPage = localStorage.getItem('cp');
+      if (localStorage.folio == null) {
+        this.folio = '';
+      }else{
+        this.folio = localStorage.folio;
+      }
+
+      if (localStorage.titulo == null) {
+        this.titulo = '';
+      }else{
+        this.titulo = localStorage.titulo;
+      }
+      this.idCategoria = localStorage.idCategoria;
+      this.idEstatus = localStorage.idEstatus;
+      if (localStorage.fFinalV == null) {
+        this.fFinalV = '';
+      }else{
+        this.fFinalV = localStorage.fFinalV;
+      }
+      if (localStorage.fInicialV == null) {
+        this.fInicialV = '';
+      }else{
+        this.fInicialV = localStorage.fInicialV;
+      }
+      
+      console.log(this.currentPage)
+      /* 
+      console.log('currentPage '+this.currentPage) */
     }
     //Limpiamos los datos de la session
-    localStorage.clear();
+    /* localStorage.clear(); */
+      localStorage.removeItem('anuncios');
+      localStorage.rows = null;
+      localStorage.removeItem('cp');
+      localStorage.folio = null;
+      localStorage.titulo = null;
+      localStorage.idCategoria = null;
+      localStorage.idEstatus = null;
+      localStorage.fFinalV = null;
+      localStorage.fInicialV = null;
+      localStorage.bandera = null;
+
   },
   computed: {
     tablaVacia: function () {
-      return this.anuncios[0] == null;
+      return this.anuncios == null;
     }
   },
   methods: {
     paginaEvento(numero) {
-      console.log(numero);
       let folioBack2= this.folio;
       if (this.folio == undefined || this.folio == '' ) {
         folioBack2 = 0;
@@ -431,9 +470,9 @@ export default {
           tamPaginas: this.perPage,
         })
         .then((response) => {
-          console.log(response.data);    
+          /* console.log(response.data);    */ 
           //Limpiamos los datos de la session
-          localStorage.clear();
+          /* localStorage.clear(); */
            
           //asignamos la informaciòn recibida
           this.anuncios = response.data.listaAnuncios;
@@ -441,9 +480,16 @@ export default {
           //localStorage.anuncios = response.data.listaAnuncios;
           localStorage.setItem('anuncios', JSON.stringify(response.data.listaAnuncios));
           localStorage.rows = response.data.totalAnuncios;
-          
-          console.log(localStorage.anuncios);
-          console.log(localStorage.rows);
+          localStorage.setItem('cp',numero);
+          localStorage.folio = this.folio;
+          localStorage.titulo = this.titulo;
+          localStorage.idCategoria = this.idCategoria;
+          localStorage.idEstatus = this.idEstatus;
+          localStorage.fFinalV = this.fFinalV;
+          localStorage.fInicialV = this.fInicialV;
+          console.log(numero)
+/*           console.log(localStorage.anuncios);
+          console.log(localStorage.rows); */
         });
     },
     buscarAnuncios() {
@@ -459,21 +505,21 @@ export default {
           fechaFinVigencia: this.fFinalV,
           estatus: this.idEstatus,
           idCategoria: this.idCategoria,
-          numPaginas: this.currentPage,
+          numPaginas: 1,
           tamPaginas: this.perPage,
         })
         .then((response) => {
-          console.log(response.data);
+          /* console.log(response.data); */
           //borramos datos 
-          this.titulo = "";
+/*           this.titulo = "";
           this.folio = "";
           this.idCategoria = "";
           this.idEstatus = "";
           this.fFinalV = "";
-          this.fInicialV = "";
+          this.fInicialV = ""; */
           
           //Limpiamos los datos de la session
-          localStorage.clear();
+          /* localStorage.clear(); */
            
           //asignamos la informaciòn recibida
           this.anuncios = response.data.listaAnuncios;
@@ -481,14 +527,20 @@ export default {
           //localStorage.anuncios = response.data.listaAnuncios;
           localStorage.setItem('anuncios', JSON.stringify(response.data.listaAnuncios));
           localStorage.rows = response.data.totalAnuncios;
-          
-          console.log(localStorage.anuncios);
-          console.log(localStorage.rows);
+          localStorage.folio = this.folio;
+          localStorage.titulo = this.titulo;
+          localStorage.idCategoria = this.idCategoria;
+          localStorage.idEstatus = this.idEstatus;
+          localStorage.fFinalV = this.fFinalV;
+          localStorage.fInicialV = this.fInicialV;
+          console.log('curertn '+this.currentPage);
+ /*          console.log(localStorage.anuncios);
+          console.log(localStorage.rows); */
         });
     },
     modalEliminar(idAnuncio,idFolio){
-      console.log(idAnuncio);
-      console.log("Eliminar");
+/*       console.log(idAnuncio);
+      console.log("Eliminar"); */
       this.$confirm({
       title: 'Eliminar anuncio',
       message: '¿Estás seguro que quieres eliminar el anuncio?    '+idFolio,
@@ -499,7 +551,7 @@ export default {
         callback: confirm => {
           if (confirm == true) {
             this.eliminar(idAnuncio,idFolio);
-            console.log("Confirmado? true", idAnuncio);
+/*             console.log("Confirmado? true", idAnuncio); */
           }else{
             //console.log("Confirmado? false", idAnuncio);
           }  
@@ -508,13 +560,13 @@ export default {
     },
     eliminar (idAnuncio,idFolio) {
         this.loading = true;
-        console.log(idAnuncio,idFolio);
+        console.log(idFolio);
         axios.delete('/api/anuncios.json?id='+ idAnuncio, { 
           id : idAnuncio
         }).then(response => {
           console.log(response);
-          console.log(response.data);
-          console.log(response.status);
+     /*      console.log(response.data);
+          console.log(response.status); */
           let msgEliminar =
             "<center>Anuncio eliminado correctamente</center>";
           Vue.$toast.open({
@@ -523,6 +575,8 @@ export default {
               duration: 7000,
               position: "top"
           });
+          this.bandera = false;
+          localStorage.bandera = this.bandera;
           router.go('/ui/admin-consulta-anuncio');
         }).catch(error => {
           this.msgErr = error;
@@ -543,14 +597,20 @@ export default {
       },
     verAnuncio(idAnuncio){
       //Limpiamos los datos de la session
-      localStorage.clear();
+      /* localStorage.clear(); */
       //asignamos valores a la session
       localStorage.setItem('anuncios', JSON.stringify(this.anuncios));
       localStorage.rows = this.rows;
-      console.log(localStorage.anuncios);
-      console.log(localStorage.rows);
+      localStorage.folio = this.folio;
+      localStorage.titulo = this.titulo;
+      localStorage.idCategoria = this.idCategoria;
+      localStorage.idEstatus = this.idEstatus;
+      localStorage.fFinalV = this.fFinalV;
+      localStorage.fInicialV = this.fInicialV;
+/*       console.log(localStorage.anuncios);
+      console.log(localStorage.rows); */
       this.bandera = true;
-      console.log(this.bandera);
+/*       console.log(this.bandera); */
       localStorage.bandera = this.bandera;
 
       this.loading = true;
@@ -558,7 +618,15 @@ export default {
     },
     editarAnuncio(idAnuncio) {
         this.bandera = true;
-        console.log(this.bandera);
+        /* console.log(this.bandera); */
+        localStorage.setItem('anuncios', JSON.stringify(this.anuncios));
+        localStorage.rows = this.rows;
+        localStorage.folio = this.folio;
+        localStorage.titulo = this.titulo;
+        localStorage.idCategoria = this.idCategoria;
+        localStorage.idEstatus = this.idEstatus;
+        localStorage.fFinalV = this.fFinalV;
+        localStorage.fInicialV = this.fInicialV;
         localStorage.bandera = this.bandera;
         this.loading = true;
         router.push({path:'/ui/admin-anuncio/'+idAnuncio}).catch(()=>{});

@@ -94,7 +94,7 @@
               </select>
             </div>
           </div>  
-          <div class="form-row form-group col-md-10">
+          <div class="form-row form-group col-md-10 none" v-if="false">
             <div class="col-md-12">
               <label for="mun">Tipo de agua :</label>
             </div>
@@ -205,6 +205,62 @@ export default {
   name: "ConsultaAnunciosPublico.vue",
   mounted () {
     this.ruta = process.env.VUE_APP_URL+"upload/";
+    axios.get('api/categorias.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            console.log("--> Obj "+obj +" Key "+key);
+            Vue.set(this.categorias, key, { id: obj.id, valor:obj.categoria});
+        });
+    });
+    axios.get('api/valor-atributo/atributo/1.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            console.log("--> Obj "+obj +" Key "+key);
+            Vue.set(this.pesos, key, { id: obj.id, valor:obj.rango});
+        });
+    });
+    axios.get('api/valor-atributo/atributo/2.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            console.log("--> Obj "+obj +" Key "+key);
+            Vue.set(this.razas, key, { id: obj.id, valor:obj.rango});
+        });
+    });
+    axios.get('api/valor-atributo/atributo/3.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            console.log("--> Obj "+obj +" Key "+key);
+            Vue.set(this.colores, key, { id: obj.id, valor:obj.rango});
+        });
+    });
+    axios.get('api/valor-atributo/atributo/4.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            console.log("--> Obj "+obj +" Key "+key);
+            Vue.set(this.tamanos, key, { id: obj.id, valor:obj.rango});
+        });
+    });
+    axios.get('api/valor-atributo/atributo/5.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            console.log("--> Obj "+obj +" Key "+key);
+            Vue.set(this.edades, key, { id: obj.id, valor:obj.rango});
+        });
+    });
+    axios.get('api/valor-atributo/atributo/6.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            console.log("--> Obj "+obj +" Key "+key);
+            Vue.set(this.longevidades, key, { id: obj.id, valor:obj.rango});
+        });
+    });
+    axios.get('api/valor-atributo/atributo/7.json').then(response => {
+        /* console.log(response.data);  */
+        response.data.forEach((obj, key) => {
+            console.log("--> Obj "+obj +" Key "+key);
+            Vue.set(this.aguas, key, { id: obj.id, valor:obj.rango});
+        });
+    });
   },
   data(){
     return {
@@ -236,85 +292,20 @@ export default {
 
 
       categorias : [
-        { id: 1, valor: "Caninos" },
-        { id: 2, valor: "Felinos" },
-        { id: 3, valor: "Aracnidos" },
-        { id: 4, valor: "Reptiles" },
-        { id: 5, valor: "Peces" },
-        { id: 6, valor: "Aves" },
-        { id: 7, valor: "Roedores" },
       ],
       colores : [
-        { id: 1, valor: "Blanco" },
-        { id: 2, valor: "Negro" },
-        { id: 3, valor: "Cafe" },
-        { id: 4, valor: "Azul" },
-        { id: 5, valor: "Amarillo" },
-        { id: 6, valor: "Verde" },
-        { id: 7, valor: "Dorado" },
-        { id: 8, valor: "Plateado" },
-        { id: 9, valor: "Gris" },
-        { id: 10, valor: "Rosa" },
-        { id: 11, valor: "Mixto" }
       ],
       tamanos : [
-        { id: 1, valor: "Chico" },
-        { id: 2, valor: "Mediano" },
-        { id: 3, valor: "Grande" },
-        { id: 4, valor: "Enorme" }
       ],
       razas : [
-        { id: 1, valor: "Terranova" },
-        { id: 2, valor: "Maltes" },
-        { id: 3, valor: "Golden Retrievers" },
-        { id: 4, valor: "Huskie Siberiano" },
-        { id: 5, valor: "Poodles" },
-        { id: 6, valor: "Beagles" },
-        { id: 7, valor: "Pastor Alemán" },
-        { id: 8, valor: "Corgis" },
-        { id: 9, valor: "Labrador" },
-        { id: 10, valor: "Chihuahua" },
-        { id: 11, valor: "Mestizo" },
-        { id: 12, valor: "Pug" },
-        { id: 13, valor: "Bulldog" }
       ],
       edades : [
-        { id: 1, valor: "Menos de 1 mes" },
-        { id: 2, valor: "De 1 a 6 meses" },
-        { id: 3, valor: "De 6 a 12 meses" },
-        { id: 4, valor: "De 1 a 2 años" },
-        { id: 5, valor: "De 2 a 3 años" },
-        { id: 6, valor: "De 3 a 4 años" },
-        { id: 7, valor: "De 4 a 5 años" },
-        { id: 8, valor: "De 5 a 6 años" },
-        { id: 9, valor: "De 6 a 7 años" },
-        { id: 10, valor: "De 7 a 8 años" },
-        { id: 11, valor: "De 8 a 9 años" },
-        { id: 12, valor: "De 9 a 10 años" },
-        { id: 13, valor: "Más de 10 años" }
       ],
       pesos : [
-        { id: 1, valor: "Menos de 1 kg" },
-        { id: 2, valor: "Entre 1 y 2 kg" },
-        { id: 3, valor: "Entre 2 y 5 kg" },
-        { id: 4, valor: "Entre 5 y 10 kg" },
-        { id: 5, valor: "Entre 10 y 20 kg" },
-        { id: 6, valor: "Mas de 20 kg" }
       ],
       longevidades : [
-        { id: 1, valor: "Menos de 1 año" },
-        { id: 2, valor: "De 1 a 2 años" },
-        { id: 3, valor: "De 2 a 5 años" },
-        { id: 4, valor: "De 5 a 10 años" },
-        { id: 5, valor: "De 10 a 15 años" },
-        { id: 6, valor: "De 15 a 20 años" },
-        { id: 7, valor: "De 20 a 30 años" },
-        { id: 8, valor: "Mas de 30 años" }
       ],
       aguas : [
-        { id: 1, valor: "Agua Dulce" },
-        { id: 2, valor: "Agua Salada" },
-        { id: 3, valor: "Dulce y Salada" }
       ],
       
       anuncios: [
@@ -323,7 +314,7 @@ export default {
 
       currentPage: null,
       rows: null,
-      perPage: 9
+      perPage: 2
     }
   },
   watch: {
@@ -349,9 +340,24 @@ export default {
       this.idPeso = localStorage.idEdad;
       this.idAguas = localStorage.idAguas;
       this.idLongevidad = localStorage.idLongevidad;
+      this.currentPage = localStorage.currentPage;
     }
     //Limpiamos los datos de la session
-    localStorage.clear()
+    /* localStorage.clear() */
+      localStorage.removeItem('anuncios');
+      localStorage.rows = null;
+      localStorage.idCategoria = null;
+      localStorage.precio = null;
+      localStorage.idColor = null;
+      localStorage.idTamano = null;
+      localStorage.idRaza = null;
+      localStorage.idPeso = null; 
+      localStorage.idEdad = null; 
+      localStorage.idAguas = null;
+      localStorage.idLongevidad = null;
+      localStorage.currentPage = null;
+      localStorage.bandera = null;
+
   },
   computed: {
     tablaVacia: function (){
@@ -375,7 +381,6 @@ export default {
     },      
     redireccion(idAnuncio){
     //Limpiamos los datos de la session
-    //localStorage.clear();
            
     //Guardamos información en la vista
     localStorage.setItem('anuncios', JSON.stringify(this.anuncios));
@@ -461,13 +466,14 @@ export default {
           //this.metodosPago = this.metodosPagoDatos;
           this.rows = response.data.totalAnuncios;
           this.currentPage = numero;
+          localStorage.currentPage = numero;
           console.log(this.currentPage);
           if(this.rows===0){
             this.anuncios=null;
           }
           
           //Limpiamos los datos de la session
-          localStorage.clear();
+          /* localStorage.clear(); */
            
           //Guardamos información en la vista
           localStorage.setItem('anuncios', JSON.stringify(response.data.listaAnuncios));
@@ -488,6 +494,9 @@ export default {
 </script>
 
 <style>
+.none{
+  display: none;
+}
 .raya{
   border-bottom: .5px solid #979797;
 }

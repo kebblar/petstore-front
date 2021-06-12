@@ -43,7 +43,7 @@
                       class="rounded-0">
                     </b-card-img>
                     <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 400px; padding: 2%">
-                      <source :src="ruta +'video\\'+ imagen.uuid" type="video/mp4" />
+                      <source :src="ruta + imagen.uuid" type="video/mp4" />
                     </video>
                   </slide>
                 </hooper>
@@ -60,7 +60,7 @@
                       style="width: 150px">
                     </b-card-img>
                       <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 150px; width: 150px;padding: 2%">
-                        <source :src="ruta +'video\\'+ imagen.uuid"  type="video/mp4" />
+                        <source :src="ruta + imagen.uuid"  type="video/mp4" />
                       </video>                    
                   </slide>
                   <hooper-navigation slot="hooper-addons"></hooper-navigation>
