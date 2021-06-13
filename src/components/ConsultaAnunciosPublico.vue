@@ -24,9 +24,12 @@
             <div class="col-md-12">
               <label for="nombre">Precio :</label>
             </div>
-            <input type="number" pattern="[0-9]" required 
+            <div class="letraBusqueda col-md-12">
+              <input type="number" pattern="[0-9]" required 
                    onkeypress="return event.charCode >= 48 || event.charCode == 46" 
-                   step="1" :class="classPrecio" class="form-control" v-model="precio" min="0" maxlength="9" />
+                   step="1" :class="classPrecio" class="form-control" style="font-size:11px;"
+                   v-model="precio" min="0" maxlength="9" />
+            </div>
           </div>
           <div class="form-row form-group col-md-10">
             <div class="col-md-12">
@@ -105,13 +108,11 @@
               </select>
             </div>
           </div>     
-          <div class="row col-md-10">
-            <div class="col-xs-12 col-md-10 offset-md-6">
-              <button type="button" class="col-xs-6 text-center btn btn-primary font-weight-bold "
-                  @click="limpiar()" >LImpiar</button>&nbsp;
-              <button type="button" class="col-xs-6 text-center btn btn-success font-weight-bold "
+          <div class="text-center">
+              <button type="button" class="btn btn-primary font-weight-bold m-1"
+                  @click="limpiar()" >Limpiar</button>
+              <button type="button" class="btn btn-success font-weight-bold m-1"
                   @click="buscarAnuncios(1)">Buscar</button>
-            </div>
           </div>
         </div>
         <div class='col-md-9 inline' >
@@ -128,9 +129,12 @@
                   <b-icon icon="view-stacked" aria-hidden="true"></b-icon>
               </b-button>
             </div>
-            <div >
-              <b-card-group  v-for="(entry, i) in anuncios" :key="i" class="inline padding" v-bind:class="{ 'col-md-4': isActive, 'col-md-12': notActive }"> 
-                <b-card v-if="entry.imagenes != null" :title=" entry.titulo " :img-src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top >
+            <div>
+              <b-card-group  v-for="(entry, i) in anuncios" :key="i" class="inline align-top" v-bind:class="{ 'col-md-4': isActive, 'col-md-12': notActive }"> 
+                <b-card v-if="entry.imagenes != null && entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5" style="height:400px" class="m-1">
+                  
+                  <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="50%"/>
+                  <b-card-title>{{entry.titulo}}</b-card-title>
                   <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
                   <b-card-text>
                     {{ entry.descripcion }}
@@ -142,34 +146,45 @@
                     <b-button block  variant="primary" @click="redireccion(entry.id)">Ver Anuncio</b-button>
                   </template>
                 </b-card>
+
+                <b-card v-else style="height:400px" class="m-1"> 
+                   <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top>
+                      <source :src="ruta + entry.imagenes[0].uuid" type="video/mp4" />
+                    </video> 
+                  <b-card-title>{{entry.titulo}}</b-card-title>
+                  <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title> 
+                  <b-card-text>
+                    {{ entry.descripcion }}
+                  </b-card-text>
+                  <b-card-text>
+                    {{ entry.precio }}
+                  </b-card-text>
+                  <template #footer>
+                    <b-button block  variant="primary" @click="redireccion(entry.id)">Ver Anuncio</b-button>
+                  </template>
+                </b-card>
+
               </b-card-group>
             </div>       
             <b-pagination
               v-model="currentPage"
               :total-rows="rows"
               :per-page="perPage"
-              class="mt-4 text-center"
-            >
+              class="mt-4 text-center">
               <template #first-text
                 ><span @click="buscarAnuncios(1)" class="text-success"
                   >Primero</span
-                ></template
-              >
-              <template v-if="currentPage != 1" #prev-text
-                ><span @click="buscarAnuncios(currentPage)" class="text-danger"
-                  >Anterior</span
-                ></template
-              >
-              <template v-if="rows / perPage != currentPage" #next-text
-                ><span @click="buscarAnuncios(currentPage)" class="text-warning"
-                  >Siguiente</span
-                ></template
-              >
-              <template #last-text
-                ><span @click="buscarAnuncios(currentPage)" class="text-info"
-                  >Último</span
-                ></template
-              >
+                >
+              </template>
+              <template v-if="currentPage != 1" #prev-text>
+                <span @click="buscarAnuncios(currentPage)" class="text-danger">Anterior</span>
+              </template>
+              <template v-if="rows / perPage != currentPage" #next-text>
+                <span @click="buscarAnuncios(currentPage)" class="text-warning">Siguiente</span>
+              </template>
+              <template #last-text>
+                <span @click="buscarAnuncios(currentPage)" class="text-info">Último</span>
+              </template>
               <template #page="{ page, active }">
                 <b @click="buscarAnuncios(currentPage)" v-if="active">{{ page }}</b>
                 <b @click="buscarAnuncios(currentPage)" v-else>{{ page }}</b>
@@ -200,64 +215,47 @@ Vue.use(VueConfirmDialog);
 Vue.use(VueToast);
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 
-
 export default {
   name: "ConsultaAnunciosPublico.vue",
   mounted () {
     this.ruta = process.env.VUE_APP_URL+"upload/";
     axios.get('api/categorias.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
-            console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.categorias, key, { id: obj.id, valor:obj.categoria});
         });
     });
     axios.get('api/valor-atributo/atributo/1.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
-            console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.pesos, key, { id: obj.id, valor:obj.rango});
         });
     });
     axios.get('api/valor-atributo/atributo/2.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
-            console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.razas, key, { id: obj.id, valor:obj.rango});
         });
     });
     axios.get('api/valor-atributo/atributo/3.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
-            console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.colores, key, { id: obj.id, valor:obj.rango});
         });
     });
     axios.get('api/valor-atributo/atributo/4.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
-            console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.tamanos, key, { id: obj.id, valor:obj.rango});
         });
     });
     axios.get('api/valor-atributo/atributo/5.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
-            console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.edades, key, { id: obj.id, valor:obj.rango});
         });
     });
     axios.get('api/valor-atributo/atributo/6.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
-            console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.longevidades, key, { id: obj.id, valor:obj.rango});
         });
     });
     axios.get('api/valor-atributo/atributo/7.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
-            console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.aguas, key, { id: obj.id, valor:obj.rango});
         });
     });
@@ -289,36 +287,19 @@ export default {
       msgPrecio : null,
       msgEdad : null,
       msgPeso : null,
-
-
-      categorias : [
-      ],
-      colores : [
-      ],
-      tamanos : [
-      ],
-      razas : [
-      ],
-      edades : [
-      ],
-      pesos : [
-      ],
-      longevidades : [
-      ],
-      aguas : [
-      ],
-      
-      anuncios: [
-        
-      ],
-
+      categorias : [],
+      colores : [],
+      tamanos : [],
+      razas : [],
+      edades : [],
+      pesos : [],
+      longevidades : [],
+      aguas : [],
+      anuncios: [],
       currentPage: null,
       rows: null,
-      perPage: 2
+      perPage: 10
     }
-  },
-  watch: {
-    
   },
   created(){
     this.anuncios = null;
@@ -342,8 +323,6 @@ export default {
       this.idLongevidad = localStorage.idLongevidad;
       this.currentPage = localStorage.currentPage;
     }
-    //Limpiamos los datos de la session
-    /* localStorage.clear() */
       localStorage.removeItem('anuncios');
       localStorage.rows = null;
       localStorage.idCategoria = null;
@@ -357,12 +336,10 @@ export default {
       localStorage.idLongevidad = null;
       localStorage.currentPage = null;
       localStorage.bandera = null;
-
   },
   computed: {
     tablaVacia: function (){
       return this.anuncios == null;
-      //return this.metodosPago == null;
     },
     
   },
@@ -380,8 +357,6 @@ export default {
       this.idAguas = '';
     },      
     redireccion(idAnuncio){
-    //Limpiamos los datos de la session
-           
     //Guardamos información en la vista
     localStorage.setItem('anuncios', JSON.stringify(this.anuncios));
     localStorage.rows = this.rows;
@@ -396,31 +371,20 @@ export default {
     localStorage.idLongevidad = this.idLongevidad;
     
     this.bandera = true;
-    console.log(this.bandera);
     localStorage.bandera = this.bandera;
-
-
     router.push({path:'/ui/detalle-producto/'+idAnuncio}).catch(()=>{});
     },
     lista(){
       this.isActive= false;
       this.notActive= true;
-
     },
     mosaico(){
-
       this.isActive= true;
       this.notActive= false;
-
     },
- 
     buscarAnuncios(numero) {
-      // this.anuncios.splice(0);
       console.log(numero);
-      
-      
-      let envio= [
-      ]
+      let envio= []
       if(this.idPeso != '')
       {
         envio.push({id: 1, valor: this.idPeso})
@@ -449,32 +413,21 @@ export default {
       {
         envio.push({id: 7, valor: this.idAguas})
       }
-
-      console.log(envio)
-      axios
-        .post("/api/anuncio/filter.json", {
+      axios.post("/api/anuncio/filter.json", {
           precio: this.precio,   
           idCategoria: this.idCategoria,
           numPaginas: numero,
           tamPaginas: this.perPage,
           atributos: envio
-          
         })
         .then((response) => {
-          console.log(response.data);
           this.anuncios = response.data.listaAnuncios;
-          //this.metodosPago = this.metodosPagoDatos;
           this.rows = response.data.totalAnuncios;
           this.currentPage = numero;
           localStorage.currentPage = numero;
-          console.log(this.currentPage);
           if(this.rows===0){
             this.anuncios=null;
           }
-          
-          //Limpiamos los datos de la session
-          /* localStorage.clear(); */
-           
           //Guardamos información en la vista
           localStorage.setItem('anuncios', JSON.stringify(response.data.listaAnuncios));
           localStorage.rows = response.data.totalAnuncios;

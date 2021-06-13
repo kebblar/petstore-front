@@ -195,8 +195,16 @@
                 <div class="row col-12">
                     <div class="col-3" v-for="(item, index) in imagenes" :key="index">
                       <div class="text-center">
-                         <img :src="ruta+item.uuid" class="img-fluid" width="150px" height="150px" /><br/> 
-                        {{ item.imagen }}
+                        <div v-if="!item.uuid.includes('mp4') && !item.uuid.includes('avi')">
+                          <img :src="ruta+item.uuid" class="img-fluid" :style="item.principal?'border: 5px solid #469b27;':''" width="150px" height="150px" /><br/> 
+                          {{ item.imagen }}
+                        </div>
+                        <div v-else>
+                            <video  class="video-fluid" autoplay loop muted style="padding: 2%" :style="item.principal?'border: 5px solid #469b27;':''" width="150px" height="150px">
+                            <source :src="ruta + item.uuid" type="video/mp4" />
+                          </video> 
+                        </div>
+
                       </div>
                     </div> 
               </div>
@@ -258,29 +266,13 @@ export default {
     };
   },
   created() {
-    console.log("--> created ()");
-
-    console.log("--> Cargando categorias---");
     axios.get('api/categorias.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
             console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.tipoCategorias, key, { id: obj.id, valor:obj.categoria});
         });
     });
-     /* this.tipoCategorias = [
-        {id:1, valor:"Caninos"},
-        {id:2, valor:"Felinos"},
-        {id:3, valor:"Aracnidos"},
-        {id:4, valor:"Reptiles"},
-        {id:5, valor:"Peces"},
-        {id:6, valor:"Aves"},
-        {id:7, valor:"Roedores"}
-      ]; */
-
-     console.log("--> Cargando categorias---");
      axios.get('api/atributos-detalles.json').then(response => {
-       /*  console.log(response.data);  */
         response.data.forEach((obj) => {
             let optionsS = [];
             obj.rangos.forEach((obj) => {
@@ -293,128 +285,13 @@ export default {
                   options: optionsS
                 }
             );
-            //Vue.set(this.optionsGeneral, key, { id: obj.id, valor:obj.categoria});
         });
     });
-     
-    /*  this.optionsGeneral= [
-          {id:0,nombre:"Default", options:[{id:0,valor:"Seleccione"}]},
-          {
-            id: 1, //Peso
-            nombre: "Peso",
-            options: [
-              { idValorAtributo: 1, valor: "MENOS DE 1 KG" },
-              { idValorAtributo: 2, valor: "ENTRE 1 Y 2 KG" },
-              { idValorAtributo: 3, valor: "ENTRE 2 Y 5 KG" },
-              { idValorAtributo: 4, valor: "ENTRE 5 Y 10 KG" },
-              { idValorAtributo: 5, valor: "ENTRE 10 Y 20 KG" },
-              { idValorAtributo: 6, valor: "MAS DE 20 KG" },
-            ]
-          },
-          {
-            id: 2, //Raza
-            nombre: "Raza",
-            options: [
-              { idValorAtributo: 1, valor: "TERRANOVA" },
-              { idValorAtributo: 2, valor: "MALTES" },
-              { idValorAtributo: 3, valor: "GOLDEN RETRIEVERS" },
-              { idValorAtributo: 4, valor: "HUSKIE SIBERIANO" },
-              { idValorAtributo: 5, valor: "POODLES" },
-              { idValorAtributo: 6, valor: "BEAGLES" },
-              { idValorAtributo: 7, valor: "PASTOR ALEMÁN" },
-              { idValorAtributo: 8, valor: "CORGIS" },
-              { idValorAtributo: 9, valor: "LABRADOR" },
-              { idValorAtributo: 10, valor: "CHIHUAHUA" },
-              { idValorAtributo: 11, valor: "MESTIZO" },
-              { idValorAtributo: 12, valor: "PUG" },
-              { idValorAtributo: 13, valor: "BULLDOG" },
-            ]
-          },
-          {
-            id: 3, //Color
-            nombre: "Color",
-            options: [
-              { idValorAtributo: 1, valor: "BLANCO" },
-              { idValorAtributo: 2, valor: "NEGRO" },
-              { idValorAtributo: 3, valor: "CAFE" },
-              { idValorAtributo: 4, valor: "AZUL" },
-              { idValorAtributo: 5, valor: "AMARILLO" },
-              { idValorAtributo: 6, valor: "VERDE" },
-              { idValorAtributo: 7, valor: "DORADO" },
-              { idValorAtributo: 8, valor: "PLATEADO" },
-              { idValorAtributo: 9, valor: "GRIS" },
-              { idValorAtributo: 10, valor: "ROSA" },
-              { idValorAtributo: 11, valor: "MIXTO" },
-            ]
-          },
-          {
-            id: 4, //Tamaño
-            nombre: "Tamaño",
-            options: [
-              { idValorAtributo: 1, valor: "CHICO" },
-              { idValorAtributo: 2, valor: "MEDIANO" },
-              { idValorAtributo: 3, valor: "GRANDE" },
-              { idValorAtributo: 4, valor: "ENORME" },
-            ]
-          },
-          {
-            id: 5, //Edad
-            nombre: "Edad",
-            options: [
-              { idValorAtributo: 1, valor: "MENOS DE 1 MES" },
-              { idValorAtributo: 2, valor: "DE 1 A 6 MESES" },
-              { idValorAtributo: 3, valor: "DE 6 A 12 MESES" },
-              { idValorAtributo: 4, valor: "DE 1 A 2 AÑOS" },
-              { idValorAtributo: 5, valor: "DE 2 A 3 AÑOS" },
-              { idValorAtributo: 6, valor: "DE 3 A 4 AÑOS" },
-              { idValorAtributo: 7, valor: "DE 5 A 6 AÑOS" },
-              { idValorAtributo: 8, valor: "DE 6 A 7 AÑOS" },
-              { idValorAtributo: 9, valor: "DE 7 A 8 AÑOS" },
-              { iValorAtributod: 10, valor: "DE 8 A 9 AÑOS" },
-              { idValorAtributo: 11, valor: "DE 9 A 10 AÑOS" },
-              { idValorAtributo: 12, valor: "MAS DE 10 AÑOS" },
-            ]
-          },
-          {
-            id: 6, //Longevidad
-            nombre: "Longevidad",
-            options: [
-              { idValorAtributo: 1, valor: "MENOS DE 1 AÑO" },
-              { idValorAtributo: 2, valor: "DE 1 A 2 AÑOS" },
-              { idValorAtributo: 3, valor: "DE 2 A 5 AÑOS" },
-              { idValorAtributo: 4, valor: "DE 5 A 10 AÑOS" },
-              { idValorAtributo: 5, valor: "DE 10 A 15 AÑOS" },
-              { idValorAtributo: 6, valor: "DE 15 A 20 AÑOS" },
-              { idValorAtributo: 7, valor: "DE 20 A 30 AÑOS" },
-              { idValorAtributo: 8, valor: "MAS DE 30 AÑOS" },
-            ]
-          },
-          {
-            id: 7, //TipoAgua
-            nombre: "Tipo de agua",
-            options: [
-              { idValorAtributo: 1, valor: "AGUA DULCE" },
-              { idValorAtributo: 2, valor: "AGUA SALADA" },
-              { ididValorAtributo: 3, valor: "DULCE Y SALADA" },
-            ]
-          },
-      ]; */
-      
-      ///api/atributos.json
-     /*  axios.get('api/atributos.json').then(response => {
-          console.log(response.data); 
-          response.data.forEach((obj, key) => {
-              console.log("--> Obj "+obj +" Key "+key);
-              Vue.set(this.atributosByCategoriaDefault, key, { id: obj.id, valor:obj.categoria});
-          });
-      }); */
 
-      axios.get('api/categoria-atributos.json').then(response => {
-    /*     console.log(response.data);  */
+    axios.get('api/categoria-atributos.json').then(response => {
         let idCategoria = 0;
         let atributosGenerales = response.data;
         response.data.forEach((obj) => {
-/*             console.log("--> Obj "+obj +" Key "+key); */
             if(idCategoria < obj.idCategoria){
               idCategoria =  obj.idCategoria;
               let atributosS = [];
@@ -431,39 +308,7 @@ export default {
               );
             }
         });
-      });
-      /* this.atributosByCategoriaDefault = [
-        {
-          id:1, //Caninos
-          atributos:[1,2,3,4,5,6]
-        },
-        {
-          id:2, //Felinos
-          atributos:[1,3,4,5,6]
-        },
-        {
-          id:3, //Aracnidos
-          atributos:[1,4,5,6]
-        },
-        {
-          id:4, //Reptiles
-          atributos:[1,4,5,6]
-        },
-        {
-          id:5, //Peces
-          atributos:[1,3,4,5,6,7]
-        },
-        {
-          id:6, //Aves
-          atributos:[1,3,4,5,6]
-        },
-         {
-          id:7, //Roedores
-          atributos:[1,3,4,5,6]
-        }
-        
-      ]; */
-      
+      });      
   },
    mounted () {
     this.ruta = process.env.VUE_APP_URL + "upload/";
@@ -498,11 +343,9 @@ export default {
               this.atributos.push({idValorAtributo: aux.idAtributo, valor: aux.valor });
           });
           axios.get('api/categoria-atributos.json').then(response => {
-          /*     console.log(response.data);  */
               let idCategoria = 0;
               let atributosGenerales = response.data;
               response.data.forEach((obj) => {
-      /*             console.log("--> Obj "+obj +" Key "+key); */
                   if(idCategoria < obj.idCategoria){
                     idCategoria =  obj.idCategoria;
                     let atributosS = [];
@@ -738,7 +581,6 @@ export default {
     },
     getOptionSelect(options,valor){
          var leyenda = "----------";
-         console.log("--> Aqui");
         options.forEach((option) =>{
            if(option.idValorAtributo === valor){
               leyenda = option.valor;

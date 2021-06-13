@@ -17,59 +17,47 @@
                 v-on:vdropzone-error="errorEvent"
                 :options="dropzoneOptions">
             </vue-dropzone>
+            <button @click="sube" type="button" class="btn btn-lg btn-primary" style="width:100%" >Carga archivos</button>
         </div>
-        <button @click="sube" type="button" class="btn btn-lg btn-primary" >Carga archivos</button>
-
-        <div class="row col-12">
-            <table class="table">
-              <thead class="text-center">
-                <tr>
-                  <th>
-                    Imagen
-                  </th>
-                  <th>
-                    Archivo
-                  </th>
-                  <th>
-                    Nombre servidor
-                  </th>
-                  <th>
-                    
-                  </th>
-                  <th>
-                    Principal
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr v-for="(item, index) in imagenes" :key="index">
-                    <td> 
-                      <!-- <img :src="ruta+item.uuid" class="img-fluid" width="150px" height="150px" /><br/> -->
-                    </td> 
-                    <td>
-                      <p class="mb-0">{{ item.imagen }}</p>
-                    </td>
-                    <td class="text-center">
-                      <p class="mb-0">{{ item.uuid }}</p>
-                    </td>
-                    <td>
-                          <b-icon class="h1" icon="trash-fill" aria-hidden="true" 
-                            style="color:red;font-size: 2rem;cursor:hand" :id="index" @click="eliminarImagen(index,item)"
-                            title="Elimina la imagen">
-                        </b-icon>  
-                    </td>
-                    <td>
-                      <template>
-                        <div>
-                          <b-form-group label="" >
-                            <b-form-radio v-model="selected"  @change="seleccionarImagen(item)" name="some-radios" :value="item.principal"></b-form-radio>
-                          </b-form-group>
-                        </div>
-                      </template>
-                    </td>
+        <div class="card-body">
+          <div class="row">
+              <table class="table">
+                <thead class="text-center">
+                  <tr class="col-1">
+                    <th>
+                      Principal
+                    </th>
+                    <th class="text-left">
+                      Imagen
+                    </th>
+                    <th class="col-1 text-left">
+                      Acciones
+                    </th>
                   </tr>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in imagenes" :key="index">
+                      <td class="col-md d-flex justify-content-center">
+                          <b-form-radio v-model="selected"  @change="seleccionarImagen(item)" name="some-radios" :value="item.principal"></b-form-radio>
+                      </td>
+                      <td class="col-5"> 
+                        <img v-if="!item.uuid.includes('mp4') && !item.uuid.includes('avi')" :src="ruta+item.uuid" class="img-fluid" 
+                          width="150px" height="150px" /><br/>
+                        <video v-if="item.uuid.includes('mp4') || item.uuid.includes('avi')" class="video-fluid" autoplay 
+                          loop muted width="150px" height="150px">
+                          <source :src="ruta + item.uuid" type="video/mp4" />
+                        </video>
+                      </td> 
+                      <td>
+                          <b-icon class="h1" icon="trash-fill" aria-hidden="true" 
+                              style="color:red;font-size: 2rem;cursor:hand" :id="index" @click="eliminarImagen(index,item)"
+                              title="Elimina la imagen">
+                          </b-icon>
+                      </td>
+                    </tr>
+                </tbody>
+              </table>
+          </div>
         </div>
     </div>
 </template>
@@ -148,7 +136,7 @@ export default {
             }); 
         },
         seleccionarImagen(item){
-            axios.put('api/anuncios/imagen/principal.json',  { 
+          axios.put('api/anuncios/imagen/principal.json',  { 
             idAnuncio:item.idAnuncio,
             uuid: item.uuid
           }).then(response => {
@@ -157,7 +145,6 @@ export default {
             console.log("--> error "+error);            
           });
         }
-        
   }
 }
 </script>

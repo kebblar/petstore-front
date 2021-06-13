@@ -138,7 +138,7 @@ export default {
   },
   mounted() {
     this.cargarDetalle(this.idprod),
-    (this.ruta = process.env.VUE_APP_URL + "upload/");
+    this.ruta = (this.ruta = process.env.VUE_APP_URL + "upload/");
     this.esAdmin = store.state.session.roles[0].nombre == "admin";
   },
   data() {
@@ -177,7 +177,6 @@ export default {
       console.log(slide);
     },
     cargarDetalle(idProd) {
-      console.log(idProd);
       axios
         .get("/api/anuncios/" + idProd + ".json", {})
         .then((response) => {
@@ -198,17 +197,6 @@ export default {
           }
           if (response.data.imagenes != null) {
             this.imagenes = response.data.imagenes;
-          //  response.data.imagenes.forEach((i) => {
-          //    if (i.idTipo == 4 || i.idTipo == 5) {
-          //      let itemImagenVideo = [{ uuid: "video/" + i.uuid }];
-          //      this.imagenes.push(itemImagenVideo);
-          //      console.log("itemImagen: " + itemImagenVideo[0].uuid);
-          //    } else {
-          //      let itemImagen = [{ uuid: i.uuid }];
-          //      this.imagenes.push(itemImagen);
-          //      console.log("itemImagen: " + itemImagen[0].uuid);
-          //    }
-          //  });
           }
         })
         .catch((e) => {
@@ -226,7 +214,6 @@ export default {
     },
     regresar() {
       console.log("regresa a busqueda");
-      //router.go(-1);
       router.back();
     },
   },
