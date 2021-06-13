@@ -50,8 +50,7 @@
               id="inputCat"
               class="form-control"
               style="font-size: 14px"
-              v-model="idCategoria"
-            >
+              v-model="idCategoria">
               <option value="" selected disabled hidden>Seleccionar</option>
               <option :value="m.id" v-for="m in categorias2" :key="m.id">
                 {{ m.valor }}
@@ -67,8 +66,7 @@
               id="inputEstado"
               class="form-control"
               style="font-size: 12px"
-              v-model="idEstatus"
-            >
+              v-model="idEstatus">
               <option value="" selected disabled hidden>Seleccionar</option>
               <option :value="m.id" v-for="m in estatus2" :key="m.id">
                 {{ m.valor }}
@@ -133,16 +131,14 @@
               type="button"
               class="col-xs-6 text-right btn btn-success font-weight-bold" 
               style="font-size: 12px"
-              @click="buscarAnuncios"
-            >
+              @click="buscarAnuncios">
               Buscar
             </button>
             <button
               type="button"
               class="col-xs-6 btn btn-info font-weight-bold m-2"
               style="font-size: 12px"
-              @click='crearAnuncio()'
-            >
+              @click='crearAnuncio()'>
               Nuevo anuncio
             </button>
           </div>
@@ -161,12 +157,10 @@
             <div class="table-responsive">
               <table
                 class="table table-light table-striped table-xs"
-                style="text-align: center; font-size: 10px"
-              >
+                style="text-align: center; font-size: 10px">
                 <thead
                   class="thead-dark"
-                  style="text-align: center; font-size: 11px; font-weight: bold"
-                >
+                  style="text-align: center; font-size: 11px; font-weight: bold">
                   <tr>
                     <th scope="col">Folio</th>
                     <th scope="col">Titulo</th>
@@ -212,8 +206,7 @@
                                   <b-button
                                     @click='editarAnuncio(entry.id)'
                                     title="Editar anuncio"
-                                    class="btn btn-warning btn-xs m-2"
-                                  >
+                                    class="btn btn-warning btn-xs m-2">
                                     <b-icon
                                       icon="pencil-square"
                                       aria-hidden="true"
@@ -228,16 +221,14 @@
                                   <b-button
                                     @click='modalEliminar(entry.id,entry.folio,entry.numPaginas)'
                                     title="borrar anuncio"
-                                    class="btn btn-danger btn-xs m-2"
-                                  >
+                                    class="btn btn-danger btn-xs m-2">
                                     <b-icon
                                       icon="trash-fill"
-                                      aria-hidden="true"
-                                    ></b-icon>
+                                      aria-hidden="true">
+                                    </b-icon>
                                   </b-button>
                                   </p>
                               </div>
-                              
                             </div>
                           </div>
                         </b-button-group>
@@ -251,29 +242,20 @@
               v-model="currentPage"
               :total-rows="rows"
               :per-page="perPage"
-              class="mt-4 text-center"
-            >
-              <template #first-text
-                ><span @click="paginaEvento(1)" class="text-success"
-                  >Primero</span
-                ></template
-              >
-              <template v-if="currentPage != 1" #prev-text
-                ><span @click="paginaEvento(currentPage - 1)" class="text-danger"
-                  >Anterior</span
-                ></template
-              >
-              <template v-if="rows / perPage != currentPage" #next-text
-                ><span @click="paginaEvento(currentPage + 1)" class="text-warning"
-                  >Siguiente</span
-                ></template
-              >
-              <template #last-text
-                ><span @click="paginaEvento(((rows / perPage)%2==0)?(rows / perPage):parseInt(rows / perPage)+1)" 
-                       class="text-info"
-                  >Último</span
-                ></template
-              >
+              class="mt-4 text-center">
+              <template #first-text>
+                <span @click="paginaEvento(1)" class="text-success">Primero</span>
+              </template>
+              <template v-if="currentPage != 1" #prev-text>
+                <span @click="paginaEvento(currentPage - 1)" class="text-danger">Anterior</span>
+              </template>
+              <template v-if="rows / perPage != currentPage" #next-text>
+                <span @click="paginaEvento(currentPage + 1)" class="text-warning">Siguiente</span>
+              </template>
+              <template #last-text>
+                <span @click="paginaEvento(((rows / perPage)%2==0)?(rows / perPage):parseInt(rows / perPage)+1)" 
+                       class="text-info">Último</span>
+              </template>
               <template #page="{ page, active }">
                 <b @click="paginaEvento(page)" v-if="active">{{ page }}</b>
                 <i @click="paginaEvento(page)" v-else>{{ page }}</i>
@@ -309,26 +291,13 @@ const folioRegex = new RegExp(/^[0-9]*$/);
 export default {
   name: "ConsultaAnuncio.vue",
   mounted() {
-    // console.log("antes"+localStorage.anuncios);
-    // if (localStorage.anuncios) {
-    //   this.anuncios = localStorage.anuncios;
-    //   console.log("despues"+this.anuncios);
-    // }
-    // if (localStorage.rows) {
-    //   this.rows = localStorage.rows;
-    //   console.log("despues"+this.anuncios);
-    // }
     axios.get('api/categorias.json').then(response => {
-        /* console.log(response.data);  */
-        response.data.forEach((obj, key) => {/* 
-            console.log("--> Obj "+obj +" Key "+key); */
+        response.data.forEach((obj, key) => {
             Vue.set(this.categorias2, key, { id: obj.id, valor:obj.categoria});
         });
     });
     axios.get('api/estatus-anuncios.json').then(response => {
-        /* console.log(response.data);  */
         response.data.forEach((obj, key) => {
-            /* console.log("--> Obj "+obj +" Key "+key); */
             Vue.set(this.estatus2, key, { id: obj.id, valor:obj.descripcion});
         });
     });
@@ -361,10 +330,8 @@ export default {
       msgFolio: null,
       msgTitulo: null,
       styleCalendar: "",
-      categorias2: [
-      ],
-      estatus2: [
-      ],
+      categorias2: [],
+      estatus2: [],
       anuncios: null,
       paymentSelected: 0,
       cvv: "",
@@ -383,15 +350,6 @@ export default {
       }
       localStorage.setItem('folio', this.folio);
     }
-    // titulo() {
-    //   localStorage.setItem('titulo', this.titulo);
-    // },
-    // idCategoria () {
-    //   localStorage.setItem('idCategoria', this.idCategoria);
-    // },
-    // idEstatus () {
-    //   localStorage.setItem('idEstatus', this.idEstatus);
-    // }
   },
   created() {
     this.anuncios = null;
@@ -434,7 +392,6 @@ export default {
       console.log('currentPage '+this.currentPage) */
     }
     //Limpiamos los datos de la session
-    /* localStorage.clear(); */
       localStorage.removeItem('anuncios');
       localStorage.rows = null;
       localStorage.removeItem('cp');
@@ -445,7 +402,6 @@ export default {
       localStorage.fFinalV = null;
       localStorage.fInicialV = null;
       localStorage.bandera = null;
-
   },
   computed: {
     tablaVacia: function () {
@@ -470,14 +426,9 @@ export default {
           tamPaginas: this.perPage,
         })
         .then((response) => {
-          /* console.log(response.data);    */ 
           //Limpiamos los datos de la session
-          /* localStorage.clear(); */
-           
-          //asignamos la informaciòn recibida
           this.anuncios = response.data.listaAnuncios;
           this.rows = response.data.totalAnuncios;
-          //localStorage.anuncios = response.data.listaAnuncios;
           localStorage.setItem('anuncios', JSON.stringify(response.data.listaAnuncios));
           localStorage.rows = response.data.totalAnuncios;
           localStorage.setItem('cp',numero);
@@ -509,18 +460,6 @@ export default {
           tamPaginas: this.perPage,
         })
         .then((response) => {
-          /* console.log(response.data); */
-          //borramos datos 
-/*           this.titulo = "";
-          this.folio = "";
-          this.idCategoria = "";
-          this.idEstatus = "";
-          this.fFinalV = "";
-          this.fInicialV = ""; */
-          
-          //Limpiamos los datos de la session
-          /* localStorage.clear(); */
-           
           //asignamos la informaciòn recibida
           this.anuncios = response.data.listaAnuncios;
           this.rows = response.data.totalAnuncios;
@@ -534,13 +473,9 @@ export default {
           localStorage.fFinalV = this.fFinalV;
           localStorage.fInicialV = this.fInicialV;
           console.log('curertn '+this.currentPage);
- /*          console.log(localStorage.anuncios);
-          console.log(localStorage.rows); */
         });
     },
     modalEliminar(idAnuncio,idFolio){
-/*       console.log(idAnuncio);
-      console.log("Eliminar"); */
       this.$confirm({
       title: 'Eliminar anuncio',
       message: '¿Estás seguro que quieres eliminar el anuncio?    '+idFolio,
@@ -551,7 +486,6 @@ export default {
         callback: confirm => {
           if (confirm == true) {
             this.eliminar(idAnuncio,idFolio);
-/*             console.log("Confirmado? true", idAnuncio); */
           }else{
             //console.log("Confirmado? false", idAnuncio);
           }  
@@ -565,8 +499,6 @@ export default {
           id : idAnuncio
         }).then(response => {
           console.log(response);
-     /*      console.log(response.data);
-          console.log(response.status); */
           let msgEliminar =
             "<center>Anuncio eliminado correctamente</center>";
           Vue.$toast.open({
@@ -596,8 +528,6 @@ export default {
         );
       },
     verAnuncio(idAnuncio){
-      //Limpiamos los datos de la session
-      /* localStorage.clear(); */
       //asignamos valores a la session
       localStorage.setItem('anuncios', JSON.stringify(this.anuncios));
       localStorage.rows = this.rows;
@@ -607,10 +537,7 @@ export default {
       localStorage.idEstatus = this.idEstatus;
       localStorage.fFinalV = this.fFinalV;
       localStorage.fInicialV = this.fInicialV;
-/*       console.log(localStorage.anuncios);
-      console.log(localStorage.rows); */
       this.bandera = true;
-/*       console.log(this.bandera); */
       localStorage.bandera = this.bandera;
 
       this.loading = true;
@@ -618,7 +545,6 @@ export default {
     },
     editarAnuncio(idAnuncio) {
         this.bandera = true;
-        /* console.log(this.bandera); */
         localStorage.setItem('anuncios', JSON.stringify(this.anuncios));
         localStorage.rows = this.rows;
         localStorage.folio = this.folio;
@@ -640,9 +566,6 @@ export default {
 </script>
 
 <style>
-/* hr.dotted {
-  border-top: 2px dotted #bbb;
-} */
 .shadowing {
   box-shadow: 1px 1px 3px #d8dcdd;
 }
