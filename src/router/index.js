@@ -167,6 +167,7 @@ const routes = [
     name: 'consulta-anuncios-publico',
     component: ConsultaAnunciosPublico
   },
+  {
     path: '/ui/regenera-clave-confirma',
     name: 'regenera-clave-confirma',
     component: RegeneraClaveConfirma
