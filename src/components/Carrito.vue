@@ -3,7 +3,10 @@
 
   <div id = "carrito">
   <a v-show="noDetalle" href="#" class="mr-4" data-toggle="modal" data-target="#kartModal" @click="getKart" >
-    <i class="fas fa-shopping-cart fa-lg"></i>
+    <div class="icon-wrapper">
+      <i class="fas fa-shopping-cart fa-lg icon-black"></i>
+      <span class="badge">{{ contador }}</span>
+    </div>
   </a>
 
   <!--          Modal-->
@@ -85,7 +88,8 @@ export default {
     return{
       total : 0,
       tavo : '',
-      vacio : true
+      vacio : true,
+      contador: 0
     }
   },
   computed : {
@@ -96,8 +100,7 @@ export default {
   methods : {
     getKart() {
       axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
-        this.shoppingKart = response.data;
-        this.total = this.getTotal(response.data);
+        this.calcula(response.data);
       }).catch(e => {
         console.log(e);
       });
@@ -106,13 +109,16 @@ export default {
       router.push(url).catch(()=>{});
       this.ruta=url;
     },
-    getTotal(obj) {
-      console.log(obj);
+    calcula: function(items) {
+      this.shoppingKart = items;
+      var j = 0;
       var i = 0;
-      for (const elem of obj) {
+      for (const elem of items) {
+        j++;
         i = i + elem.precio;
       }
-      return i;
+      this.total = i;
+      this.contador = j;
     },
     deleteElement(i) {
       axios.delete('/api/carrito/'+i+'.json').then (response => {
@@ -125,3 +131,29 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.icon-wrapper{
+    position: relative;
+    float: left;
+}
+
+i {
+    width: 100px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.badge{
+    color: #fff;
+    width: auto;
+    height: auto;
+    margin: 0;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    right: 37px;
+    padding: 4px;
+    font-size: 10px;
+}
+</style>

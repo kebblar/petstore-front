@@ -146,12 +146,6 @@ const routes = [
     component: RegeneraClave
   },
   {
-    path: '/ui/admin-compras',
-    name: 'AdministracionCompras',
-    component: AdministracionCompras,
-    meta: { allowedRoles: ['admin'] }
-  },
-  {
     path: '/ui/admin-anuncio/:id?',
     name: 'anuncio',
     component: AdminAnuncio,
@@ -167,7 +161,14 @@ const routes = [
     path: '/ui/consulta-anuncios-publico',
     name: 'consulta-anuncios-publico',
     component: ConsultaAnunciosPublico
-  }
+  },
+  {
+    path: '/ui/admin-compras',
+    name: 'AdministracionCompras',
+    component: AdministracionCompras,
+    meta: { allowedRoles: ['admin'] }
+  },
+
 ]
 
 const router = new Router({
