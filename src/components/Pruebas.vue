@@ -8,12 +8,19 @@
       <li>{{d}}</li>
       <li>{{e}}</li>
       <li>{{f}}</li>
+      <b-button>Hola Mundo</b-button>
     </ul>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import store from '../store'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 export default {
     data: function () {
