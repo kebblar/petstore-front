@@ -3,9 +3,9 @@
 
   <div id = "carrito">
   <a v-show="noDetalle" href="#" class="mr-4" data-toggle="modal" data-target="#kartModal" @click="getKart" >
-    <div class="icon-wrapper">
-      <i class="fas fa-shopping-cart fa-lg icon-black"></i>
-      <span class="badge">{{ contador }}</span>
+    <div class="icon-wrapper" style="font-size: 9px;">
+      <i class="fas fa-shopping-cart fa-3x icon-black"></i>
+      <span class="badge my-auto" >{{ contador }}</span>
     </div>
   </a>
 
@@ -145,15 +145,19 @@ i {
 }
 
 .badge{
-    color: #fff;
+    color: #484b61;
+    background-color: #d5be60;
     width: auto;
     height: auto;
     margin: 0;
     border-radius: 50%;
     position: absolute;
+    border-style: solid;
+    border-width: thin ;
+    border-color: saddlebrown;
     top: 2px;
     right: 37px;
-    padding: 4px;
-    font-size: 10px;
+    padding-right: 4px;
+    font-size: 9px;
 }
 </style>

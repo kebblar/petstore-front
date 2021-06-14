@@ -5,6 +5,7 @@
           <div class="row">
               <div class="col-sm-7">
                 <img src="./assets/logo.png" width="50px;"/> <label style="font-size:32px;">The Petstore App</label>
+
               </div>
               <div class="col-sm-2"></div>
               <div class="col" style="text-align: right;">
