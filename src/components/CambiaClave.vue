@@ -49,26 +49,14 @@
       </div>
     </div>
 
-  <!-- Modal -->
-  <modal 
-    name="aviso" 
-    :clickToClose="false" 
-    :reset="true"
-    :width="420">
-    <div class="card">
-        <div class="card-header text-white" style="text-align: center; background-color: #363636;">
-          <label class="control-label h4" >{{ modalTitulo }}</label>
-        </div>
-        <div class="card-body">
-            <ul v-for="(message, index) in modalMessage" :key="index">
-              <li class="small">{{ message }}</li>
-            </ul>
-            <div class="aceptar">
-                <a href="#" class="btn btn-primary" @click="go">Aceptar</a>
-            </div>
-        </div>
-    </div>
-  </modal>
+
+      <Aviso 
+      ref='avisoComp'
+      ancho='420'
+      alto='200'
+      target=''
+      :avisoMsg=modalMessage
+      :avisoTitulo=modalTitulo />
 
   </div>
 
@@ -77,7 +65,8 @@
 <script>
 import axios from 'axios'
 import store from '../store'
-import router from '../router'
+//import router from '../router'
+import Aviso from '../Aviso'
 
 export default {
     data: function () {
@@ -92,11 +81,10 @@ export default {
           confirmaClass:''
         }
     },
+    components: {
+      'Aviso': Aviso
+    },
     methods: {
-      go: function(){
-        console.log('go');
-        this.$modal.hide('aviso');
-      },
       cambiaClave: function() {
             this.clavesDiferentes = '';
             this.confirmaClass ='greenColor correct';
@@ -121,16 +109,22 @@ export default {
             ).then(response => {
                 var usuario = response.data;
                 console.log(usuario.correo);
-                router.push('/');
+                //router.push('/');
+                  this.modalTitulo = 'Aviso'
+                  this.modalMessage = 'Clave cambiada exitosamente';
+                  //this.target='/ui/login'
+                  this.$refs.avisoComp.abre();
             }).catch(error => {
                 // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
-                this.modalMessage = error;
                 if(error.response) {
-                    this.info = error.response.data['strengthViolations'];
-                    this.claveClass='redColor incorrect';
+                  this.info = error.response.data['strengthViolations'];
+                  this.claveClass='redColor incorrect';
                 } else {
-                    this.$modal.show('aviso');
+                  this.modalTitulo = 'Error general de sistema'
+                  this.modalMessage = error;
+                  this.$refs.avisoComp.abre();
                 }
+                
             })
       }
     }
