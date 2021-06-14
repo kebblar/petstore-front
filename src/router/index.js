@@ -25,13 +25,21 @@ import MisCompras from '@/components/MisCompras'
 import MisDirecciones from '@/components/MisDirecciones'
 import MisMetodosPago from '@/components/MisMetodosPago'
 import HistorialPedidos from '@/components/HistorialPedidos'
-import AdministracionCompras from '@/components/AdministracionCompras';
+import AdministracionCompras from '@/components/AdministracionCompras'
 import CompraConfirmada from '@/components/CompraConfirmada'
+
+import Pruebas from '@/components/Pruebas'
+
 
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/pba',
+    name: 'pba',
+    component: Pruebas
+  },
   {
     path: '/ui/cambia-datos-personales',
     name: 'cambia-datos-personales',
