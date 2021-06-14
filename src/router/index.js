@@ -43,6 +43,11 @@ const routes = [
     component: CambiaDatosPersonales
   },
   {
+    path: '/ui/detalle-producto/:idp',
+    name: 'detalle',
+    component: DetalleProducto,
+  },
+  {
     path: '/ui/cambia-clave',
     name: 'cambia-clave',
     component: CambiaClave,
@@ -192,7 +197,8 @@ function checaJwt (jwt, active) {
         correo:       '',
         ultimoAcceso: '',
         idUser:        0,
-        jwt:          '' // jwt: jwtPayload.exp
+        jwt:          '', // jwt: jwtPayload.exp
+        carrito: []
       });
       store.commit('setDestination', '/');
     } else {
@@ -201,9 +207,18 @@ function checaJwt (jwt, active) {
   }
 }
 
+function getKart() {
+  axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+    return response.data;
+  }).catch(e => {
+    console.log(e);
+  });
+}
+
 router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   checaJwt(store.state.session.jwt, false);
+  store.commit('setCarrito', getKart());
   if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:
     if (store.state.session.jwt==='') { 

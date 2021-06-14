@@ -13,7 +13,8 @@ const store = new Vuex.Store({
             ultimoAcceso: '',
             roles: [],
             idUser: 0,
-            jwt: '' //  jwt='' => signed: false,
+            jwt: '', //  jwt='' => signed: false,
+            carrito : []
         }
     },
     mutations: {
@@ -25,6 +26,9 @@ const store = new Vuex.Store({
         },
         setFirmado(state, firmado) {
             state.session.signed = firmado;
+        },
+        setCarrito(state, carrito) {
+            state.session.carrito = carrito;
         }
     },
     plugins: [createPersistedState()]

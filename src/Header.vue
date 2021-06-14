@@ -11,7 +11,7 @@
                 <div v-if="logged">
                 <div class="row">
                   <div class="col my-auto" align="right">
-                    <Carrito :ruta="ruta"></Carrito>
+                    <Carrito :ruta="ruta" :shoppingKart="datos"></Carrito>
                   </div>
                   <div class="col my-auto">
                     <div class="btn-group divider">
@@ -94,7 +94,8 @@ export default {
     },
     data() {
       return {
-        ruta : window.location.pathname
+        ruta : window.location.pathname,
+        datos : store.state.session.carrito
       }
     },
     methods: {

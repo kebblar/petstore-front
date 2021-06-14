@@ -73,7 +73,8 @@ import router from '../router'
 
 export default {
   props : {
-    ruta : String
+    ruta : String,
+    shoppingKart : Array
   },
   watch: {
     shoppingKart(value) {
@@ -82,7 +83,6 @@ export default {
   },
   data () {
     return{
-      shoppingKart : [],
       total : 0,
       tavo : '',
       vacio : true
