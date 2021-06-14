@@ -29,6 +29,11 @@ import AdministracionCompras from '@/components/AdministracionCompras';
 import CompraConfirmada from '@/components/CompraConfirmada'
 
 
+import DetalleProducto from '@/components/DetalleProducto'
+import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
+import AdminAnuncio from '@/components/admin/Anuncio'
+import ConsultaAnunciosPublico from '@/components/ConsultaAnunciosPublico'
+
 Vue.use(Router);
 
 const routes = [
@@ -141,6 +146,27 @@ const routes = [
     component: RegeneraClave
   },
   {
+    path: '/ui/detalle-producto/:idp',
+    name: 'detalle',
+    component: DetalleProducto,
+  },
+  {
+    path: '/ui/admin-anuncio/:id?',
+    name: 'anuncio',
+    component: AdminAnuncio,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/admin-consulta-anuncio',
+    name: 'consulta-anuncio',
+    component: AdminConsultaAnuncio,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/consulta-anuncios-publico',
+    name: 'consulta-anuncios-publico',
+    component: ConsultaAnunciosPublico
+  }
     path: '/ui/regenera-clave-confirma',
     name: 'regenera-clave-confirma',
     component: RegeneraClaveConfirma
