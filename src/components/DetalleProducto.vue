@@ -190,6 +190,14 @@ export default {
     };
   },
   methods: {
+    actualiza() {
+      axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+        store.commit('setCarrito', response.data);
+        console.log(response.data);
+      }).catch(e => {
+        console.log(e);
+      });      
+    },
     closeModal: function() {
       this.$modal.hide('aviso');
     },
@@ -242,7 +250,7 @@ export default {
         this.$modal.show('aviso');
         this.texto = "¡Éxito!"
         this.descripcionModal = "Se ha agregado la mascota al carrito."
-
+        this.actualiza();
       }).catch(error => {
         console.log(error);
       })

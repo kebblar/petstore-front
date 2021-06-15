@@ -12,7 +12,7 @@
                 <div v-if="logged">
                 <div class="row">
                   <div class="col my-auto" align="right">
-                    <Carrito :ruta="ruta"></Carrito>
+                    <Carrito :ruta="ruta" :cantidad="cantidad"></Carrito>
                   </div>
                   <div class="col my-auto">
                     <div class="btn-group divider">
@@ -91,6 +91,9 @@ export default {
       },
       nombre: function() {
         return store.state.session.nombreCompleto; 
+      },
+      cantidad: function() {
+        return store.state.session.carrito.length;
       }
     },
     data() {
