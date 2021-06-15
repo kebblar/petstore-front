@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import store from '../store'
 import axios from 'axios';
 
-
 // Importación de cada componente
 import Inicio from '@/components/Inicio'
 import Login from '@/components/Login'
@@ -28,11 +27,19 @@ import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras';
 import CompraConfirmada from '@/components/CompraConfirmada'
 
-
 import DetalleProducto from '@/components/DetalleProducto'
 import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
 import AdminAnuncio from '@/components/admin/Anuncio'
 import ConsultaAnunciosPublico from '@/components/ConsultaAnunciosPublico'
+
+import ConsultaCategoria from '@/components/ConsultaCategoria'
+import ConsultaAtributo from '@/components/ConsultaAtributo'
+import ConsultaMediaTipo from '@/components/ConsultaMediaTipo'
+import ConsultaEstatusAnuncio from '@/components/ConsultaEstatusAnuncio'
+
+import ConsultaPais from '@/components/ConsultaPais'
+import ConsultaEstado from '@/components/ConsultaEstado'
+import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 
 Vue.use(Router);
 
@@ -136,11 +143,6 @@ const routes = [
     component: ConfirmaRegistro
   },
   {
-    path: '/ui/reg',
-    name: 'reg',
-    component: Reg
-  },
-  {
     path: '/ui/regenera-clave',
     name: 'regenera-clave',
     component: RegeneraClave
@@ -168,16 +170,53 @@ const routes = [
     component: ConsultaAnunciosPublico
   },
   {
-    path: '/ui/regenera-clave-confirma',
-    name: 'regenera-clave-confirma',
-    component: RegeneraClaveConfirma
-  },
-  {
     path: '/ui/admin-compras',
     name: 'AdministracionCompras',
     component: AdministracionCompras,
     meta: { allowedRoles: ['admin'] }
-  },
+  }, 
+  {
+    path: '/ui/consulta-categorias',
+    name: 'consultacategoria',
+    component: ConsultaCategoria,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-atributos',
+    name: 'consultaatributo',
+    component: ConsultaAtributo,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-tipos-medias',
+    name: 'consultatipomedia',
+    component:ConsultaMediaTipo,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-estatus-anuncio',
+    name: 'consultaestatusanuncio',
+    component:ConsultaEstatusAnuncio,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-pais',
+    name: 'ConsultaPais',
+    component:ConsultaPais,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-estado',
+    name: 'ConsultaEstado',
+    component:ConsultaEstado,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-municipio',
+    name: 'ConsultaMunicipio',
+    component:ConsultaMunicipio,
+    meta: { allowedRoles: ['admin'] }
+  }
 
 ]
 
