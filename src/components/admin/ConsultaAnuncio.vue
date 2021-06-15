@@ -189,14 +189,13 @@
                             <div class="col-3 align-self-start">
                               <p class="h6 mb-1">
                                 <b-button
+                                  @click='verAnuncio(entry.id)'
                                   title="Ver detalle"
-                                  class="btn btn-success btn-xs m-2"
-                                >
+                                  class="btn btn-success btn-xs m-2">
                                   <b-icon
-                                    @click='verAnuncio(entry.id)'
                                     icon="eye-fill"
-                                    aria-hidden="false"
-                                  ></b-icon>
+                                    aria-hidden="false">
+                                  </b-icon>
                                 </b-button>
                               </p>
                             </div>
@@ -209,8 +208,8 @@
                                     class="btn btn-warning btn-xs m-2">
                                     <b-icon
                                       icon="pencil-square"
-                                      aria-hidden="true"
-                                    ></b-icon>
+                                      aria-hidden="true">
+                                    </b-icon>
                                   </b-button>
                                 </p>
                               </div>
@@ -411,9 +410,9 @@ export default {
   methods: {
     paginaEvento(numero) {
       let folioBack2= this.folio;
-      if (this.folio == undefined || this.folio == '' ) {
-        folioBack2 = 0;
-      }
+     // if (this.folio == undefined || this.folio == '' ) {
+     //  folioBack2 = 0;
+      //}
       axios
         .post("/api/anuncio/search.json", {
           folio: folioBack2,
@@ -445,9 +444,9 @@ export default {
     },
     buscarAnuncios() {
       let folioBack = this.folio;
-      if (this.folio == undefined || this.folio == '' ) {
-        folioBack = 0;
-      }
+      //if (this.folio == undefined || this.folio == '' ) {
+      //  folioBack = 0;
+      //}
       axios
         .post("/api/anuncio/search.json", {
           folio: folioBack,
