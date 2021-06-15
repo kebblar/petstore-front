@@ -39,6 +39,11 @@ import ConsultaAtributo from '@/components/ConsultaAtributo'
 import ConsultaMediaTipo from '@/components/ConsultaMediaTipo'
 import ConsultaEstatusAnuncio from '@/components/ConsultaEstatusAnuncio'
 
+import ConsultaPais from '@/components/ConsultaPais'
+import ConsultaEstado from '@/components/ConsultaEstado'
+import ConsultaMunicipio from '@/components/ConsultaMunicipio'
+
+
 Vue.use(Router);
 
 const routes = [
@@ -141,11 +146,6 @@ const routes = [
     component: ConfirmaRegistro
   },
   {
-    path: '/ui/reg',
-    name: 'reg',
-    component: Reg
-  },
-  {
     path: '/ui/regenera-clave',
     name: 'regenera-clave',
     component: RegeneraClave
@@ -171,11 +171,6 @@ const routes = [
     path: '/ui/consulta-anuncios-publico',
     name: 'consulta-anuncios-publico',
     component: ConsultaAnunciosPublico
-  },
-  {
-    path: '/ui/regenera-clave-confirma',
-    name: 'regenera-clave-confirma',
-    component: RegeneraClaveConfirma
   },
   {
     path: '/ui/admin-compras',
@@ -205,6 +200,24 @@ const routes = [
     path: '/ui/consulta-estatus-anuncio',
     name: 'consultaestatusanuncio',
     component:ConsultaEstatusAnuncio,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-pais',
+    name: 'ConsultaPais',
+    component:ConsultaPais,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-estado',
+    name: 'ConsultaEstado',
+    component:ConsultaEstado,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-municipio',
+    name: 'ConsultaMunicipio',
+    component:ConsultaMunicipio,
     meta: { allowedRoles: ['admin'] }
   }
 
