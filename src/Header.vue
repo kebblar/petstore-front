@@ -12,7 +12,7 @@
                 <div v-if="logged">
                 <div class="row">
                   <div class="col my-auto" align="right">
-                    <Carrito :ruta="ruta" :shoppingKart="datos"></Carrito>
+                    <Carrito :ruta="ruta"></Carrito>
                   </div>
                   <div class="col my-auto">
                     <div class="btn-group divider">
@@ -95,18 +95,19 @@ export default {
     },
     data() {
       return {
-        ruta : window.location.pathname,
-        datos : store.state.session.carrito
+        ruta : window.location.pathname
       }
     },
     methods: {
       logout: function() {
         store.commit('setSession', {
             nombreCompleto: '',
-            roles:        [],
-            correo:       '',
-            ultimoAcceso: '',
-            jwt:          '',
+            roles:          [],
+            correo:         '',
+            ultimoAcceso:   '',
+            idUser:         0,
+            jwt:            '',
+            carrito :      []
         });
         this.navega('/');
       },

@@ -9,9 +9,9 @@ const store = new Vuex.Store({
         destination: '/ui/upload',
         session: {
             nombreCompleto: '',
+            roles: [],
             correo: '',
             ultimoAcceso: '',
-            roles: [],
             idUser: 0,
             jwt: '', //  jwt='' => signed: false,
             carrito : []

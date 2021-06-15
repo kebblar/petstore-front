@@ -77,7 +77,6 @@ import router from '../router'
 export default {
   props : {
     ruta : String,
-    shoppingKart : Array
   },
   watch: {
     shoppingKart(value) {
@@ -89,7 +88,8 @@ export default {
       total : 0,
       tavo : '',
       vacio : true,
-      contador: 0
+      contador: 0,
+      shoppingKart : store.state.session.carrito
     }
   },
   computed : {
