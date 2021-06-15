@@ -34,6 +34,11 @@ import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
 import AdminAnuncio from '@/components/admin/Anuncio'
 import ConsultaAnunciosPublico from '@/components/ConsultaAnunciosPublico'
 
+import ConsultaCategoria from '@/components/ConsultaCategoria'
+import ConsultaAtributo from '@/components/ConsultaAtributo'
+import ConsultaMediaTipo from '@/components/ConsultaMediaTipo'
+import ConsultaEstatusAnuncio from '@/components/ConsultaEstatusAnuncio'
+
 Vue.use(Router);
 
 const routes = [
@@ -177,7 +182,31 @@ const routes = [
     name: 'AdministracionCompras',
     component: AdministracionCompras,
     meta: { allowedRoles: ['admin'] }
-  },
+  }, 
+  {
+    path: '/ui/consulta-categorias',
+    name: 'consultacategoria',
+    component: ConsultaCategoria,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-atributos',
+    name: 'consultaatributo',
+    component: ConsultaAtributo,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-tipos-medias',
+    name: 'consultatipomedia',
+    component:ConsultaMediaTipo,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-estatus-anuncio',
+    name: 'consultaestatusanuncio',
+    component:ConsultaEstatusAnuncio,
+    meta: { allowedRoles: ['admin'] }
+  }
 
 ]
 
