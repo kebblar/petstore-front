@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import store from '../store'
 import axios from 'axios';
 
-
 // Importación de cada componente
 import Inicio from '@/components/Inicio'
 import Login from '@/components/Login'
@@ -28,7 +27,6 @@ import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras';
 import CompraConfirmada from '@/components/CompraConfirmada'
 
-
 import DetalleProducto from '@/components/DetalleProducto'
 import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
 import AdminAnuncio from '@/components/admin/Anuncio'
@@ -42,7 +40,6 @@ import ConsultaEstatusAnuncio from '@/components/ConsultaEstatusAnuncio'
 import ConsultaPais from '@/components/ConsultaPais'
 import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
-
 
 Vue.use(Router);
 
