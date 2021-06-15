@@ -1,11 +1,10 @@
-
 <template>
 
   <div id = "carrito">
-  <a v-show="noDetalle" href="#" class="mr-4" data-toggle="modal" data-target="#kartModal" @click="getKart" >
-    <div class="icon-wrapper">
-      <i class="fas fa-shopping-cart fa-lg icon-black"></i>
-      <span class="badge">{{ contador }}</span>
+  <a v-show="noDetalle" href="#" class="mr-4" data-toggle="modal" data-target="#kartModal" @click="actualiza" >
+    <div class="icon-wrapper" style="font-size: 9px;">
+      <i class="fas fa-shopping-cart fa-3x icon-black" style="color: green"></i>
+      <span class="badge my-auto" >{{ cantidad  }}</span>
     </div>
   </a>
 
@@ -76,7 +75,8 @@ import router from '../router'
 
 export default {
   props : {
-    ruta : String
+    ruta : String,
+    cantidad: Number
   },
   watch: {
     shoppingKart(value) {
@@ -85,11 +85,10 @@ export default {
   },
   data () {
     return{
-      shoppingKart : [],
       total : 0,
       tavo : '',
       vacio : true,
-      contador: 0
+      shoppingKart : []
     }
   },
   computed : {
@@ -97,33 +96,35 @@ export default {
       return this.ruta !== '/ui/detalle-pago';
     }
   },
+  mounted() {
+    this.shoppingKart = store.state.session.carrito;
+    this.calcula();
+  },
   methods : {
-    getKart() {
-      axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
-        this.calcula(response.data);
-      }).catch(e => {
-        console.log(e);
-      });
-    },
     navega: function(url) {
       router.push(url).catch(()=>{});
       this.ruta=url;
     },
-    calcula: function(items) {
-      this.shoppingKart = items;
-      var j = 0;
+    calcula: function() {
       var i = 0;
-      for (const elem of items) {
-        j++;
+      for (const elem of this.shoppingKart) {
         i = i + elem.precio;
       }
       this.total = i;
-      this.contador = j;
+    },
+    actualiza() {
+      axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+        store.commit('setCarrito', response.data);
+        this.shoppingKart = response.data;
+        this.calcula();
+      }).catch(e => {
+        console.log(e);
+      });      
     },
     deleteElement(i) {
       axios.delete('/api/carrito/'+i+'.json').then (response => {
         console.log(response);
-        this.getKart();
+        this.actualiza();
       }).catch(e => {
         console.log(e);
       });
@@ -145,15 +146,18 @@ i {
 }
 
 .badge{
-    color: #fff;
+    color: #484b61;
+    background-color: #e8c01a;
     width: auto;
     height: auto;
     margin: 0;
     border-radius: 50%;
     position: absolute;
-    top: 2px;
-    right: 37px;
-    padding: 4px;
-    font-size: 10px;
+    border-style: solid;
+    border-width: thin ;
+    border-color: #af8e16;
+    right: 28px;
+    top: -8px;
+    font-size: 11px;
 }
 </style>
