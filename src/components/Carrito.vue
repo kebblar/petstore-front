@@ -4,7 +4,7 @@
   <div id = "carrito">
   <a v-show="noDetalle" href="#" class="mr-4" data-toggle="modal" data-target="#kartModal" @click="getKart" >
     <div class="icon-wrapper" style="font-size: 9px;">
-      <i class="fas fa-shopping-cart fa-3x icon-black"></i>
+      <i class="fas fa-shopping-cart fa-3x icon-black" style="color: green"></i>
       <span class="badge my-auto" >{{ contador }}</span>
     </div>
   </a>
@@ -146,7 +146,7 @@ i {
 
 .badge{
     color: #484b61;
-    background-color: #d5be60;
+    background-color: #e8c01a;
     width: auto;
     height: auto;
     margin: 0;
@@ -154,10 +154,9 @@ i {
     position: absolute;
     border-style: solid;
     border-width: thin ;
-    border-color: saddlebrown;
-    top: 2px;
-    right: 37px;
-    padding-right: 4px;
-    font-size: 9px;
+    border-color: #af8e16;
+    right: 28px;
+    top: -8px;
+    font-size: 11px;
 }
 </style>
