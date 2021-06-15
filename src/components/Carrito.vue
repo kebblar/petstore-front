@@ -98,7 +98,7 @@ export default {
   },
   mounted() {
     this.shoppingKart = store.state.session.carrito;
-    this.actualiza();
+    this.calcula();
   },
   methods : {
     navega: function(url) {
@@ -115,6 +115,7 @@ export default {
     actualiza() {
       axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
         store.commit('setCarrito', response.data);
+        this.shoppingKart = response.data;
         this.calcula();
       }).catch(e => {
         console.log(e);
