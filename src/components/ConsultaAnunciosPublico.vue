@@ -218,7 +218,7 @@ Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 export default {
   name: "ConsultaAnunciosPublico.vue",
   mounted () {
-    this.ruta = process.env.VUE_APP_URL+"upload/";
+    this.ruta = process.env.VUE_APP_URL_MEDIA;
     axios.get('api/categorias.json').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.categorias, key, { id: obj.id, valor:obj.categoria});

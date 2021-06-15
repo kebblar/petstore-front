@@ -81,7 +81,7 @@ export default {
   },
   props:['imagenes','id'],
 	mounted(){
-    this.ruta = process.env.VUE_APP_URL + "upload/";
+    this.ruta = process.env.VUE_APP_URL_MEDIA;
 	}, 
   created(){
     this.dropzoneOptions = {

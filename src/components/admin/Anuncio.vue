@@ -311,7 +311,7 @@ export default {
       });      
   },
    mounted () {
-    this.ruta = process.env.VUE_APP_URL + "upload/";
+    this.ruta = process.env.VUE_APP_URL_MEDIA;
     if(this.$route.params.id === undefined){
       this.tituloProceso = "Registro del anuncio"
       this.id = 0;
@@ -480,7 +480,7 @@ export default {
             type: 'info',
             duration: 8000
            }); 
-           this.$router.push('/ui/admin') ;
+           this.$router.push('/ui/admin-consulta-anuncio') ;
       }).catch(error => {
         let msgErr = '';
         if(error.response == undefined){

@@ -138,7 +138,7 @@ export default {
   },
   mounted() {
     this.cargarDetalle(this.idprod),
-    this.ruta = (this.ruta = process.env.VUE_APP_URL + "upload/");
+    this.ruta = (this.ruta = process.env.VUE_APP_URL_MEDIA);
     if(store.state.session.correo!=null){
       this.habilitaCompra = store.state.session.roles[0].nombre != "admin";
     }else{
