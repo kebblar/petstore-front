@@ -5,13 +5,14 @@
           <div class="row">
               <div class="col-sm-7">
                 <img src="./assets/logo.png" width="50px;"/> <label style="font-size:32px;">The Petstore App</label>
+
               </div>
               <div class="col-sm-2"></div>
               <div class="col" style="text-align: right;">
                 <div v-if="logged">
                 <div class="row">
                   <div class="col my-auto" align="right">
-                    <Carrito :ruta="ruta"></Carrito>
+                    <Carrito :ruta="ruta" :cantidad="cantidad"></Carrito>
                   </div>
                   <div class="col my-auto">
                     <div class="btn-group divider">
@@ -90,6 +91,9 @@ export default {
       },
       nombre: function() {
         return store.state.session.nombreCompleto; 
+      },
+      cantidad: function() {
+        return store.state.session.carrito.length;
       }
     },
     data() {
@@ -101,10 +105,12 @@ export default {
       logout: function() {
         store.commit('setSession', {
             nombreCompleto: '',
-            roles:        [],
-            correo:       '',
-            ultimoAcceso: '',
-            jwt:          '',
+            roles:          [],
+            correo:         '',
+            ultimoAcceso:   '',
+            idUser:         0,
+            jwt:            '',
+            carrito :      []
         });
         this.navega('/');
       },

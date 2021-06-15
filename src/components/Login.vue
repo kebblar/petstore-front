@@ -123,7 +123,8 @@ export default {
                     correo:       rd.correo,
                     ultimoAcceso: rd.ultimoAcceso,
                     idUser:       ud.id,
-                    jwt:          rd.jwt
+                    jwt:          rd.jwt,
+                    carrito :     []
                 });
                 const target = this.detecta(rd.roles);
                 router.push(target);

@@ -97,8 +97,27 @@
                         icon="check-circle-fill"
                         aria-hidden="true"
                       ></b-icon
-                      >Comprar</b-button
+                      >Agregar al Carrito</b-button
                     >
+
+                    <modal
+                        name="aviso"
+                        :clickToClose="false"
+                        :reset="true"
+                        :width="480"
+                        :height="260">
+                      <div class="card">
+                        <div class="card-header" style="text-align:center">Advertencia del sistema</div>
+                        <div class="card-body">
+                          <h5 class="card-title">{{texto}}</h5>
+                          <p class="card-text">{{ descripcionModal }}</p>
+                          <div style="text-align: right;">
+                            <a href="#" class="btn btn-primary" @click="closeModal">Aceptar</a>
+                          </div>
+                        </div>
+                      </div>
+                    </modal>
+
                     <b-button block variant="danger" @click="regresar">
                       <b-icon
                         style="margin-right: 2%"
@@ -165,9 +184,23 @@ export default {
           label: "",
         },
       ],
+      texto : '',
+      descripcionModal : ''
+
     };
   },
   methods: {
+    actualiza() {
+      axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+        store.commit('setCarrito', response.data);
+        console.log(response.data);
+      }).catch(e => {
+        console.log(e);
+      });      
+    },
+    closeModal: function() {
+      this.$modal.hide('aviso');
+    },
     onSlideStart(slide) {
       this.sliding = true;
       console.log(slide);
@@ -209,8 +242,18 @@ export default {
     },
     comprar() {
       let id = this.idprod;
-      console.log("Va a la pantalla de compras: " + id);
-      router.push({ path: "ui/detalle-pago" });
+      axios.post("/api/carrito.json", {"cveOrdenCompra": "string",
+                                       "id": 0,
+                                       "idAnuncio": id,
+                                       "idUsuario": store.state.session.idUser}).then(response => {
+        console.log(response);
+        this.$modal.show('aviso');
+        this.texto = "¡Éxito!"
+        this.descripcionModal = "Se ha agregado la mascota al carrito."
+        this.actualiza();
+      }).catch(error => {
+        console.log(error);
+      })
     },
     regresar() {
       console.log("regresa a busqueda");
