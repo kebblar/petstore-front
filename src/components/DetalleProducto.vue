@@ -74,15 +74,14 @@
                   <br />
                   <h1 class="text-success">$ {{ precio }}</h1>
                   <br />
-                  <p>{{ descripcion }}</p>
+                  <p v-html="descripcion">{{ descripcion }}</p>
                   <br />
                   <div>
                     <b-table
                       :items="atributos"
                       :fields="fields"
                       responsive
-                      style="align: center"
-                    >
+                      style="align: center">
                     </b-table>
                   </div>
                   <div>
@@ -90,23 +89,19 @@
                       v-if="habilitaCompra"
                       block
                       variant="success"
-                      @click="comprar"
-                    >
+                      @click="comprar">
                       <b-icon
                         style="margin-right: 2%"
                         icon="check-circle-fill"
-                        aria-hidden="true"
-                      ></b-icon
-                      >Comprar</b-button
-                    >
+                        aria-hidden="true">
+                      </b-icon>Comprar
+                    </b-button>
                     <b-button block variant="danger" @click="regresar">
                       <b-icon
                         style="margin-right: 2%"
                         icon="arrow-left-circle-fill"
-                        aria-hidden="true"
-                      ></b-icon
-                      >Regresar</b-button
-                    >
+                        aria-hidden="true"></b-icon>Regresar
+                      </b-button>
                   </div>
                 </b-card-text>
               </b-card-body>

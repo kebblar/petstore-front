@@ -17,8 +17,7 @@
           back-button-text="Regresar"
           finish-button-text="Confirmar"
           color="green"  
-          @on-complete="onComplete" 
-        > 
+          @on-complete="onComplete"> 
           <h2 slot="title">{{tituloProceso}}</h2>   
            <tab-content title="Datos generales" :before-change="validarDatos">
             <div class="col-sm-12 text-left">
@@ -32,11 +31,14 @@
                 <input type="text" class="form-control" :class="classTitulo" maxlength="50" v-model="titulo"/>
                 <small class="notValid">{{msgTitulo}}</small>
               </div>
+           
+
               <div class="form-group">
                 <label for="descripcion" class="required">Descripción</label><label class="requerido"></label>
-                <textarea class="form-control" :class="classDescripcion" rows="4" v-model="descripcion" maxlength="255"/>
+                <vue-editor v-model="descripcion" :class="classDescripcion"  :editor-toolbar="customToolbar" maxlength="255"></vue-editor>
                 <small class="notValid">{{msgDescripcion}}</small>
               </div>
+
               <div class="form-group">
                 <div class="row">
                   <div class="col-12 col-sm-6">
@@ -146,7 +148,7 @@
                     </div>
                     <div class="col-xs-12 col-8" style="padding-left: 0">
                       <!-- <blockquote class="blockquote"> -->
-                      <p>{{ descripcion }}</p>
+                      <p v-html="descripcion">{{ descripcion }}</p>
                       <!--  </blockquote> -->
                     </div>
                   </div>
@@ -225,6 +227,7 @@ import Imagen from '@/components/admin/Imagen';
 import moment from 'moment';
 import Vue from 'vue';
 import axios from 'axios';
+import { VueEditor } from 'vue2-editor';
 
 Vue.use(VueToast);
 
@@ -232,7 +235,8 @@ export default {
   components: { 
      FormWizard,
      TabContent,
-     Imagen
+     Imagen,
+     VueEditor
   }, 
   data: function () {
     return {
@@ -263,6 +267,22 @@ export default {
       msgSelectDin:"defaultColor",
       optionsGeneral:[],
       ruta:'',
+      customToolbar:  [
+        [{ header: [false, 1, 2, 3, 4, 5, 6] }],
+        ["bold", "italic", "underline"], // toggled buttons
+        [
+          { align: "" },
+          { align: "center" },
+          { align: "right" },
+          { align: "justify" }
+        ],
+       // ["blockquote", "code-block"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+        [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+        ["link"],
+        ["clean"] // remove formatting button
+      ]
     };
   },
   created() {
@@ -319,7 +339,6 @@ export default {
     }else{
       this.tituloProceso = "Actualización del anuncio";
       this.id = this.$route.params.id;
-
       //Realizamos la consulta al servicio para consultar la información
        axios.get('api/anuncios/'+this.id+'.json').then(response => {
           console.log(response.data); 
@@ -480,7 +499,7 @@ export default {
             type: 'info',
             duration: 8000
            }); 
-           this.$router.push('/ui/admin-consulta-anuncio') ;
+           this.$router.push('/ui/admin') ;
       }).catch(error => {
         let msgErr = '';
         if(error.response == undefined){

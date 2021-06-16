@@ -136,7 +136,7 @@
                   <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="50%"/>
                   <b-card-title>{{entry.titulo}}</b-card-title>
                   <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
-                  <b-card-text>
+                  <b-card-text v-html="entry.descripcion">
                     {{ entry.descripcion }}
                   </b-card-text>
                   <b-card-text>
@@ -153,10 +153,10 @@
                     </video> 
                   <b-card-title>{{entry.titulo}}</b-card-title>
                   <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title> 
-                  <b-card-text>
+                  <b-card-text v-html="entry.descripcion">
                     {{ entry.descripcion }}
                   </b-card-text>
-                  <b-card-text>
+                  <b-card-text >
                     {{ entry.precio }}
                   </b-card-text>
                   <template #footer>
