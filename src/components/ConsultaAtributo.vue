@@ -532,10 +532,7 @@
                     activo:this.estatusRango
                 }).then(response => {
                     console.log("enviado");
-                    console.log(response);
-                    store.commit('setSession', {
-                    });
-                
+                    console.log(response);               
                    axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', { 
                     }).then(response => {
                         console.log("enviado");
@@ -565,10 +562,7 @@
                     activo:this.estatusRango
                 }).then(response => {
                     console.log("enviado");
-                    console.log(response);
-                    store.commit('setSession', {
-                    });
-                
+                    console.log(response);              
                    axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', { 
                     }).then(response => {
                         console.log("enviado");
@@ -704,8 +698,6 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    store.commit('setSession', {
-                    });
                     if (this.name) {
                         axios.get('api/atributos/list/'+this.name+'.json', { 
                         }).then(response => {
@@ -746,9 +738,6 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    store.commit('setSession', {
-                    });
-                
                     this.$modal.hide('agregarAtributo');
                     this.$modal.show('mensaje-exito-add');
                     if (this.name) {

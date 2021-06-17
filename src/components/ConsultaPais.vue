@@ -347,8 +347,7 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    store.commit('setSession', {
-                    });
+                   
                     if (this.name) {
                         axios.get('api/paises/list/'+this.name+'.json', { 
                         }).then(response => {
@@ -388,9 +387,7 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    store.commit('setSession', {
-                    });
-                
+                                   
                     this.$modal.hide('agregarPais');
                     this.$modal.show('mensaje-exito-add');
                     if (this.name) {
@@ -445,6 +442,8 @@
                             console.log(error.response.status);
                             console.log(error.response.data);
                             this.msgErr = error.response.data['exceptionLongDescription'];
+                            this.msnErrorIrreconocible = this.msgErr;
+                            this.$modal.show('modal-general');
                         })
                     }
                     else {
@@ -464,6 +463,8 @@
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
+                    this.msnErrorIrreconocible = this.msgErr;
+                    this.$modal.show('modal-general');
                 });
             }
         }
