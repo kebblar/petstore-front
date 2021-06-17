@@ -40,10 +40,16 @@ import ConsultaEstatusAnuncio from '@/components/ConsultaEstatusAnuncio'
 import ConsultaPais from '@/components/ConsultaPais'
 import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
+import Graficos from '@/components/Graficos'
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/charts',
+    name: 'graficas',
+    component: Graficos
+  },
   {
     path: '/ui/pba',
     name: 'pba',
