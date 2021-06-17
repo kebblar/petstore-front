@@ -7,7 +7,7 @@
       <div class="card-body align">
         <hr style="background-color:black">
           <div class="container">
-            <div class="row" v-for="(compra, index) in compras" :key="compra.cve_orden" style="background-color:#D7EAF9;margin-bottom:1%">
+            <div class="row" v-for="(compra, index) in compras" :key="index" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
                     <div class="container" >
                         <div class="row">
@@ -19,10 +19,7 @@
                         </div>
                         <div class="row" >
                             <div class="col-sm">
-                                <a :href="compra.urlFactura" class="btn btn-primary btn-sm">Factura</a>
-                            </div>
-                            <div class="col-sm">
-                              <button :disabled="compra.estadoEnvio" @click="sent(compra.cve_orden,index)" style="margin-left:-10%" class="btn btn-primary btn-sm">¿Enviado?</button>
+                              <button :disabled="compra.estadoEnvio" @click="sent(compra.cve_orden,index)" class="btn btn-primary btn-sm">¿Enviado?</button>
                             </div>
                         </div>
                     </div>
