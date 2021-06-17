@@ -1,35 +1,53 @@
 <template>
-  <div class="card w-75 mx-auto my-5 px-2">
-    <div class="card-header" align="center">
-      <h4 class="control-label mt-2">
-        Bienvenido a la interfaz de administrador
-      </h4>
+    <div class="small-box shrink2 mx-2" :style="'width:45%;' + 'background-color:' + colorTarjeta">
+    <div class="inner py-4 px-4">
+        <h3>{{titulo}}</h3>
+        <p style="float: left">{{descripcion}}</p>
+        <div>
+        <i :class="icono" ></i>
+        </div>
+        </div>
+    <div>
+        <button type="button" :class="color">
+        <a :href="link" class="small-box-footer" style="color: white">Acceder <i class="fas fa-arrow-circle-right"></i></a>
+        </button>
     </div>
-    <div class="card-body">
-      <p class="text-center"><Strong>Por favor indica la acción que desea realizar</Strong></p>
-      <botonAdmin colorTarjeta="rgba(58,194,58,0.8)" titulo="Administrar compras" descripcion="administracion de los envios de los usuarios" 
-      link="admin-compras" icono="far fa-chart-bar fa-4x icono shrink" color="btn btn-success btn-block"></botonAdmin>
     </div>
-  </div>
 </template>
 
 <script>
-import store from '../store'
-import botonAdmin from '@/components/botonAdmin';
+
 export default {
+    name: "botonAdmin",
+      props: {
+        titulo: {
+          type: Text,
+          required: true
+        },
+        descripcion: {
+          type: Text,
+          required: true
+        },
+        link: {
+          type: Text,
+          required: true
+        },
+        icono: {
+          type: Text,
+          required: true
+        },
+        color: {
+          type: Text,
+          required: true
+        },
+        colorTarjeta: {
+          type: Text,
+          required: true
+        },
+      },
     data: function () {
         return {
-          a: store.state.session.nombreCompleto,
-          b: store.state.session.correo,
-          c: store.state.session.jwt,
-          d: store.state.session.ultimoAcceso,
-          e: store.state.session.roles,
-          f: store.state.destination,
-          g: store.state.session.idUser
         }
-    },
-    components: {
-      'botonAdmin' : botonAdmin
     },
 }
 </script>
