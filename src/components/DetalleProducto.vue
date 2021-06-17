@@ -57,7 +57,7 @@
                     <b-card-img v-if="imagen.idTipo!=4 && imagen.idTipo!=5"
                       :src="ruta + imagen.uuid"
                       alt="Image"
-                      style="width: 150px">
+                      style="width: 150px; height: 150px">
                     </b-card-img>
                       <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 150px; width: 150px;padding: 2%">
                         <source :src="ruta + imagen.uuid"  type="video/mp4" />

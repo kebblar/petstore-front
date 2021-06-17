@@ -580,7 +580,9 @@ export default {
         
         let isValid = true
           && this.msgTitulo == '' && this.titulo.trim().length>2
-          && this.msgDescripcion == '' && this.descripcion != null && this.descripcion.trim().length>9 && this.longitudDescripcion<255
+          && this.msgDescripcion == '' && this.descripcion != null 
+          && this.longitudDescripcion>9 
+          && this.descripcion.trim().length<10000
           && this.msgPrecio == '' && this.precio != null
           && this.msgCategoria == '' && this.idCategoria != 0
           && selectValid;
@@ -633,10 +635,16 @@ export default {
       this.msgDescripcion="";
       this.classDescripcion="greenColor correct";
       console.log(this.longitudDescripcion);
-      if (this.longitudDescripcion<=9 || this.longitudDescripcion>255){
-        this.msgDescripcion="La descripción debe ser de 10 a 255 caracteres";
+      if(this.descripcion.trim().length>10000){
+        this.msgDescripcion="La descripción excede la longitud permitida";
         this.classDescripcion="redColor incorrect";
+      }else{
+        if (this.longitudDescripcion<=9){
+          this.msgDescripcion="La descripción debe ser de al menos 10 caracteres";
+          this.classDescripcion="redColor incorrect";
+        }
       }
+     
     },
     precio(){
       this.msgPrecio="";
