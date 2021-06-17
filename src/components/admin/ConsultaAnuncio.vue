@@ -11,7 +11,7 @@
           </div>
           <div class="col-md-4">
             <input
-              type="text"
+              type="number"
               required
               class="form-control letrasBusqueda"
               :class="classFolio"
@@ -27,7 +27,7 @@
           <div class="col-md-2">
             <label for="nombre">Título :</label>
           </div>
-          <div class="col-md-9">
+          <div class="col-md-10">
             <input
               type="text"
               required
@@ -45,29 +45,29 @@
           <div class="col-md-2">
             <label for="mun">Categoria :</label>
           </div>
-          <div class="col-md-3 letraBusqueda">
+          <div class="col-md-4 letraBusqueda">
             <select
               id="inputCat"
               class="form-control"
               style="font-size: 14px"
               v-model="idCategoria">
-              <option value="" selected disabled hidden>Seleccionar</option>
+              <option value="" selected>Seleccionar</option>
               <option :value="m.id" v-for="m in categorias2" :key="m.id">
                 {{ m.valor }}
               </option>
             </select>
           </div>
           <div class="col-md-1"></div>
-          <div class="col-md-2">
+          <div class="col-md-1">
             <label for="mun">Estatus :</label>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <select
               id="inputEstado"
               class="form-control"
-              style="font-size: 12px"
+              style="font-size: 14px"
               v-model="idEstatus">
-              <option value="" selected disabled hidden>Seleccionar</option>
+              <option value="" selected >Seleccionar</option>
               <option :value="m.id" v-for="m in estatus2" :key="m.id">
                 {{ m.valor }}
               </option>
@@ -79,7 +79,7 @@
           <div class="col-md-2">
             <label> Fecha inicial :</label>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <b-form-datepicker
               style="text-align: center; font-size: 11px; font-weight: bold"
               id="fecha-InicialV"
@@ -101,10 +101,10 @@
           </div>
           <div class="col-md-1"></div>
           <!-- f final -->
-          <div class="col-md-2">
+          <div class="col-md-1">
             <label> Fecha final :</label>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <b-form-datepicker
               id="fecha-finalV"
               style="text-align: center; font-size: 11px; font-weight: bold"
@@ -285,7 +285,7 @@ Vue.use(VueConfirmDialog);
 Vue.use(VueToast);
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 
-const folioRegex = new RegExp(/^[0-9]*$/);
+//const folioRegex = new RegExp(/^[0-9]*$/);
 
 export default {
   name: "ConsultaAnuncio.vue",
@@ -340,15 +340,15 @@ export default {
     };
   },
   watch: {
-    folio() {
-      this.msgFolio = "";
-      this.classFolio = "greenColor correct";
-      if (!folioRegex.test(this.folio)) {
-        this.msgFolio = "El folio debe contener solo números";
-        this.classFolio = "redColor incorrect";
-      }
-      localStorage.setItem('folio', this.folio);
-    }
+    // folio() {
+    //   this.msgFolio = "";
+    //   this.classFolio = "greenColor correct";
+    //   if (!folioRegex.test(this.folio)) {
+    //     this.msgFolio = "El folio debe contener solo números";
+    //     this.classFolio = "redColor incorrect";
+    //   }
+    //   localStorage.setItem('folio', this.folio);
+    // }
   },
   created() {
     this.anuncios = null;
@@ -404,7 +404,8 @@ export default {
   },
   computed: {
     tablaVacia: function () {
-      return this.anuncios == null;
+
+      return this.anuncios == null || this.anuncios[0] == null;
     }
   },
   methods: {
