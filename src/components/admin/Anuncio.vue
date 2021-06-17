@@ -32,10 +32,10 @@
                 <small class="notValid">{{msgTitulo}}</small>
               </div>
            
-
               <div class="form-group">
                 <label for="descripcion" class="required">Descripción</label><label class="requerido"></label>
-                <vue-editor v-model="descripcion" :class="classDescripcion"  :editor-toolbar="customToolbar" maxlength="255"></vue-editor>
+                <vue-editor v-model="descripcion" @input="onEditorInput" 
+                :editor-toolbar="customToolbar" ref="innerTextDescripcion"></vue-editor>
                 <small class="notValid">{{msgDescripcion}}</small>
               </div>
 
@@ -240,6 +240,7 @@ export default {
   }, 
   data: function () {
     return {
+      showCharCount: true,
       activeTabIndex:0,
       tituloProceso:null,
       atributosByCategoria:[],
@@ -268,8 +269,8 @@ export default {
       optionsGeneral:[],
       ruta:'',
       customToolbar:  [
-        [{ header: [false, 1, 2, 3, 4, 5, 6] }],
-        ["bold", "italic", "underline"], // toggled buttons
+        //[{ header: [false, 1, 2, 3, 4, 5, 6] }],
+        ["bold", "italic"], // toggled buttons
         [
           { align: "" },
           { align: "center" },
@@ -278,11 +279,12 @@ export default {
         ],
        // ["blockquote", "code-block"],
         [{ list: "ordered" }, { list: "bullet" }],
-        [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-        [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+        //[{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+        [{ color: [] }], // dropdown with defaults from theme
         ["link"],
         ["clean"] // remove formatting button
-      ]
+      ],
+      longitudDescripcion:0,
     };
   },
   created() {
@@ -578,7 +580,7 @@ export default {
         
         let isValid = true
           && this.msgTitulo == '' && this.titulo.trim().length>2
-          && this.msgDescripcion == '' && this.descripcion != null && this.descripcion.trim().length>9
+          && this.msgDescripcion == '' && this.descripcion != null && this.descripcion.trim().length>9 && this.longitudDescripcion<255
           && this.msgPrecio == '' && this.precio != null
           && this.msgCategoria == '' && this.idCategoria != 0
           && selectValid;
@@ -599,13 +601,23 @@ export default {
      })
     },
     getOptionSelect(options,valor){
-         var leyenda = "----------";
+        var leyenda = "----------";
         options.forEach((option) =>{
            if(option.idValorAtributo === valor){
               leyenda = option.valor;
            }
         });
         return leyenda;
+    },
+    onEditorInput(data){
+      var element = this.$refs.innerTextDescripcion;
+      console.log("element ",element)
+      if(data!=''){
+        console.log("valor longitud: "+element.quill.container.innerText.length);
+        this.longitudDescripcion=element.quill.container.innerText.length;
+      }else{
+         this.longitudDescripcion=0;
+      }
     }
   },
   watch: {
@@ -620,8 +632,9 @@ export default {
     descripcion(){
       this.msgDescripcion="";
       this.classDescripcion="greenColor correct";
-      if (this.descripcion.trim().length<10){
-        this.msgDescripcion="La descripción debe ser mínimo 10 caracteres";
+      console.log(this.longitudDescripcion);
+      if (this.longitudDescripcion<=9 || this.longitudDescripcion>255){
+        this.msgDescripcion="La descripción debe ser de 10 a 255 caracteres";
         this.classDescripcion="redColor incorrect";
       }
     },
