@@ -1,14 +1,49 @@
 <template>
-  <div class="card w-75 mx-auto my-5 px-2">
+  <div class="card w-75 mx-auto my-5">
     <div class="card-header" align="center">
       <h4 class="control-label mt-2">
         Bienvenido a la interfaz de administrador
       </h4>
     </div>
-    <div class="card-body">
-      <p class="text-center"><Strong>Por favor indica la acción que desea realizar</Strong></p>
-      <botonAdmin colorTarjeta="rgba(58,194,58,0.8)" titulo="Administrar compras" descripcion="administracion de los envios de los usuarios" 
-      link="admin-compras" icono="far fa-chart-bar fa-4x icono shrink" color="btn btn-success btn-block"></botonAdmin>
+    <div class="card-body mx-3">
+      <p class="text-center"><Strong>Por favor indica la opción que deseas realizar</Strong></p>
+
+      <div class="row mb-3">
+        <div class="col d-flex my-2">
+          <botonAdmin colorTarjeta="rgba(58,194,58,0.56)" titulo="Gráficos" descripcion="Información viual en tiempo real"
+                      link="graficos" icono="far fa-chart-bar fa-4x icono shrink" color="btn btn-success btn-block">
+          </botonAdmin>
+        </div>
+        <div class="col d-flex my-2">
+          <botonAdmin colorTarjeta="rgba(255,0,0,0.4)" titulo="Listado de Compras" descripcion="Pedidos realizados por clientes"
+                      link="admin-compras" icono="fas fa-shopping-bag fa-4x icono shrink" color="btn btn-danger btn-block">
+          </botonAdmin>
+        </div>
+      </div>
+      <div class="row mb-3" >
+        <div class="col d-flex my-2">
+          <botonAdmin colorTarjeta="rgba(0,150,255,0.4)" titulo="Catálogos de Paqueterías" descripcion="Modifica las paqueterías"
+                      link="admin-compras" icono="fas fa-box-open fa-4x icono shrink" color="btn btn-primary btn-block">
+          </botonAdmin>
+        </div>
+        <div class="col d-flex my-2">
+          <botonAdmin colorTarjeta="rgba(255,255,0,0.5)" titulo="Catálogos de Países" descripcion="Modifica países, estados y municipios"
+                      link="admin-compras" icono="fas fa-globe-americas fa-4x icono shrink" color="btn btn-warning btn-block">
+          </botonAdmin>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col d-flex my-2">
+          <botonAdmin colorTarjeta="rgba(1,1,1,0.2)" titulo="Insertar Anuncio" descripcion="Genera un nuevo anuncio"
+                      link="admin-compras" icono="fas fa-bone fa-4x icono shrink" color="btn btn-secondary btn-block">
+          </botonAdmin>
+        </div>
+        <div class="col d-flex my-2">
+          <botonAdmin colorTarjeta="rgba(0,170,200,0.4)" titulo="Editar Anuncio" descripcion="Modifica un anuncio ya existnte"
+                      link="admin-compras" icono="fas fa-pencil-alt fa-4x icono shrink" color="btn btn-info btn-block">
+          </botonAdmin>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,16 +78,7 @@ h3 {
   color: rgb(7, 7, 7);
 }
 
-.small-box {
-  border-radius: .25rem;
-  box-shadow: 2px 2px 3px rgba(69, 68, 68, 0.62);
-  display: block;
-  margin-bottom: 20px;
-  position: relative;
-}
-.bg-success {
-  background-color: #28a745!important;
-}
+
 .small-box> .small-box-footer {
   background-color: rgba(0,0,0,.1);
   color: rgba(255,255,255,.8);
@@ -63,23 +89,5 @@ h3 {
   text-decoration: none;
   z-index: 10;
 }
-.icono {
-  position: absolute;
-  right: 15%;
-  bottom: 40%;
-  opacity: 35%;
-}
-.shrink {
-  transition: all .2s ease-in-out;
-}
-.shrink2 {
-  transition: all .2s ease-in-out;
-}
-.shrink:hover {
-  transform: scale(0.9);
-}
-.shrink2:hover {
-  transform: scale(1.1);
-  box-shadow: 2px 2px 10px rgba(36, 36, 36, 0.62);
-}
+
 </style>

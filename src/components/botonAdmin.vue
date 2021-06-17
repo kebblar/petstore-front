@@ -1,5 +1,5 @@
 <template>
-    <div class="small-box shrink2 mx-2" :style="'width:45%;' + 'background-color:' + colorTarjeta">
+    <div class="small-box shrink2" :style="'width:100%; height: 105%; position:relative; ' + 'background-color:' + colorTarjeta">
     <div class="inner py-4 px-4">
         <h3>{{titulo}}</h3>
         <p style="float: left">{{descripcion}}</p>
@@ -7,8 +7,8 @@
         <i :class="icono" ></i>
         </div>
         </div>
-    <div>
-        <button type="button" :class="color">
+    <div >
+        <button type="button" :class="color" style="position: absolute; bottom: 0px">
         <a :href="link" class="small-box-footer" style="color: white">Acceder <i class="fas fa-arrow-circle-right"></i></a>
         </button>
     </div>
@@ -63,7 +63,7 @@ h3 {
 
 .small-box {
   border-radius: .25rem;
-  box-shadow: 2px 2px 3px rgba(69, 68, 68, 0.62);
+  box-shadow: 1px 2px 4px rgba(69, 68, 68, 0.62);
   display: block;
   margin-bottom: 20px;
   position: relative;
@@ -94,7 +94,7 @@ h3 {
   transition: all .2s ease-in-out;
 }
 .shrink:hover {
-  transform: scale(0.9);
+  transform: scale(0.7);
 }
 .shrink2:hover {
   transform: scale(1.1);
