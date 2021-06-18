@@ -41,10 +41,16 @@ import ConsultaPais from '@/components/ConsultaPais'
 import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 
+import GraficaMontoPorCategoriaContainer from '@/components/GraficaMontoPorCategoriaContainer'
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/graficas-monto-por-categoria',
+    name: 'GraficaMontoPorCategoriaContainer',
+    component: GraficaMontoPorCategoriaContainer
+  },
   {
     path: '/ui/pba',
     name: 'pba',
