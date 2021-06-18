@@ -2,7 +2,7 @@
   <div class="ancho centra">
     <div class="card" style="margin-left:-50%;width: 200%;border: none;">
       <div class="card-header" style="margin-bottom:-1%">
-        <h4 class="control-label"><b>Historial de pedidos</b></h4>
+        <h4 class="control-label" style="text-align:center"><b>Historial de pedidos</b></h4>
       </div>
       <div class="card-body align">
         <hr style="background-color:black">
@@ -24,7 +24,6 @@
                 </div>
                 <div class="col-sm">
                     <p style="margin-bottom:0%">Compra realizada el {{compra.fechaHoraCompra}}</p>
-                    <a :href="compra.urlPdf" class="btn btn-primary btn-sm">Factura en pdf</a>
                     <p style="color:blue;font-size:small;margin-bottom:0%">{{compra.metodoPago}}</p>
                     <p style="color:blue;font-size:xx-small">{{compra.correo}}</p>
                 </div>
@@ -32,7 +31,7 @@
 
             <div class="row" v-for="compra in comprasInactivas" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
-                    <img class="rounded img-thumbnail" :src="compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
+                    <img class="rounded img-thumbnail" :src="'https://photos.ci.ultrasist.net/' + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
                     <p><b>{{compra.nombreAnuncio}}</b></p>
                     <div class="container">
                         <div class="row">
@@ -47,7 +46,6 @@
                 </div>
                 <div class="col-sm">
                     <p style="margin-bottom:0%">Compra realizada el {{compra.fechaHoraCompra}}</p>
-                    <a :href="compra.urlPdf" class="btn btn-primary btn-sm">Factura en pdf</a>
                     <p style="color:blue;font-size:small;margin-bottom:0%">{{compra.metodoPago}}</p>
                     <p style="color:blue;font-size:xx-small">{{compra.correo}}</p>
                 </div>

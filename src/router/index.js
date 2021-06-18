@@ -42,6 +42,7 @@ import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 import Graficas from '@/components/Graficas'
 
+
 Vue.use(Router);
 
 const routes = [
@@ -129,9 +130,9 @@ const routes = [
   },
   {
     path: '/ui/compras',
-    name: 'compras',
+    name: 'HistorialPedidos.vue',
     component: HistorialPedidos,
-    meta: { allowedRoles: ['admin','user'] }
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/login',
@@ -223,8 +224,7 @@ const routes = [
     name: 'ConsultaMunicipio',
     component:ConsultaMunicipio,
     meta: { allowedRoles: ['admin'] }
-  }
-
+  },
 ]
 
 const router = new Router({
