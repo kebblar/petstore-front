@@ -363,8 +363,6 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    store.commit('setSession', {
-                    });
                     if (this.name) {
                         axios.get('api/mediatipos/list/'+this.name+'.json', { 
                         }).then(response => {
@@ -404,10 +402,7 @@
                     activo:this.estatus
                 }).then(response => {
                     console.log("enviado");
-                    console.log(response);
-                    store.commit('setSession', {
-                    });
-                
+                    console.log(response);               
                     this.$modal.hide('agregarMediatipo');
                     this.$modal.show('mensaje-exito-add');
                     if (this.name) {

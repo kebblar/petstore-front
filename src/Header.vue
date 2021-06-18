@@ -30,7 +30,20 @@
                         <a class="dropdown-item" href="#" @click="navega('/ui/compras')">Mis compras</a>
                         <a class="dropdown-item" href="#" @click="navega('/ui/mis-direcciones')">Mis direcciones</a>
                         <a class="dropdown-item" href="#" @click="navega('/ui/mis-metodos-pago')">Mis métodos de pago</a>
-                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider" v-if="admin" ></div>
+                        <a v-if="admin" class="dropdown-item dropdown-toggle"  id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Catalogos        
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-pais')" >Paises</a>
+                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-estado')" >Estados</a>
+                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-municipio')" >Municipios</a>
+                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-estatus-anuncio')" >Estatus Anuncio</a>
+                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-tipos-medias')" >Tipos Media</a>
+                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-atributos')" >Atributos</a>
+                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-categorias')" >Categorias</a>
+                        </div>
+                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" @click="logout">Salir</a>
                       </div>
                     </div>
@@ -94,6 +107,10 @@ export default {
       },
       cantidad: function() {
         return store.state.session.carrito.length;
+      }, 
+      admin: function() {
+           return store.state.session.jwt && store.state.session.jwt.length>10
+         && store.state.session.roles[0].nombre.includes('admin');
       }
     },
     data() {

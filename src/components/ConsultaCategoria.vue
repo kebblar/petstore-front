@@ -575,8 +575,6 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    store.commit('setSession', {
-                    });
                     if (this.name) {
                         axios.get('api/categorias/list/'+this.name+'.json', { 
                         }).then(response => {
@@ -617,9 +615,7 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    store.commit('setSession', {
-                    });
-                
+               
                     this.$modal.hide('agregarCategoria');
                     this.$modal.show('mensaje-exito-add');
                     if (this.name) {

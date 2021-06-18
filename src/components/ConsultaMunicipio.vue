@@ -475,8 +475,6 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    store.commit('setSession', {
-                    });
                 
                     this.$modal.hide('editarMunicipio');
                     
@@ -549,8 +547,6 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    store.commit('setSession', {
-                    });
                     axios.get('api/municipios/list/'+this.name+'.json', {
                     }).then(response => {
                         console.log("enviado-list");
