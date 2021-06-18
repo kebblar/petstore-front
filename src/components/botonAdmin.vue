@@ -21,27 +21,27 @@ export default {
     name: "botonAdmin",
       props: {
         titulo: {
-          type: Text,
+          type: String,
           required: true
         },
         descripcion: {
-          type: Text,
+          type: String,
           required: true
         },
         link: {
-          type: Text,
+          type: String,
           required: true
         },
         icono: {
-          type: Text,
+          type: String,
           required: true
         },
         color: {
-          type: Text,
+          type: String,
           required: true
         },
         colorTarjeta: {
-          type: Text,
+          type: String,
           required: true
         },
       },
