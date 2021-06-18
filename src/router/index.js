@@ -40,6 +40,7 @@ import ConsultaEstatusAnuncio from '@/components/ConsultaEstatusAnuncio'
 import ConsultaPais from '@/components/ConsultaPais'
 import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
+import Graficas from '@/components/Graficas'
 
 Vue.use(Router);
 
@@ -49,6 +50,12 @@ const routes = [
     name: 'pba',
     component: Pruebas
   },
+  {
+    path: '/ui/graficas',
+    name: 'Graficas',
+    component: Graficas,
+    meta: { allowedRoles: ['admin'] }
+  },  
   {
     path: '/ui/cambia-datos-personales',
     name: 'cambia-datos-personales',
