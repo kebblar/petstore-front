@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import store from '../store'
 import axios from 'axios';
 
-
 // Importación de cada componente
 import Inicio from '@/components/Inicio'
 import Login from '@/components/Login'
@@ -12,7 +11,6 @@ import ConfirmaRegistro from '@/components/ConfirmaRegistro'
 import RegeneraClave from '@/components/RegeneraClave'
 import RegeneraClaveConfirma from '@/components/RegeneraClaveConfirma'
 import DetallePago from '@/components/DetallePago'
-import Reg from '@/components/Reg'
 import Admin from '@/components/Admin'
 import Forbidden from '@/components/Forbidden'
 import Upload from '@/components/Upload'
@@ -25,22 +23,42 @@ import MisCompras from '@/components/MisCompras'
 import MisDirecciones from '@/components/MisDirecciones'
 import MisMetodosPago from '@/components/MisMetodosPago'
 import HistorialPedidos from '@/components/HistorialPedidos'
-import AdministracionCompras from '@/components/AdministracionCompras';
+import AdministracionCompras from '@/components/AdministracionCompras'
 import CompraConfirmada from '@/components/CompraConfirmada'
 
-
+import Pruebas from '@/components/Pruebas'
 import DetalleProducto from '@/components/DetalleProducto'
 import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
 import AdminAnuncio from '@/components/admin/Anuncio'
 import ConsultaAnunciosPublico from '@/components/ConsultaAnunciosPublico'
 
+import ConsultaCategoria from '@/components/ConsultaCategoria'
+import ConsultaAtributo from '@/components/ConsultaAtributo'
+import ConsultaMediaTipo from '@/components/ConsultaMediaTipo'
+import ConsultaEstatusAnuncio from '@/components/ConsultaEstatusAnuncio'
+
+import ConsultaPais from '@/components/ConsultaPais'
+import ConsultaEstado from '@/components/ConsultaEstado'
+import ConsultaMunicipio from '@/components/ConsultaMunicipio'
+
+
 Vue.use(Router);
 
 const routes = [
   {
+    path: '/ui/pba',
+    name: 'pba',
+    component: Pruebas
+  },
+  {
     path: '/ui/cambia-datos-personales',
     name: 'cambia-datos-personales',
     component: CambiaDatosPersonales
+  },
+  {
+    path: '/ui/detalle-producto/:idp',
+    name: 'detalle',
+    component: DetalleProducto,
   },
   {
     path: '/ui/cambia-clave',
@@ -105,14 +123,9 @@ const routes = [
   },
   {
     path: '/ui/compras',
-    name: 'compras',
+    name: 'HistorialPedidos.vue',
     component: HistorialPedidos,
-    meta: { allowedRoles: ['admin','user'] }
-  },
-  {
-    path: '/ui/reg',
-    name: 'reg',
-    component:  Reg
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/login',
@@ -136,19 +149,9 @@ const routes = [
     component: ConfirmaRegistro
   },
   {
-    path: '/ui/reg',
-    name: 'reg',
-    component: Reg
-  },
-  {
     path: '/ui/regenera-clave',
     name: 'regenera-clave',
     component: RegeneraClave
-  },
-  {
-    path: '/ui/detalle-producto/:idp',
-    name: 'detalle',
-    component: DetalleProducto,
   },
   {
     path: '/ui/admin-anuncio/:id?',
@@ -168,17 +171,53 @@ const routes = [
     component: ConsultaAnunciosPublico
   },
   {
-    path: '/ui/regenera-clave-confirma',
-    name: 'regenera-clave-confirma',
-    component: RegeneraClaveConfirma
-  },
-  {
     path: '/ui/admin-compras',
     name: 'AdministracionCompras',
     component: AdministracionCompras,
     meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-categorias',
+    name: 'consultacategoria',
+    component: ConsultaCategoria,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-atributos',
+    name: 'consultaatributo',
+    component: ConsultaAtributo,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-tipos-medias',
+    name: 'consultatipomedia',
+    component:ConsultaMediaTipo,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-estatus-anuncio',
+    name: 'consultaestatusanuncio',
+    component:ConsultaEstatusAnuncio,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-pais',
+    name: 'ConsultaPais',
+    component:ConsultaPais,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-estado',
+    name: 'ConsultaEstado',
+    component:ConsultaEstado,
+    meta: { allowedRoles: ['admin'] }
+  }, 
+  {
+    path: '/ui/consulta-municipio',
+    name: 'ConsultaMunicipio',
+    component:ConsultaMunicipio,
+    meta: { allowedRoles: ['admin'] }
   },
-
 ]
 
 const router = new Router({
@@ -208,7 +247,8 @@ function checaJwt (jwt, active) {
         correo:       '',
         ultimoAcceso: '',
         idUser:        0,
-        jwt:          '' // jwt: jwtPayload.exp
+        jwt:          '', // jwt: jwtPayload.exp
+        carrito: []
       });
       store.commit('setDestination', '/');
     } else {
@@ -217,9 +257,19 @@ function checaJwt (jwt, active) {
   }
 }
 
+
 router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   checaJwt(store.state.session.jwt, false);
+  
+
+  axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+    store.commit('setCarrito', response.data);
+    console.log(response.data);
+  }).catch(e => {
+    console.log(e);
+  });
+
   if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:
     if (store.state.session.jwt==='') { 
