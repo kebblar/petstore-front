@@ -4,65 +4,67 @@
             <div class="card-body">
                 <h1 class="card-title">Graficas</h1>
                 
-                <br><br><br>
-                <h3 style="text-align:center;" class="text-secondary">Mascota más vendida</h3>
-                <pie-chart :chart-data="paqueteriaPie" />
-                
-                <div v-if="hideMe">
-                    <br>
-                    <div style="display: inline-flex">
-                        <p class="h3"><b-icon icon="calendar-check" class="fa-fw"></b-icon></p>
-                        <vue-monthly-picker class="mr-4"
-                            v-model="selectedMonth"
-                            :placeHolder="message"
-                            :monthLabels="monthLabels"/>
-                        <button class="btn btn-success btn-sm mt-1" style="height:95%" @click='findMagic'><b-icon icon="search"></b-icon></button>
-                    </div>
-                    <br>
-                </div>
-                
-                <button @click="mascotaVendidaG()" class="btn btn-secondary mr-4">Reset</button>
-                <button @click="newGraph()" class="btn btn-info">Nuevos Datos </button>
-                
-                <br><br><hr><br>
-                <h3 style="text-align:center;" class="text-secondary">Paqueterías más populares</h3>
-                <bar-chart :chart-data="mascotaBar" />
-
-                <div v-if="hideMePMPG">
-                    <br>
-                    <div style="display: inline-flex">
-                        <p class="h3"><b-icon icon="calendar-check" class="fa-fw"></b-icon></p>
-                        <vue-monthly-picker class="mr-2"
-                            v-model="selectedMonth2"
-                            :placeHolder="message"
-                            :monthLabels="monthLabels"/>
-                        <button class="btn btn-success btn-sm mt-1" style="height:95%" @click='findMagic'><b-icon icon="search"></b-icon></button>
-                    </div>
-                    <br>
-                </div>
-
-                <button @click="paqueteriaUtilizadaG()" class="btn btn-secondary mr-4">Reset</button>
-                <button @click="newGraph2()" class="btn btn-info">Nuevos Datos </button>
-
                 <br><br><hr><br>
                 <h3 style="text-align:center;" class="text-secondary">Comprador más asiduo</h3>
-                <point-chart :chart-data="compradorPoint" />
+                <pie-chart :chart-data="compradorPie" />
                 
                 <div v-if="hideMeCMAG">
                     <br>
                     <div style="display: inline-flex">
                         <p class="h3"><b-icon icon="calendar-check" class="fa-fw"></b-icon></p>
                         <vue-monthly-picker class="mr-4"
-                            v-model="selectedMonth3"
+                            v-model="selectedMonthComprador"
                             :placeHolder="message"
                             :monthLabels="monthLabels"/>
-                        <button class="btn btn-success btn-sm mt-1" style="height:95%" @click='findMagic'><b-icon icon="search"></b-icon></button>
+                        <button class="btn btn-success btn-sm mt-1" style="height:95%" @click='findComprador'><b-icon icon="search"></b-icon></button>
                     </div>
                     <br>
                 </div>
 
                 <button @click="compradorG()" class="btn btn-secondary mr-4">Reset</button>
-                <button @click="newGraph3()" class="btn btn-info">Nuevos Datos </button>
+                <button @click="menuBusquedaCMAG()" class="btn btn-info">Nuevos Datos </button>
+
+                <br><br><br>
+                <h3 style="text-align:center;" class="text-secondary">Mascota más vendida</h3>
+                <point-chart :chart-data="mascotaPoint" />
+                
+                <div v-if="hideMe">
+                    <br>
+                    <div style="display: inline-flex">
+                        <p class="h3"><b-icon icon="calendar-check" class="fa-fw"></b-icon></p>
+                        <vue-monthly-picker class="mr-4"
+                            v-model="selectedMonthMascota"
+                            :placeHolder="message"
+                            :monthLabels="monthLabels"/>
+                        <button class="btn btn-success btn-sm mt-1" style="height:95%" @click='findMascotaVendida'><b-icon icon="search"></b-icon></button>
+                    </div>
+                    <br>
+                </div>
+                
+                <button @click="mascotaVendidaG()" class="btn btn-secondary mr-4">Reset</button>
+                <button @click="menuBusquedaMVG()" class="btn btn-info">Nuevos Datos </button>
+                
+                <br><br><hr><br>
+                <h3 style="text-align:center;" class="text-secondary">Paqueterías más populares</h3>
+                <bar-chart :chart-data="paqueteriaBar" />
+
+                <div v-if="hideMePMPG">
+                    <br>
+                    <div style="display: inline-flex">
+                        <p class="h3"><b-icon icon="calendar-check" class="fa-fw"></b-icon></p>
+                        <vue-monthly-picker class="mr-2"
+                            v-model="selectedMonthPaqueteria"
+                            :placeHolder="message"
+                            :monthLabels="monthLabels"/>
+                        <button class="btn btn-success btn-sm mt-1" style="height:95%" @click='findPaqueteriaUtilizada'><b-icon icon="search"></b-icon></button>
+                    </div>
+                    <br>
+                </div>
+
+                <button @click="paqueteriaUtilizadaG()" class="btn btn-secondary mr-4">Reset</button>
+                <button @click="menuBusquedaPMPG()" class="btn btn-info">Nuevos Datos </button>
+
+                
             </div>
 
             <!-- Modal -->
@@ -104,7 +106,7 @@ Vue.component('pie-chart', {
     mixins: [reactiveProp],
     props: ["options"],
     mounted () {
-        this.renderChart(this.paqueteriaPie, {responsive: true, maintainAspectRatio: false});
+        this.renderChart(this.compradorPie, {responsive: true, maintainAspectRatio: false});
     }
 })
 
@@ -113,7 +115,22 @@ Vue.component('bar-chart', {
     mixins: [reactiveProp],
     props: ["options"],
     mounted () {
-        this.renderChart(this.mascotaBar, {responsive: true, maintainAspectRatio: false});
+        this.renderChart(this.paqueteriaBar, {responsive: true, maintainAspectRatio: false, scales: {
+            xAxes: [{
+                barPercentage: 1.5,
+                gridLines: {
+                    display: true
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    display: true
+                },
+                ticks: {
+                    precision: 0
+                }
+            }]
+       } });
     }
 })
 
@@ -122,7 +139,21 @@ Vue.component('point-chart', {
     mixins: [reactiveProp],
     props: ["options"],
     mounted () {
-        this.renderChart(this.compradorPoint, {responsive: true, maintainAspectRatio: false, plugins: {legend:{ labels: {usePointStyle: true}}}});
+        this.renderChart(this.mascotaPoint, {responsive: true, scales: {
+            xAxes: [{
+               gridLines: {
+                  display: true
+               }
+            }],
+            yAxes: [{
+               gridLines: {
+                  display: true
+               },
+                ticks: {
+                    precision: 0
+                }
+            }]
+       }, maintainAspectRatio: false, plugins: { legend:{ labels: {usePointStyle: true}} }});
     }
 })
 
@@ -134,18 +165,14 @@ export default {
     data () {
       return {
         colores: ['#f44336','#00BCD4','#E91E63','#9C27B0','#2196F3','#673AB7','#3F51B5','#009688','#CDDC39','#03A9F4','#4CAF50','#8BC34A','#FFC107','#FFEB3B','#FF9800','#FF5722','#795548','#9E9E9E','#607D8B'],
-        meses: {'enero': '1','febrero': '2','marzo': '3','abril': '4','mayo': '5','junio': '6','julio': '7','agosto': '8','septiembre': '9','octubre': '10','noviembre': '11','diciembre': '12'},
         monthLabels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-        selectedMonth:'',
-        selectedMonth2:'',
-        selectedMonth3:'',
-        fechaFiltro1: '',
-        paqueteriaPie: null,
-        mascotaBar: null,
-        compradorPoint: null,
+        selectedMonthMascota:'',
+        selectedMonthPaqueteria:'',
+        selectedMonthComprador:'',
+        mascotaPoint: null,
+        paqueteriaBar: null,
+        compradorPie: null,
         paqueteriaOptions: null,
-        midata: {},
-        showMe: true,
         hideMe: false,
         hideMePMPG: false,
         hideMeCMAG: false,
@@ -156,10 +183,10 @@ export default {
         closeModal() {
             this.$modal.hide('info');
         },
-        coloresGenerador(dataLabels){
+        coloresGenerador(){
             let col =[]
             let arrColoresGenerados = []
-            while(arrColoresGenerados.length < dataLabels.length){
+            while(arrColoresGenerados.length < 5){
                 let res = Math.floor(Math.random() * (19+0))
                 if(!col.includes(res)){
                     col.push(res)
@@ -176,45 +203,55 @@ export default {
             let fecFin = y + '-' + m + '-' + ultimoDia
             return [fecIni, fecFin]
         },
-        async mascotaVendidaG(){
-            const { data } = await axios.get('/api/grafica-mascota-mas-vendida.json')
-            let colores = this.coloresGenerador(data.chart.label)
-            this.paqueteriaPie = {
-                labels: data.chart.label,
-                datasets: [
-                {
-                    backgroundColor: colores,
-                    data: data.chart.data
-                },
-                ]
-            };
-            this.showMe = true
-            this.hideMe = false
-        },
-        async paqueteriaUtilizadaG(){
-            const { data } = await axios.get('/api/grafica-paqueteria.json')
-            let colores = this.coloresGenerador(data.chart.label)
-            let datasets = []
-            for(let i = 0; i < data.chart.label.length; i++){
-                let datasetPorLabel = {}
-                let datos = {
-                    label: data.chart.label[i],
-                    data: [data.chart.data[i],3,4],
-                    backgroundColor: colores[i],//'#ffbf00',
+        generadorDataset(dataObj){
+            let labels = []
+            let recolector = {}
+            let data = {}
+            Object.assign(data, { labels: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'] })
+            Object.assign(data, {datasets: []})
+
+            dataObj.chart.map(function(i) {
+                if(!labels.includes(i.label)) {
+                    labels.push(i.label)
+                    recolector[i.label] = [] 
+                    recolector[i.label].push([i.mes-1, i.data])
                 }
-                Object.assign(datasetPorLabel, datos)
-                datasets.push(datasetPorLabel)
+                else {
+                    recolector[i.label].push([i.mes-1, i.data])
+                }
+            })
+
+            let colores = this.coloresGenerador()
+            let i = 0
+            for(let key in recolector) {
+                let arrData = [0,0,0,0,0,0,0,0,0,0,0,0]
+                recolector[key].forEach(function(e) {
+                    for (var i = 0; i < 12; i++) {
+                        if(e[0] == i) {
+                            arrData[i] += e[1]
+                        }
+                    }
+                })
+                data.datasets.push({ label: key, data: arrData, backgroundColor: colores[i] })
+                i++;
             }
-            this.mascotaBar = {
-                labels: data.chart.mes,
-                datasets: datasets
-            };
-            this.hideMePMPG = false
+            return data
         },
         async compradorG(){
             const { data } = await axios.get('/api/grafica-comprador-asiduo.json')
-            let colores = this.coloresGenerador(data.chart.label)
-            
+            let colores = this.coloresGenerador()
+            this.compradorPie = {
+                labels: data.chart.label,
+                datasets: [{
+                    data: data.chart.data,
+                    backgroundColor: colores
+                }]
+            }
+            this.hideMeCMAG = false
+        },
+        async mascotaVendidaG(){
+            const { data } = await axios.get('/api/grafica-mascota-mas-vendida.json')
+            let colores = this.coloresGenerador()
             const source = {
                         fill: false,
                         borderWidth: 2,
@@ -222,56 +259,99 @@ export default {
                         pointRadius: 10,
                         pointBorderColor: 'rgb(0, 0, 0)'
                     }
-            let datasets = []
-            for(let i = 0; i < data.chart.label.length; i++){
-                let datasetPorLabel = {}
-                let datos = {
-                    label: data.chart.label[i],
-                    data: [data.chart.data[i],5,3,2,1],
-                    borderColor: colores[i],
-                    backgroundColor: '#ffbf00',
+            let dataGenerada = this.generadorDataset(data)
+            let i = 0
+            dataGenerada.datasets.map(function(e){
+                Object.assign(e, source) 
+                Object.assign(e,{borderColor: colores[i]})
+                i++
+            })
+
+            this.mascotaPoint = dataGenerada
+            this.showMe = true
+            this.hideMe = false
+        },
+        async paqueteriaUtilizadaG(){
+            const { data } = await axios.get('/api/grafica-paqueteria.json')
+            console.log("data de paqueteria: " + JSON.stringify(data))
+            this.paqueteriaBar = this.generadorDataset(data)
+            this.hideMePMPG = false
+        },
+        async buscarGrafica(update, data, objActual) {
+            if(update){
+                let colores = this.coloresGenerador()
+                if(objActual == "comprador"){
+                    let tmp = {
+                    labels: data.chart.label,
+                    datasets: [
+                        {
+                            backgroundColor: colores,
+                            data: data.chart.data
+                        },
+                        ]
+                    }
+                    this.compradorPie = tmp
                 }
-                Object.assign(datasetPorLabel, datos)
-                Object.assign(datasetPorLabel, source)
-                datasets.push(datasetPorLabel)
+                if(objActual == 'mascota'){
+                    let colores = this.coloresGenerador()
+                    const source = {
+                                fill: false,
+                                borderWidth: 2,
+                                pointStyle: 'triangle',
+                                pointRadius: 10,
+                                pointBorderColor: 'rgb(0, 0, 0)'
+                            }
+                    let dataGenerada = this.generadorDataset(data)
+                    let i = 0
+                    dataGenerada.datasets.map(function(e){
+                        Object.assign(e, source) 
+                        Object.assign(e,{borderColor: colores[i]})
+                        i++
+                    })
+                    this.mascotaPoint = dataGenerada
+                }
+                if(objActual == 'paqueteria'){
+                    this.paqueteriaBar = this.generadorDataset(data)
+                }
             }
-            
-            this.compradorPoint = {
-                labels: [data.chart.mes, 'junio', 'julio', 'agosto', 'septiembre'],
-                datasets: datasets
-            }
-            this.hideMeCMAG = false
         },
-        async newGraph() {
-            this.showMe = false
-            this.hideMe = true
-            let colores = this.coloresGenerador(['a','c','c','c'])
-            this.paqueteriaPie = {
-                labels: ['a','b','c','d'],
-                datasets: [
-                {
-                    backgroundColor: colores,
-                    data: [5,6,8,7]
-                },
-                ]
-            };
-        },
-        newGraph2(){
-            this.hideMePMPG = true
-            //this.selectedMonth2
-        },
-        newGraph3(){
+        menuBusquedaCMAG(){
             this.hideMeCMAG = true
-            //this.selectedMonth3
         },
-        async findMagic(){
-            //this.selectedMonth
-            //2021-05-10 //2021-06-30
-            let fechas = this.generadorFechas(this.selectedMonth)
-            const { data } = await axios.get('/api/grafica-mascota-mas-vendida-rango.json/'+fechas[0]+'/'+fechas[1])
-            console.log("seFiltra usando fechas:" + fechas[0] + ' - ' + fechas[1] + "Con los siguientes datos:" + JSON.stringify(data))
+        menuBusquedaMVG() {
+            this.hideMe = true
+        },
+        menuBusquedaPMPG(){
+            this.hideMePMPG = true
+        },
+        async findComprador(){
+            let fechas = this.generadorFechas(this.selectedMonthComprador)
+            const { data } = await axios.get('/api/grafica-comprador-asiduo-rango/'+fechas[0]+'/'+fechas[1]+'.json')
+            console.log("se Filtra usando Comprador fechas:\n" + fechas[0] + ' - ' + fechas[1] + "\nCon los siguientes datos:" + JSON.stringify(data))
             if(!data){
                 this.$modal.show('info');
+            }else{
+                this.buscarGrafica(true, data, "comprador")
+            }
+        },
+        async findMascotaVendida(){
+            let fechas = this.generadorFechas(this.selectedMonthMascota)
+            const { data } = await axios.get('/api/grafica-mascota-mas-vendida-rango/'+fechas[0]+'/'+fechas[1]+'.json')
+            console.log("se Filtra usando MascotaVendida fechas:\n" + fechas[0] + ' - ' + fechas[1] + "\nCon los siguientes datos:" + JSON.stringify(data))
+            if(data.chart.length == 0){
+                this.$modal.show('info');
+            }else{
+                this.buscarGrafica(true, data, "mascota")
+            }
+        },
+        async findPaqueteriaUtilizada(){
+            let fechas = this.generadorFechas(this.selectedMonthPaqueteria)
+            const { data } = await axios.get('/api/grafica-paqueteria-rango/'+fechas[0]+'/'+fechas[1]+'.json')
+            console.log("se Filtra usando PaqueteriaUtilizada fechas:\n" + fechas[0] + ' - ' + fechas[1] + "\nCon los siguientes datos:" + JSON.stringify(data))
+            if(data.chart.length == 0){
+                this.$modal.show('info');
+            }else{
+                this.buscarGrafica(true, data, "paqueteria")
             }
         },
     },
@@ -291,4 +371,10 @@ export default {
     border-radius:7px; 
     box-shadow: 0px 0px 15px 2px #e9e9e9;
 }
+.Chart {
+    padding: 20px;
+    box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, .4);
+    border-radius: 20px;
+    margin: 50px 0;
+  }
 </style>

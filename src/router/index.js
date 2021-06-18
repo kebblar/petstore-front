@@ -223,6 +223,7 @@ const routes = [
     path: '/ui/graficas',
     name: 'Graficas',
     component: Graficas,
+    meta: { allowedRoles: ['admin'] }
   },
 ]
 
