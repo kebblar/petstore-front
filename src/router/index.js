@@ -41,6 +41,7 @@ import ConsultaPais from '@/components/ConsultaPais'
 import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 
+
 Vue.use(Router);
 
 const routes = [
@@ -216,8 +217,7 @@ const routes = [
     name: 'ConsultaMunicipio',
     component:ConsultaMunicipio,
     meta: { allowedRoles: ['admin'] }
-  }
-
+  },
 ]
 
 const router = new Router({
