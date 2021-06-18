@@ -130,39 +130,55 @@
               </b-button>
             </div>
             <div>
-              <b-card-group  v-for="(entry, i) in anuncios" :key="i" class="inline align-top" v-bind:class="{ 'col-md-4': isActive, 'col-md-12': notActive }"> 
-                <b-card v-if="entry.imagenes != null && entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5" style="height:400px" class="m-1">
-                  
-                  <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="50%"/>
-                  <b-card-title>{{entry.titulo}}</b-card-title>
-                  <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
-                  <b-card-text>
-                    {{ entry.descripcion }}
-                  </b-card-text>
-                  <b-card-text>
-                    {{ entry.precio }}
-                  </b-card-text>
-                  <template #footer>
-                    <b-button block  variant="primary" @click="redireccion(entry.id)">Ver Anuncio</b-button>
-                  </template>
+              <b-card-group  v-for="(entry, i) in anuncios" :key="i" class="inline align-top"  v-bind:class="{ 'col-md-4': isActive, 'col-md-12': notActive }"> 
+                
+                <b-card v-if="entry.imagenes != null" style="height:400px" class="m-1">
+                    <b-row no-gutters v-if="notActive">
+                      <b-col md="6" >
+                            <div v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5">
+                              <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="90%"/>
+                            </div>
+                            <div v-else>
+                              <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top>
+                                <source :src="ruta + entry.imagenes[0].uuid" type="video/mp4" />
+                              </video> 
+                            </div>
+                      </b-col>
+                      <b-col md="6" style="padding:2%">
+                         <b-card-title>{{entry.titulo}}</b-card-title>
+                        <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
+                        <b-card-text v-html="entry.descripcion">
+                          {{ entry.descripcion }}
+                        </b-card-text>
+                        <b-card-text>
+                          {{ entry.precio }}
+                        </b-card-text>
+                      </b-col>
+                    </b-row>
+                   
+                    <div v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5" >
+                      <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="50%" v-if="isActive"/>
+                    </div>
+                    <div v-else >
+                      <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top v-if="isActive">
+                        <source :src="ruta + entry.imagenes[0].uuid" type="video/mp4" />
+                      </video> 
+                    </div>
+                    <b-card-title v-if="isActive">{{entry.titulo}}</b-card-title>
+                    <b-card-sub-title class="mb-2" v-if="isActive">{{ entry.descCategoria }}</b-card-sub-title>
+                    <b-card-text v-html="entry.descripcion" v-if="isActive">
+                      {{ entry.descripcion }}
+                    </b-card-text>
+                    <b-card-text v-if="isActive">
+                      {{ entry.precio }}
+                    </b-card-text>
+
+                    <template #footer>
+                      <b-button block  variant="primary" @click="redireccion(entry.id)">Ver Anuncio</b-button>
+                    </template>
                 </b-card>
 
-                <b-card v-else style="height:400px" class="m-1"> 
-                   <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top>
-                      <source :src="ruta + entry.imagenes[0].uuid" type="video/mp4" />
-                    </video> 
-                  <b-card-title>{{entry.titulo}}</b-card-title>
-                  <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title> 
-                  <b-card-text>
-                    {{ entry.descripcion }}
-                  </b-card-text>
-                  <b-card-text>
-                    {{ entry.precio }}
-                  </b-card-text>
-                  <template #footer>
-                    <b-button block  variant="primary" @click="redireccion(entry.id)">Ver Anuncio</b-button>
-                  </template>
-                </b-card>
+               
 
               </b-card-group>
             </div>       
@@ -218,7 +234,7 @@ Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 export default {
   name: "ConsultaAnunciosPublico.vue",
   mounted () {
-    this.ruta = process.env.VUE_APP_URL+"upload/";
+    this.ruta = process.env.VUE_APP_URL_MEDIA;
     axios.get('api/categorias.json').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.categorias, key, { id: obj.id, valor:obj.categoria});

@@ -17,8 +17,7 @@
           back-button-text="Regresar"
           finish-button-text="Confirmar"
           color="green"  
-          @on-complete="onComplete" 
-        > 
+          @on-complete="onComplete"> 
           <h2 slot="title">{{tituloProceso}}</h2>   
            <tab-content title="Datos generales" :before-change="validarDatos">
             <div class="col-sm-12 text-left">
@@ -32,11 +31,14 @@
                 <input type="text" class="form-control" :class="classTitulo" maxlength="50" v-model="titulo"/>
                 <small class="notValid">{{msgTitulo}}</small>
               </div>
+           
               <div class="form-group">
                 <label for="descripcion" class="required">Descripción</label><label class="requerido"></label>
-                <textarea class="form-control" :class="classDescripcion" rows="4" v-model="descripcion" maxlength="255"/>
+                <vue-editor v-model="descripcion" @input="onEditorInput" 
+                :editor-toolbar="customToolbar" ref="innerTextDescripcion"></vue-editor>
                 <small class="notValid">{{msgDescripcion}}</small>
               </div>
+
               <div class="form-group">
                 <div class="row">
                   <div class="col-12 col-sm-6">
@@ -146,7 +148,7 @@
                     </div>
                     <div class="col-xs-12 col-8" style="padding-left: 0">
                       <!-- <blockquote class="blockquote"> -->
-                      <p>{{ descripcion }}</p>
+                      <p v-html="descripcion">{{ descripcion }}</p>
                       <!--  </blockquote> -->
                     </div>
                   </div>
@@ -225,6 +227,7 @@ import Imagen from '@/components/admin/Imagen';
 import moment from 'moment';
 import Vue from 'vue';
 import axios from 'axios';
+import { VueEditor } from 'vue2-editor';
 
 Vue.use(VueToast);
 
@@ -232,10 +235,12 @@ export default {
   components: { 
      FormWizard,
      TabContent,
-     Imagen
+     Imagen,
+     VueEditor
   }, 
   data: function () {
     return {
+      showCharCount: true,
       activeTabIndex:0,
       tituloProceso:null,
       atributosByCategoria:[],
@@ -263,6 +268,23 @@ export default {
       msgSelectDin:"defaultColor",
       optionsGeneral:[],
       ruta:'',
+      customToolbar:  [
+        //[{ header: [false, 1, 2, 3, 4, 5, 6] }],
+        ["bold", "italic"], // toggled buttons
+        [
+          { align: "" },
+          { align: "center" },
+          { align: "right" },
+          { align: "justify" }
+        ],
+       // ["blockquote", "code-block"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        //[{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+        [{ color: [] }], // dropdown with defaults from theme
+        ["link"],
+        ["clean"] // remove formatting button
+      ],
+      longitudDescripcion:0,
     };
   },
   created() {
@@ -311,7 +333,7 @@ export default {
       });      
   },
    mounted () {
-    this.ruta = process.env.VUE_APP_URL + "upload/";
+    this.ruta = process.env.VUE_APP_URL_MEDIA;
     if(this.$route.params.id === undefined){
       this.tituloProceso = "Registro del anuncio"
       this.id = 0;
@@ -319,7 +341,6 @@ export default {
     }else{
       this.tituloProceso = "Actualización del anuncio";
       this.id = this.$route.params.id;
-
       //Realizamos la consulta al servicio para consultar la información
        axios.get('api/anuncios/'+this.id+'.json').then(response => {
           console.log(response.data); 
@@ -559,7 +580,9 @@ export default {
         
         let isValid = true
           && this.msgTitulo == '' && this.titulo.trim().length>2
-          && this.msgDescripcion == '' && this.descripcion != null && this.descripcion.trim().length>9
+          && this.msgDescripcion == '' && this.descripcion != null 
+          && this.longitudDescripcion>9 
+          && this.descripcion.trim().length<10000
           && this.msgPrecio == '' && this.precio != null
           && this.msgCategoria == '' && this.idCategoria != 0
           && selectValid;
@@ -580,13 +603,23 @@ export default {
      })
     },
     getOptionSelect(options,valor){
-         var leyenda = "----------";
+        var leyenda = "----------";
         options.forEach((option) =>{
            if(option.idValorAtributo === valor){
               leyenda = option.valor;
            }
         });
         return leyenda;
+    },
+    onEditorInput(data){
+      var element = this.$refs.innerTextDescripcion;
+      console.log("element ",element)
+      if(data!=''){
+        console.log("valor longitud: "+element.quill.container.innerText.length);
+        this.longitudDescripcion=element.quill.container.innerText.length;
+      }else{
+         this.longitudDescripcion=0;
+      }
     }
   },
   watch: {
@@ -601,10 +634,17 @@ export default {
     descripcion(){
       this.msgDescripcion="";
       this.classDescripcion="greenColor correct";
-      if (this.descripcion.trim().length<10){
-        this.msgDescripcion="La descripción debe ser mínimo 10 caracteres";
+      console.log(this.longitudDescripcion);
+      if(this.descripcion.trim().length>10000){
+        this.msgDescripcion="La descripción excede la longitud permitida";
         this.classDescripcion="redColor incorrect";
+      }else{
+        if (this.longitudDescripcion<=9){
+          this.msgDescripcion="La descripción debe ser de al menos 10 caracteres";
+          this.classDescripcion="redColor incorrect";
+        }
       }
+     
     },
     precio(){
       this.msgPrecio="";
