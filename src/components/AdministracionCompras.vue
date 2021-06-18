@@ -2,7 +2,7 @@
   <div class="ancho centra">
     <div class="card" style="margin-left:-50%;width: 200%;border: none;">
       <div class="card-header" style="margin-bottom:-1%">
-        <h4 class="control-label"><b>Compras realizadas</b></h4>
+        <h4 class="control-label" style="text-align:center"><b>Compras realizadas</b></h4>
       </div>
       <div class="card-body align">
         <hr style="background-color:black">
