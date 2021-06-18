@@ -9,7 +9,9 @@
 <!--                 <span>Filtrar por: </span>
                 
                 <b-form-select class="col-sm-4" v-model="selected" :options="options" @change="selectOpc"></b-form-select> -->
-                    <div class='chartS'><BarChart /></div>
+                    <div class='chartS'>
+                      <BarChart />
+                    </div>
             </div>
         </div>   
     </div>
