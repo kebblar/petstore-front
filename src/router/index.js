@@ -122,9 +122,9 @@ const routes = [
   },
   {
     path: '/ui/compras',
-    name: 'compras',
+    name: 'HistorialPedidos.vue',
     component: HistorialPedidos,
-    meta: { allowedRoles: ['admin','user'] }
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/login',

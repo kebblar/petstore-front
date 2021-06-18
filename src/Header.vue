@@ -27,7 +27,7 @@
                       <div class="dropdown-menu">
                         <a class="dropdown-item" href="#" @click="navega('/ui/cambia-clave')" >Cambiar clave</a>
                         <a class="dropdown-item" href="#" @click="navega('/ui/cambia-datos-personales')">Cambiar datos personales</a>
-                        <a class="dropdown-item" href="#" @click="navega('/ui/mis-compras')">Mis compras</a>
+                        <a class="dropdown-item" href="#" @click="navega('/ui/compras')">Mis compras</a>
                         <a class="dropdown-item" href="#" @click="navega('/ui/mis-direcciones')">Mis direcciones</a>
                         <a class="dropdown-item" href="#" @click="navega('/ui/mis-metodos-pago')">Mis métodos de pago</a>
                         <div class="dropdown-divider"></div>
