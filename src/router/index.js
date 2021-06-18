@@ -41,7 +41,6 @@ import ConsultaPais from '@/components/ConsultaPais'
 import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 
-import Graficas from '@/components/Graficas'
 
 Vue.use(Router);
 
@@ -218,11 +217,6 @@ const routes = [
     name: 'ConsultaMunicipio',
     component:ConsultaMunicipio,
     meta: { allowedRoles: ['admin'] }
-  },
-  {
-    path: '/ui/graficas',
-    name: 'Graficas',
-    component: Graficas,
   },
 ]
 

@@ -78,16 +78,4 @@ h3 {
   color: rgb(7, 7, 7);
 }
 
-
-.small-box> .small-box-footer {
-  background-color: rgba(0,0,0,.1);
-  color: rgba(255,255,255,.8);
-  display: block;
-  padding: 3px 0;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  z-index: 10;
-}
-
 </style>
