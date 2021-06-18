@@ -104,7 +104,7 @@ export default {
     async graficar(){
       this.loaded_filtro = false
       try {
-          const path_filtro = "http://10.0.2.15:9999/api/grafica-tipo-pago-rango.json?fechaFin="+this.fechaFin+"&fechaInicio="+this.fechaInicio
+          const path_filtro = "/api/grafica-tipo-pago-rango.json?fechaFin="+this.fechaFin+"&fechaInicio="+this.fechaInicio
           console.log(path_filtro)
           const response = await fetch(path_filtro).then(response => response.json())
           this.chartdata_filtro = response.chartdata
@@ -120,7 +120,7 @@ export default {
     async mounted () {
       this.loaded = false
       try {
-        const response = await fetch('http://10.0.2.15:9999/api/grafica-tipo-pago.json').then(response => response.json())
+        const response = await fetch('/api/grafica-tipo-pago.json').then(response => response.json())
         this.chartdata = response.chartdata
         this.loaded = true
       } catch (e) {
@@ -128,7 +128,7 @@ export default {
       }
       this.loaded_filtro = false
       try {
-          const path_filtro = "http://10.0.2.15:9999/api/grafica-tipo-pago-rango.json?fechaFin="+this.fechaFin+"&fechaInicio="+this.fechaInicio
+          const path_filtro = "/api/grafica-tipo-pago-rango.json?fechaFin="+this.fechaFin+"&fechaInicio="+this.fechaInicio
           const response = await fetch(path_filtro).then(response => response.json())
           this.chartdata_filtro = response.chartdata
           this.loaded_filtro = true
