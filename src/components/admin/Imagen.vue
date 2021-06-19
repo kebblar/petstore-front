@@ -17,7 +17,7 @@
                 v-on:vdropzone-error="errorEvent"
                 :options="dropzoneOptions">
             </vue-dropzone>
-            <button @click="sube" type="button" class="btn btn-lg btn-primary" style="width:100%" >Carga archivos</button>
+            <button @click="sube" type="button" class="btn btn-lg btn-primary" style="width:100%" hidden>Carga archivos</button>
         </div>
         <div class="card-body">
           <div class="row">
@@ -96,7 +96,13 @@ export default {
           headers: {
             "jwt": store.state.session.jwt,
           }, 
-          autoProcessQueue: false, // Make sure the files aren't queued until manually added
+          //autoProcessQueue: false, // Make sure the files aren't queued until manually added
+          init: function () {
+            this.on("success", function (file) {
+            console.log("success > " + file.name);
+            this.removeFile(file);
+            });
+          },
       };
   },
   data: function () {
