@@ -270,7 +270,7 @@ export default {
       ruta:'',
       customToolbar:  [
         //[{ header: [false, 1, 2, 3, 4, 5, 6] }],
-        ["bold", "italic"], // toggled buttons
+        ["bold", "italic","underline"], // toggled buttons
         [
           { align: "" },
           { align: "center" },
