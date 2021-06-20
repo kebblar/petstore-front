@@ -42,6 +42,7 @@ import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 import Graficas from '@/components/Graficas'
 
+
 import GraficaMontoPorCategoriaContainer from '@/components/GraficaMontoPorCategoriaContainer'
 
 Vue.use(Router);
@@ -234,55 +235,46 @@ const routes = [
 ]
 
 const router = new Router({
-  mode: 'history',
-  scrollBehavior: () => ({ y: 0 }),
-  routes
+    mode: 'history',
+    scrollBehavior: () => ({ y: 0 }),
+    routes
 })
 
-function parseJwt (token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-  return JSON.parse(jsonPayload);
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
 }
 
-function checaJwt (jwt, active) {
-  if(active && jwt && jwt!==undefined && jwt.length>0) {
-    console.log(jwt);
-    const jwtPayload = parseJwt(jwt);
-    //console.log(jwtPayload);
-    if (jwtPayload.exp < Date.now()/1000) {
-      store.commit('setSession', {
-        nombreCompleto: '',
-        roles:        [],
-        correo:       '',
-        ultimoAcceso: '',
-        idUser:        0,
-        jwt:          '', // jwt: jwtPayload.exp
-        carrito: []
-      });
-      store.commit('setDestination', '/');
-    } else {
-      //const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
+function checaJwt(jwt, active) {
+    if (active && jwt && jwt !== undefined && jwt.length > 0) {
+        console.log(jwt);
+        const jwtPayload = parseJwt(jwt);
+        //console.log(jwtPayload);
+        if (jwtPayload.exp < Date.now() / 1000) {
+            store.commit('setSession', {
+                nombreCompleto: '',
+                roles: [],
+                correo: '',
+                ultimoAcceso: '',
+                idUser: 0,
+                jwt: '', // jwt: jwtPayload.exp
+                carrito: []
+            });
+            store.commit('setDestination', '/');
+        } else {
+            //const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
+        }
     }
-  }
 }
 
 
 router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   checaJwt(store.state.session.jwt, false);
-
-
-  axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
-    store.commit('setCarrito', response.data);
-    console.log(response.data);
-  }).catch(e => {
-    console.log(e);
-  });
-
   if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:
     if (store.state.session.jwt==='') {
@@ -295,8 +287,7 @@ router.beforeEach((to, from, next) => {
       router.push('/ui/forbidden'); // no tengo el rol asociado a esa interfaz
       return;
     }
-  }
-  next(); // *** El recurso NO requiere autenticación
+    next(); // *** El recurso NO requiere autenticación
 })
 
 
