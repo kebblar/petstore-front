@@ -42,7 +42,6 @@
 #npm install --save vue-range-slider
 npm install --save
 
-
 echo "Ejecutando la parte invariante de este script..."
 RUTA=.
 
