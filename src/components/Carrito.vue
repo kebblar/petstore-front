@@ -119,7 +119,7 @@ export default {
         this.calcula();
       }).catch(e => {
         console.log(e);
-      });      
+      });
     },
     deleteElement(i) {
       axios.delete('/api/carrito/'+i+'.json').then (response => {

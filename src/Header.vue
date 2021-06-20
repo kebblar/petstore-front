@@ -32,7 +32,7 @@
                         <a class="dropdown-item" href="#" @click="navega('/ui/mis-metodos-pago')">Mis métodos de pago</a>
                         <div class="dropdown-divider" v-if="admin" ></div>
                         <a v-if="admin" class="dropdown-item dropdown-toggle"  id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         Catalogos        
+                         Catalogos
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                           <a class="dropdown-item" href="#" @click="navega('/ui/consulta-pais')" >Paises</a>
@@ -74,10 +74,10 @@
           <label>Bienvenido</label>
           <div class="row">
               <div class="col-sm-9">
-              <input 
-                  type="text" 
-                  class="form-control" 
-                  placeholder="palabras de búsqueda" 
+              <input
+                  type="text"
+                  class="form-control"
+                  placeholder="palabras de búsqueda"
                   value="" />
               </div>
               <div class="col-sm4">
@@ -100,14 +100,14 @@ export default {
     },
     computed: {
       logged: function() {
-        return store.state.session.jwt && store.state.session.jwt.length>10; 
+        return store.state.session.jwt && store.state.session.jwt.length>10;
       },
       nombre: function() {
-        return store.state.session.nombreCompleto; 
+        return store.state.session.nombreCompleto;
       },
       cantidad: function() {
         return store.state.session.carrito.length;
-      }, 
+      },
       admin: function() {
            return store.state.session.jwt && store.state.session.jwt.length>10
          && store.state.session.roles[0].nombre.includes('admin');

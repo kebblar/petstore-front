@@ -25,8 +25,8 @@
               <label for="nombre">Precio :</label>
             </div>
             <div class="letraBusqueda col-md-12">
-              <input type="number" pattern="[0-9]" required 
-                   onkeypress="return event.charCode >= 48 || event.charCode == 46" 
+              <input type="number" pattern="[0-9]" required
+                   onkeypress="return event.charCode >= 48 || event.charCode == 46"
                    step="1" :class="classPrecio" class="form-control" style="font-size:11px;"
                    v-model="precio" min="0" maxlength="9" />
             </div>
@@ -96,7 +96,7 @@
                 <option :value="m.id" v-for="m in longevidades" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
-          </div>  
+          </div>
           <div class="form-row form-group col-md-10 none" v-if="false">
             <div class="col-md-12">
               <label for="mun">Tipo de agua :</label>
@@ -107,7 +107,7 @@
                 <option :value="m.id" v-for="m in aguas" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
-          </div>     
+          </div>
           <div class="text-center">
               <button type="button" class="btn btn-primary font-weight-bold m-1"
                   @click="limpiar()" >Limpiar</button>
@@ -120,18 +120,18 @@
           <div v-if="tablaVacia">
             <h5 style="text-align: center; font-size: 12px;">Tu busqueda no arrojo resultados.</h5>
           </div>
-          <div v-else>  
+          <div v-else>
             <div class="text-right font-wight-bold">
               <b-button title="" variant="light" @click="lista">
                   <b-icon icon="view-list" aria-hidden="true"></b-icon>
               </b-button>
-              <b-button title="" variant="light" @click="mosaico"> 
+              <b-button title="" variant="light" @click="mosaico">
                   <b-icon icon="view-stacked" aria-hidden="true"></b-icon>
               </b-button>
             </div>
             <div>
-              <b-card-group  v-for="(entry, i) in anuncios" :key="i" class="inline align-top"  v-bind:class="{ 'col-md-4': isActive, 'col-md-12': notActive }"> 
-                
+              <b-card-group  v-for="(entry, i) in anuncios" :key="i" class="inline align-top"  v-bind:class="{ 'col-md-4': isActive, 'col-md-12': notActive }">
+
                 <b-card v-if="entry.imagenes != null" style="height:400px" class="m-1">
                     <b-row no-gutters v-if="notActive">
                       <b-col md="6" >
@@ -141,7 +141,7 @@
                             <div v-else>
                               <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top>
                                 <source :src="ruta + entry.imagenes[0].uuid" type="video/mp4" />
-                              </video> 
+                              </video>
                             </div>
                       </b-col>
                       <b-col md="6" style="padding:2%">
@@ -155,14 +155,14 @@
                         </b-card-text>
                       </b-col>
                     </b-row>
-                   
+
                     <div v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5" >
                       <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="50%" v-if="isActive"/>
                     </div>
                     <div v-else >
                       <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top v-if="isActive">
                         <source :src="ruta + entry.imagenes[0].uuid" type="video/mp4" />
-                      </video> 
+                      </video>
                     </div>
                     <b-card-title v-if="isActive">{{entry.titulo}}</b-card-title>
                     <b-card-sub-title class="mb-2" v-if="isActive">{{ entry.descCategoria }}</b-card-sub-title>
@@ -178,10 +178,10 @@
                     </template>
                 </b-card>
 
-               
+
 
               </b-card-group>
-            </div>       
+            </div>
             <b-pagination
               v-model="currentPage"
               :total-rows="rows"
@@ -206,7 +206,7 @@
                 <b @click="buscarAnuncios(currentPage)" v-else>{{ page }}</b>
               </template>
             </b-pagination>
-          </div>   
+          </div>
         </div>
       </div>
     </div>
@@ -279,9 +279,9 @@ export default {
   data(){
     return {
 
-      isActive: true,     
+      isActive: true,
       notActive: false,
-      
+
       ruta:'',
       idCategoria : '',
       idColor : '',
@@ -346,8 +346,8 @@ export default {
       localStorage.idColor = null;
       localStorage.idTamano = null;
       localStorage.idRaza = null;
-      localStorage.idPeso = null; 
-      localStorage.idEdad = null; 
+      localStorage.idPeso = null;
+      localStorage.idEdad = null;
       localStorage.idAguas = null;
       localStorage.idLongevidad = null;
       localStorage.currentPage = null;
@@ -357,7 +357,7 @@ export default {
     tablaVacia: function (){
       return this.anuncios == null;
     },
-    
+
   },
   methods: {
     limpiar(){
@@ -371,7 +371,7 @@ export default {
       this.idPeso = '';
       this.precio = '';
       this.idAguas = '';
-    },      
+    },
     redireccion(idAnuncio){
     //Guardamos información en la vista
     localStorage.setItem('anuncios', JSON.stringify(this.anuncios));
@@ -385,7 +385,7 @@ export default {
     localStorage.idEdad = this.idPeso;
     localStorage.idAguas = this.idAguas;
     localStorage.idLongevidad = this.idLongevidad;
-    
+
     this.bandera = true;
     localStorage.bandera = this.bandera;
     router.push({path:'/ui/detalle-producto/'+idAnuncio}).catch(()=>{});
@@ -430,7 +430,7 @@ export default {
         envio.push({id: 7, valor: this.idAguas})
       }
       axios.post("/api/anuncio/filter.json", {
-          precio: this.precio,   
+          precio: this.precio,
           idCategoria: this.idCategoria,
           numPaginas: numero,
           tamPaginas: this.perPage,
@@ -490,9 +490,9 @@ export default {
 .ancho {
   max-width: 80%;
 }
-@media (max-width: 600px) {  
+@media (max-width: 600px) {
   .ancho {
     max-width: 90%;
   }
-} 
+}
 </style>

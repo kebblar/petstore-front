@@ -61,7 +61,7 @@
                     </b-card-img>
                       <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 150px; width: 150px;padding: 2%">
                         <source :src="ruta + imagen.uuid"  type="video/mp4" />
-                      </video>                    
+                      </video>
                   </slide>
                   <hooper-navigation slot="hooper-addons"></hooper-navigation>
                   <hooper-pagination slot="hooper-addons"></hooper-pagination>
@@ -196,7 +196,7 @@ export default {
         console.log(response.data);
       }).catch(e => {
         console.log(e);
-      });      
+      });
     },
     closeModal: function() {
       this.$modal.hide('aviso');

@@ -3,11 +3,11 @@
         <div class="card">
             <div class="card-body">
                 <h1 class="card-title">Graficas</h1>
-                
+
                 <br><br><hr><br>
                 <h3 style="text-align:center;" class="text-secondary">Comprador más asiduo</h3>
                 <pie-chart :chart-data="compradorPie" />
-                
+
                 <div v-if="hideMeCMAG">
                     <br>
                     <div style="display: inline-flex">
@@ -27,7 +27,7 @@
                 <br><br><br>
                 <h3 style="text-align:center;" class="text-secondary">Mascota más vendida</h3>
                 <point-chart :chart-data="mascotaPoint" />
-                
+
                 <div v-if="hideMe">
                     <br>
                     <div style="display: inline-flex">
@@ -40,10 +40,10 @@
                     </div>
                     <br>
                 </div>
-                
+
                 <button @click="mascotaVendidaG()" class="btn btn-secondary mr-4">Reset</button>
                 <button @click="menuBusquedaMVG()" class="btn btn-info">Nuevos Datos </button>
-                
+
                 <br><br><hr><br>
                 <h3 style="text-align:center;" class="text-secondary">Paqueterías más populares</h3>
                 <bar-chart :chart-data="paqueteriaBar" />
@@ -64,12 +64,12 @@
                 <button @click="paqueteriaUtilizadaG()" class="btn btn-secondary mr-4">Reset</button>
                 <button @click="menuBusquedaPMPG()" class="btn btn-info">Nuevos Datos </button>
 
-                
+
             </div>
 
             <!-- Modal -->
-            <modal 
-                name="info" 
+            <modal
+                name="info"
                 :clickToClose="true"
                 :width="480"
                 :height="220">
@@ -86,14 +86,14 @@
                 </div>
             </modal>
 
-        </div>   
+        </div>
     </div>
 </template>
 <script>
 
 import axios from 'axios';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
-import Vue from "vue"; 
+import Vue from "vue";
 import VueMonthlyPicker from 'vue-monthly-picker'
 
 import { Pie,Bar,Line, mixins } from "vue-chartjs";
@@ -213,7 +213,7 @@ export default {
             dataObj.chart.map(function(i) {
                 if(!labels.includes(i.label)) {
                     labels.push(i.label)
-                    recolector[i.label] = [] 
+                    recolector[i.label] = []
                     recolector[i.label].push([i.mes-1, i.data])
                 }
                 else {
@@ -262,7 +262,7 @@ export default {
             let dataGenerada = this.generadorDataset(data)
             let i = 0
             dataGenerada.datasets.map(function(e){
-                Object.assign(e, source) 
+                Object.assign(e, source)
                 Object.assign(e,{borderColor: colores[i]})
                 i++
             })
@@ -304,7 +304,7 @@ export default {
                     let dataGenerada = this.generadorDataset(data)
                     let i = 0
                     dataGenerada.datasets.map(function(e){
-                        Object.assign(e, source) 
+                        Object.assign(e, source)
                         Object.assign(e,{borderColor: colores[i]})
                         i++
                     })
@@ -365,10 +365,10 @@ export default {
 
 <style>
 .chartS{
-    margin:15px auto; 
+    margin:15px auto;
     padding-top:20px;
     padding-bottom:15px;
-    border-radius:7px; 
+    border-radius:7px;
     box-shadow: 0px 0px 15px 2px #e9e9e9;
 }
 .Chart {

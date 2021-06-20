@@ -17,7 +17,7 @@
 # LAS SIGUIENTES DEPENDENCIAS SE SUPONE QUE YA SIEMPRE ESTÁN EN EL package.json:
 # npm install --save core-js regenerator-runtime
 # npm install --save @johmun/vue-tags-input
-# npm install --save vue-input-tag 
+# npm install --save vue-input-tag
 # npm install --save keycloak-js
 # npm install --save axios
 # npm install --save vue-axios
@@ -33,7 +33,7 @@
 ##########################################################################
 # COLOCAR AQUI ABAJO LAS NUEVAS DEPENDENCIAS A INSTALAR Y LUEGO DE LA PRIMER
 # EJECUCIÓN EXITOSA CON ESTA DEPENDENCIA, *** COMENTARLA *** Y COPIARLA AL
-# BLOQUE DE ARRIBA DE DEPENDENCIAS YA EJECUTADAS. DE NO HACER ESTO, LA 
+# BLOQUE DE ARRIBA DE DEPENDENCIAS YA EJECUTADAS. DE NO HACER ESTO, LA
 # DEPENDENCIA SE VA A REINSTALAR AUNQUE YA ESTÉ INSTALADA Y ESO HACE QUE EL
 # BUILD SE TARDE MUCHO EN EFECTUARSE. CON LO ANTERIOR, ESTE TIEMPO SÓLO SE
 # PAGA LA PRIMERA VEZ Y LAS SUBSECUENTES YA NO ES CARGADO !!!!!!! !!!!!!!!
@@ -41,7 +41,6 @@
 
 #npm install --save vue-range-slider
 npm install --save
-
 
 echo "Ejecutando la parte invariante de este script..."
 RUTA=.

@@ -9,9 +9,9 @@
         </div><!-- ends header-->
 
         <div class="card-body">
-            <vue-dropzone 
-                ref="myVueDropzone" 
-                id="myVueDropzone" 
+            <vue-dropzone
+                ref="myVueDropzone"
+                id="myVueDropzone"
                 v-on:vdropzone-sending="sendingEvent"
                 v-on:vdropzone-success="successEvent"
                 v-on:vdropzone-error="errorEvent"
@@ -39,16 +39,16 @@
                       <td class="col-md d-flex justify-content-center">
                           <b-form-radio v-model="selected"  @change="seleccionarImagen(item)" name="some-radios" :value="item.principal"></b-form-radio>
                       </td>
-                      <td class="col-5"> 
-                        <img v-if="!item.uuid.includes('mp4') && !item.uuid.includes('avi')" :src="ruta+item.uuid" class="img-fluid" 
+                      <td class="col-5">
+                        <img v-if="!item.uuid.includes('mp4') && !item.uuid.includes('avi')" :src="ruta+item.uuid" class="img-fluid"
                           width="150px" height="150px" /><br/>
-                        <video v-if="item.uuid.includes('mp4') || item.uuid.includes('avi')" class="video-fluid" autoplay 
+                        <video v-if="item.uuid.includes('mp4') || item.uuid.includes('avi')" class="video-fluid" autoplay
                           loop muted width="150px" height="150px">
                           <source :src="ruta + item.uuid" type="video/mp4" />
                         </video>
-                      </td> 
+                      </td>
                       <td>
-                          <b-icon class="h1" icon="trash-fill" aria-hidden="true" 
+                          <b-icon class="h1" icon="trash-fill" aria-hidden="true"
                               style="color:red;font-size: 2rem;cursor:hand" :id="index" @click="eliminarImagen(index,item)"
                               title="Elimina la imagen">
                           </b-icon>
@@ -79,9 +79,9 @@ export default {
     vueDropzone: Vue2Dropzone
   },
   props:['imagenes','id'],
-	mounted(){
+    mounted(){
     this.ruta = process.env.VUE_APP_URL_MEDIA;
-	}, 
+    },
   created(){
     this.dropzoneOptions = {
           url: this.calcula(),
@@ -95,7 +95,6 @@ export default {
           headers: {
             "jwt": store.state.session.jwt,
           }, 
-          //autoProcessQueue: false, // Make sure the files aren't queued until manually added
           init: function () {
             this.on("success", function (file) {
             console.log("success > " + file.name);
@@ -110,7 +109,7 @@ export default {
         titulo: 'Interfase de carga de imágenes',
         selected: 'true',
     }
-  }, 
+  },
   methods: {
         calcula: function() {
             return axios.defaults.baseURL + 'api/anuncios/imagen.json';
@@ -125,7 +124,7 @@ export default {
         },
         successEvent(file,response){
             console.log("--> successEvent "+file +" response "+response);
-  
+
             this.imagenes.push(response);
         },
         errorEvent(file){
@@ -138,16 +137,16 @@ export default {
                this.$delete(this.imagenes, index);
             }).catch(error => {
                 console.log("--> error "+error);
-            }); 
+            });
         },
         seleccionarImagen(item){
-          axios.put('api/anuncios/imagen/principal.json',  { 
+          axios.put('api/anuncios/imagen/principal.json',  {
             idAnuncio:item.idAnuncio,
             uuid: item.uuid
           }).then(response => {
             console.log("--> "+response);
           }).catch(error => {
-            console.log("--> error "+error);            
+            console.log("--> error "+error);
           });
         }
   }

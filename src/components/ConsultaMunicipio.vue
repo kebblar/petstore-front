@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button 
+                        <b-button
                             :disabled="habilitaBoton"
                             variant="primary"
                             class="mr-4"
@@ -229,9 +229,9 @@
             </div>
         </modal><!-- ends modal-->
 
-        <modal 
-            name="modal-general" 
-            :clickToClose="false" 
+        <modal
+            name="modal-general"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -260,7 +260,7 @@
     import store from '../store';
     import "vue-range-slider/dist/vue-range-slider.css";
     import { BootstrapVue } from 'bootstrap-vue';
-    import Vue from "vue"; 
+    import Vue from "vue";
     Vue.use(BootstrapVue);
     export default {
         components: {
@@ -272,19 +272,19 @@
                 items: [],
                 fields: [
                     {
-                        key: 'id', 
+                        key: 'id',
                         label: 'Id'
-                    }, 
+                    },
                     {
-                        key: 'nombre', 
+                        key: 'nombre',
                         label: 'Nombre'
-                    }, 
+                    },
                     {
-                        key: 'nombreEstado', 
+                        key: 'nombreEstado',
                         label: 'Estado'
-                    }, 
+                    },
                     {
-                        key: 'nombrePais', 
+                        key: 'nombrePais',
                         label: 'Pais'
                     },
                     {
@@ -475,9 +475,9 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                
+
                     this.$modal.hide('editarMunicipio');
-                    
+
                     if (this.name) {
                         axios.get('api/municipios/list/'+this.name+'.json', {
                         }).then(response => {

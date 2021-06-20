@@ -46,9 +46,9 @@
 
         </div><!-- ends card-->
 
-        <modal 
-            name="mensaje-login" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-login"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="260">
@@ -96,7 +96,7 @@ export default {
                         case 'admin': return '/ui/admin'; // rol 1 = administrador
                         case 'user': return '/ui/user'; // rol 2 = usuario comun y corriente
                         default: return '/'; // otro rol cualquiera
-                    } 
+                    }
                 } // ends for cycle with switch inside
             }
         },

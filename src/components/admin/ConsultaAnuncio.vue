@@ -129,7 +129,7 @@
           <div class="col-xs-12 col-md-12 offset-md-8">
             <button
               type="button"
-              class="col-xs-6 text-right btn btn-success font-weight-bold" 
+              class="col-xs-6 text-right btn btn-success font-weight-bold"
               style="font-size: 12px"
               @click="buscarAnuncios">
               Buscar
@@ -143,7 +143,7 @@
             </button>
           </div>
         </div>
-        <hr class="dotted" />                        
+        <hr class="dotted" />
         <div>
           <h6 style="text-align: center; font-size: 14px; font-weight: bold">
             Resultado de la búsqueda
@@ -252,7 +252,7 @@
                 <span @click="paginaEvento(currentPage + 1)" class="text-warning">Siguiente</span>
               </template>
               <template #last-text>
-                <span @click="paginaEvento(((rows / perPage)%2==0)?(rows / perPage):parseInt(rows / perPage)+1)" 
+                <span @click="paginaEvento(((rows / perPage)%2==0)?(rows / perPage):parseInt(rows / perPage)+1)"
                        class="text-info">Último</span>
               </template>
               <template #page="{ page, active }">
@@ -385,9 +385,9 @@ export default {
       }else{
         this.fInicialV = localStorage.fInicialV;
       }
-      
+
       console.log(this.currentPage)
-      /* 
+      /*
       console.log('currentPage '+this.currentPage) */
     }
     //Limpiamos los datos de la session
@@ -488,14 +488,14 @@ export default {
             this.eliminar(idAnuncio,idFolio);
           }else{
             //console.log("Confirmado? false", idAnuncio);
-          }  
+          }
         }
       })
     },
     eliminar (idAnuncio,idFolio) {
         this.loading = true;
         console.log(idFolio);
-        axios.delete('/api/anuncios.json?id='+ idAnuncio, { 
+        axios.delete('/api/anuncios.json?id='+ idAnuncio, {
           id : idAnuncio
         }).then(response => {
           console.log(response);
@@ -589,7 +589,7 @@ export default {
   height: 20px;
 }
 .modal-active{
-	display:block;
+    display:block;
 }
 .pagination {
   display: flex;

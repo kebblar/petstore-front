@@ -1,5 +1,5 @@
 <template>
-<!-- 
+<!--
   https://openbase.io/js/vue-upload-component
   https://github.com/lian-yue/vue-upload-component
   https://github.com/lian-yue/vue-upload-component/edit/master/docs/views/examples/Simple.vue
@@ -22,8 +22,8 @@
         </div><!-- ends header-->
 
         <div class="card-body">
-          
-          
+
+
 
           <div class="example-full">
             <button type="button" class="btn btn-danger float-right btn-is-option" @click.prevent="isOption = !isOption">
@@ -65,12 +65,12 @@
                           {{file.name}}
                         </div>
                         <div class="progress" v-if="file.active || file.progress !== '0.00'">
-                          <div 
-                            :class="{'progress-bar': true, 
-                            'progress-bar-striped': true, 
-                            'bg-danger': file.error, 
-                            'progress-bar-animated': file.active}" 
-                            role="progressbar" 
+                          <div
+                            :class="{'progress-bar': true,
+                            'progress-bar-striped': true,
+                            'bg-danger': file.error,
+                            'progress-bar-animated': file.active}"
+                            role="progressbar"
                             :style="{width: file.progress + '%'}">{{file.progress}}%</div>
                         </div>
                       </td>
@@ -81,17 +81,17 @@
                       <td v-else-if="file.active">active</td>
                       <td v-else></td>
                       <td class="decora">
-                        
+
                         <!-- vale por un sólo ícono desplegado... -->
-                        <a href="#" 
+                        <a href="#"
                           v-if="file.active" @click.prevent="$refs.upload.update(file, {active: false})">
                           <i class="fas fa-stop-circle"></i>
                         </a>
-                        <a href="#" 
+                        <a href="#"
                           v-else-if="file.error && file.error !== 'compressing' && $refs.upload.features.html5" @click.prevent="$refs.upload.update(file, {active: true, error: '', progress: '0.00'})">
                           <i class="fas fa-recycle"></i>
                         </a>
-                        <a :class="{disabled: file.success || file.error === 'compressing'}" href="#" 
+                        <a :class="{disabled: file.success || file.error === 'compressing'}" href="#"
                           v-else @click.prevent="file.success || file.error === 'compressing' ? false : $refs.upload.update(file, {active: true})">
                           <i class="fas fa-upload"></i>
                         </a>
@@ -237,12 +237,12 @@
 
             <!--div :class="{'modal-backdrop': true, 'fade': true, show: editFile.show}"></div -->
             <!-- div :class="{modal: true, fade: true, show: editFile.show}" id="modal-edit-file" tabindex="-1" role="dialog" -->
-                  <modal 
+                  <modal
                       id="modal-edit-file"
-                      name="editFile" 
+                      name="editFile"
                       tabindex="-1"
                       role="dialog"
-                      :clickToClose="false" 
+                      :clickToClose="false"
                       :reset="true"
                       :width="400"
                       :height="600">
@@ -262,10 +262,10 @@
                       <div class="form-group" v-if="editFile.show && editFile.blob && editFile.type && editFile.type.substr(0, 6) === 'image/'">
                         <div class="edit-image">
 
-                        <Cropper 
-                          v-show="editFile.blob" 
-                          ref="cropper" 
-                          :src="editFile.blob" 
+                        <Cropper
+                          v-show="editFile.blob"
+                          ref="cropper"
+                          :src="editFile.blob"
                           alt="Source Image">
                         </Cropper>
 
@@ -438,7 +438,7 @@ export default {
       thread: 3,
       name: 'file',
       postAction: 'http://localhost:9999/' +'api/upload.json', // OJO: aqui lo repito el de abajo porque NO tengo mas que 1 endpoint !!!!!!!!
-      putAction: 'http://localhost:9999/' +'api/upload2.json', 
+      putAction: 'http://localhost:9999/' +'api/upload2.json',
       headers: {
         'X-Csrf-Token': 'xxxx',
       },
@@ -464,14 +464,14 @@ export default {
       },
 
       cropper: null,
-  
+
     }
   },
   filters: {
     formatSize: function () {
       return 100;
     }
-	},
+    },
   watch: {
     'addData.show'(show) {
       if (show) {
