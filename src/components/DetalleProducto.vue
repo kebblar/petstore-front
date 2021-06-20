@@ -57,11 +57,11 @@
                     <b-card-img v-if="imagen.idTipo!=4 && imagen.idTipo!=5"
                       :src="ruta + imagen.uuid"
                       alt="Image"
-                      style="width: 150px">
+                      style="width: 150px; height: 150px">
                     </b-card-img>
                       <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 150px; width: 150px;padding: 2%">
                         <source :src="ruta + imagen.uuid"  type="video/mp4" />
-                      </video>                    
+                      </video>
                   </slide>
                   <hooper-navigation slot="hooper-addons"></hooper-navigation>
                   <hooper-pagination slot="hooper-addons"></hooper-pagination>
@@ -74,24 +74,22 @@
                   <br />
                   <h1 class="text-success">$ {{ precio }}</h1>
                   <br />
-                  <p>{{ descripcion }}</p>
+                  <p v-html="descripcion">{{ descripcion }}</p>
                   <br />
                   <div>
                     <b-table
                       :items="atributos"
                       :fields="fields"
                       responsive
-                      style="align: center"
-                    >
+                      style="align: center">
                     </b-table>
                   </div>
                   <div>
                     <b-button
-                      v-if="!esAdmin"
+                      v-if="habilitaCompra"
                       block
                       variant="success"
-                      @click="comprar"
-                    >
+                      @click="comprar">
                       <b-icon
                         style="margin-right: 2%"
                         icon="check-circle-fill"
@@ -122,10 +120,8 @@
                       <b-icon
                         style="margin-right: 2%"
                         icon="arrow-left-circle-fill"
-                        aria-hidden="true"
-                      ></b-icon
-                      >Regresar</b-button
-                    >
+                        aria-hidden="true"></b-icon>Regresar
+                      </b-button>
                   </div>
                 </b-card-text>
               </b-card-body>
@@ -157,12 +153,16 @@ export default {
   },
   mounted() {
     this.cargarDetalle(this.idprod),
-    this.ruta = (this.ruta = process.env.VUE_APP_URL + "upload/");
-    this.esAdmin = store.state.session.roles[0].nombre == "admin";
+    this.ruta = (this.ruta = process.env.VUE_APP_URL_MEDIA);
+    if(store.state.session.correo!=null){
+      this.habilitaCompra = store.state.session.roles[0].nombre != "admin";
+    }else{
+      this.habilitaCompra=false;
+    }
   },
   data() {
     return {
-      esAdmin: false,
+      habilitaCompra: false,
       slide: 0,
       sliding: null,
       error: true,
@@ -196,7 +196,7 @@ export default {
         console.log(response.data);
       }).catch(e => {
         console.log(e);
-      });      
+      });
     },
     closeModal: function() {
       this.$modal.hide('aviso');

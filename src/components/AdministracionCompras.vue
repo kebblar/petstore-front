@@ -33,9 +33,9 @@
           </div>
     </div>
   </div>
-          <modal 
-            name="aviso" 
-            :clickToClose="false" 
+          <modal
+            name="aviso"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="260">

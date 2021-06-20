@@ -5,7 +5,7 @@
             <label class="control-label h4">Consulta de Estado</label>
         </div>
         <div class="card-body align" style="margin:20px;">
-        
+
             <div class="row">
                 <div class="form-inline">
                     <label for="nombre" class="col-form-label mr-2"> Nombre del estado:</label>
@@ -56,9 +56,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="editarEstado" 
-            :clickToClose="false" 
+        <modal
+            name="editarEstado"
+            :clickToClose="false"
             :reset="true"
             :width="600"
             :height="330">
@@ -71,7 +71,7 @@
                         <input id="estado" type="text" required class="form-control" :class="className" placeholder="México" v-model="nombreActual">
                         <small class="notValid">{{msgName}}</small>
                     </div>
-                    
+
                     <div class="form-group mt-3">
                         <label for="pais">País:</label>
                         <select id="pais" v-model="idPaisNuevo" class="custom-select" :class="className">
@@ -91,9 +91,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -113,9 +113,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="agregarEstado" 
-            :clickToClose="false" 
+        <modal
+            name="agregarEstado"
+            :clickToClose="false"
             :reset="true"
             :width="600"
             :height="330">
@@ -138,7 +138,7 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button 
+                        <b-button
                             :disabled="habilitaBoton"
                             variant="primary"
                             class="mr-4"
@@ -151,9 +151,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito-add" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito-add"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -173,9 +173,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="eliminarEstado" 
-            :clickToClose="false" 
+        <modal
+            name="eliminarEstado"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="200">
@@ -193,9 +193,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito-delete" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito-delete"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -213,9 +213,9 @@
             </div>
         </modal><!-- ends modal-->
 
-        <modal 
-            name="modal-general" 
-            :clickToClose="false" 
+        <modal
+            name="modal-general"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -244,10 +244,10 @@
     import store from '../store';
     import "vue-range-slider/dist/vue-range-slider.css";
     import { BootstrapVue } from 'bootstrap-vue';
-    import Vue from "vue"; 
+    import Vue from "vue";
     Vue.use(BootstrapVue);
     export default {
-        components: { 
+        components: {
         },
         data() {
             return {
@@ -256,17 +256,17 @@
                 items: [],
                 fields: [
                     {
-                        key: 'id', 
+                        key: 'id',
                         label: 'Id'
-                    }, 
+                    },
                     {
-                        key: 'nombre', 
+                        key: 'nombre',
                         label: 'Nombre'
-                    }, 
+                    },
                     {
-                        key: 'nombrePais', 
+                        key: 'nombrePais',
                         label: 'Pais'
-                    }, 
+                    },
                     {
                         key: 'idPais',
                         thClass: 'd-none',
@@ -284,17 +284,17 @@
                 paises: null,
                 idPais: 0,
                 idPaisNuevo: 0,
-        
+
                 className: 'defaultColor',
                 classNameN: 'defaultColor',
                 styleCarac : 'color:grey;',
                 styleUpper : 'color:grey;',
                 styleNum : 'color:grey;',
-                
+
                 styleCarac2 : 'show',
                 styleUpper2 : 'show',
                 styleNum2 : 'show',
-                
+
                 styleCalendar : '',
                 isVisible : 'hidden',
                 activoClave : true, //Cambia el valor del booleano para ver las distintas versiones de validaciones de la clave
@@ -333,11 +333,11 @@
                 this.$modal.hide('modal-general');
             },
             openEdit(id, nombre, idPais){
-                axios.get('api/paises.json', { 
+                axios.get('api/paises.json', {
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    this.paises=response.data; 
+                    this.paises=response.data;
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);
@@ -364,11 +364,11 @@
             openAdd(){
                 this.nombreNuevo = null;
                 this.idPais = 0;
-                axios.get('api/paises.json', { 
+                axios.get('api/paises.json', {
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    this.paises=response.data; 
+                    this.paises=response.data;
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);
@@ -389,11 +389,11 @@
             },
             submition() {
                 if (this.name) {
-                    axios.get('api/estados/list/'+this.name+'.json', { 
+                    axios.get('api/estados/list/'+this.name+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.estados=response.data; 
+                        this.estados=response.data;
                         this.perPage= 15;
                         this.currentPage= 1;
                         this.items= this.estados;
@@ -407,11 +407,11 @@
                 }
                 else {
                     console.log(store.state)
-                    axios.get('api/estados-nombre-pais.json', { 
+                    axios.get('api/estados-nombre-pais.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.estados=response.data; 
+                        this.estados=response.data;
                         this.perPage= 15;
                         this.currentPage= 1;
                         this.items= this.estados;
@@ -425,7 +425,7 @@
                 }
             },
             modificarEstado() {
-                axios.put('api/estado.json', { 
+                axios.put('api/estado.json', {
                     id:this.idActual,
                     idPais: this.idPaisNuevo,
                     nombre : this.nombreActual
@@ -433,7 +433,7 @@
                     console.log("enviado");
                     console.log(response);
                     if (this.name) {
-                        axios.get('api/estados/list/'+this.name+'.json', { 
+                        axios.get('api/estados/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
@@ -447,11 +447,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/estados-nombre-pais.json', { 
+                        axios.get('api/estados-nombre-pais.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.estados=response.data; 
+                            this.estados=response.data;
                             this.items= this.estados;
                         }).catch(error => {
                             console.log(error.response.status);
@@ -468,7 +468,7 @@
             },
             agregarEstado() {
                 console.log(store.state);
-                axios.post('api/estado.json', { 
+                axios.post('api/estado.json', {
                     nombre : this.nombreNuevo,
                     idPais : this.idPais
                 }).then(response => {
@@ -476,12 +476,12 @@
                     console.log(response);
                     this.$modal.hide('agregarEstado');
                     this.$modal.show('mensaje-exito-add');
-                    
-                    axios.get('api/estados/list/'+this.name+'.json', { 
+
+                    axios.get('api/estados/list/'+this.name+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.estados=response.data; 
+                        this.estados=response.data;
                         this.items= this.estados;
                     }).catch(error => {
                         console.log(error.response.status);
@@ -495,23 +495,23 @@
                 })
             },
             eliminarEstado() {
-                axios.delete('api/estado.json', { 
+                axios.delete('api/estado.json', {
                     data: {
                         id:this.idActual
                     }
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    this.estados=response.data; 
+                    this.estados=response.data;
                     this.items= this.items.filter(items=>items.id!=this.idActual)
                     this.$modal.hide('eliminarEstado');
                     this.$modal.show('mensaje-exito-delete');
                     if (this.name) {
-                        axios.get('api/estados/list/'+this.name+'.json', { 
+                        axios.get('api/estados/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.estados=response.data; 
+                            this.estados=response.data;
                             this.items= this.items.filter(items=>items.id!=this.idActual)
                         }).catch(error => {
                             console.log(error.response.status);
@@ -521,11 +521,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/estados.json', { 
+                        axios.get('api/estados.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.estados=response.data; 
+                            this.estados=response.data;
                             this.items= this.items.filter(items=>items.id!=this.idActual)
                         }).catch(error => {
                             console.log(error.response.status);

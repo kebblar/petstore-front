@@ -8,7 +8,7 @@
          <label class="control-label h4">Registro al sistema</label>
     </div>
     <div class="card-body align" style="margin-top:20px;">
-      
+
         <!-- Nombre -->
         <div class ="form-row form-group">
           <div class="col-md-4">
@@ -39,7 +39,7 @@
             <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
             <small id="clave" class="form-text text-muted" :class="isVisible">
               <b>La clave contiene:</b>
-              <ul> 
+              <ul>
                 <li :style="styleCarac">8 carateres como mínimo</li>
                 <li :style="styleUpper">Una mayúscula</li>
                 <li :style="styleNum">Un número</li>
@@ -51,7 +51,7 @@
             <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
             <small id="clave" class="form-text text-muted" :class="isVisible">
               <b v-if="msgPasswd!=''">Falta que la clave contenga:</b>
-              <ul> 
+              <ul>
                 <li :class="styleCarac2">8 carateres como mínimo</li>
                 <li :class="styleUpper2">Una mayúscula</li>
                 <li :class="styleNum2">Un número</li>
@@ -115,7 +115,7 @@
                 ref="recaptcha"
                 sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
                 @expired="onCaptchaExpired"
-                @verify="onCaptchaVerified" 
+                @verify="onCaptchaVerified"
             />
         </div>
         </div>
@@ -133,18 +133,18 @@
         <!-- button -->
         <div class="form-group row">
           <div class="col text-center" >
-              <button 
-                :disabled="habilitaBoton" 
-                type="button" 
-                id="button" 
-                data-toggle="modal" 
-                class="btn btn-success" 
+              <button
+                :disabled="habilitaBoton"
+                type="button"
+                id="button"
+                data-toggle="modal"
+                class="btn btn-success"
                 @click="submition"
                 data-target="#modalExito">Registrarme</button>
           </div>
         </div>
-       
-      
+
+
 
     </div>
   </div><!-- ends header-->
@@ -171,7 +171,7 @@
   </div>
 
   </div>
-  
+
 </template>
 
 
@@ -193,7 +193,7 @@
 
 
   export default {
-    components: { 
+    components: {
       VueRecaptcha,
       RangeSlider
     },
@@ -224,11 +224,11 @@
         styleCarac : 'color:grey;',
         styleUpper : 'color:grey;',
         styleNum : 'color:grey;',
-        
+
         styleCarac2 : 'show',
         styleUpper2 : 'show',
         styleNum2 : 'show',
-        
+
         styleCalendar : '',
         isVisible : 'hidden',
         activoClave : true, //Cambia el valor del booleano para ver las distintas versiones de validaciones de la clave
@@ -258,7 +258,7 @@
       email(){
         this.msgMail="";
         this.classMail="greenColor correct";
-        if(!emaiRegex.test(this.email)) { 
+        if(!emaiRegex.test(this.email)) {
           this.msgMail="El correo ingresado no es valido";
           this.classMail="redColor incorrect";
         }
@@ -270,7 +270,7 @@
         this.classPasswd="greenColor correct";
         this.pwConfDisabled = false;
         this.confirm = null;
-        if(!passRegex.test(this.password)) { 
+        if(!passRegex.test(this.password)) {
           this.msgPasswd="Clave incorrecta";
           this.classPasswd="redColor incorrect";
           this.pwConfDisabled = true;
@@ -292,7 +292,7 @@
       confirm(){
         this.msgConfirm="";
         this.classConfirm="greenColor correct";
-        if(this.confirm != this.password) { 
+        if(this.confirm != this.password) {
           this.msgConfirm="Las claves no coinciden";
           this.classConfirm="redColor incorrect";
           this.isVisible='hidden';
@@ -333,12 +333,12 @@
       estiloClave2 (){
           return !this.activoClave ? 'show' : 'hidden';
       }
-      
+
     },
     methods: {
       onCaptchaVerified(recaptchaToken) {
           axios.post('api/check-captcha.json', {
-            response: recaptchaToken, 
+            response: recaptchaToken,
             ip: '127.0.0.1'
           })
           .then(response => {
@@ -362,7 +362,7 @@
       },
       submition() {
         this.loading = true;
-        axios.post('api/usuario-preregistro.json', { 
+        axios.post('api/usuario-preregistro.json', {
           id:0,
           nick: this.name,
           claveHash: this.password,
@@ -385,14 +385,14 @@
         );
       }
     }
-    
+
   }
-    
+
 </script>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped> 
+<style scoped>
 .ancho {
     max-width: 450px;
 }

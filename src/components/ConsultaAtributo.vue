@@ -18,7 +18,7 @@
                         <i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div> <!-- end row -->
-            
+
     <br><br>
 
             <div class="row">
@@ -58,9 +58,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="editarAtributo" 
-            :clickToClose="false" 
+        <modal
+            name="editarAtributo"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -90,9 +90,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -112,9 +112,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="agregarAtributo" 
-            :clickToClose="false" 
+        <modal
+            name="agregarAtributo"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -134,10 +134,10 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button 
+                        <b-button
                             :disabled="habilitaBoton"
                             variant="primary"
-                            class="mr-4" 
+                            class="mr-4"
                             @click="agregarAtributo">Aceptar</b-button>
                         <b-button variant="danger" @click="closeModalAdd2">Cancelar</b-button>
                     </div>
@@ -147,9 +147,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito-add" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito-add"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -169,9 +169,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="eliminarAtributo" 
-            :clickToClose="false" 
+        <modal
+            name="eliminarAtributo"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="200">
@@ -187,9 +187,9 @@
             </div>
         </modal><!-- ends modal-->
 
-        <modal 
-            name="eliminarRango" 
-            :clickToClose="false" 
+        <modal
+            name="eliminarRango"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="200">
@@ -207,9 +207,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito-delete" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito-delete"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -227,9 +227,9 @@
             </div>
         </modal><!-- ends modal-->
 
-          <modal 
-            name="mensaje-exito-delete-rango" 
-            :clickToClose="false" 
+          <modal
+            name="mensaje-exito-delete-rango"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -247,9 +247,9 @@
             </div>
         </modal><!-- ends modal-->
 
-        <modal 
-            name="modal-general" 
-            :clickToClose="false" 
+        <modal
+            name="modal-general"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -323,10 +323,10 @@
         </div>
         </div>
       <!---->
-    
-    <modal 
-            name="agregarAtributoValor" 
-            :clickToClose="false" 
+
+    <modal
+            name="agregarAtributoValor"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -346,10 +346,10 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button 
+                        <b-button
                             :disabled="habilitaBoton"
                             variant="primary"
-                            class="mr-4" 
+                            class="mr-4"
                             @click="agregarAtributo">Aceptar</b-button>
                         <b-button variant="danger" @click="closeModalAdd2">Cancelar</b-button>
                     </div>
@@ -369,7 +369,7 @@
             <button type="button" class="btn btn-primary mr-2">Agregar rango al atributo:</button>
              <button type="button" class="btn btn-warning mr-2">{{this.titleModal}}</button>
         </h5>
-        
+
       </div>
       <div class="modal-body">
      <div class="form-group">
@@ -443,7 +443,7 @@
     import "vue-range-slider/dist/vue-range-slider.css";
   //import { mapMutations } from 'vuex'
     export default {
-        components: { 
+        components: {
         },
         data() {
             return {
@@ -511,11 +511,11 @@
                 this.titleModal=nombre;
                 this.nombreNuevoRango="";
                 this.estatusRango=0;
-                axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', { 
+                axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.rangoAtributo=response.data; 
+                        this.rangoAtributo=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -532,12 +532,12 @@
                     activo:this.estatusRango
                 }).then(response => {
                     console.log("enviado");
-                    console.log(response);               
-                   axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', { 
+                    console.log(response);
+                   axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.rangoAtributo=response.data; 
+                        this.rangoAtributo=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -552,7 +552,7 @@
                     this.msgErr = error.response.data['exceptionLongDescription'];
                 })
             },
-            
+
             editRango() {
                console.log(store.state);
                 axios.put('api/valor-atributo.json', {
@@ -562,12 +562,12 @@
                     activo:this.estatusRango
                 }).then(response => {
                     console.log("enviado");
-                    console.log(response);              
-                   axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', { 
+                    console.log(response);
+                   axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.rangoAtributo=response.data; 
+                        this.rangoAtributo=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -583,19 +583,19 @@
                 })
             },
             eliminarAtributoRango() {
-                axios.delete('api/valor-atributo.json', { 
+                axios.delete('api/valor-atributo.json', {
                     data:{id:this.idRangoActual}
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    //this.atributos=response.data; 
+                    //this.atributos=response.data;
                     this.$modal.hide('eliminarRango');
                     this.$modal.show('mensaje-exito-delete-rango');
-                    axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', { 
+                    axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.rangoAtributo=response.data; 
+                        this.rangoAtributo=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -608,7 +608,7 @@
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
                 });
-            },            
+            },
             openEditRango(id, nombre,estatus){
                 this.idRangoActual=id;
                 this.nombreNuevoRango=nombre;
@@ -661,11 +661,11 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/atributos/list/'+this.name+'.json', { 
+                    axios.get('api/atributos/list/'+this.name+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.atributos=response.data; 
+                        this.atributos=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -676,11 +676,11 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/atributos.json', { 
+                    axios.get('api/atributos.json', {
                     }).then(response => {
                         console.log("enviado-atributos");
                         console.log(response);
-                        this.atributos=response.data; 
+                        this.atributos=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -699,11 +699,11 @@
                     console.log("enviado");
                     console.log(response);
                     if (this.name) {
-                        axios.get('api/atributos/list/'+this.name+'.json', { 
+                        axios.get('api/atributos/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.atributos=response.data; 
+                            this.atributos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -712,11 +712,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/atributos.json', { 
+                        axios.get('api/atributos.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.atributos=response.data; 
+                            this.atributos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -741,11 +741,11 @@
                     this.$modal.hide('agregarAtributo');
                     this.$modal.show('mensaje-exito-add');
                     if (this.name) {
-                        axios.get('api/atributos/list/'+this.name+'.json', { 
+                        axios.get('api/atributos/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.atributos=response.data; 
+                            this.atributos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -754,11 +754,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/atributos.json', { 
+                        axios.get('api/atributos.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.atributos=response.data; 
+                            this.atributos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -772,20 +772,20 @@
                 })
             },
             eliminarAtributo() {
-                axios.delete('api/atributo.json', { 
+                axios.delete('api/atributo.json', {
                     data:{id:this.idActual}
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    this.atributos=response.data; 
+                    this.atributos=response.data;
                     this.$modal.hide('eliminarAtributo');
                     this.$modal.show('mensaje-exito-delete');
                     if (this.name) {
-                        axios.get('api/atributos/list/'+this.name+'.json', { 
+                        axios.get('api/atributos/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.atributos=response.data; 
+                            this.atributos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -794,11 +794,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/atributos.json', { 
+                        axios.get('api/atributos.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.atributos=response.data; 
+                            this.atributos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);

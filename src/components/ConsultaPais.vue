@@ -19,7 +19,7 @@
                         <i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div> <!-- end row -->
-            
+
     <br><br>
 
             <div class="row">
@@ -50,9 +50,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="editarPais" 
-            :clickToClose="false" 
+        <modal
+            name="editarPais"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -76,9 +76,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -98,9 +98,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="agregarPais" 
-            :clickToClose="false" 
+        <modal
+            name="agregarPais"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button 
+                        <b-button
                             :disabled="habilitaBoton"
                             variant="primary"
                             class="mr-4"
@@ -127,9 +127,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito-add" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito-add"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -149,9 +149,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="eliminarPais" 
-            :clickToClose="false" 
+        <modal
+            name="eliminarPais"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="200">
@@ -169,9 +169,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito-delete" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito-delete"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -189,9 +189,9 @@
             </div>
         </modal><!-- ends modal-->
 
-        <modal 
-            name="modal-general" 
-            :clickToClose="false" 
+        <modal
+            name="modal-general"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -220,10 +220,10 @@
     import store from '../store';
     import "vue-range-slider/dist/vue-range-slider.css";
     import { BootstrapVue } from 'bootstrap-vue';
-    import Vue from "vue"; 
+    import Vue from "vue";
     Vue.use(BootstrapVue);
     export default {
-        components: { 
+        components: {
         },
         data() {
             return {
@@ -311,11 +311,11 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/paises/list/'+this.name+'.json', { 
+                    axios.get('api/paises/list/'+this.name+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.paises=response.data; 
+                        this.paises=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -326,11 +326,11 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/paises.json', { 
+                    axios.get('api/paises.json', {
                     }).then(response => {
                         console.log("enviado-paises");
                         console.log(response);
-                        this.paises=response.data; 
+                        this.paises=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -347,13 +347,13 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                   
+
                     if (this.name) {
-                        axios.get('api/paises/list/'+this.name+'.json', { 
+                        axios.get('api/paises/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.paises=response.data; 
+                            this.paises=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -362,11 +362,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/paises.json', { 
+                        axios.get('api/paises.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.paises=response.data; 
+                            this.paises=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -387,15 +387,15 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                                   
+
                     this.$modal.hide('agregarPais');
                     this.$modal.show('mensaje-exito-add');
                     if (this.name) {
-                        axios.get('api/paises/list/'+this.name+'.json', { 
+                        axios.get('api/paises/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.paises=response.data; 
+                            this.paises=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -404,11 +404,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/paises.json', { 
+                        axios.get('api/paises.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.paises=response.data; 
+                            this.paises=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -422,22 +422,22 @@
                 })
             },
             eliminarPais() {
-                axios.delete('api/pais.json', { 
+                axios.delete('api/pais.json', {
                     data: {
                         id:this.idActual
                     }
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    this.paises=response.data; 
+                    this.paises=response.data;
                     this.$modal.hide('eliminarPais');
                     this.$modal.show('mensaje-exito-delete');
                     if (this.name) {
-                        axios.get('api/paises/list/'+this.name+'.json', { 
+                        axios.get('api/paises/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.paises=response.data; 
+                            this.paises=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -448,11 +448,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/paises.json', { 
+                        axios.get('api/paises.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.paises=response.data; 
+                            this.paises=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);

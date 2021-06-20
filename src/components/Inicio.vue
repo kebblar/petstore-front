@@ -64,7 +64,7 @@
 .imagenes2 {
   box-shadow: 3px 1px 6px #859295;
   border-radius: 3px;
-} 
+}
 .centered {
   position: absolute;
   top: 50%;

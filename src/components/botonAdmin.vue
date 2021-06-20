@@ -4,7 +4,7 @@
         <h3>{{titulo}}</h3>
         <p style="float: left">{{descripcion}}</p>
         <div>
-        <i :class="icono" ></i>
+        <i :class="icono" style="position: absolute;right: 15%;bottom: 40%;opacity: 35%;"></i>
         </div>
         </div>
     <div >
@@ -80,12 +80,6 @@ h3 {
   text-align: center;
   text-decoration: none;
   z-index: 10;
-}
-.icono {
-  position: absolute;
-  right: 15%;
-  bottom: 40%;
-  opacity: 35%;
 }
 .shrink {
   transition: all .2s ease-in-out;

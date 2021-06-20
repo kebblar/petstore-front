@@ -1,10 +1,10 @@
 <template>
-  <!-- 
-    Modal reutilizable 
+  <!--
+    Modal reutilizable
     -->
-  <modal 
-    name="aviso" 
-    :clickToClose="false" 
+  <modal
+    name="aviso"
+    :clickToClose="false"
     :reset="true"
     :width=ancho
     :height=alto>
@@ -37,7 +37,7 @@ export default {
     methods: {
       go: function() {
         if(this.target.length>0) {
-          router.push(this.target);          
+          router.push(this.target);
         } else {
           this.$modal.hide('aviso');
         }
