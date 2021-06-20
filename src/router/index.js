@@ -287,7 +287,8 @@ router.beforeEach((to, from, next) => {
       router.push('/ui/forbidden'); // no tengo el rol asociado a esa interfaz
       return;
     }
-    next(); // *** El recurso NO requiere autenticación
+  }
+  next(); // *** El recurso NO requiere autenticación
 })
 
 
