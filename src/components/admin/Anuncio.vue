@@ -43,11 +43,13 @@
                 <div class="row">
                   <div class="col-12 col-sm-6">
                       <label for="fechaInicioVigencia">Inicio de vigencia</label>
-                      <input type="date" class="form-control" v-model="fechaInicioVigencia"/>
+                      <b-form-datepicker v-model="fechaInicioVigencia" :min="min"  locale="es" placeholder="dd/mm/aaaa"
+                       :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"></b-form-datepicker>
                   </div>
                   <div class="col-12 col-sm-6">
                       <label for="fechaFinVigencia">Fin de vigencia</label>
-                      <input type="date" class="form-control" v-model="fechaFinVigencia" />
+                     <b-form-datepicker v-model="fechaFinVigencia" :min="min"  locale="es" placeholder="dd/mm/aaaa"
+                       :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"></b-form-datepicker>
                   </div>
                 </div>
               </div>
@@ -239,7 +241,9 @@ export default {
      VueEditor
   },
   data: function () {
+    const minDate = new Date()
     return {
+      min: minDate,
       showCharCount: true,
       activeTabIndex:0,
       tituloProceso:null,
