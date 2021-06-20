@@ -15,7 +15,7 @@
                 Gráfica de ventas totales por categoría con filtro de fechas
             </h1>
             <div style="margin;auto; width:80%">
-              <HotelDatePicker @check-in-changed="checkIn" @check-out-changed="checkOut" 
+              <HotelDatePicker @check-in-changed="checkIn" @check-out-changed="checkOut"
                 format="YYYY-MM-DD" style="margin-left:15%; width:50%" :startDate="startDate" :i18n="i18n"/>
                 <button v-on:click="graficar" style="margin-left:2%;">Actualizar</button>
             </div>
@@ -111,13 +111,13 @@ export default {
           this.chartdata_filtro = response.chartdata
           console.log(this.chartdata_filtro)
           this.loaded_filtro = true
-          } 
+          }
       catch (e) {
         console.error(e)
         }
     }
    },
-    
+
     async mounted () {
       this.loaded = false
       try {
@@ -133,7 +133,7 @@ export default {
           const response = await fetch(path_filtro).then(response => response.json())
           this.chartdata_filtro = response.chartdata
           this.loaded_filtro = true
-          } 
+          }
       catch (e) {
         console.error(e)
         }

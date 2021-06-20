@@ -55,9 +55,9 @@
     </div>
 
   <!-- Modal -->
-  <modal 
-    name="aviso" 
-    :clickToClose="false" 
+  <modal
+    name="aviso"
+    :clickToClose="false"
     :reset="true"
     :width="420"
     :height="220">
@@ -102,14 +102,14 @@
         }
       },
       cambiaClave() {
-        axios.get('api/confirma-regenera-clave.json?token='+this.token+'&clave='+this.clave, { 
+        axios.get('api/confirma-regenera-clave.json?token='+this.token+'&clave='+this.clave, {
         }).then(response => {
           console.log(response);
           console.log(response.data);
           console.log(response.status);
           this.modalShowsError = false;
           this.modalTitulo ='Regeneración exitosa';
-          this.modalMessage = 'Tu clave ha sido regenerada exitosamente, ahora puedes iniciar sesión !';          
+          this.modalMessage = 'Tu clave ha sido regenerada exitosamente, ahora puedes iniciar sesión !';
         }).catch(error => {
           this.modalShowsError = true;
           this.modalTitulo ='Error en el proceso de confirmación';
@@ -119,7 +119,7 @@
           }
         }).finally(
           this.$modal.show('aviso')
-        ); 
+        );
       }
     }
   }

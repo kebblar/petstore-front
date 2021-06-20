@@ -40,19 +40,19 @@
   import VueRecaptcha from 'vue-recaptcha';
   import router from '../router'
   import axios from 'axios'
-  
+
   export default {
       data() {
         return {
           correo: '',
         }
       },
-      components: { 
+      components: {
         VueRecaptcha
       },
       methods: {
       cambiaClave() {
-        axios.get('api/regenera-clave.json?correo='+this.correo, { 
+        axios.get('api/regenera-clave.json?correo='+this.correo, {
         }).then(response => {
           console.log(response);
           console.log(response.data);
@@ -63,12 +63,12 @@
           }
         }).finally(
           console.log('finaliza proceso de solicitud de regeneracion de clave')
-        ); 
+        );
         router.push('/ui/regenera-clave-confirma').catch(()=>{});
       }
     }
 
-      
+
   }
 </script>
 

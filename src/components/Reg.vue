@@ -5,11 +5,11 @@
     <input type="text" required class="form-control" placeholder="XXX" v-model="texto" disabled maxlength="3" size="3" >
     <div :class="keyboardClass"></div>
     <button @click="enviar" type="button" class="btn btn-lg btn-primary" >Enviar</button>
-    <!-- 
+    <!--
       https://hodgef.com//simple-keyboard/documentation/options/layout/
     -->
     <img :src="'data:image/jpeg;base64,'+imageBytes" />
-    <!-- 
+    <!--
       https://stackoverflow.com/questions/58682247/loading-images-in-vue-js-from-an-api
     -->
   </div>
@@ -39,7 +39,7 @@ export default {
   mounted() {
     axios.get('api/qr-base64/gustavo').then((response) => {
         this.imageBytes = response.data;
-    }); 
+    });
     this.keyboard = new Keyboard(this.keyboardClass, {
         onChange: this.onChange,
         onKeyPress: this.onKeyPress

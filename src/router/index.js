@@ -62,7 +62,7 @@ const routes = [
     name: 'Graficas',
     component: Graficas,
     meta: { allowedRoles: ['admin'] }
-  },  
+  },
   {
     path: '/ui/cambia-datos-personales',
     name: 'cambia-datos-personales',
@@ -188,43 +188,43 @@ const routes = [
     name: 'AdministracionCompras',
     component: AdministracionCompras,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-categorias',
     name: 'consultacategoria',
     component: ConsultaCategoria,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-atributos',
     name: 'consultaatributo',
     component: ConsultaAtributo,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-tipos-medias',
     name: 'consultatipomedia',
     component:ConsultaMediaTipo,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-estatus-anuncio',
     name: 'consultaestatusanuncio',
     component:ConsultaEstatusAnuncio,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-pais',
     name: 'ConsultaPais',
     component:ConsultaPais,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-estado',
     name: 'ConsultaEstado',
     component:ConsultaEstado,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-municipio',
     name: 'ConsultaMunicipio',
@@ -274,7 +274,7 @@ function checaJwt (jwt, active) {
 router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   checaJwt(store.state.session.jwt, false);
-  
+
 
   axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
     store.commit('setCarrito', response.data);
@@ -285,7 +285,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:
-    if (store.state.session.jwt==='') { 
+    if (store.state.session.jwt==='') {
       store.commit('setDestination', to.fullPath);
       router.push("/ui/login");
       return;
