@@ -17,7 +17,6 @@
                 v-on:vdropzone-error="errorEvent"
                 :options="dropzoneOptions">
             </vue-dropzone>
-            <button @click="sube" type="button" class="btn btn-lg btn-primary" style="width:100%" hidden>Carga archivos</button>
         </div>
         <div class="card-body">
           <div class="row">
