@@ -43,14 +43,21 @@ import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 import Graficas from '@/components/Graficas'
 
 import GraficaMontoPorCategoriaContainer from '@/components/GraficaMontoPorCategoriaContainer'
-
+import ReporteGraficas from '@/components/ReporteGraficas'
 Vue.use(Router);
 
 const routes = [
   {
+    path: '/ui/reporte-graficas',
+    name: 'ReporteGraficas',
+    component: ReporteGraficas,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
     path: '/ui/graficas-monto-por-categoria',
     name: 'GraficaMontoPorCategoriaContainer',
-    component: GraficaMontoPorCategoriaContainer
+    component: GraficaMontoPorCategoriaContainer,
+    meta: { allowedRoles: ['admin'] }
   },
   {
     path: '/ui/pba',

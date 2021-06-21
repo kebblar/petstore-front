@@ -61,7 +61,7 @@
                   />
                   <button
                     v-on:click="graficar"
-                    style="margin-left: 2%"
+                    style="margin-left: 2%; background-color:#28a745; color:#fff; border-radius:.25rem;"
                     data-toggle="tooltip"
                     data-placement="left"
                     title="Selecciona un rango de fecha para mostrar gráfica."
@@ -225,5 +225,13 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.nav-link.active{
+  background-color: #28a745 !important;
+  color: #fff !important;
+}
+.nav-link{
+  color: #28a745 !important;
 }
 </style>
