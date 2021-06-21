@@ -121,16 +121,14 @@ export default {
           xhr.setRequestHeader('idAnuncio', this.id );
         },
         successEvent(file,response){
-            console.log("--> successEvent "+file +" response "+response);
+          console.log("--> successEvent "+file +" response "+response);
             if (this.imagenes.length == 0) {
               response.principal = true;
               this.selected = true
             }else{
               response.principal = false;
             }
-            
             this.imagenes.push(response);
-            console.log(this.imagenes)
         },
         errorEvent(file){
             console.log("--> errorEvent "+file );
@@ -146,7 +144,6 @@ export default {
                    this.selected = true;
                  }
                });
-               console.log(this.imagenes)
             }).catch(error => {
                 console.log("--> error "+error);
             }); 
