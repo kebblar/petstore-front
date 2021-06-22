@@ -87,7 +87,7 @@
 
 <script src="vue-hotel-datepicker/dist/vueHotelDatepicker.umd.min.js"></script>
 <script>
-import BarChart from "./GraficaMontoPorCategoriaTemplate.vue";
+import BarChart from "./ChartTemplate_Bar.vue";
 import HotelDatePicker from "vue-hotel-datepicker";
 import "vue-hotel-datepicker/dist/vueHotelDatepicker.css";
 import moment from "moment";
