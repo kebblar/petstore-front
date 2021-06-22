@@ -36,7 +36,7 @@
                         <tr v-for="atributo in atributos" :key="atributo.id">
                             <td>{{atributo.id}}</td>
                             <td>{{atributo.nombre}}</td>
-                            <td>{{atributo.activo}}</td>
+                            <td class="center"><h4><span v-if="atributo.activo == 1" class="badge badge-info ml-2">Activo</span><span v-else class="badge badge-danger">Inactivo</span></h4></td>
                             <td>
                                 <button type="button" @click="openEdit(atributo.id, atributo.nombre,atributo.activo)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
@@ -125,12 +125,6 @@
                         <label for="atributo">Nombre del atributo:</label>
                         <input id="atributo" type="text" required class="form-control" :class="classNameN" placeholder="PESO" v-model="nombreNuevo">
                         <small class="notValid">{{msgNameN}}</small>
-                        <div class="custom-control custom-checkbox my-3">
-                            <input type="checkbox"
-                            v-model="estatus"  true-value="1"  false-value="0"
-                             class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1" >Activo</label>
-                        </div>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
@@ -269,22 +263,38 @@
             </div>
         </modal><!-- ends modal-->
 
+        <modal
+            name="closeErrorAnuncio"
+            :clickToClose="false"
+            :reset="true"
+            :width="480"
+            :height="260">
+            <div class="card">
+                <div class="card-header">Error</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <h5>{{msnErrorAnuncion}}</h5>
+                        <br>
+                        <hr>
+                    </div>
+
+                    <div class="form-group my-4" style="text-align: right;">
+                        <b-button variant="info" @click="closeErrorAnuncio">Aceptar</b-button>
+                    </div>
+                </div>
+            </div>
+        </modal><!-- ends modal-->
+
         <!-- -->
         <!-- Modal rango atributos -->
         <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">
-                    <button type="button" class="btn btn-primary mr-2">Rangos del atributo:</button>
-                    <button type="button" class="btn btn-warning mr-2">{{this.titleModal}}</button>
-                   <button type="button" @click="limpiarModalNuevoEdit" class="btn btn-success mr-2" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalScrollable2">
-                     <i class="fa fa-plus" aria-hidden="true"></i>
-                   </button>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+                <h4>
+                    <label style="font-weight:bold">Rango del atributo:</label>
+                    <span class="badge badge-warning ml-3">{{this.titleModal}}</span>
+                </h4>
             </div>
             <div class="modal-body">
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
@@ -302,9 +312,9 @@
             <tr v-for="rango in rangoAtributo" :key="rango.id">
                                     <td>{{rango.id}}</td>
                                     <td>{{rango.rango}}</td>
-                                    <td>{{rango.activo}}</td>
+                                    <td class="center"><h4><span v-if="rango.activo == 1" class="badge badge-info ml-2">Activo</span><span v-else class="badge badge-danger">Inactivo</span></h4></td>
                                     <td width="200">
-                                      <button type="button" @click="openEditRango(rango.id, rango.rango,rango.activo)" class="btn btn-success mb-2 mr-4" data-toggle="modal" data-target="#exampleModalScrollable3">
+                                      <button type="button" @click="openEditRango(rango.id, rango.rango,rango.activo)" class="btn btn-success mb-2 mr-4" data-toggle="modal" data-dismiss="modal"  data-target="#exampleModalScrollable3">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                       </button>
                                         <button type="button" @click="openDeleteRango(rango.id)" data-dismiss="modal" data-toggle="modal"  class="btn btn-danger mb-2 mr-4">
@@ -317,7 +327,10 @@
         </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" @click="limpiarModalNuevoEdit" class="btn btn-success mx-2" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalScrollable2">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
             </div>
             </div>
         </div>
@@ -366,8 +379,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalScrollableTitle2">
-            <button type="button" class="btn btn-primary mr-2">Agregar rango al atributo:</button>
-             <button type="button" class="btn btn-warning mr-2">{{this.titleModal}}</button>
+            <h4>
+                <label style="font-weight:bold">Agregar rango al atributo:</label>
+                <span class="badge badge-warning ml-3">{{this.titleModal}}</span>
+            </h4>
         </h5>
 
       </div>
@@ -376,16 +391,10 @@
               <label for="atributo">Rango:</label>
                  <input id="atributo" type="text" required class="form-control" :class="className" placeholder="10 a 20" v-model="nombreNuevoRango">
                 <small class="notValid">{{msgName}}</small>
-                <div class="custom-control custom-checkbox my-3">
-                 <input type="checkbox"
-                    v-model="estatusRango"  true-value="1"  false-value="0"
-                    class="custom-control-input" id="customCheck1">
-                    <label class="custom-control-label" for="customCheck1" >Activo</label>
-                </div>
               </div>
       </div>
         <div class="modal-footer">
-            <button type="button"  data-toggle="modal"  data-target="#exampleModalScrollable" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button"  data-toggle="modal"  data-target="#exampleModalScrollable" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             <button type="button"  data-toggle="modal"  data-target="#exampleModalScrollable"  @click="openAddRango" class="btn btn-success" data-dismiss="modal">Guardar</button>
 
         </div>
@@ -400,13 +409,10 @@
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle3">
-            <button type="button" class="btn btn-primary mr-2">Editar rango al atributo:</button>
-             <button type="button" class="btn btn-warning mr-2">{{this.titleModal}}</button>
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h4>
+            <label style="font-weight:bold">Editar rango al atributo:</label>
+            <span class="badge badge-warning ml-3">{{this.titleModal}}</span>
+        </h4>
       </div>
       <div class="modal-body">
      <div class="form-group">
@@ -422,7 +428,7 @@
               </div>
       </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal"  data-target="#exampleModalScrollable"  data-dismiss="modal">Cerrar</button>
             <button type="button" @click="editRango" class="btn btn-success" data-dismiss="modal">Guardar</button>
 
         </div>
@@ -480,6 +486,7 @@
                 sliderValue : 100,
                 pwConfDisabled: true,
                 msnErrorIrreconocible: '',
+                msnErrorAnuncion: '',
             }
         },
         watch: {
@@ -529,7 +536,7 @@
                 axios.post('api/valor-atributo.json', {
                     idAtributo:this.idActual,
                     rango : this.nombreNuevoRango,
-                    activo:this.estatusRango
+                    activo:1
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
@@ -643,10 +650,13 @@
             closeModalEdit: function() {
                 this.$modal.hide('editarAtributo');
             },
+            closeErrorAnuncio(){
+                this.$modal.hide('closeErrorAnuncio');
+            },
             openAdd(){
                 this.nombreNuevo= '';
                 this.$modal.show('agregarAtributo');
-                this.estatus=0;
+                //this.estatus=0;
             },
             closeModalAdd: function() {
                 this.$modal.hide('mensaje-exito-add');
@@ -734,7 +744,7 @@
                 console.log(store.state);
                 axios.post('api/atributo.json', {
                     nombre : this.nombreNuevo,
-                    activo:this.estatus
+                    activo:1//this.estatus
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
@@ -806,6 +816,9 @@
                         });
                     }
                 }).catch(error => {
+                    this.msnErrorAnuncion = 'Error al intentar eliminar el atributo, ya que cuenta se encuentra en uso por al menos una Categoria';
+                    this.$modal.show('closeErrorAnuncio');
+                    this.$modal.hide('eliminarAtributo');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];

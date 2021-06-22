@@ -35,7 +35,7 @@
                         <tr v-for="mediatipo in mediatipos" :key="mediatipo.id">
                             <td>{{mediatipo.id}}</td>
                             <td>{{mediatipo.descripcion}}</td>
-                            <td>{{mediatipo.activo}}</td>
+                            <td class="center"><h4><span v-if="mediatipo.activo == 1" class="badge badge-info ml-2">Activo</span><span v-else class="badge badge-danger">Inactivo</span></h4></td>
                             <td>
                                 <button type="button" @click="openEdit(mediatipo.id, mediatipo.descripcion,mediatipo.activo)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
@@ -118,12 +118,6 @@
                         <label for="mediatipo">Nombre del mediatipo:</label>
                         <input id="mediatipo" type="text" required class="form-control" :class="classNameN" placeholder="PNG" v-model="nombreNuevo">
                         <small class="notValid">{{msgNameN}}</small>
-                        <div class="custom-control custom-checkbox my-3">
-                            <input type="checkbox"
-                            v-model="estatus"  true-value="1"  false-value="0"
-                             class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1" >Activo</label>
-                        </div>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
@@ -281,7 +275,7 @@
         },
         computed: {
             habilitaBoton: function() {
-                var dato = true && this.nombreNuevo && this.nombreNuevo.length>3;
+                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2;
                 return !dato;
             }
         },
@@ -399,7 +393,7 @@
                 console.log(store.state);
                 axios.post('api/media-tipo.json', {
                     descripcion : this.nombreNuevo,
-                    activo:this.estatus
+                    activo:1
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);

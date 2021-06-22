@@ -209,6 +209,29 @@
                 </div>
             </div>
         </modal><!-- ends modal-->
+
+        <modal
+            name="closeErrorAnuncio"
+            :clickToClose="false"
+            :reset="true"
+            :width="480"
+            :height="240">
+            <div class="card">
+                <div class="card-header">Error</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <h5>{{msnErrorAnuncion}}</h5>
+                        <br>
+                        <hr>
+                    </div>
+
+                    <div class="form-group my-4" style="text-align: right;">
+                        <b-button variant="info" @click="closeErrorAnuncio">Aceptar</b-button>
+                    </div>
+                </div>
+            </div>
+        </modal><!-- ends modal-->
+
 </div>
 </template>
 
@@ -252,6 +275,7 @@
                 sliderValue : 100,
                 pwConfDisabled: true,
                 msnErrorIrreconocible: '',
+                msnErrorAnuncion: '',
             }
         },
         watch: {
@@ -274,6 +298,9 @@
         methods: {
             openGen(){
                 this.$modal.hide('modal-general');
+            },
+            closeErrorAnuncio(){
+                this.$modal.hide('closeErrorAnuncio');
             },
             openEdit(id, nombre,estatus){
                 this.idActual=id;
@@ -375,6 +402,8 @@
                     }
                     this.$modal.show('mensaje-exito');
                 }).catch(error => {
+                    this.msnErrorAnuncion = 'No fue posible guardar la información debido a que existe un registro con el mismo nombre'
+                    this.$modal.show('closeErrorAnuncio');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
@@ -415,6 +444,8 @@
                         });
                     }
                 }).catch(error => {
+                    this.msnErrorAnuncion = 'No fue posible guardar la información debido a que existe un registro con el mismo nombre'
+                    this.$modal.show('closeErrorAnuncio');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
@@ -455,6 +486,9 @@
                         });
                     }
                 }).catch(error => {
+                    this.msnErrorAnuncion = 'Error! el estatus se encuentra dentro de anuncios'
+                    this.$modal.show('closeErrorAnuncio');
+                    this.$modal.hide('eliminarEstatusanuncio');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];

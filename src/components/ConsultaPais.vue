@@ -460,6 +460,7 @@
                         });
                     }
                 }).catch(error => {
+                    this.$modal.hide('eliminarPais');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
