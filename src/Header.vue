@@ -44,6 +44,7 @@
                           <a class="dropdown-item" href="#" @click="navega('/ui/consulta-categorias')" >Categorias</a>
                         </div>
                          <div class="dropdown-divider"></div>
+                        <a v-if="admin" class="dropdown-item" href="#" @click="navega('/ui/reporte-graficas')">Reporte de gráficas</a>
                         <a class="dropdown-item" href="#" @click="logout">Salir</a>
                       </div>
                     </div>
