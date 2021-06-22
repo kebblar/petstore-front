@@ -553,7 +553,7 @@ export default {
       this.loaded_filtro = false;
       try {
         const path_filtro =
-          "http://127.0.0.1:9999/api/grafica-total-fechas-categoria-filtro.json?fechaFin=" +
+          "/api/grafica-total-fechas-categoria-filtro.json?fechaFin=" +
           this.fechaFin +
           "&fechaInicio=" +
           this.fechaInicio;
@@ -572,7 +572,7 @@ export default {
       this.loaded = false;
       try {
         const response = await fetch(
-          "http://127.0.0.1:9999/api/grafica-total-fechas-categoria.json"
+          "/api/grafica-total-fechas-categoria.json"
         ).then((response) => response.json());
         this.chartdata = response.chartdata;
         this.loaded = true;
@@ -584,7 +584,7 @@ export default {
       this.loaded_tipo_pago = false;
       try {
         const response = await fetch(
-          "http://127.0.0.1:9999/api/grafica-tipo-pago.json"
+          "/api/grafica-tipo-pago.json"
         ).then((response) => response.json());
         this.chartdata_tipo_pago = response.chartdata;
         this.loaded_tipo_pago = true;
@@ -596,7 +596,7 @@ export default {
       this.loaded_tipo_pago_filtro = false;
       try {
         const path_filtro =
-          "http://127.0.0.1:9999/api/grafica-tipo-pago-rango.json?fechaFin=" +
+          "/api/grafica-tipo-pago-rango.json?fechaFin=" +
           this.fechaFin_tipo_pago +
           "&fechaInicio=" +
           this.fechaInicio_tipo_pago;
@@ -697,7 +697,7 @@ export default {
     async compradorG() {
       this.loaded_comprador = false;
       const { data } = await axios.get(
-        "http://127.0.0.1:9999/api/grafica-comprador-asiduo.json"
+        "/api/grafica-comprador-asiduo.json"
       );
       let colores = this.coloresGenerador();
       this.compradorPie = {
@@ -715,7 +715,7 @@ export default {
     async mascotaVendidaG() {
       this.loaded_mascota = false;
       const { data } = await axios.get(
-        "http://127.0.0.1:9999/api/grafica-mascota-mas-vendida.json"
+        "/api/grafica-mascota-mas-vendida.json"
       );
       let colores = this.coloresGenerador();
       const source = {
@@ -741,7 +741,7 @@ export default {
     async paqueteriaUtilizadaG() {
       this.loaded_paqueteria = false;
       const { data } = await axios.get(
-        "http://127.0.0.1:9999/api/grafica-paqueteria.json"
+        "/api/grafica-paqueteria.json"
       );
       console.log("data de paqueteria: " + JSON.stringify(data));
       this.paqueteriaBar = this.generadorDataset(data);
@@ -799,14 +799,14 @@ export default {
       this.loaded_comprador = false;
       let fechas = this.generadorFechas(this.selectedMonthComprador);
       const { data } = await axios.get(
-        "http://127.0.0.1:9999/api/grafica-comprador-asiduo-rango/" +
+        "/api/grafica-comprador-asiduo-rango/" +
           fechas[0] +
           "/" +
           fechas[1] +
           ".json"
       );
       console.log(
-        "se Filtra usando Comprador fechas:\n" +
+        "Se filtra usando Comprador fechas:\n" +
           fechas[0] +
           " - " +
           fechas[1] +
@@ -824,14 +824,14 @@ export default {
       this.loaded_mascota = false;
       let fechas = this.generadorFechas(this.selectedMonthMascota);
       const { data } = await axios.get(
-        "http://127.0.0.1:9999/api/grafica-mascota-mas-vendida-rango/" +
+        "/api/grafica-mascota-mas-vendida-rango/" +
           fechas[0] +
           "/" +
           fechas[1] +
           ".json"
       );
       console.log(
-        "se Filtra usando MascotaVendida fechas:\n" +
+        "Se filtra usando MascotaVendida fechas:\n" +
           fechas[0] +
           " - " +
           fechas[1] +
@@ -849,14 +849,14 @@ export default {
       this.loaded_paqueteria = false;
       let fechas = this.generadorFechas(this.selectedMonthPaqueteria);
       const { data } = await axios.get(
-        "http://127.0.0.1:9999/api/grafica-paqueteria-rango/" +
+        "/api/grafica-paqueteria-rango/" +
           fechas[0] +
           "/" +
           fechas[1] +
           ".json"
       );
       console.log(
-        "se Filtra usando PaqueteriaUtilizada fechas:\n" +
+        "Se filtra usando PaqueteriaUtilizada fechas:\n" +
           fechas[0] +
           " - " +
           fechas[1] +
