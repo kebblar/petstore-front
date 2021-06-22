@@ -7,7 +7,6 @@
                 </div>
             </div>
         </div><!-- ends header-->
-
         <div class="card-body">
             <vue-dropzone 
                 ref="myVueDropzone" 
@@ -17,7 +16,6 @@
                 v-on:vdropzone-error="errorEvent"
                 :options="dropzoneOptions">
             </vue-dropzone>
-            <button @click="sube" type="button" class="btn btn-lg btn-primary" style="width:100%" >Carga archivos</button>
         </div>
         <div class="card-body">
           <div class="row">
@@ -38,7 +36,7 @@
                 <tbody>
                     <tr v-for="(item, index) in imagenes" :key="index">
                       <td class="col-md d-flex justify-content-center">
-                          <b-form-radio v-model="selected"  @change="seleccionarImagen(item)" name="some-radios" :value="item.principal"></b-form-radio>
+                          <b-form-radio v-model="item.principal"  @change="seleccionarImagen(item)" name="some-radios" :value="selected"></b-form-radio>
                       </td>
                       <td class="col-5"> 
                         <img v-if="!item.uuid.includes('mp4') && !item.uuid.includes('avi')" :src="ruta+item.uuid" class="img-fluid" 
@@ -61,7 +59,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import Vue from "vue";
 import Vue2Dropzone from 'vue2-dropzone';
@@ -74,15 +71,14 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import "vue-toast-notification/dist/theme-sugar.css";
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
-
 export default {
   components: {
     vueDropzone: Vue2Dropzone
   },
   props:['imagenes','id'],
-	mounted(){
+  mounted(){
     this.ruta = process.env.VUE_APP_URL_MEDIA;
-	}, 
+  }, 
   created(){
     this.dropzoneOptions = {
           url: this.calcula(),
@@ -96,7 +92,13 @@ export default {
           headers: {
             "jwt": store.state.session.jwt,
           }, 
-          autoProcessQueue: false, // Make sure the files aren't queued until manually added
+          //autoProcessQueue: false, // Make sure the files aren't queued until manually added
+          init: function () {
+            this.on("success", function (file) {
+            console.log("success > " + file.name);
+            this.removeFile(file);
+            });
+          },
       };
   },
   data: function () {
@@ -119,8 +121,13 @@ export default {
           xhr.setRequestHeader('idAnuncio', this.id );
         },
         successEvent(file,response){
-            console.log("--> successEvent "+file +" response "+response);
-  
+          console.log("--> successEvent "+file +" response "+response);
+            if (this.imagenes.length == 0) {
+              response.principal = true;
+              this.selected = true
+            }else{
+              response.principal = false;
+            }
             this.imagenes.push(response);
         },
         errorEvent(file){
@@ -131,11 +138,23 @@ export default {
            }).then(response => {
                console.log("--> "+response);
                this.$delete(this.imagenes, index);
+               this.imagenes.forEach((element,index) => {
+                 if (index == 0 || item.principal == true) {
+                   element.principal = true;
+                   this.selected = true;
+                 }
+               });
             }).catch(error => {
                 console.log("--> error "+error);
             }); 
         },
         seleccionarImagen(item){
+          console.log(item.principal)
+          console.log(this.imagenes)
+          this.imagenes.forEach(element => {
+            element.principal = false;
+          });
+          item.principal = true;
           axios.put('api/anuncios/imagen/principal.json',  { 
             idAnuncio:item.idAnuncio,
             uuid: item.uuid

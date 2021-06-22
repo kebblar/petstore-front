@@ -42,6 +42,7 @@ import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 import Graficas from '@/components/Graficas'
 
+
 import GraficaMontoPorCategoriaContainer from '@/components/GraficaMontoPorCategoriaContainer'
 import ReporteGraficas from '@/components/ReporteGraficas'
 Vue.use(Router);
@@ -69,7 +70,7 @@ const routes = [
     name: 'Graficas',
     component: Graficas,
     meta: { allowedRoles: ['admin'] }
-  },  
+  },
   {
     path: '/ui/cambia-datos-personales',
     name: 'cambia-datos-personales',
@@ -195,43 +196,43 @@ const routes = [
     name: 'AdministracionCompras',
     component: AdministracionCompras,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-categorias',
     name: 'consultacategoria',
     component: ConsultaCategoria,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-atributos',
     name: 'consultaatributo',
     component: ConsultaAtributo,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-tipos-medias',
     name: 'consultatipomedia',
     component:ConsultaMediaTipo,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-estatus-anuncio',
     name: 'consultaestatusanuncio',
     component:ConsultaEstatusAnuncio,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-pais',
     name: 'ConsultaPais',
     component:ConsultaPais,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-estado',
     name: 'ConsultaEstado',
     component:ConsultaEstado,
     meta: { allowedRoles: ['admin'] }
-  }, 
+  },
   {
     path: '/ui/consulta-municipio',
     name: 'ConsultaMunicipio',
@@ -241,58 +242,49 @@ const routes = [
 ]
 
 const router = new Router({
-  mode: 'history',
-  scrollBehavior: () => ({ y: 0 }),
-  routes
+    mode: 'history',
+    scrollBehavior: () => ({ y: 0 }),
+    routes
 })
 
-function parseJwt (token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-  return JSON.parse(jsonPayload);
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
 }
 
-function checaJwt (jwt, active) {
-  if(active && jwt && jwt!==undefined && jwt.length>0) {
-    console.log(jwt);
-    const jwtPayload = parseJwt(jwt);
-    //console.log(jwtPayload);
-    if (jwtPayload.exp < Date.now()/1000) {
-      store.commit('setSession', {
-        nombreCompleto: '',
-        roles:        [],
-        correo:       '',
-        ultimoAcceso: '',
-        idUser:        0,
-        jwt:          '', // jwt: jwtPayload.exp
-        carrito: []
-      });
-      store.commit('setDestination', '/');
-    } else {
-      //const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
+function checaJwt(jwt, active) {
+    if (active && jwt && jwt !== undefined && jwt.length > 0) {
+        console.log(jwt);
+        const jwtPayload = parseJwt(jwt);
+        //console.log(jwtPayload);
+        if (jwtPayload.exp < Date.now() / 1000) {
+            store.commit('setSession', {
+                nombreCompleto: '',
+                roles: [],
+                correo: '',
+                ultimoAcceso: '',
+                idUser: 0,
+                jwt: '', // jwt: jwtPayload.exp
+                carrito: []
+            });
+            store.commit('setDestination', '/');
+        } else {
+            //const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
+        }
     }
-  }
 }
 
 
 router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   checaJwt(store.state.session.jwt, false);
-  
-
-  axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
-    store.commit('setCarrito', response.data);
-    console.log(response.data);
-  }).catch(e => {
-    console.log(e);
-  });
-
   if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:
-    if (store.state.session.jwt==='') { 
+    if (store.state.session.jwt==='') {
       store.commit('setDestination', to.fullPath);
       router.push("/ui/login");
       return;

@@ -1,8 +1,8 @@
 <template>
-  <div class="ancho centra">
+  <div class="ancho centra" align="center">
     <div v-if="loading" class="loader"/>
 
-    <div class="card" style="width:85%;"> <!---->
+    <div class="card" style="width:75%;"> <!---->
       <div class="card-header">
         <h4 class="control-label mt-2" align="center">Detalles de la compra</h4>
       </div>
@@ -12,10 +12,10 @@
           <div class="col" style="margin-top: 10px;"><h6 class="text-info" style=" line-height: 155%;">Por favor completa la siguiente información para comenzar a procesar tu compra</h6></div>
         </div>
         <div class="row">
-          <div class="col my-3" align="center"><h5><b>Tus artículos</b></h5></div>
+          <div class="col my-2" align="center"><h5><b>Tus artículos</b></h5></div>
         </div>
         <div class="row">
-          <div class="col mx-5">
+          <div class="col mx-4">
             <table class="table">
 
               <tr v-for="mascota in shoppingKart" :key="mascota.idAnuncio" align="center" >
@@ -184,7 +184,7 @@
                                   </div>
                                   <div class="col">
                                     <label for="cp">C.P.</label>
-                                    <input type="text" v-model="nuevaDireccion.cp" placeholder="00000" class="form-control">
+                                    <input maxlength="5" type="tel" v-model="nuevaDireccion.cp" placeholder="00000" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                                   </div>
                                 </div>
                                 <div class="form-row form-group">
@@ -453,6 +453,11 @@ export default {
 
     },
 
+    setEdoMun() {
+      this.nuevaDireccion.idEstado=-1;
+      this.nuevaDireccion.idMunicipio=null;
+    },
+
     getMontoBtc(){
       axios.get('/api/monto-btc/'+(this.total + this.getPrecioEnvio)+'.json').then(response => {
         this.precioEnCripto = response.data;
@@ -566,11 +571,11 @@ export default {
       });
     },
     cargaEstados() {
+      this.setEdoMun();
       axios.get('/api/estado-por-pais/'+this.nuevaDireccion.idPais+'.json', {}).then(response => {
         console.log(response.data);
         this.estados = response.data;
         this.estados.unshift({'id' : -1, 'nombre' : 'Selecciona uno'});
-        console.log(this.nuevaDireccion.idEstado);
       }).catch(e => {
         console.log(e.response.status);
         console.log(e.response.data);

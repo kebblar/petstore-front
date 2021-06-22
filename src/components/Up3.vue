@@ -1,6 +1,6 @@
 <template>
     <div class="ancho centra">
-        
+
         <div class="card" >
 
             <div class="card-header">
@@ -12,14 +12,14 @@
             </div><!-- ends header-->
 
             <div class="card-body">
-                <vue-dropzone 
-                    ref="myVueDropzone" 
-                    id="myVueDropzone" 
+                <vue-dropzone
+                    ref="myVueDropzone"
+                    id="myVueDropzone"
                     v-on:vdropzone-sending="sendingEvent"
                     :options="dropzoneOptions">
                 </vue-dropzone>
             </div>
-            
+
             <button @click="sube" type="button" class="btn btn-lg btn-primary" >Carga archivos</button>
             <input type="text" class="form-control" v-model="uno" />
             <input type="text" class="form-control" v-model="dos" />
@@ -52,13 +52,13 @@ export default {
             addRemoveLinks: true,
             dictRemoveFile: 'Eliminar',
             dictDefaultMessage: 'Arrastra y suelta tus archivos a subir aqui.',
-            headers: { 
+            headers: {
                 "jwt": store.state.session.jwt
             },
             autoProcessQueue: false, // Make sure the files aren't queued until manually added
         }
     }
-  }, 
+  },
   methods: {
         calcula: function() {
             return axios.defaults.baseURL + 'api/upload.json';
@@ -78,7 +78,7 @@ export default {
 
 /*
     @PostMapping(
-            path = "/upload.json", 
+            path = "/upload.json",
             produces = "application/json; charset=utf-8"
             )
     public UploadModel handleFileUploadWithKDMCopy(

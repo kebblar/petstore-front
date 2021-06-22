@@ -11,12 +11,12 @@
               <label for="clave">Clave nueva:</label>
             </div>
             <div class = "col form-group">
-              <input 
-                type="password" 
-                :class="claveClass" 
-                class="form-control" 
-                id="clave" 
-                placeholder="******" 
+              <input
+                type="password"
+                :class="claveClass"
+                class="form-control"
+                id="clave"
+                placeholder="******"
                 v-model="clave" >
               <div v-for="(message, index) in info" :key="index">
                 <label class="small">{{ message }}</label>
@@ -28,17 +28,17 @@
               <label for="clave">Confirmación:</label>
             </div>
             <div class = "col form-group">
-              <input 
-                type="password" 
-                :class="confirmaClass" 
-                class="form-control" 
-                id="token" 
-                placeholder="******" 
+              <input
+                type="password"
+                :class="confirmaClass"
+                class="form-control"
+                id="token"
+                placeholder="******"
                 v-model="confirma">
               <label class="small">{{ clavesDiferentes }}</label>
             </div>
           </div>
-        
+
 
         <div class="form-group row text-center">
           <div class="col text-center">
@@ -50,7 +50,7 @@
     </div>
 
 
-      <Aviso 
+      <Aviso
       ref='avisoComp'
       ancho='420'
       alto='200'
@@ -100,8 +100,8 @@ export default {
             axios.put('/api/cambia-clave.json', {
                 usuario: store.state.session.correo,
                 clave: this.clave,
-            },        
-            {    
+            },
+            {
               headers: {
                 'jwt': store.state.session.jwt
               }
@@ -124,7 +124,7 @@ export default {
                   this.modalMessage = error;
                   this.$refs.avisoComp.abre();
                 }
-                
+
             })
       }
     }

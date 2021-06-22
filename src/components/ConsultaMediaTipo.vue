@@ -18,7 +18,7 @@
                         <i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div> <!-- end row -->
-            
+
     <br><br>
 
             <div class="row">
@@ -51,9 +51,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="editarMediatipo" 
-            :clickToClose="false" 
+        <modal
+            name="editarMediatipo"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -83,9 +83,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -105,9 +105,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="agregarMediatipo" 
-            :clickToClose="false" 
+        <modal
+            name="agregarMediatipo"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -127,10 +127,10 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button 
+                        <b-button
                             :disabled="habilitaBoton"
                             variant="primary"
-                            class="mr-4" 
+                            class="mr-4"
                             @click="agregarMediatipo">Aceptar</b-button>
                         <b-button variant="danger" @click="closeModalAdd2">Cancelar</b-button>
                     </div>
@@ -140,9 +140,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito-add" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito-add"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -162,9 +162,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="eliminarMediatipo" 
-            :clickToClose="false" 
+        <modal
+            name="eliminarMediatipo"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="200">
@@ -182,9 +182,9 @@
 
         <!-- Modal -->
 
-        <modal 
-            name="mensaje-exito-delete" 
-            :clickToClose="false" 
+        <modal
+            name="mensaje-exito-delete"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -202,9 +202,9 @@
             </div>
         </modal><!-- ends modal-->
 
-        <modal 
-            name="modal-general" 
-            :clickToClose="false" 
+        <modal
+            name="modal-general"
+            :clickToClose="false"
             :reset="true"
             :width="480"
             :height="245">
@@ -234,7 +234,7 @@
     import "vue-range-slider/dist/vue-range-slider.css";
   //import { mapMutations } from 'vuex'
     export default {
-        components: { 
+        components: {
         },
         data() {
             return {
@@ -326,11 +326,11 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/mediatipos/list/'+this.name+'.json', { 
+                    axios.get('api/mediatipos/list/'+this.name+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.mediatipos=response.data; 
+                        this.mediatipos=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -341,11 +341,11 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/media-tipos.json', { 
+                    axios.get('api/media-tipos.json', {
                     }).then(response => {
                         console.log("enviado-mediatipos");
                         console.log(response);
-                        this.mediatipos=response.data; 
+                        this.mediatipos=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -364,11 +364,11 @@
                     console.log("enviado");
                     console.log(response);
                     if (this.name) {
-                        axios.get('api/mediatipos/list/'+this.name+'.json', { 
+                        axios.get('api/mediatipos/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.mediatipos=response.data; 
+                            this.mediatipos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -377,11 +377,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/media-tipos.json', { 
+                        axios.get('api/media-tipos.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.mediatipos=response.data; 
+                            this.mediatipos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -402,15 +402,15 @@
                     activo:this.estatus
                 }).then(response => {
                     console.log("enviado");
-                    console.log(response);               
+                    console.log(response);
                     this.$modal.hide('agregarMediatipo');
                     this.$modal.show('mensaje-exito-add');
                     if (this.name) {
-                        axios.get('api/mediatipos/list/'+this.name+'.json', { 
+                        axios.get('api/mediatipos/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.mediatipos=response.data; 
+                            this.mediatipos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -419,11 +419,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/media-tipos.json', { 
+                        axios.get('api/media-tipos.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.mediatipos=response.data; 
+                            this.mediatipos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -437,20 +437,20 @@
                 })
             },
             eliminarMediatipo() {
-                axios.delete('api/media-tipo.json', { 
+                axios.delete('api/media-tipo.json', {
                     data:{id:this.idActual}
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    this.mediatipos=response.data; 
+                    this.mediatipos=response.data;
                     this.$modal.hide('eliminarMediatipo');
                     this.$modal.show('mensaje-exito-delete');
                     if (this.name) {
-                        axios.get('api/mediatipos/list/'+this.name+'.json', { 
+                        axios.get('api/mediatipos/list/'+this.name+'.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.mediatipos=response.data; 
+                            this.mediatipos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);
@@ -459,11 +459,11 @@
                     }
                     else {
                         console.log(store.state);
-                        axios.get('api/media-tipos.json', { 
+                        axios.get('api/media-tipos.json', {
                         }).then(response => {
                             console.log("enviado");
                             console.log(response);
-                            this.mediatipos=response.data; 
+                            this.mediatipos=response.data;
                         }).catch(error => {
                             console.log(error.response.status);
                             console.log(error.response.data);

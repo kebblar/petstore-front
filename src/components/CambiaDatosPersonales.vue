@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <Aviso 
+    <Aviso
       ref='avisoComp'
       ancho='420'
       alto='200'

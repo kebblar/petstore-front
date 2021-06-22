@@ -1,6 +1,6 @@
 <template>
   <div class="example-simple">
-  
+
       <ul>
         <li v-for="file in files" :key="file.id">
           <span>{{file.name}}</span> -
@@ -12,7 +12,7 @@
           <span v-else></span>
         </li>
       </ul>
-  
+
   <file-upload
     ref="upload"
     v-model="files"
@@ -25,7 +25,7 @@
   Upload file
   </file-upload>
   <button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button">Start upload</button>
-  <button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>      
+  <button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button">Stop upload</button>
   </div>
 </template>
 

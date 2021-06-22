@@ -16,9 +16,9 @@
           next-button-text="Siguiente"
           back-button-text="Regresar"
           finish-button-text="Confirmar"
-          color="green"  
-          @on-complete="onComplete"> 
-          <h2 slot="title">{{tituloProceso}}</h2>   
+          color="green"
+          @on-complete="onComplete">
+          <h2 slot="title">{{tituloProceso}}</h2>
            <tab-content title="Datos generales" :before-change="validarDatos">
             <div class="col-sm-12 text-left">
               <div v-if="id != 0" class="form-group">
@@ -31,10 +31,10 @@
                 <input type="text" class="form-control" :class="classTitulo" maxlength="50" v-model="titulo"/>
                 <small class="notValid">{{msgTitulo}}</small>
               </div>
-           
+
               <div class="form-group">
                 <label for="descripcion" class="required">Descripción</label><label class="requerido"></label>
-                <vue-editor v-model="descripcion" @input="onEditorInput" 
+                <vue-editor v-model="descripcion" @input="onEditorInput"
                 :editor-toolbar="customToolbar" ref="innerTextDescripcion"></vue-editor>
                 <small class="notValid">{{msgDescripcion}}</small>
               </div>
@@ -43,18 +43,20 @@
                 <div class="row">
                   <div class="col-12 col-sm-6">
                       <label for="fechaInicioVigencia">Inicio de vigencia</label>
-                      <input type="date" class="form-control" v-model="fechaInicioVigencia"/>  
+                      <b-form-datepicker v-model="fechaInicioVigencia" :min="min"  locale="es" placeholder="dd/mm/aaaa"
+                       :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"></b-form-datepicker>
                   </div>
                   <div class="col-12 col-sm-6">
                       <label for="fechaFinVigencia">Fin de vigencia</label>
-                      <input type="date" class="form-control" v-model="fechaFinVigencia" />
+                     <b-form-datepicker v-model="fechaFinVigencia" :min="min"  locale="es" placeholder="dd/mm/aaaa"
+                       :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"></b-form-datepicker>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-6">
                    <label for="precio" class="required">Precio</label>
-                   <input type="number" pattern="[0-9]" required onkeypress="return event.charCode >= 48 || event.charCode == 46" step="1" :class="classPrecio" class="form-control" v-model="precio" min="0" maxlength="9" /> 
+                   <input type="number" pattern="[0-9]" required onkeypress="return event.charCode >= 48 || event.charCode == 46" step="1" :class="classPrecio" class="form-control" v-model="precio" min="0" maxlength="9" />
                    <small class="notValid">{{msgPrecio}}</small>
                 </div>
                 <div class="col-6">
@@ -75,14 +77,14 @@
               <div class="row" v-if="atributosByCategoria.length>0">
                     <div class="col-6" v-for="(c, index) in atributosByCategoria" :key="index">
                         <div class="form-group">
-                          <label>{{c.nombre}}</label> 
+                          <label>{{c.nombre}}</label>
                           <select class="form-control select" :id="index" :name="c.id" @change="onChangeAtributo">
                             <option value="0" selected>Selecione</option>
-                            <option :value="o.idValorAtributo" v-for="o in c.options" :key="o.id" 
+                            <option :value="o.idValorAtributo" v-for="o in c.options" :key="o.id"
                                  :selected="(atributos[index].valor ===  o.idValorAtributo)?'selected':''">
-                                {{ o.valor }}  
-                             </option> 
-                         </select>  
+                                {{ o.valor }}
+                             </option>
+                         </select>
                         </div>
                     </div>
               </div>
@@ -90,7 +92,7 @@
           </tab-content>
 
           <!-- Sección de la IMAGEN -->
-          <tab-content title="Imagenes"> 
+          <tab-content title="Imagenes">
             <Imagen :imagenes="this.imagenes" :id="this.id"></Imagen>
           </tab-content>
 
@@ -166,7 +168,7 @@
                 </div>
               </div>
             </div>
-           
+
             <!-- Seccion de caracteristicas del anuncio -->
              <div class="card text-center mt-2">
               <div class="card-header text-center">
@@ -177,8 +179,8 @@
                   <div class="col-xs-12 col-4" v-for="(atributo, index) in atributos" v-bind="atributos" :key="index">
                     <div class="form-group">
                         <div class="col-12 font-weight-bold">
-                           {{ atributosByCategoria[index].nombre}}  
-                        </div> 
+                           {{ atributosByCategoria[index].nombre}}
+                        </div>
                         <div>
                            {{getOptionSelect(atributosByCategoria[index].options, atributo.valor)}}
                         </div>
@@ -186,7 +188,7 @@
                   </div>
                 </div>
               </div>
-            </div> 
+            </div>
 
             <!-- Seccion de las imagenes -->
             <div class="card text-center mt-2">
@@ -198,17 +200,17 @@
                     <div class="col-3" v-for="(item, index) in imagenes" :key="index">
                       <div class="text-center">
                         <div v-if="!item.uuid.includes('mp4') && !item.uuid.includes('avi')">
-                          <img :src="ruta+item.uuid" class="img-fluid" :style="item.principal?'border: 5px solid #469b27;':''" width="150px" height="150px" /><br/> 
+                          <img :src="ruta+item.uuid" class="img-fluid" :style="item.principal?'border: 5px solid #469b27;':''" width="150px" height="150px" /><br/>
                           {{ item.imagen }}
                         </div>
                         <div v-else>
                             <video  class="video-fluid" autoplay loop muted style="padding: 2%" :style="item.principal?'border: 5px solid #469b27;':''" width="150px" height="150px">
                             <source :src="ruta + item.uuid" type="video/mp4" />
-                          </video> 
+                          </video>
                         </div>
 
                       </div>
-                    </div> 
+                    </div>
               </div>
               </div>
             </div>
@@ -232,14 +234,16 @@ import { VueEditor } from 'vue2-editor';
 Vue.use(VueToast);
 
 export default {
-  components: { 
+  components: {
      FormWizard,
      TabContent,
      Imagen,
      VueEditor
-  }, 
+  },
   data: function () {
+    const minDate = new Date()
     return {
+      min: minDate,
       showCharCount: true,
       activeTabIndex:0,
       tituloProceso:null,
@@ -270,7 +274,7 @@ export default {
       ruta:'',
       customToolbar:  [
         //[{ header: [false, 1, 2, 3, 4, 5, 6] }],
-        ["bold", "italic"], // toggled buttons
+        ["bold", "italic","underline"], // toggled buttons
         [
           { align: "" },
           { align: "center" },
@@ -324,13 +328,13 @@ export default {
               });
               this.atributosByCategoriaDefault.push(
                   {
-                    id: obj.idCategoria, 
+                    id: obj.idCategoria,
                     atributos:atributosS
                   }
               );
             }
         });
-      });      
+      });
   },
    mounted () {
     this.ruta = process.env.VUE_APP_URL_MEDIA;
@@ -343,7 +347,7 @@ export default {
       this.id = this.$route.params.id;
       //Realizamos la consulta al servicio para consultar la información
        axios.get('api/anuncios/'+this.id+'.json').then(response => {
-          console.log(response.data); 
+          console.log(response.data);
           this.$refs.wizard.activeTabIndex=2;
           this.$refs.wizard.changeTab(0,2);
           let anuncio = response.data;
@@ -359,7 +363,7 @@ export default {
           }
           this.idCategoria = anuncio.idCategoria;
           this.precio = anuncio.precio;
-         
+
           anuncio.atributos.forEach((aux) => {
               this.atributos.push({idValorAtributo: aux.idAtributo, valor: aux.valor });
           });
@@ -377,7 +381,7 @@ export default {
                     });
                     this.atributosByCategoriaDefault.push(
                         {
-                          id: obj.idCategoria, 
+                          id: obj.idCategoria,
                           atributos:atributosS
                         }
                     );
@@ -386,7 +390,7 @@ export default {
             });
           this.imagenes = anuncio.imagenes;
           this.atributos.forEach((value, key) => {
-            
+
             this.getOptiones(key,value.idValorAtributo);
           });
           this.$nextTick(() => {
@@ -402,7 +406,7 @@ export default {
                 type: 'error',
                 duration: 8000,
                 position:'top'
-            }); 
+            });
             this.$router.push('/ui/admin') ;
         });
     }
@@ -412,7 +416,7 @@ export default {
       console.log("--> Guardando datos --- ");
       console.log(this.atributos);
       if(this.id == 0){ //Registro
-        axios.post('api/anuncios.json',  { 
+        axios.post('api/anuncios.json',  {
           titulo: this.titulo,
           descripcion: this.descripcion,
           fechaInicioVigencia: this.fechaInicioVigencia,
@@ -424,13 +428,13 @@ export default {
           console.log(response.data);
           if(this.id == 0){
             this.id = response.data.id;
-            this.folio = response.data.folio;  
+            this.folio = response.data.folio;
             let msgOK = '<center>Anuncio registrado correctamente <br/> FOLIO <strong> '+this.folio +' </strong></center>';
             Vue.$toast.open({
                 message: msgOK,
                 type: 'success',
                 duration: 8000
-            });   
+            });
           }
           resolve(true);
         }).catch(error => {
@@ -456,7 +460,7 @@ export default {
           });
         });
       }else{
-        axios.put('api/anuncios.json',  { 
+        axios.put('api/anuncios.json',  {
           id:this.id,
           titulo: this.titulo,
           descripcion: this.descripcion,
@@ -466,7 +470,7 @@ export default {
           precio: this.precio,
           mascotaValorAtributo: this.atributos
         }).then(response => {
-          console.log(response.data); 
+          console.log(response.data);
           resolve(true);
         }).catch(error => {
           resolve(false);
@@ -495,12 +499,12 @@ export default {
     onComplete() {
       let msgOK = '<center>Se confirma el anuncio de manera correcta para su publicación <br/> FOLIO <strong> '+this.folio +' </strong></center>';
       axios.put('api/anuncios/confirmar/'+this.id+'.json').then(response => {
-          console.log(response.data); 
+          console.log(response.data);
           Vue.$toast.open({
             message: msgOK,
             type: 'info',
             duration: 8000
-           }); 
+           });
            this.$router.push('/ui/admin') ;
       }).catch(error => {
         let msgErr = '';
@@ -514,16 +518,16 @@ export default {
           type: 'error',
           duration: 8000,
           position:'top'
-        }); 
+        });
       });
     },
     onChangeCategoria(event){
-      this.atributos.splice(0); 
-      this.atributosByCategoria.splice(0); 
+      this.atributos.splice(0);
+      this.atributosByCategoria.splice(0);
       if(event.target.selectedIndex != 0){
           document.getElementsByClassName("select").forEach((obj) => {
             document.getElementById(obj.id).value=0;
-         }); 
+         });
          let obj = this.atributosByCategoriaDefault[(event.target.selectedIndex-1)];
          if(obj != null){
             obj.atributos.forEach((value, key) => {
@@ -536,13 +540,13 @@ export default {
     getOptiones(index,id){// Este puede ser un llamado al servicio para obtener las opciones de cada atributo
       this.optionsGeneral.forEach((obj) => {
         if(obj.id === id){
-          Vue.set(this.atributosByCategoria, index, obj);       
+          Vue.set(this.atributosByCategoria, index, obj);
         }
       });
       this.validarSelect();
     },
     onChangeAtributo(event){
-      Vue.set(this.atributos, parseInt(event.target.id), { 
+      Vue.set(this.atributos, parseInt(event.target.id), {
         idValorAtributo: parseInt(event.target.name), valor:parseInt(event.target.value)
       });
       this.validarSelect();
@@ -566,22 +570,22 @@ export default {
         }
       });
     },
-    validarFormulario(){ 
+    validarFormulario(){
         let selectValid = true;
         if(this.atributos.length > 0){
           this.atributos.forEach((atributo) =>{
               if(atributo.valor == 0){
-                selectValid = false;  
+                selectValid = false;
               }
           });
         }else{
            selectValid = false;
         }
-        
+
         let isValid = true
           && this.msgTitulo == '' && this.titulo.trim().length>2
-          && this.msgDescripcion == '' && this.descripcion != null 
-          && this.longitudDescripcion>9 
+          && this.msgDescripcion == '' && this.descripcion != null
+          && this.longitudDescripcion>9
           && this.descripcion.trim().length<10000
           && this.msgPrecio == '' && this.precio != null
           && this.msgCategoria == '' && this.idCategoria != 0
@@ -644,7 +648,7 @@ export default {
           this.classDescripcion="redColor incorrect";
         }
       }
-     
+
     },
     precio(){
       this.msgPrecio="";
@@ -702,10 +706,10 @@ export default {
       font-size: 24px;
   }
   .vue-form-wizard .wizard-icon-circle .wizard-icon-container{
-    border-radius: 51%; 
+    border-radius: 51%;
   }
 
-  @media (max-width: 600px) {  
+  @media (max-width: 600px) {
     .ancho {
       max-width: 90%;
     }

@@ -159,24 +159,18 @@ export default {
       var fecha = moment(new Date(val)).format("YYYY-MM-DD");
       this.fechaFin = fecha;
     },
-    async graficar() {
-      this.loaded_filtro = false;
+    async graficar(){
+      this.loaded_filtro = false
       try {
-        const path_filtro =
-          "http://127.0.0.1:9999/api/grafica-total-fechas-categoria-filtro.json?fechaFin=" +
-          this.fechaFin +
-          "&fechaInicio=" +
-          this.fechaInicio;
-        console.log(path_filtro);
-        const response = await fetch(path_filtro).then((response) =>
-          response.json()
-        );
-        this.chartdata_filtro = response.chartdata;
-        console.log(this.chartdata_filtro);
-        this.loaded_filtro = true;
-      } catch (e) {
-        console.error(e);
-      }
+          const path_filtro = "/api/grafica-total-fechas-categoria-filtro.json?fechaFin="+this.fechaFin+"&fechaInicio="+this.fechaInicio
+          console.log(path_filtro)
+          const response = await fetch(path_filtro).then(response => response.json())
+          this.chartdata_filtro = response.chartdata
+          console.log(this.chartdata_filtro)
+          this.loaded_filtro = true
+       } catch (e) {
+        console.error(e)
+       }
     },
     linkClass(idx) {
       if (this.tabIndex === idx) {

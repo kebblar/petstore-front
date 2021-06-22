@@ -32,10 +32,10 @@
         <hr class="dashed" />
         <div class="form-group row text-center">
           <div class="col text-center">
-            <button 
+            <button
               type="button"
               :disabled="habilitaBoton"
-              @click="confirma" 
+              @click="confirma"
               class="btn btn-success">
               Completar registro
             </button>
@@ -134,7 +134,7 @@ export default {
 };
 </script>
 
-<style scoped> 
+<style scoped>
 .ancho {
     max-width: 390px;
 }
