@@ -45,7 +45,7 @@
                             </td>
                              <td>
                                 <!-- Button trigger modal -->
-                                <button type="button" @click="openAtributo2(categoria.id,categoria.categoria)"  class="btn btn-info mb-2 mr-4"><!-- data-toggle="modal" data-target="#exampleModalScrollable"-->
+                                <button type="button" @click="openAtributo(categoria.id,categoria.categoria)"  class="btn btn-info mb-2 mr-4"><!-- data-toggle="modal" data-target="#exampleModalScrollable"-->
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                 </button>
                             </td>
@@ -227,119 +227,77 @@
 
         <!-- -->
 
-<!-- Modal atributos por categoria -->
-<modal 
-  name="agregarModificarAtributo"
-  :reset="true"
+        <!-- Modal atributos por categoria -->
+        <modal 
+            name="agregarModificarAtributo"
+            class="text-center"
+            :reset="true"
             :width="1100"
-            :height="695"
->
-<!--div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true"-->
-  <!--div class="modal-dialog modal-dialog-scrollable" role="document"-->
-    <div class="card"><!--"modal-content"-->
-      <div class="card-header">
-        <h5 class="card-title" id="exampleModalScrollableTitle">
-            <label style="font-weight:bold">Atributos de la categoria:</label>
-             <span class="badge badge-warning mx-2">{{this.titleModal}}</span>
-             <button type="button" @click="buscarAtributosFaltantes"  class="btn btn-success mr-2" data-toggle="modal" data-target="#exampleModalScrollable2">
-               <i class="fa fa-plus" aria-hidden="true"></i>
-             </button>
-            <button type="button" class="close" @click="closeModificarAtributo()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </h5>
-      </div>
-      <div class="card-body">
-          <div class="table-wrapper-scroll-y my-custom-scrollbar" style="overflow: auto; max-height: 550px;">
-          <div class="row" style="margin: 0">
-              <div class="col-6">
-                    <h3 style="text-align:center">Atributos Actuales</h3>
-<table class="table table-bordered table-striped mb-0">
-<thead>
-<tr>
-<th scope="col">ID Atributo</th>
-<th scope="col">Nombre</th>
-<th scope="col">Acciones</th>
-</tr>
-</thead>
-<tbody>
-<tr v-for="atributo in atributosCategoria" :key="atributo.idAtributo">
-<td>{{atributo.idAtributo}}</td>
-<td>{{atributo.nombreAtributo}}</td>
-<td width="200">
-<button type="button" @click="eliminarAtributo(atributo.idAtributo)" class="btn btn-danger mb-2 mr-4">
-    <i class="fa fa-trash" aria-hidden="true"></i></button>
-</td>
-</tr>
-</tbody>
-</table>
-              </div>
-              <div class="col-6">
-                    <h3 style="text-align:center">Disponibles</h3>
-<table class="table table-bordered table-striped mb-0">
-<thead>
-<tr>
-<th scope="col">ID Atributo</th>
-<th scope="col">Nombre</th>
-<th scope="col">Acciones</th>
-</tr>
-</thead>
-<tbody>
-<tr v-for="atributo in atributosFaltantes" :key="atributo.idAtributo">
-<td>{{atributo.id}}</td>
-<td>{{atributo.nombre}}</td>
-<td width="200">
-<button type="button" @click="openAddAtributo(atributo.id)" class="btn btn-success mb-2 mr-4">
-    <i class="fa fa-plus" aria-hidden="true"></i></button>
-</td>
-</tr>
-</tbody>
-</table>
-              </div>
+            :height="695">
+            <div class="card">
+                <div class="card-header">
+                    <h4>
+                        <label style="font-weight:bold">Atributos de la categoria:</label>
+                        <span class="badge badge-warning ml-3">{{this.titleModal}}</span>
+                    <button type="button" class="close" @click="closeModificarAtributo()">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    </h4>
+                </div>
+                
+                <div class="card-body">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <div class="row">
+                        <div class="col-6">
+                            <h5 style="text-align:center">Atributos Actuales</h5>
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID Atributo</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                <tr v-for="atributo in atributosCategoria" :key="atributo.idAtributo">
+                                    <td>{{atributo.idAtributo}}</td>
+                                    <td>{{atributo.nombreAtributo}}</td>
+                                    <td width="200">
+                                    <button type="button" @click="eliminarAtributo(atributo.idAtributo)" class="btn btn-danger mb-2 mr-4">
+                                        <i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <h5 style="text-align:center">Disponibles</h5>
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID Atributo</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="atributo in atributosFaltantes" :key="atributo.idAtributo">
+                                        <td>{{atributo.id}}</td>
+                                        <td>{{atributo.nombre}}</td>
+                                        <td width="200">
+                                        <button type="button" @click="openAddAtributo(atributo.id)" class="btn btn-success mb-2 mr-4">
+                                            <i class="fa fa-plus" aria-hidden="true"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-          </div>
-       <div class="table-wrapper-scroll-y my-custom-scrollbar">
-
-
-
-</div>
-      </div>
-    </div>
-  <!--/div-->
-</div>
-</modal>
-
-        <!---->
-
-
-        <!-- -->
-
-<!-- Modal atributos add-->
-<div class="modal fade" id="exampleModalScrollable2" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle2" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle2">
-            <button type="button" class="btn btn-primary mr-2">Agregar atributos a la categoria:</button>
-             <button type="button" class="btn btn-warning mr-2">{{this.titleModal}}</button>
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <div class="table-wrapper-scroll-y my-custom-scrollbar">
-
-  
-
-</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </modal>
 
         <!---->
 
@@ -412,20 +370,6 @@
             openGen(){
                 this.$modal.hide('modal-general');
             },
-            buscarAtributosFaltantes(){
-                   axios.get('api/categoria-atributos-faltantes/categoria/'+this.idActual+'.json', {
-                    }).then(response => {
-                        console.log("enviado");
-                        console.log(response);
-                       this.atributosFaltantes=response.data;
-                    }).catch(error => {
-                        console.log(error.response.status);
-                        console.log(error.response.data);
-                        this.msgErr = error.response.data['exceptionLongDescription'];
-                        this.msnErrorIrreconocible = this.msgErr;
-                        this.$modal.show('modal-general');
-                    });
-            },
             openAddAtributo(idAtributoNuevo) {
                 axios.post('api/categoria-atributo.json', {
                     idCategoria : this.idActual,
@@ -478,6 +422,10 @@
                         console.log("enviado");
                         console.log(response);
                        this.atributosCategoria=response.data;
+                       axios.get('api/categoria-atributos-faltantes/categoria/'+this.idActual+'.json', {
+                        }).then(response => {
+                            this.atributosFaltantes=response.data;
+                        }) 
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -493,23 +441,6 @@
                 });
             },
             openAtributo(id,nombreCategoria){
-              this.$modal.show('agregarModificarAtributo');
-              this.titleModal=nombreCategoria;
-              this.idActual=id;
-               axios.get('api/categoria-atributo/categoria/'+id+'.json', {
-                    }).then(response => {
-                        console.log("enviado");
-                        console.log(response);
-                       this.atributosCategoria=response.data;
-                    }).catch(error => {
-                        console.log(error.response.status);
-                        console.log(error.response.data);
-                        this.msgErr = error.response.data['exceptionLongDescription'];
-                        this.msnErrorIrreconocible = this.msgErr;
-                        this.$modal.show('modal-general');
-                    });
-            },
-            openAtributo2(id,nombreCategoria){
                 this.$modal.show('agregarModificarAtributo');
                 this.titleModal=nombreCategoria;
                 this.idActual=id;
@@ -766,5 +697,10 @@
 }
 .show{
     display: block;
+}
+.my-custom-scrollbar{
+    overflow: auto; 
+    max-height: 550px; 
+    overflow-x: hidden;
 }
 </style>
