@@ -444,6 +444,8 @@
                         });
                     }
                 }).catch(error => {
+                    this.msnErrorAnuncion = 'No fue posible guardar la información debido a que existe un registro con el mismo nombre'
+                    this.$modal.show('closeErrorAnuncio');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
