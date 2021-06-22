@@ -36,7 +36,7 @@
                         <tr v-for="atributo in atributos" :key="atributo.id">
                             <td>{{atributo.id}}</td>
                             <td>{{atributo.nombre}}</td>
-                            <td>{{atributo.activo}}</td>
+                            <td class="center"><h4><span v-if="atributo.activo == 1" class="badge badge-info ml-2">Activo</span><span v-else class="badge badge-danger">Inactivo</span></h4></td>
                             <td>
                                 <button type="button" @click="openEdit(atributo.id, atributo.nombre,atributo.activo)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
@@ -125,12 +125,6 @@
                         <label for="atributo">Nombre del atributo:</label>
                         <input id="atributo" type="text" required class="form-control" :class="classNameN" placeholder="PESO" v-model="nombreNuevo">
                         <small class="notValid">{{msgNameN}}</small>
-                        <div class="custom-control custom-checkbox my-3">
-                            <input type="checkbox"
-                            v-model="estatus"  true-value="1"  false-value="0"
-                             class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1" >Activo</label>
-                        </div>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
@@ -646,7 +640,7 @@
             openAdd(){
                 this.nombreNuevo= '';
                 this.$modal.show('agregarAtributo');
-                this.estatus=0;
+                //this.estatus=0;
             },
             closeModalAdd: function() {
                 this.$modal.hide('mensaje-exito-add');
@@ -734,7 +728,7 @@
                 console.log(store.state);
                 axios.post('api/atributo.json', {
                     nombre : this.nombreNuevo,
-                    activo:this.estatus
+                    activo:1//this.estatus
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
