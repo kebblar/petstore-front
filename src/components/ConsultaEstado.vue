@@ -83,7 +83,7 @@
 
                     <div class="form-group my-4" style="text-align: right;">
                         <b-button variant="primary" class="mr-4" @click="modificarEstado">Aceptar</b-button>
-                        <b-button variant="danger" class="mr-4" @click="modificarEstado">Cancelar</b-button>
+                        <b-button variant="danger" class="mr-4" @click="closeModalEdit">Cancelar</b-button>
                     </div>
                 </div>
             </div>
