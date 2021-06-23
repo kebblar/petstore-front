@@ -131,19 +131,24 @@
             </div>
             <div>
               <b-card-group  v-for="(entry, i) in anuncios" :key="i" class="inline align-top"  v-bind:class="{ 'col-md-4': isActive, 'col-md-12': notActive }">
-
                 <b-card v-if="entry.imagenes != null" style="height:400px" class="m-1">
                     <b-row no-gutters v-if="notActive">
+
+
+
                       <b-col md="6" >
                             <div v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5">
                               <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="90%"/>
                             </div>
                             <div v-else>
                               <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top>
-                                <source :src="ruta + entry.imagenes[0].uuid" type="video/mp4" />
+                                <source :src="rutaVideo + entry.imagenes[0].uuid" type="video/mp4" />
                               </video>
                             </div>
                       </b-col>
+
+
+
                       <b-col md="6" style="padding:2%">
                          <b-card-title>{{entry.titulo}}</b-card-title>
                         <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
@@ -156,14 +161,26 @@
                       </b-col>
                     </b-row>
 
+
+
+
+
+
+
                     <div v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5" >
                       <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="50%" v-if="isActive"/>
                     </div>
                     <div v-else >
                       <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top v-if="isActive">
-                        <source :src="ruta + entry.imagenes[0].uuid" type="video/mp4" />
+                        <source :src="rutaVideo + entry.imagenes[0].uuid" type="video/mp4" />
                       </video>
                     </div>
+
+
+
+
+
+
                     <b-card-title v-if="isActive">{{entry.titulo}}</b-card-title>
                     <b-card-sub-title class="mb-2" v-if="isActive">{{ entry.descCategoria }}</b-card-sub-title>
                     <b-card-text v-html="entry.descripcion" v-if="isActive">
@@ -234,7 +251,10 @@ Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 export default {
   name: "ConsultaAnunciosPublico.vue",
   mounted () {
-    this.ruta = process.env.VUE_APP_URL_MEDIA;
+    this.ruta      = process.env.VUE_APP_URL_MEDIA;
+    this.rutaVideo = process.env.VUE_APP_URL_MEDIA_VIDEO;
+    console.log('-------------->'+this.rutaVideo);
+
     axios.get('api/categorias.json').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.categorias, key, { id: obj.id, valor:obj.categoria});
@@ -283,6 +303,7 @@ export default {
       notActive: false,
 
       ruta:'',
+      rutaVideo: process.env.VUE_APP_URL_MEDIA_VIDEO,
       idCategoria : '',
       idColor : '',
       idTamano : '',
