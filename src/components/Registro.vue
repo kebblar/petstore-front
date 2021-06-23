@@ -56,7 +56,7 @@
                 <li :class="styleCarac2">8 carateres como mínimo</li>
                 <li :class="styleUpper2">Una mayúscula</li>
                 <li :class="styleNum2">Un número</li>
-                <li :style="styleSpecial2">Un caracte especial, como _, -, #, etc.</li>
+                <li :style="styleSpecial2">Un caracter especial (_, -, #, etc.)</li>
               </ul>
             </small>
           </div>
