@@ -118,7 +118,8 @@ export default {
                 var ud = rd.usuarioDetalle;
                 console.log(response.data);
                 store.commit('setSession', {
-                    nombreCompleto: ud.nombre + ' ' + ud.apellidoPaterno + ' ' + ud.apellidoMaterno,
+                    nombreCompleto: ud.nombre + ' ' + ud.apellidoPaterno + ' ' + ud.apellidoMaterno, 
+                    detalles:     ud,
                     roles:        rd.roles,
                     correo:       rd.correo,
                     ultimoAcceso: rd.ultimoAcceso,

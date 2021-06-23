@@ -1,20 +1,14 @@
 <template>
     <div>
-
         <div class="barra">
           <div class="row">
-              <div class="col-sm-7">
-                <img src="./assets/logo.png" width="50px;"/> <label style="font-size:32px;">The Petstore App</label>
-
+              <div class="col-sm-6">
+                <img src="./assets/logo.png" width="50px;" @click="navega('/ui/creditos')"/> <label style="font-size:32px;">The Petstore App</label>
               </div>
-              <div class="col-sm-2"></div>
               <div class="col" style="text-align: right;">
                 <div v-if="logged">
                 <div class="row">
-                  <div class="col my-auto" align="right">
-                    <Carrito :ruta="ruta" :cantidad="cantidad"></Carrito>
-                  </div>
-                  <div class="col my-auto">
+                  <div class="col-sm-6">
                     <div class="btn-group divider">
                       <a
                           class="dropdown-toggle verde"
@@ -49,12 +43,13 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-sm-2" align="right">
+                    <Carrito :ruta="ruta" :cantidad="cantidad"></Carrito>
+                  </div>
+                  <div class="col-sm-4">
                     <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
                   </div>
-                  <div class="col-sm-1"></div>
                 </div>
-
                 </div>
 
                 <div v-else>

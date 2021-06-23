@@ -45,6 +45,10 @@ import Graficas from '@/components/Graficas'
 
 import GraficaMontoPorCategoriaContainer from '@/components/GraficaMontoPorCategoriaContainer'
 import ReporteGraficas from '@/components/ReporteGraficas'
+
+import Creditos from '@/components/Creditos'
+
+
 Vue.use(Router);
 
 const routes = [
@@ -66,6 +70,11 @@ const routes = [
     component: Pruebas
   },
   {
+    path: '/ui/creditos',
+    name: 'creditos',
+    component: Creditos
+  },
+  {
     path: '/ui/graficas',
     name: 'Graficas',
     component: Graficas,
@@ -85,7 +94,7 @@ const routes = [
     path: '/ui/cambia-clave',
     name: 'cambia-clave',
     component: CambiaClave,
-    meta: { allowedRoles: ['normal'] }
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/mis-compras',
@@ -146,7 +155,7 @@ const routes = [
     path: '/ui/compras',
     name: 'HistorialPedidos.vue',
     component: HistorialPedidos,
-    meta: { allowedRoles: ['admin','normal'] }
+    meta: { allowedRoles: ['normal'] }
   },
   {
     path: '/ui/login',
@@ -281,6 +290,7 @@ function checaJwt(jwt, active) {
 
 router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
+  axios.defaults.headers.common = {"jwt": store.state.session.jwt};
   checaJwt(store.state.session.jwt, false);
   if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:

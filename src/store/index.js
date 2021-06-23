@@ -9,6 +9,7 @@ const store = new Vuex.Store({
         destination: '/ui/upload',
         session: {
             nombreCompleto: '',
+            detalles: null,
             roles: [],
             correo: '',
             ultimoAcceso: '',
@@ -18,6 +19,12 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
+        setNombreCompleto(state, nombreCompleto) {
+            state.session.nombreCompleto = nombreCompleto;
+        },
+        setDetalles(state, ud) {
+            state.session.detalles = ud;
+        },
         setSession(state, ss) {
             state.session = ss;
         },
