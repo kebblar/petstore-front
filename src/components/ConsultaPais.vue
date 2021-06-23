@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="form-inline">
                     <label for="nombre" class="col-form-label mr-2">Nombre del pais:</label>
-                    <input type="text" required class="form-control mr-3" :class="className" placeholder="México" v-model="name">
+                    <input type="text" required class="form-control mr-3"  placeholder="México" v-model="name">
                     <!--small class="notValid">{{msgName}}</small-->
 
                     <button type="button" @click="submition" class="btn btn-primary mr-2">
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button variant="primary" class="mr-2" @click="modificarPais">Aceptar</b-button>
+                        <b-button variant="primary" :disabled="habilitaBotonActualizar" class="mr-2" @click="modificarPais">Aceptar</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalEdit">Cancelar</b-button>
                     </div>
                 </div>
@@ -264,11 +264,25 @@
                     this.classNameN="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
+            },
+            nombreActual() {
+                this.msgName="";
+                this.className="greenColor correct";
+                if (this.nombreActual.trim().length<3) {
+                    this.msgName="El pais debe contener más de 3 letras";
+                    this.className="redColor incorrect";
+                }
+                this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
             }
+
         },
         computed: {
             habilitaBoton: function() {
-                var dato = true && this.nombreNuevo && this.nombreNuevo.length>3
+                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2
+                return !dato;
+            },
+            habilitaBotonActualizar: function() {
+                var dato = true && this.nombreActual && this.nombreActual.length>2
                 return !dato;
             }
         },
@@ -347,32 +361,7 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-
-                    if (this.name) {
-                        axios.get('api/paises/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.paises=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/paises.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.paises=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                     this.$modal.show('mensaje-exito');
                 }).catch(error => {
                     console.log(error.response.status);
@@ -390,31 +379,7 @@
 
                     this.$modal.hide('agregarPais');
                     this.$modal.show('mensaje-exito-add');
-                    if (this.name) {
-                        axios.get('api/paises/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.paises=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/paises.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.paises=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);
@@ -432,33 +397,7 @@
                     this.paises=response.data;
                     this.$modal.hide('eliminarPais');
                     this.$modal.show('mensaje-exito-delete');
-                    if (this.name) {
-                        axios.get('api/paises/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.paises=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                            this.msnErrorIrreconocible = this.msgErr;
-                            this.$modal.show('modal-general');
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/paises.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.paises=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                 }).catch(error => {
                     this.$modal.hide('eliminarPais');
                     console.log(error.response.status);

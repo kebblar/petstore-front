@@ -152,12 +152,7 @@
                             <div class="modal-body">
                               <form class="mx-4">
                                 <div class="form-row form-group">
-                                  <div class="col-md-8">
-                                    <label for="nombre">
-                                      Nombre y Apellido
-                                    </label>
-                                    <input type="text" class="form-control" v-model="nuevaDireccion.nombre">
-                                  </div>
+
                                   <div class="col">
                                     <label for="tipo">Tipo dirección</label>
                                     <select id="inputState" class="form-control" v-model="nuevaDireccion.tipo">
@@ -240,8 +235,8 @@
               <p>Informacion de envio</p>
             </div>
             <div class="card-body" >
-              <b style="font-size: 14px;">Tu pedido sera entregado a</b>
-              <p><b class="format">{{dirText}}</b></p>
+              <p style="font-size: 14px;" class="mb-1">Tu pedido sera entregado a <Strong>{{nuevaDireccion.nombre}}</Strong></p>
+              <p style="font-size: 14px;">en el domicilio: <b class="format">{{dirText}}</b></p>
               <b style="font-size: 14px;">Por medio de</b>
               <p v-html="paqText"></p>
               <div class="container" align="center" v-show="showPagos">
@@ -297,20 +292,16 @@
 
             </div>
             </div>
-          <div v-show="shoppingKart.length>0" class="row mt-4">
-            <div class="col">
-              <div class="mx-auto w-100" ref="paypal"></div>
-            </div>
-          </div>
+
           <div v-show="shoppingKart.length===0" class="row my-4">
             <div class="col" align="center">
               <p class="text-center text-danger">No puedes continuar porque tu carrito está vacío</p>
             </div>
           </div>
           <div class="row">
-            <div class="col">
-              <div class="container">
-                <button v-show="shoppingKart.length>0" type="button" class="btn btn-block btn-outline-success" @click="getCartera" data-toggle="modal" data-target="#carteraBtc">Bitcoin</button>
+            <div class="col" style="height: 30%">
+              <div class="container" style="width: 83%; ">
+                <button style="height: 33px; margin-bottom: -10px;" v-show="shoppingKart.length>0" type="button" class="btn btn-block btn-outline-success mt-3" @click="getCartera" data-toggle="modal" data-target="#carteraBtc">Bitcoin</button>
 
                 <div class="modal fade" id="carteraBtc" role="dialog" tabindex="-1" aria-labelledby="MyWallet" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -345,6 +336,11 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div v-show="shoppingKart.length>0" class="row mt-4">
+            <div class="col">
+              <div class="w-75 mx-auto" ref="paypal"></div>
             </div>
           </div>
         </div>

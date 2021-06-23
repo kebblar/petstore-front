@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="form-inline">
                     <label for="nombre" class="col-form-label mr-2"> Nombre del municipio:</label>
-                    <input type="text" required class="form-control mr-3" :class="className" placeholder="Ixtapaluca" v-model="name">
+                    <input type="text" required class="form-control mr-3"  placeholder="Ixtapaluca" v-model="name">
                     <!--small class="notValid">{{msgName}}</small-->
 
                     <button type="button" @click="submition" class="btn btn-primary mr-2">
@@ -18,6 +18,28 @@
                         <i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div> <!-- end row -->
+
+             <br>
+            <div class="row">
+                <div class="col" >
+                <label for="pais" class="mr-2 mt-1">País:</label>
+                <select id="pais" class="custom-select col-4 mr-4 mt-2"  v-model="filtroPaisValue" @change="filtrarPais()">
+                    <option value="0">Todos</option>
+                    <option v-for="pais in paises" v-bind:key="pais.id" v-bind:value="pais.id">
+                        {{ pais.nombre }}
+                    </option>
+                </select>
+                <label for="pais" class="mr-4 mt-2">Estado:</label>
+                <select id="pais" class="custom-select col-4"  v-model="filtroEstadoValue" @change="filtrarEstado()">
+                    <option value="0">Todos</option>
+                    <option v-for="estado in estadosFiltro" v-bind:key="estado.id" v-bind:value="estado.id">
+                        {{ estado.nombre }}
+                    </option>
+                </select>
+                </div>
+            </div>
+
+            
 
     <br><br>
 
@@ -160,7 +182,7 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button variant="primary" class="mb-2 mr-4" @click="modificarMunicipio">Aceptar</b-button>
+                        <b-button variant="primary" :disabled="habilitaBotonActualizar" class="mb-2 mr-4" @click="modificarMunicipio">Aceptar</b-button>
                         <b-button variant="danger" class="mb-2 mr-4" @click="closeModalEdit">Cancelar</b-button>
                     </div>
                 </div>
@@ -306,6 +328,7 @@
                 idEstadoNuevo: 0,
                 paises: null,
                 estados: null,
+                estadosFiltro:null,
                 idPais:0,
                 idPaisNuevo:0,
                 className: 'defaultColor',
@@ -327,6 +350,8 @@
                 sliderValue : 100,
                 pwConfDisabled: true,
                 msnErrorIrreconocible: '',
+                filtroPaisValue:0,
+                filtroEstadoValue:0
             }
         },
         watch: {
@@ -338,21 +363,44 @@
                     this.classNameN="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
+            },
+            nombreActual (){
+                this.msgName="";
+                this.className="greenColor correct";
+                if (this.nombreActual.trim().length<3) {
+                    this.msgName="El pais debe contener más de 3 letras";
+                    this.className="redColor incorrect";
+                }
+                this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
             }
+        },
+         beforeMount(){
+            this.onInitPaises();
         },
         computed: {
             rows() {
                 return this.items.length;
             },
             habilitaBoton: function() {
-                var dato = true && this.nombreNuevo && this.nombreNuevo.length>3
+                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2
+                && this.idEstado != 0
+                return !dato;
+            },
+            habilitaBotonActualizar: function() {
+                var dato = true && this.nombreActual && this.nombreActual.length>2
+                && this.idEstadoNuevo != 0
                 return !dato;
             }
         },
         methods: {
             openGen(){
                 this.$modal.hide('modal-general');
-            },
+            }, onInitPaises(){
+                axios.get('api/paises.json', {
+                }).then(response => {
+                    this.paises=response.data;
+                })
+            }, 
             openEdit(id, nombre, idEstado){
                 this.idActual=id;
                 this.nombreActual=nombre;
@@ -431,41 +479,7 @@
                 this.$modal.hide('editarMunicipio');
             },
             submition() {
-                if (this.name) {
-                    axios.get('api/municipios/list/'+this.name+'.json', {
-                    }).then(response => {
-                        console.log("enviado");
-                        console.log(response);
-                        this.municipios=response.data;
-                        this.perPage= 15;
-                        this.currentPage= 1;
-                        this.items= this.municipios;
-                    }).catch(error => {
-                        console.log(error.response.status);
-                        console.log(error.response.data);
-                        this.msgErr = error.response.data['exceptionLongDescription'];
-                        this.msnErrorIrreconocible = this.msgErr;
-                        this.$modal.show('modal-general');
-                    })
-                }
-                else {
-                    console.log(store.state);
-                    axios.get('api/municipios/list/descripcion.json', {
-                    }).then(response => {
-                        console.log("enviado");
-                        console.log(response);
-                        this.municipios=response.data;
-                        this.perPage= 15;
-                        this.currentPage= 1;
-                        this.items= this.municipios;
-                    }).catch(error => {
-                        console.log(error.response.status);
-                        console.log(error.response.data);
-                        this.msgErr = error.response.data['exceptionLongDescription'];
-                        this.msnErrorIrreconocible = this.msgErr;
-                        this.$modal.show('modal-general');
-                    });
-                }
+                this.filtrarEstado();
             },
             modificarMunicipio() {
                 axios.put('api/municipio.json', {
@@ -477,61 +491,7 @@
                     console.log(response);
 
                     this.$modal.hide('editarMunicipio');
-
-                    if (this.name) {
-                        axios.get('api/municipios/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.municipios=response.data;
-                            this.items= this.municipios;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/municipios.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.municipios=response.data;
-                            this.items= this.municipios;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                        if (this.name) {
-                            axios.get('api/municipios/list/'+this.name+'.json', {
-                            }).then(response => {
-                                console.log("enviado");
-                                console.log(response);
-                                this.municipios=response.data;
-                                this.items= this.municipios;
-                            }).catch(error => {
-                                console.log(error.response.status);
-                                console.log(error.response.data);
-                                this.msgErr = error.response.data['exceptionLongDescription'];
-                            })
-                        }
-                        else {
-                            console.log(store.state);
-                            axios.get('api/municipios/list/descripcion.json', {
-                            }).then(response => {
-                                console.log("enviado");
-                                console.log(response);
-                                this.municipios=response.data;
-                                this.items= this.municipios;
-                            }).catch(error => {
-                                console.log(error.response.status);
-                                console.log(error.response.data);
-                                this.msgErr = error.response.data['exceptionLongDescription'];
-                            });
-                        }
-                    }
+                    this.submition();
                     this.$modal.show('mensaje-exito');
                 }).catch(error => {
                     console.log(error.response.status);
@@ -547,17 +507,7 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    axios.get('api/municipios/list/'+this.name+'.json', {
-                    }).then(response => {
-                        console.log("enviado-list");
-                        console.log(response);
-                        this.municipios=response.data;
-                        this.items= this.municipios;
-                    }).catch(error => {
-                        console.log(error.response.status);
-                        console.log(error.response.data);
-                        this.msgErr = error.response.data['exceptionLongDescription'];
-                    })
+                    this.submition();
                     this.$modal.hide('agregarMunicipio');
                     this.$modal.show('mensaje-exito-add');
                 }).catch(error => {
@@ -578,33 +528,7 @@
                     this.items= this.items.filter(items=>items.id!=this.idActual)
                     this.$modal.hide('eliminarMunicipio');
                     this.$modal.show('mensaje-exito-delete');
-                    if (this.name) {
-                        axios.get('api/municipios/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.municipios=response.data;
-                            this.items= this.items.filter(items=>items.id!=this.idActual)
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/municipios.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.municipios=response.data;
-                            this.items= this.items.filter(items=>items.id!=this.idActual)
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);
@@ -612,6 +536,8 @@
                 });
             },
             findEstadoByPais(pais){
+                this.idEstadoNuevo= 0;
+                this.idEstado=0;
                 axios.get('api/estados/pais/'+pais+'.json', {
                 }).then(response => {
                     console.log("enviado");
@@ -622,7 +548,59 @@
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
                 });
-            }
+
+
+            },filtrarPais(){
+               axios.get('api/estados/pais/'+this.filtroPaisValue+'.json', {
+                }).then(response => {
+                    console.log("enviado");
+                    console.log(response);
+                    this.estadosFiltro=response.data;
+                }).catch(error => {
+                    console.log(error.response.status);
+                    console.log(error.response.data);
+                    this.msgErr = error.response.data['exceptionLongDescription'];
+                });
+
+                      axios.get('api/municipios/pais/'+this.filtroPaisValue+'/'+this.name+'.json', {
+                    }).then(response => {
+                        console.log("enviado");
+                        console.log(response);
+                        this.municipios=response.data;
+                        this.filtroEstadoValue=0;
+                        this.perPage= 15;
+                        this.currentPage= 1;
+                        this.items= this.municipios;
+                    }).catch(error => {
+                        console.log(error.response.status);
+                        console.log(error.response.data);
+                        this.msgErr = error.response.data['exceptionLongDescription'];
+                        this.msnErrorIrreconocible = this.msgErr;
+                        this.$modal.show('modal-general');
+                    });
+            },
+            filtrarEstado(){
+                    if(this.filtroEstadoValue > 0) {
+                        axios.get('api/municipios/estado/'+this.filtroEstadoValue+'/'+this.name+'.json', {
+                    }).then(response => {
+                        console.log("enviado");
+                        console.log(response);
+                        this.municipios=response.data;
+                        this.perPage= 15;
+                        this.currentPage= 1;
+                        this.items= this.municipios;
+                    }).catch(error => {
+                        console.log(error.response.status);
+                        console.log(error.response.data);
+                        this.msgErr = error.response.data['exceptionLongDescription'];
+                        this.msnErrorIrreconocible = this.msgErr;
+                        this.$modal.show('modal-general');
+                    });
+                    } else {
+                        this.filtrarPais();
+                    }
+                 
+            },
         }
     }
 </script>

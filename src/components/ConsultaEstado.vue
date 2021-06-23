@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="form-inline">
                     <label for="nombre" class="col-form-label mr-2"> Nombre del estado:</label>
-                    <input type="text" required class="form-control mr-3" :class="className" placeholder="Ciudad de México" v-model="name">
+                    <input type="text" required class="form-control mr-3"  placeholder="Ciudad de México" v-model="name">
                     <!--small class="notValid">{{msgName}}</small-->
 
                     <button type="button" @click="submition" class="btn btn-primary mr-2">
@@ -18,6 +18,16 @@
                         <i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div> <!-- end row -->
+            <br>
+            <div class="row">
+                <label for="pais" class="mr-2 mt-1">País:</label>
+                <select id="pais" class="custom-select col-4"  v-model="filtroPaisValue" @change="filtrarPais()">
+                    <option value="0">Todos</option>
+                    <option v-for="pais in paises" v-bind:key="pais.id" v-bind:value="pais.id">
+                        {{ pais.nombre }}
+                    </option>
+                </select>
+            </div>
 
     <br><br>
 
@@ -82,7 +92,7 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button variant="primary" class="mr-4" @click="modificarEstado">Aceptar</b-button>
+                        <b-button variant="primary" :disabled="habilitaBotonActual" class="mr-4" @click="modificarEstado">Aceptar</b-button>
                         <b-button variant="danger" class="mr-4" @click="closeModalEdit">Cancelar</b-button>
                     </div>
                 </div>
@@ -284,6 +294,7 @@
                 paises: null,
                 idPais: 0,
                 idPaisNuevo: 0,
+                filtroPaisValue: 0,
 
                 className: 'defaultColor',
                 classNameN: 'defaultColor',
@@ -313,10 +324,18 @@
                 this.msgNameN="";
                 this.classNameN="greenColor correct";
                 if (this.nombreNuevo.trim().length<3) {
-                    this.msgNameN="El pais debe contener más de 3 letras";
+                    this.msgNameN="El estado debe contener más de 3 letras";
                     this.classNameN="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
+            },  nombreActual(){
+                this.msgName="";
+                this.className="greenColor correct";
+                if (this.nombreActual.trim().length<3) {
+                    this.msgName="El estado debe contener más de 3 letras";
+                    this.className="redColor incorrect";
+                }
+                this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
             }
         },
         computed: {
@@ -324,13 +343,32 @@
                 return this.items.length;
             },
             habilitaBoton: function() {
-                var dato = true && this.nombreNuevo && this.nombreNuevo.length>3
+                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2
+                &&  this.idPais != 0
+                return !dato;
+            },
+            habilitaBotonActual: function() {
+                var dato = true && this.nombreActual && this.nombreActual.length>2
+                &&  this.idPaisNuevo != 0
                 return !dato;
             }
+        },  
+        beforeMount(){
+            this.onInitPaises();
         },
         methods: {
             openGen(){
                 this.$modal.hide('modal-general');
+            },
+            onInitPaises(){
+                axios.get('api/paises.json', {
+                }).then(response => {
+                    this.paises=response.data;
+                })
+            },      
+            filtrarPais(){
+              this.submition();
+
             },
             openEdit(id, nombre, idPais){
                 axios.get('api/paises.json', {
@@ -362,7 +400,7 @@
                 this.$modal.hide('editarEstado');
             },
             openAdd(){
-                this.nombreNuevo = null;
+                this.nombreNuevo ="";
                 this.idPais = 0;
                 axios.get('api/paises.json', {
                 }).then(response => {
@@ -388,8 +426,8 @@
                 this.$modal.hide('editarEstado');
             },
             submition() {
-                if (this.name) {
-                    axios.get('api/estados/list/'+this.name+'.json', {
+                if ((this.name && this.filtroPaisValue > 0)||this.name) {
+                    axios.get('api/estados/list/'+this.name+'/'+this.filtroPaisValue+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -403,6 +441,14 @@
                         this.msgErr = error.response.data['exceptionLongDescription'];
                         this.msnErrorIrreconocible = this.msgErr;
                         this.$modal.show('modal-general');
+                    })
+                }  else if( this.filtroPaisValue > 0) {
+                     axios.get('api/estados/pais/'+this.filtroPaisValue+'.json', {
+                    }).then(response => {
+                        this.estados=response.data;
+                        this.perPage= 15;
+                        this.currentPage= 1;
+                        this.items= this.estados;
                     })
                 }
                 else {
@@ -432,34 +478,8 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    if (this.name) {
-                        axios.get('api/estados/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estados=response.data;
-                            this.items= this.estados;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/estados-nombre-pais.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estados=response.data;
-                            this.items= this.estados;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
-                    this.$modal.show('mensaje-exito');
+                    this.submition();
+                   this.$modal.show('mensaje-exito');
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);
@@ -477,17 +497,7 @@
                     this.$modal.hide('agregarEstado');
                     this.$modal.show('mensaje-exito-add');
 
-                    axios.get('api/estados/list/'+this.name+'.json', {
-                    }).then(response => {
-                        console.log("enviado");
-                        console.log(response);
-                        this.estados=response.data;
-                        this.items= this.estados;
-                    }).catch(error => {
-                        console.log(error.response.status);
-                        console.log(error.response.data);
-                        this.msgErr = error.response.data['exceptionLongDescription'];
-                    })
+                     this.submition();
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);
@@ -506,33 +516,7 @@
                     this.items= this.items.filter(items=>items.id!=this.idActual)
                     this.$modal.hide('eliminarEstado');
                     this.$modal.show('mensaje-exito-delete');
-                    if (this.name) {
-                        axios.get('api/estados/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estados=response.data;
-                            this.items= this.items.filter(items=>items.id!=this.idActual)
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/estados.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estados=response.data;
-                            this.items= this.items.filter(items=>items.id!=this.idActual)
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);
