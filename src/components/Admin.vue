@@ -11,7 +11,7 @@
       <div class="row mb-3">
         <div class="col d-flex my-2">
           <botonAdmin colorTarjeta="rgba(58,194,58,0.56)" titulo="Gráficos" descripcion="Información visual en tiempo real"
-                      link="graficas" icono="far fa-chart-bar fa-4x icono shrink" color="btn btn-success btn-block">
+                      link="reporte-graficas" icono="far fa-chart-bar fa-4x icono shrink" color="btn btn-success btn-block">
           </botonAdmin>
         </div>
         <div class="col d-flex my-2">
