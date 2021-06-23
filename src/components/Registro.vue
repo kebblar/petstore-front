@@ -43,6 +43,7 @@
                 <li :style="styleCarac">8 carateres como mínimo</li>
                 <li :style="styleUpper">Una mayúscula</li>
                 <li :style="styleNum">Un número</li>
+                <li :style="styleSpecial">Un caracte especial, como _, -, #, etc.</li>
               </ul>
             </small>
           </div>
@@ -55,6 +56,7 @@
                 <li :class="styleCarac2">8 carateres como mínimo</li>
                 <li :class="styleUpper2">Una mayúscula</li>
                 <li :class="styleNum2">Un número</li>
+                <li :style="styleSpecial2">Un caracte especial, como _, -, #, etc.</li>
               </ul>
             </small>
           </div>
@@ -190,7 +192,7 @@
 
   const emaiRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   const passRegex = new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
-
+  const regularExpression = new RegExp(/[&\\#, +(\-\\_)$~%.'":*?<>{}]/g);
 
   export default {
     components: {
@@ -224,10 +226,12 @@
         styleCarac : 'color:grey;',
         styleUpper : 'color:grey;',
         styleNum : 'color:grey;',
+        styleSpecial : 'color:grey',
 
         styleCarac2 : 'show',
         styleUpper2 : 'show',
         styleNum2 : 'show',
+        styleSpecial2 : 'show',
 
         styleCalendar : '',
         isVisible : 'hidden',
@@ -265,27 +269,31 @@
       },
 
       password(value){
+        this.msgPasswd="Clave incorrecta";
+        this.classPasswd="redColor incorrect";
+        this.pwConfDisabled = true;
         this.isVisible='show';
-        this.msgPasswd="";
-        this.classPasswd="greenColor correct";
-        this.pwConfDisabled = false;
-        this.confirm = null;
-        if(!passRegex.test(this.password)) {
-          this.msgPasswd="Clave incorrecta";
-          this.classPasswd="redColor incorrect";
-          this.pwConfDisabled = true;
+        if(passRegex.test(this.password) && regularExpression.test(this.password)) {
+
+          this.msgPasswd="";
+          this.classPasswd="greenColor correct";
+          this.pwConfDisabled = false;
+          this.confirm = null;
+
         }
         //Estilo para los requerimientos de la clave
         const red = 'color :  rgb(235, 74, 74) ;'
         const green = 'color : green  ;'
 
-        this.styleCarac = value.length<8 ? red : green;
-        this.styleUpper = (value.replace(/[*A-Z]/g, "").length)<value.length ? green : red;
-        this.styleNum = (value.replace(/[*0-9]/g, "").length)<value.length ? green : red;
+        this.styleCarac   = value.length<8 ? red : green;
+        this.styleUpper   = (value.replace(/[*A-Z]/g, "").length)<value.length ? green : red;
+        this.styleNum     = (value.replace(/[*0-9]/g, "").length)<value.length ? green : red;
+        this.styleSpecial = (value.replace(regularExpression, "").length)<value.length ? green : red;
 
-        this.styleCarac2 = value.length<8 ? 'show' : 'hidden';
-        this.styleUpper2 = (value.replace(/[*A-Z]/g, "").length)<value.length ? 'hidden' : 'show';
-        this.styleNum2 = (value.replace(/[*0-9]/g, "").length)<value.length ? 'hidden' : 'show';
+        this.styleCarac2   = value.length<8 ? 'show' : 'hidden';
+        this.styleUpper2   = (value.replace(/[*A-Z]/g, "").length)<value.length ? 'hidden' : 'show';
+        this.styleNum2     = (value.replace(/[*0-9]/g, "").length)<value.length ? 'hidden' : 'show';
+        this.styleSpecial2 = (value.replace(regularExpression, "").length)<value.length ? 'hidden' : 'show';
 
       },
 
