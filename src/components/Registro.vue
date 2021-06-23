@@ -269,15 +269,17 @@
       },
 
       password(value){
+        this.msgPasswd="Clave incorrecta";
+        this.classPasswd="redColor incorrect";
+        this.pwConfDisabled = true;
         this.isVisible='show';
-        this.msgPasswd="";
-        this.classPasswd="greenColor correct";
-        this.pwConfDisabled = false;
-        this.confirm = null;
-        if(!passRegex.test(this.password) && regularExpression.test(this.password)) {
-          this.msgPasswd="Clave incorrecta";
-          this.classPasswd="redColor incorrect";
-          this.pwConfDisabled = true;
+        if(passRegex.test(this.password) && regularExpression.test(this.password)) {
+
+          this.msgPasswd="";
+          this.classPasswd="greenColor correct";
+          this.pwConfDisabled = false;
+          this.confirm = null;
+
         }
         //Estilo para los requerimientos de la clave
         const red = 'color :  rgb(235, 74, 74) ;'
