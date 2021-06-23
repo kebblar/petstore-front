@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="form-inline">
                     <label for="nombre" class="col-form-label mr-2">Nombre del atributo:</label>
-                    <input type="text" required class="form-control mr-3" :class="className" placeholder="PESO" v-model="name">
+                    <input type="text" required class="form-control mr-3" placeholder="PESO" v-model="name">
                     <!--small class="notValid">{{msgName}}</small-->
 
                     <button type="button" @click="submition" class="btn btn-primary mr-2">
@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button variant="primary" class="mr-2" @click="modificarAtributo">Aceptar</b-button>
+                        <b-button variant="primary" :disabled="habilitaBotonActualizar" class="mr-2" @click="modificarAtributo">Aceptar</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalEdit">Cancelar</b-button>
                     </div>
                 </div>
@@ -394,8 +394,8 @@
               </div>
       </div>
         <div class="modal-footer">
-            <button type="button"  data-toggle="modal"  data-target="#exampleModalScrollable" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button"  data-toggle="modal"  data-target="#exampleModalScrollable"  @click="openAddRango" class="btn btn-success" data-dismiss="modal">Guardar</button>
+            <button type="button"   data-toggle="modal"  data-target="#exampleModalScrollable" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" :disabled="habilitaBotonRango" data-toggle="modal"  data-target="#exampleModalScrollable"  @click="openAddRango" class="btn btn-success" data-dismiss="modal">Guardar</button>
 
         </div>
         </div>
@@ -429,7 +429,7 @@
       </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-toggle="modal"  data-target="#exampleModalScrollable"  data-dismiss="modal">Cerrar</button>
-            <button type="button" @click="editRango" class="btn btn-success" data-dismiss="modal">Guardar</button>
+            <button type="button" :disabled="habilitaBotonRango" @click="editRango" data-toggle="modal"  data-target="#exampleModalScrollable" class="btn btn-success" data-dismiss="modal">Guardar</button>
 
         </div>
         </div>
@@ -456,6 +456,8 @@
                 name: '',
                 msgName : null,
                 msgNameN : null,
+                msgNameR : null,
+                msgNameNR : null,
                 idActual: 0,
                 estatus:0,
                 estatusRango:0,
@@ -469,6 +471,8 @@
                 nombreNuevoRango:'',
                 className: 'defaultColor',
                 classNameN: 'defaultColor',
+                classNameR: 'defaultColor',
+                classNameNR: 'defaultColor',
                 styleCarac : 'color:grey;',
                 styleUpper : 'color:grey;',
                 styleNum : 'color:grey;',
@@ -498,13 +502,40 @@
                     this.classNameN="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
-            }
+            },
+            nombreActual() {
+                this.msgName="";
+                this.className="greenColor correct";
+                if (this.nombreActual.trim().length<3) {
+                    this.msgName="La atributo debe contener más de 3 letras";
+                    this.className="redColor incorrect";
+                }
+                this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
+            },
+            nombreNuevoRango() {
+                this.msgName="";
+                this.className="greenColor correct";
+                if (this.nombreNuevoRango.trim().length<3) {
+                    this.msgName="La atributo debe contener más de 3 letras";
+                    this.className="redColor incorrect";
+                }
+                this.nombreNuevoRango= this.nombreNuevoRango.length===1 ? this.nombreNuevoRango.toUpperCase() : this.nombreNuevoRango;
+            },
+           
         },
         computed: {
             habilitaBoton: function() {
-                var dato = true && this.nombreNuevo && this.nombreNuevo.length>3;
+                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2;
                 return !dato;
-            }
+            },
+            habilitaBotonActualizar: function() {
+                var dato = true && this.nombreActual && this.nombreActual.length>2;
+                return !dato;
+            },
+             habilitaBotonRango: function() {
+                var dato = true && this.nombreNuevoRango && this.nombreNuevoRango.length>2;
+                return !dato;
+            },
         },
         methods: {
             openGen(){
@@ -708,31 +739,7 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    if (this.name) {
-                        axios.get('api/atributos/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.atributos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/atributos.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.atributos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                     this.$modal.show('mensaje-exito');
                 }).catch(error => {
                     console.log(error.response.status);
@@ -750,31 +757,7 @@
                     console.log(response);
                     this.$modal.hide('agregarAtributo');
                     this.$modal.show('mensaje-exito-add');
-                    if (this.name) {
-                        axios.get('api/atributos/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.atributos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/atributos.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.atributos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);
@@ -790,33 +773,9 @@
                     this.atributos=response.data;
                     this.$modal.hide('eliminarAtributo');
                     this.$modal.show('mensaje-exito-delete');
-                    if (this.name) {
-                        axios.get('api/atributos/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.atributos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/atributos.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.atributos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                 }).catch(error => {
-                    this.msnErrorAnuncion = 'Error al intentar eliminar el atributo, ya que cuenta se encuentra en uso por al menos una Categoria';
+                    this.msnErrorAnuncion = 'Error al intentar eliminar el atributo, Se encuentra en uso por al menos una Categoria o tiene algún rango asignado';
                     this.$modal.show('closeErrorAnuncio');
                     this.$modal.hide('eliminarAtributo');
                     console.log(error.response.status);
