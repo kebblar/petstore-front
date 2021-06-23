@@ -56,7 +56,7 @@
               <div class="row">
                 <div class="col-6">
                    <label for="precio" class="required">Precio</label>
-                   <input type="number" pattern="[0-9]" required onkeypress="return event.charCode >= 48 || event.charCode == 46" step="1" :class="classPrecio" class="form-control" v-model="precio" min="0" maxlength="9" />
+                   <input type="number" pattern="[0-9]" required onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46" step="1" :class="classPrecio" class="form-control" v-model="precio" min="0" maxlength="9" />
                    <small class="notValid">{{msgPrecio}}</small>
                 </div>
                 <div class="col-6">
@@ -205,7 +205,7 @@
                         </div>
                         <div v-else>
                             <video  class="video-fluid" autoplay loop muted style="padding: 2%" :style="item.principal?'border: 5px solid #469b27;':''" width="150px" height="150px">
-                            <source :src="ruta + item.uuid" type="video/mp4" />
+                            <source :src="rutaVideo + item.uuid" type="video/mp4" />
                           </video>
                         </div>
 
@@ -272,6 +272,7 @@ export default {
       msgSelectDin:"defaultColor",
       optionsGeneral:[],
       ruta:'',
+      rutaVideo:'',
       customToolbar:  [
         //[{ header: [false, 1, 2, 3, 4, 5, 6] }],
         ["bold", "italic","underline"], // toggled buttons
@@ -338,6 +339,7 @@ export default {
   },
    mounted () {
     this.ruta = process.env.VUE_APP_URL_MEDIA;
+    this.rutaVideo = process.env.VUE_APP_URL_MEDIA_VIDEO;
     if(this.$route.params.id === undefined){
       this.tituloProceso = "Registro del anuncio"
       this.id = 0;
