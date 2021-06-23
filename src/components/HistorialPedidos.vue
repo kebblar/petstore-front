@@ -10,7 +10,7 @@
             <div class="row" v-for="compra in comprasActivas" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
                     <div v-if="compra.urlImagen.includes('.mp4')">
-                      <video class="rounded img-thumbnail" :src="'http://petstore-media.ci.ultrasist.net/' + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left"></video>
+                      <video class="rounded img-thumbnail" :src="url_video + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left"></video>
                     </div>
                     <div v-else>
                       <img class="rounded img-thumbnail" :src="url + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
@@ -37,7 +37,7 @@
             <div class="row" v-for="compra in comprasInactivas" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
                     <div v-if="compra.urlImagen.includes('.mp4')">
-                      <video class="rounded img-thumbnail" :src="'http://petstore-media.ci.ultrasist.net/' + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left"></video>
+                      <video class="rounded img-thumbnail" :src="url_video + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left"></video>
                     </div>
                     <div v-else>
                       <img class="rounded img-thumbnail" :src=" url + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
@@ -93,6 +93,7 @@ export default {
   data(){
     return {
       url : process.env.VUE_APP_URL_MEDIA,
+      url_video : process.env.VUE_APP_URL_MEDIA_VIDEO,
       comprasActivas: [],
       comprasInactivas: [],
       compras: [],
