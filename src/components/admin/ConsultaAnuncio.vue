@@ -176,7 +176,14 @@
                     <td>{{ entry.folio }}</td>
                     <td>{{ entry.titulo }}</td>
                     <td>{{ entry.descripcionCategoria }}</td>
-                    <td>{{ entry.descripcionEstatus }}</td>
+                    <td>
+                       <h6 v-if="entry.idEstatus == 1"><span class="badge badge-pill badge-warning">{{ entry.descripcionEstatus }}</span></h6>  
+                       <h6 v-if="entry.idEstatus == 2"><span class="badge badge-pill badge-secondary">{{ entry.descripcionEstatus }}</span></h6>  
+                       <h6 v-if="entry.idEstatus == 3"><span class="badge badge-pill badge-success">{{ entry.descripcionEstatus }}</span></h6>  
+                       <h6 v-if="entry.idEstatus == 4"><span class="badge badge-pill badge-dark">{{ entry.descripcionEstatus }}</span></h6>  
+                       <h6 v-if="entry.idEstatus == 5"><span class="badge badge-pill badge-danger">{{ entry.descripcionEstatus }}</span></h6>  
+                       <h6 v-if="entry.idEstatus == 6"><span class="badge badge-pill badge-light">{{ entry.descripcionEstatus }}</span></h6>  
+                    </td>
                     <td v-if="entry.fechaInicioVigencia!=null && entry.fechaInicioVigencia!=''">{{ entry.fechaInicioVigencia.substring(0,10) }}</td>
                     <td v-else >{{'--'}}</td>
                     <td v-if="entry.fechaFinVigencia!=null && entry.fechaFinVigencia!=''">{{ entry.fechaFinVigencia.substring(0,10)}}</td>
@@ -241,23 +248,27 @@
               v-model="currentPage"
               :total-rows="rows"
               :per-page="perPage"
+              @change="handlePageChange"
+              first-text="Primero"
+              prev-text="Anterior"
+              next-text="Siguiente"
+              last-text="Último"
               class="mt-4 text-center">
-              <template #first-text>
-                <span @click="paginaEvento(1)" class="text-success">Primero</span>
+              <template v-if="currentPage != 1" #first-text>
+                <span class="text-success">Primero</span>
               </template>
               <template v-if="currentPage != 1" #prev-text>
-                <span @click="paginaEvento(currentPage - 1)" class="text-danger">Anterior</span>
+                <span  class="text-danger">Anterior</span>
               </template>
               <template v-if="rows / perPage != currentPage" #next-text>
-                <span @click="paginaEvento(currentPage + 1)" class="text-warning">Siguiente</span>
+                <span  class="text-warning">Siguiente</span>
               </template>
-              <template #last-text>
-                <span @click="paginaEvento(((rows / perPage)%2==0)?(rows / perPage):parseInt(rows / perPage)+1)"
-                       class="text-info">Último</span>
+              <template  v-if="rows / perPage != currentPage" #last-text>
+                <span class="text-info">Último</span>
               </template>
               <template #page="{ page, active }">
-                <b @click="paginaEvento(page)" v-if="active">{{ page }}</b>
-                <i @click="paginaEvento(page)" v-else>{{ page }}</i>
+                <b v-if="active">{{ page }}</b>
+                <i  v-else>{{ page }}</i>
               </template>
             </b-pagination>
           </div>
@@ -409,13 +420,9 @@ export default {
     }
   },
   methods: {
-    paginaEvento(numero) {
+    handlePageChange(numero) {
       let folioBack2= this.folio;
-     // if (this.folio == undefined || this.folio == '' ) {
-     //  folioBack2 = 0;
-      //}
-      axios
-        .post("/api/anuncio/search.json", {
+      axios.post("/api/anuncio/search.json", {
           folio: folioBack2,
           titulo: this.titulo,
           fechaInicioVigencia: this.fInicialV,

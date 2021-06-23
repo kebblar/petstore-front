@@ -43,7 +43,7 @@
                           width="150px" height="150px" /><br/>
                         <video v-if="item.uuid.includes('mp4') || item.uuid.includes('avi')" class="video-fluid" autoplay 
                           loop muted width="150px" height="150px">
-                          <source :src="ruta + item.uuid" type="video/mp4" />
+                          <source :src="rutaVideo + item.uuid" type="video/mp4" />
                         </video>
                       </td> 
                       <td>
@@ -78,11 +78,12 @@ export default {
   props:['imagenes','id'],
   mounted(){
     this.ruta = process.env.VUE_APP_URL_MEDIA;
+    this.rutaVideo = process.env.VUE_APP_URL_MEDIA_VIDEO;
   }, 
   created(){
     this.dropzoneOptions = {
           url: this.calcula(),
-          maxFilesize: 2,
+          maxFilesize: 30,
           thumbnailWidth: 140,
           thumbnailMethod: 'contain',
           addRemoveLinks: true,
@@ -104,6 +105,7 @@ export default {
   data: function () {
     return {
         ruta:'',
+        rutaVideo:'',
         titulo: 'Interfase de carga de imágenes',
         selected: 'true',
     }

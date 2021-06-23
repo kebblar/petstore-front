@@ -203,24 +203,27 @@
               v-model="currentPage"
               :total-rows="rows"
               :per-page="perPage"
+              @change="buscarAnuncios"
+              first-text="Primero"
+              prev-text="Anterior"
+              next-text="Siguiente"
+              last-text="Último"
               class="mt-4 text-center">
-              <template #first-text
-                ><span @click="buscarAnuncios(1)" class="text-success"
-                  >Primero</span
-                >
+              <template v-if="currentPage != 1" #first-text>
+                <span class="text-success">Primero</span>
               </template>
               <template v-if="currentPage != 1" #prev-text>
-                <span @click="buscarAnuncios(currentPage)" class="text-danger">Anterior</span>
+                <span  class="text-danger">Anterior</span>
               </template>
               <template v-if="rows / perPage != currentPage" #next-text>
-                <span @click="buscarAnuncios(currentPage)" class="text-warning">Siguiente</span>
+                <span  class="text-warning">Siguiente</span>
               </template>
-              <template #last-text>
-                <span @click="buscarAnuncios(currentPage)" class="text-info">Último</span>
+              <template  v-if="rows / perPage != currentPage" #last-text>
+                <span class="text-info">Último</span>
               </template>
               <template #page="{ page, active }">
-                <b @click="buscarAnuncios(currentPage)" v-if="active">{{ page }}</b>
-                <b @click="buscarAnuncios(currentPage)" v-else>{{ page }}</b>
+                <b v-if="active">{{ page }}</b>
+                <i  v-else>{{ page }}</i>
               </template>
             </b-pagination>
           </div>
