@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="form-inline">
                     <label for="nombre" class="col-form-label mr-2">Nombre del mediatipo:</label>
-                    <input type="text" required class="form-control mr-3" :class="className" placeholder="PNG" v-model="name">
+                    <input type="text" required class="form-control mr-3" placeholder="PNG" v-model="name">
                     <!--small class="notValid">{{msgName}}</small-->
 
                     <button type="button" @click="submition" class="btn btn-primary mr-2">
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button variant="primary" class="mr-2" @click="modificarMediatipo">Aceptar</b-button>
+                        <b-button variant="primary" :disabled="habilitaBotonActualizar" class="mr-2" @click="modificarMediatipo">Aceptar</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalEdit">Cancelar</b-button>
                     </div>
                 </div>
@@ -271,11 +271,24 @@
                     this.classNameN="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
+            },
+            nombreActual() {
+                this.msgName="";
+                this.className="greenColor correct";
+                if (this.nombreActual.trim().length<3) {
+                    this.msgName="La mediatipo debe contener más de 3 letras";
+                    this.className="redColor incorrect";
+                }
+                this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
             }
         },
         computed: {
             habilitaBoton: function() {
                 var dato = true && this.nombreNuevo && this.nombreNuevo.length>2;
+                return !dato;
+            },
+            habilitaBotonActualizar: function() {
+                var dato = true && this.nombreActual && this.nombreActual.length>2;
                 return !dato;
             }
         },
@@ -357,31 +370,7 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    if (this.name) {
-                        axios.get('api/mediatipos/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.mediatipos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/media-tipos.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.mediatipos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                     this.$modal.show('mensaje-exito');
                 }).catch(error => {
                     console.log(error.response.status);
@@ -399,31 +388,7 @@
                     console.log(response);
                     this.$modal.hide('agregarMediatipo');
                     this.$modal.show('mensaje-exito-add');
-                    if (this.name) {
-                        axios.get('api/mediatipos/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.mediatipos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/media-tipos.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.mediatipos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);
@@ -439,31 +404,7 @@
                     this.mediatipos=response.data;
                     this.$modal.hide('eliminarMediatipo');
                     this.$modal.show('mensaje-exito-delete');
-                    if (this.name) {
-                        axios.get('api/mediatipos/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.mediatipos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/media-tipos.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.mediatipos=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                 }).catch(error => {
                     console.log(error.response.status);
                     console.log(error.response.data);

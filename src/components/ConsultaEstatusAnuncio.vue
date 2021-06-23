@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="form-inline">
                     <label for="nombre" class="col-form-label mr-2">Nombre del estatus:</label>
-                    <input type="text" required class="form-control mr-3" :class="className" placeholder="ENVIADO" v-model="name">
+                    <input type="text" required class="form-control mr-3" placeholder="ENVIADO" v-model="name">
                     <!--small class="notValid">{{msgName}}</small-->
 
                     <button type="button" @click="submition" class="btn btn-primary mr-2">
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button variant="primary" class="mr-2" @click="modificarEstatusanuncio">Aceptar</b-button>
+                        <b-button variant="primary" :disabled="habilitaBotonActualizar" class="mr-2" @click="modificarEstatusanuncio">Aceptar</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalEdit">Cancelar</b-button>
                     </div>
                 </div>
@@ -287,11 +287,24 @@
                     this.classNameN="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
+            }, 
+              nombreActual() {
+                this.msgName="";
+                this.className="greenColor correct";
+                if (this.nombreActual.trim().length<3) {
+                    this.msgName="La estatusanuncio debe contener más de 3 letras";
+                    this.className="redColor incorrect";
+                }
+                this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
             }
         },
         computed: {
             habilitaBoton: function() {
-                var dato = true && this.nombreNuevo && this.nombreNuevo.length>3;
+                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2;
+                return !dato;
+            },
+            habilitaBotonActualizar: function() {
+                var dato = true && this.nombreActual && this.nombreActual.length>2;
                 return !dato;
             }
         },
@@ -375,31 +388,7 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    if (this.name) {
-                        axios.get('api/estatusanuncios/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estatusanuncios=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/estatus-anuncios.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estatusanuncios=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                   this.submition();
                     this.$modal.show('mensaje-exito');
                 }).catch(error => {
                     this.msnErrorAnuncion = 'No fue posible guardar la información debido a que existe un registro con el mismo nombre'
@@ -418,31 +407,7 @@
                     console.log(response);
                     this.$modal.hide('agregarEstatusanuncio');
                     this.$modal.show('mensaje-exito-add');
-                    if (this.name) {
-                        axios.get('api/estatusanuncios/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estatusanuncios=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/estatus-anuncios.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estatusanuncios=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();                    
                 }).catch(error => {
                     this.msnErrorAnuncion = 'No fue posible guardar la información debido a que existe un registro con el mismo nombre'
                     this.$modal.show('closeErrorAnuncio');
@@ -460,31 +425,7 @@
                     this.estatusanuncios=response.data;
                     this.$modal.hide('eliminarEstatusanuncio');
                     this.$modal.show('mensaje-exito-delete');
-                    if (this.name) {
-                        axios.get('api/estatusanuncios/list/'+this.name+'.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estatusanuncios=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        })
-                    }
-                    else {
-                        console.log(store.state);
-                        axios.get('api/estatus-anuncios.json', {
-                        }).then(response => {
-                            console.log("enviado");
-                            console.log(response);
-                            this.estatusanuncios=response.data;
-                        }).catch(error => {
-                            console.log(error.response.status);
-                            console.log(error.response.data);
-                            this.msgErr = error.response.data['exceptionLongDescription'];
-                        });
-                    }
+                    this.submition();
                 }).catch(error => {
                     this.msnErrorAnuncion = 'Error! el estatus se encuentra dentro de anuncios'
                     this.$modal.show('closeErrorAnuncio');
