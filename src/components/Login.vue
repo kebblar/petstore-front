@@ -89,7 +89,7 @@ export default {
                 return target;
             }
             if (typeof roles === 'string') {
-                return '/ui/inicio';
+                return '/';
             } else {
                 for(var i=0; i<roles.length; i++) {
                     switch(roles[i].nombre) {
