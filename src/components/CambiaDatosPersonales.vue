@@ -290,7 +290,8 @@
         }
         return res + valor;
       },
-      formatDate(d) {
+      formatDate(dd) {
+        var d = new Date(dd);
         const year = d.getFullYear(); // 2019
         const monthIndex = d.getMonth() + 1;// 0
         const day = d.getDate(); // 23
