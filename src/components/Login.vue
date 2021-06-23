@@ -94,7 +94,7 @@ export default {
                 for(var i=0; i<roles.length; i++) {
                     switch(roles[i].nombre) {
                         case 'admin': return '/ui/admin'; // rol 1 = administrador
-                        case 'user': return '/ui/user'; // rol 2 = usuario comun y corriente
+                        case 'user': return '/'; // rol 2 = usuario comun y corriente
                         default: return '/'; // otro rol cualquiera
                     }
                 } // ends for cycle with switch inside
