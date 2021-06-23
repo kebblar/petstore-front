@@ -13,7 +13,7 @@
                       <video class="rounded img-thumbnail" :src="'http://petstore-media.ci.ultrasist.net/' + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left"></video>
                     </div>
                     <div v-else>
-                      <img class="rounded img-thumbnail" :src="'https://photos.ci.ultrasist.net/' + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
+                      <img class="rounded img-thumbnail" :src="url + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
                     </div>
                     <p><b>{{compra.nombreAnuncio}}</b></p>
                     <div class="container">
@@ -40,7 +40,7 @@
                       <video class="rounded img-thumbnail" :src="'http://petstore-media.ci.ultrasist.net/' + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left"></video>
                     </div>
                     <div v-else>
-                      <img class="rounded img-thumbnail" :src="'https://photos.ci.ultrasist.net/' + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
+                      <img class="rounded img-thumbnail" :src=" url + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
                     </div>
                     <p><b>{{compra.nombreAnuncio}}</b></p>
                     <div class="container">
@@ -92,6 +92,7 @@ export default {
   name: "HistorialPedidos.vue",
   data(){
     return {
+      url : process.env.VUE_APP_URL_MEDIA,
       comprasActivas: [],
       comprasInactivas: [],
       compras: [],
