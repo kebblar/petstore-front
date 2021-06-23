@@ -9,7 +9,12 @@
           <div class="container">
             <div class="row" v-for="compra in comprasActivas" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
-                    <img class="rounded img-thumbnail" :src="compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
+                    <div v-if="compra.urlImagen.split('.').pop() === 'mp4'">
+                      <video class="rounded img-thumbnail" :src="url_video + compra.urlImagen" alt="video mascota" style="max-height: 100px; width: auto;float:left"></video>
+                    </div>
+                    <div v-else>
+                      <img class="rounded img-thumbnail" :src="url + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
+                    </div>
                     <p><b>{{compra.nombreAnuncio}}</b></p>
                     <div class="container">
                         <div class="row">
@@ -31,7 +36,12 @@
 
             <div class="row" v-for="compra in comprasInactivas" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
-                    <img class="rounded img-thumbnail" :src="'https://photos.ci.ultrasist.net/' + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
+                    <div v-if="compra.urlImagen.split('.').pop() === 'mp4'">
+                      <video class="rounded img-thumbnail" :src="url_video + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left"></video>
+                    </div>
+                    <div v-else>
+                      <img class="rounded img-thumbnail" :src=" url + compra.urlImagen" alt="imagen mascota" style="max-height: 100px; width: auto;float:left">
+                    </div>
                     <p><b>{{compra.nombreAnuncio}}</b></p>
                     <div class="container">
                         <div class="row">
@@ -82,6 +92,8 @@ export default {
   name: "HistorialPedidos.vue",
   data(){
     return {
+      url : process.env.VUE_APP_URL_MEDIA,
+      url_video : process.env.VUE_APP_URL_MEDIA_VIDEO,
       comprasActivas: [],
       comprasInactivas: [],
       compras: [],
