@@ -280,10 +280,12 @@ export default {
             Vue.set(this.aguas, key, { id: obj.id, valor:obj.rango});
         });
     });
+    this.idCategoria=this.$route.params.idCatInit,
+    this.buscarAnuncios(1)
   },
   data(){
     return {
-
+      //idCatInit: this.$route.params.idCatInit,
       isActive: true,
       notActive: false,
 
