@@ -77,7 +77,7 @@
                   value="" />
               </div>
               <div class="col-sm4">
-              <input type="button" class="btn btn-success" value="Buscar" />
+              <input type="button" class="btn btn-success" value="Buscar" @click="navega('/ui/consulta-anuncios-publico')"/>
               </div>
           </div>
         </div>

@@ -36,6 +36,7 @@
             <b-col md="7">
               <div>
                 <hooper group="group1" style="height: 400px; padding: 2%">
+
                   <slide v-for="imagen in imagenes" :key="imagen.uuid">
                     <b-card-img v-if="imagen.idTipo!=4 && imagen.idTipo!=5"
                       :src="ruta + imagen.uuid"
@@ -43,9 +44,10 @@
                       class="rounded-0">
                     </b-card-img>
                     <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 400px; padding: 2%">
-                      <source :src="ruta + imagen.uuid" type="video/mp4" />
+                      <source :src="rutaVideo + imagen.uuid" type="video/mp4" />
                     </video>
                   </slide>
+
                 </hooper>
 
                 <hooper
@@ -60,7 +62,7 @@
                       style="width: 150px; height: 150px">
                     </b-card-img>
                       <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 150px; width: 150px;padding: 2%">
-                        <source :src="ruta + imagen.uuid"  type="video/mp4" />
+                        <source :src="rutaVideo + imagen.uuid"  type="video/mp4" />
                       </video>
                   </slide>
                   <hooper-navigation slot="hooper-addons"></hooper-navigation>
@@ -143,6 +145,7 @@ import {
 import "hooper/dist/hooper.css";
 import axios from "axios";
 import router from "../router";
+
 export default {
   name: "DetalleProducto",
   components: {
@@ -153,7 +156,10 @@ export default {
   },
   mounted() {
     this.cargarDetalle(this.idprod),
-    this.ruta = (this.ruta = process.env.VUE_APP_URL_MEDIA);
+    this.ruta = process.env.VUE_APP_URL_MEDIA;
+    this.rutaVideo = process.env.VUE_APP_URL_MEDIA_VIDEO;
+    
+    console.log('----------------------------------->'+this.ruta);
     if(store.state.session.correo!=null){
       this.habilitaCompra = store.state.session.roles[0].nombre != "admin";
     }else{
@@ -168,6 +174,7 @@ export default {
       error: true,
       descripcionError: "",
       ruta: "",
+      rutaVideo:"",
       idprod: this.$route.params.idp,
       titulo: "",
       precio: "",
@@ -232,7 +239,7 @@ export default {
             this.imagenes = response.data.imagenes;
           }
         })
-        .catch((e) => {
+        .catch((e) => { 
           console.log(e);
           console.log(e.response.data);
           console.log(+e.response.data.exceptionLongDescription);
@@ -262,6 +269,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .hooper-slide {
   display: flex;
