@@ -2,10 +2,13 @@
   <div class="ancho centra">
     <div class="card">
       <div class="card-header">
-        <div class="row">
-          <div class="col-sm-6">
-            <label>Administración de anuncios</label>
-          </div>
+        <div class="row justify-content-between">
+            <div class="col-6">
+              <label>Administración de anuncios</label>
+            </div>
+            <div class="mr-1">
+              <button type="button" class="btn btn-danger" @click="regresar">Cancelar</button>
+            </div> 
         </div>
       </div>
       <div>
@@ -365,7 +368,7 @@ export default {
           }
           this.idCategoria = anuncio.idCategoria;
           this.precio = anuncio.precio;
-
+          this.longitudDescripcion = anuncio.descripcion.length;
           anuncio.atributos.forEach((aux) => {
               this.atributos.push({idValorAtributo: aux.idAtributo, valor: aux.valor });
           });
@@ -414,6 +417,9 @@ export default {
     }
   },
   methods: {
+    regresar() {
+      this.$router.push('/ui/admin-consulta-anuncio') ;
+    },
     guardar(resolve){
       console.log("--> Guardando datos --- ");
       console.log(this.atributos);
@@ -504,7 +510,7 @@ export default {
           console.log(response.data);
           Vue.$toast.open({
             message: msgOK,
-            type: 'info',
+            type: 'success',
             duration: 8000
            });
            this.$router.push('/ui/admin') ;
