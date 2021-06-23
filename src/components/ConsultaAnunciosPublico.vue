@@ -280,12 +280,10 @@ export default {
             Vue.set(this.aguas, key, { id: obj.id, valor:obj.rango});
         });
     });
-    this.idCategoria=this.$route.params.idCatInit,
-    this.buscarAnuncios(1)
+    this.cargaInicial(this.$route.params.idCatInit)
   },
   data(){
     return {
-      //idCatInit: this.$route.params.idCatInit,
       isActive: true,
       notActive: false,
 
@@ -458,6 +456,13 @@ export default {
           localStorage.idAguas = this.idAguas;
           localStorage.idLongevidad = this.idLongevidad;
         });
+    },
+    cargaInicial(idCat){
+      console.log();
+      if(idCat!=null && idCat!=0){
+        this.idCategoria=idCat;
+        this.buscarAnuncios(1);
+      }
     }
   }
 }
