@@ -292,6 +292,14 @@ router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   axios.defaults.headers.common = {"jwt": store.state.session.jwt};
   checaJwt(store.state.session.jwt, false);
+
+  axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+    store.commit('setCarrito', response.data);
+    console.log(response.data);
+  }).catch(e => {
+    console.log(e);
+  });
+
   if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:
     if (store.state.session.jwt==='') {
