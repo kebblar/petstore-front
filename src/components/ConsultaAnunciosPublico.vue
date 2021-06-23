@@ -15,7 +15,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idCategoria" class="form-control" style="font-size:11px;" v-model="idCategoria">
-                <option value="0">Seleccione</option>
+                <option value="">Seleccione</option>
                 <option :value="m.id" v-for="m in categorias" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idColor" class="form-control" style="font-size:11px;" v-model="idColor">
-                <option value="0">Seleccione</option>
+                <option value="">Seleccione</option>
                 <option :value="m.id" v-for="m in colores" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -48,7 +48,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idTamano" class="form-control" style="font-size:11px;" v-model="idTamano">
-                <option value="0">Seleccione</option>
+                <option value="">Seleccione</option>
                 <option :value="m.id" v-for="m in tamanos" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -59,7 +59,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idRaza" class="form-control" style="font-size:11px;" v-model="idRaza">
-                <option value="0">Seleccione</option>
+                <option value="">Seleccione</option>
                 <option :value="m.id" v-for="m in razas" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idPeso" class="form-control" style="font-size:11px;" v-model="idPeso">
-                <option value="0">Seleccione</option>
+                <option value="">Seleccione</option>
                 <option :value="m.id" v-for="m in pesos" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -81,7 +81,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idEdad" class="form-control" style="font-size:11px;" v-model="idEdad">
-                <option value="0">Seleccione</option>
+                <option value="">Seleccione</option>
                 <option :value="m.id" v-for="m in edades" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -92,7 +92,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idLongevidad" class="form-control" style="font-size:11px;" v-model="idLongevidad">
-                <option value="0">Seleccione</option>
+                <option value="">Seleccione</option>
                 <option :value="m.id" v-for="m in longevidades" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -103,7 +103,7 @@
             </div>
             <div class="letraBusqueda col-md-12">
               <select id="idAguas" class="form-control" style="font-size:11px;" v-model="idAguas">
-                <option value="0">Seleccione</option>
+                <option value="">Seleccione</option>
                 <option :value="m.id" v-for="m in aguas" :key="m.id">{{m.valor}}</option>
               </select>
             </div>
@@ -134,8 +134,6 @@
                 <b-card v-if="entry.imagenes != null" style="height:400px" class="m-1">
                     <b-row no-gutters v-if="notActive">
 
-
-
                       <b-col md="6" >
                             <div v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5">
                               <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="90%"/>
@@ -146,9 +144,6 @@
                               </video>
                             </div>
                       </b-col>
-
-
-
                       <b-col md="6" style="padding:2%">
                          <b-card-title>{{entry.titulo}}</b-card-title>
                         <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
@@ -161,12 +156,6 @@
                       </b-col>
                     </b-row>
 
-
-
-
-
-
-
                     <div v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5" >
                       <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="50%" v-if="isActive"/>
                     </div>
@@ -176,14 +165,9 @@
                       </video>
                     </div>
 
-
-
-
-
-
                     <b-card-title v-if="isActive">{{entry.titulo}}</b-card-title>
                     <b-card-sub-title class="mb-2" v-if="isActive">{{ entry.descCategoria }}</b-card-sub-title>
-                    <b-card-text v-html="entry.descripcion" v-if="isActive">
+                    <b-card-text v-html="entry.descripcion" v-if="isActive" class="puntitos">
                       {{ entry.descripcion }}
                     </b-card-text>
                     <b-card-text v-if="isActive">
@@ -194,8 +178,6 @@
                       <b-button block  variant="primary" @click="redireccion(entry.id)">Ver Anuncio</b-button>
                     </template>
                 </b-card>
-
-
 
               </b-card-group>
             </div>
@@ -425,33 +407,26 @@ export default {
     buscarAnuncios(numero) {
       console.log(numero);
       let envio= []
-      if(this.idPeso != '')
-      {
-        envio.push({id: 1, valor: this.idPeso})
+      if(this.idPeso != ''){
+        envio.push(this.idPeso)
       }
-      if(this.idRaza != '')
-      {
-        envio.push({id: 2, valor: this.idRaza})
+      if(this.idRaza != ''){
+        envio.push(this.idRaza)
       }
-      if(this.idColor != '')
-      {
-        envio.push({id: 3, valor: this.idColor})
+      if(this.idColor != ''){
+        envio.push(this.idColor)
       }
-      if(this.idTamano != '')
-      {
-        envio.push({id: 4, valor: this.idTamano})
+      if(this.idTamano != ''){
+        envio.push(this.idTamano)
       }
-      if(this.idEdad != '')
-      {
-        envio.push({id: 5, valor: this.idEdad})
+      if(this.idEdad != ''){
+        envio.push(this.idEdad)
       }
-      if(this.idLongevidad != '')
-      {
-        envio.push({id: 6, valor: this.idLongevidad})
+      if(this.idLongevidad != ''){
+        envio.push(this.idLongevidad)
       }
-      if(this.idAguas != '')
-      {
-        envio.push({id: 7, valor: this.idAguas})
+      if(this.idAguas != ''){
+        envio.push(this.idAguas)
       }
       axios.post("/api/anuncio/filter.json", {
           precio: this.precio,
@@ -518,5 +493,9 @@ export default {
   .ancho {
     max-width: 90%;
   }
+}
+.puntitos p {
+  white-space: nowrap;
+  overflow: hidden;
 }
 </style>
