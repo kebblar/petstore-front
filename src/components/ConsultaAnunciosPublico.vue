@@ -147,7 +147,7 @@
                       <b-col md="6" style="padding:2%">
                          <b-card-title>{{entry.titulo}}</b-card-title>
                         <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
-                        <b-card-text v-html="entry.descripcion">
+                        <b-card-text v-html="entry.descripcion" class="puntitosLarge">
                           {{ entry.descripcion }}
                         </b-card-text>
                         <b-card-text>
@@ -165,10 +165,10 @@
                       </video>
                     </div>
 
-                    <b-card-title v-if="isActive">{{entry.titulo}}</b-card-title>
+                    <b-card-title v-if="isActive" class="puntitosShort">{{entry.titulo}}</b-card-title>
                     <b-card-sub-title class="mb-2" v-if="isActive">{{ entry.descCategoria }}</b-card-sub-title>
-                    <b-card-text v-html="entry.descripcion" v-if="isActive" class="puntitos">
-                      {{ entry.descripcion }}
+                    <b-card-text v-html="entry.descripcion" v-if="isActive" class="puntitosShort">
+                     
                     </b-card-text>
                     <b-card-text v-if="isActive">
                       {{ entry.precio }}
@@ -501,8 +501,20 @@ export default {
     max-width: 90%;
   }
 }
-.puntitos p {
-  white-space: nowrap;
-  overflow: hidden;
+.puntitosShort{
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.puntitosLarge{
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
 }
 </style>
