@@ -10,19 +10,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Gráfica de importe total de ventas
                 </h1>
@@ -41,19 +32,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Gráfica de importe total de ventas con filtro de fechas
                 </h1>
@@ -97,19 +79,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Compradores más asiduos (Top 5)
                 </h1>
@@ -168,19 +141,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Gráfica de número total de órdenes de compra
                 </h1>
@@ -199,19 +163,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Gráfica de número total de órdenes de compra con filtro de
                   fechas
@@ -256,19 +211,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Gráfica de ventas totales por categoría
                 </h1>
@@ -288,19 +234,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra font-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Gráfica de ventas totales por categoría con filtro de fechas
                 </h1>
@@ -344,19 +281,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Categoría de mascota más vendida (Top 5)
                 </h1>
@@ -418,19 +346,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Gráfica de ventas totales por tipo de pago
                 </h1>
@@ -449,19 +368,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Gráfica de ventas totales por tipo de pago con filtro de
                   fechas
@@ -507,19 +417,10 @@
           >
             <b-card-text>
               <div
-                class="ancho centra"
-                style="
-                  width: 95%;
-                  margin-top: 5%;
-                  box-shadow: 0px 10px 10px black;
-                "
+                class="ancho centra box-shadow"
               >
                 <h1
-                  style="
-                    margin-left: 15%;
-                    font-size: 28px;
-                    text-shadow: -1px -1px 1px #333;
-                  "
+                  class="title-style"
                 >
                   Paquetería más popular
                 </h1>
@@ -1202,5 +1103,18 @@ export default {
   box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.4);
   border-radius: 20px;
   margin: 50px 0;
+}
+.box-shadow{
+    width: 95%;
+    margin-top: 5%;
+    box-shadow: #6c757d 2px 2px 15px 2px;
+    border-radius: 7px;
+    padding: 15px;
+}
+.title-style{
+  margin-left: 15%;
+  font-size: 28px;
+  font-weight: bold;
+  /*text-shadow: -1px -1px 1px #333;*/
 }
 </style>
