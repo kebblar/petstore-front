@@ -1,64 +1,65 @@
 <template>
     <div>
         <div class="barra">
+
           <div class="row">
-              <div class="col-sm-6">
+              <div class="col">
                 <img src="./assets/logo.png" width="50px;" @click="navega('/ui/creditos')"/> <label style="font-size:32px;">The Petstore App</label>
               </div>
-              <div class="col" style="text-align: right;">
-                <div v-if="logged">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="btn-group divider">
-                      <a
-                          class="dropdown-toggle verde"
-                          id="opcionesUsuario"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false">
-                        {{ nombre }}
-                      </a>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#" @click="navega('/ui/cambia-clave')" >Cambiar clave</a>
-                        <a class="dropdown-item" href="#" @click="navega('/ui/cambia-datos-personales')">Cambiar datos personales</a>
-                        <a class="dropdown-item" href="#" @click="navega('/ui/compras')">Mis compras</a>
-                        <a class="dropdown-item" href="#" @click="navega('/ui/mis-direcciones')">Mis direcciones</a>
-                        <a class="dropdown-item" href="#" @click="navega('/ui/mis-metodos-pago')">Mis métodos de pago</a>
-                        <div class="dropdown-divider" v-if="admin" ></div>
-                        <a v-if="admin" class="dropdown-item dropdown-toggle"  id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         Catalogos
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-pais')" >Paises</a>
-                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-estado')" >Estados</a>
-                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-municipio')" >Municipios</a>
-                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-estatus-anuncio')" >Estatus Anuncio</a>
-                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-tipos-medias')" >Tipos Media</a>
-                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-atributos')" >Atributos</a>
-                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-categorias')" >Categorias</a>
-                        </div>
-                         <div class="dropdown-divider"></div>
-                        <a v-if="admin" class="dropdown-item" href="#" @click="navega('/ui/reporte-graficas')">Reporte de gráficas</a>
-                        <a class="dropdown-item" href="#" @click="logout">Salir</a>
-                      </div>
+          </div>
+                
+          <b-navbar toggleable="lg" type="dark" variant="info">
+
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+              <b-collapse id="nav-collapse" is-nav>
+
+                <!-- Right aligned nav items -->
+                <b-navbar-nav class="ml-auto">
+                  
+                  <b-nav-form>
+                    <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+                    <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+                    <Carrito :ruta="ruta" :cantidad="cantidad" ></Carrito>
+                  </b-nav-form>
+
+                  <b-nav-item-dropdown right>
+                    <!-- Using 'button-content' slot -->
+                    <template #button-content>
+                      <em style="color:#ffff">{{ nombre }}</em>
+                    </template>
+                    <b-dropdown-item href="#" @click="navega('/ui/cambia-clave')">Cambiar Clave</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="navega('/ui/cambia-datos-personales')">Perfil</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="navega('/ui/compras')">Mis Compras</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="navega('/ui/mis-direcciones')">Mis Direcciones</b-dropdown-item>
+                    <b-dropdown-item href="#" @click="navega('/ui/mis-metodos-pago')">Mis Métodos de pago</b-dropdown-item>
+                    <div v-if="admin">
+                      <b-dropdown-divider/>
+                      <b-dropdown-item href="#" @click="navega('/ui/consulta-pais')">Catálogo Paises</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/consulta-estado')">Catálogo Estados</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/consulta-municipio')">Catálogo Municipios</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/consulta-estatus-anuncio')">Estatus Anuncio</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/consulta-tipos-medias')">Tipos Media</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/consulta-atributos')">Atributos</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/consulta-categorias')">Categorias</b-dropdown-item>
                     </div>
-                  </div>
-                  <div class="col-sm-2" align="right">
-                    <Carrito :ruta="ruta" :cantidad="cantidad"></Carrito>
-                  </div>
-                  <div class="col-sm-4">
+                    <b-dropdown-divider  />
+                    <b-dropdown-item href="#" @click="logout">Salir</b-dropdown-item>
+                  </b-nav-item-dropdown>
+
+                  <div v-if="logged">
                     <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
                   </div>
-                </div>
-                </div>
+                  <div v-else>
+                    <input @click="navega('/ui/registro')" type="button" class="btn btn-warning divider2" value="Registrarse" />
+                    <input @click="navega('/ui/login')" type="button" class="btn btn-success" value="Ingresar" />
+                  </div>        
 
-                <div v-else>
-                  <input @click="navega('/ui/registro')" type="button" class="btn btn-success" value="Registrarse" />
-                  &nbsp;
-                  <input @click="navega('/ui/login')" type="button" class="btn btn-info" value="Ingresar" />
-                </div>
-              </div>
-          </div>
+                </b-navbar-nav>
+
+              </b-collapse>
+
+          </b-navbar>
 
         </div>
 
@@ -89,10 +90,11 @@
 import router from './router'
 import store from './store'
 import Carrito from './components/Carrito'
+//import Navbar from './components/Navbar'
 
 export default {
     components: {
-      Carrito
+      Carrito //, Navbar
     },
     computed: {
       logged: function() {
@@ -160,6 +162,9 @@ export default {
 }
 .divider {
   padding-right: 20px;
+}
+.divider2 {
+  margin-right: 10px;
 }
 .verde {
   color:green;
