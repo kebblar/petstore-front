@@ -32,6 +32,7 @@
                           <a class="dropdown-item" href="#" @click="navega('/ui/consulta-pais')" >Paises</a>
                           <a class="dropdown-item" href="#" @click="navega('/ui/consulta-estado')" >Estados</a>
                           <a class="dropdown-item" href="#" @click="navega('/ui/consulta-municipio')" >Municipios</a>
+                          <a class="dropdown-item" href="#" @click="navega('/ui/consulta-paqueteria')" >Paqueterias</a>
                           <a class="dropdown-item" href="#" @click="navega('/ui/consulta-estatus-anuncio')" >Estatus Anuncio</a>
                           <a class="dropdown-item" href="#" @click="navega('/ui/consulta-tipos-medias')" >Tipos Media</a>
                           <a class="dropdown-item" href="#" @click="navega('/ui/consulta-atributos')" >Atributos</a>
