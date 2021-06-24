@@ -135,9 +135,9 @@
                     <b-row no-gutters v-if="notActive">
 
                       <b-col md="6" >
-                            <div v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5">
-                              <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="90%"/>
-                            </div>
+                           <img v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5" 
+                            class="card-img-top card-petstore-notActive" :src="ruta + entry.imagenes[0].uuid" img-alt="Image"/>
+                            
                             <div v-else>
                               <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top>
                                 <source :src="rutaVideo + entry.imagenes[0].uuid" type="video/mp4" />
@@ -148,7 +148,6 @@
                          <b-card-title>{{entry.titulo}}</b-card-title>
                         <b-card-sub-title class="mb-2">{{ entry.descCategoria }}</b-card-sub-title>
                         <b-card-text v-html="entry.descripcion" class="puntitosLarge">
-                          {{ entry.descripcion }}
                         </b-card-text>
                         <b-card-text>
                           {{ entry.precio }}
@@ -156,16 +155,15 @@
                       </b-col>
                     </b-row>
 
-                    <div v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5" >
-                      <img :src="ruta + entry.imagenes[0].uuid" img-alt="Image" img-top width="100%" height="50%" v-if="isActive"/>
-                    </div>
+                    <img v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5 && isActive" 
+                            class="card-img-top card-petstore" :src="ruta + entry.imagenes[0].uuid" img-alt="Image"/>
                     <div v-else >
                       <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top v-if="isActive">
                         <source :src="rutaVideo + entry.imagenes[0].uuid" type="video/mp4" />
                       </video>
                     </div>
 
-                    <b-card-title v-if="isActive" class="puntitosShort">{{entry.titulo}}</b-card-title>
+                    <b-card-title v-if="isActive" class="puntitosTitulo">{{entry.titulo}}</b-card-title>
                     <b-card-sub-title class="mb-2" v-if="isActive">{{ entry.descCategoria }}</b-card-sub-title>
                     <b-card-text v-html="entry.descripcion" v-if="isActive" class="puntitosShort">
                      
@@ -320,7 +318,7 @@ export default {
       anuncios: [],
       currentPage: null,
       rows: null,
-      perPage: 10
+      perPage: 9
     }
   },
   created(){
@@ -501,20 +499,37 @@ export default {
     max-width: 90%;
   }
 }
+.puntitosTitulo{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
 .puntitosShort{
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
 .puntitosLarge{
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: auto;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+   display: -webkit-box;
+}
+.card-petstore {
+  width:100% !important;
+  height:15vh !important;
+  object-fit:fill !important;
+}
+.card-petstore-notActive {
+  width:100% !important;
+  height:40vh !important;
+  object-fit:fill !important;
 }
 </style>
