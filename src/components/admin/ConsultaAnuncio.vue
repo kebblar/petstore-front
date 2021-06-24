@@ -207,7 +207,7 @@
                               </p>
                             </div>
                             <div class="col-3 align-self-center">
-                              <div v-if="entry.idEstatus != 5 ">
+                              <div v-if="entry.idEstatus != 5 &&  entry.idEstatus != 4">
                                 <p class="h6 mb-1">
                                   <b-button
                                     @click='editarAnuncio(entry.id)'
