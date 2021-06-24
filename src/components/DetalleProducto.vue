@@ -35,22 +35,25 @@
           <b-row no-gutters>
             <b-col md="7">
               <div>
-                <hooper group="group1" style="height: 400px; padding: 2%">
+                <hooper 
+                :autoPlay="true"
+                :playSpeed=5000
+                :centerMode="true"
+                :infiniteScroll="true" 
+                group="group1" style="height: 50vh; width:100%; padding: 2%">
 
-                  <slide v-for="imagen in imagenes" :key="imagen.uuid">
+                 <slide v-for="imagen in imagenes" :key="imagen.uuid">
                     <b-card-img v-if="imagen.idTipo!=4 && imagen.idTipo!=5"
                       :src="ruta + imagen.uuid"
                       alt="Image"
-                      class="rounded-0">
+                      class="card-img-top card-petstore-detalle">
                     </b-card-img>
-                    <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 400px; padding: 2%">
+                    <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 50vh; width:100%; padding: 2%">
                       <source :src="rutaVideo + imagen.uuid" type="video/mp4" />
                     </video>
                   </slide>
-
                 </hooper>
-
-                <hooper
+               <hooper
                   group="group1"
                   :itemsToShow="4"
                   :centerMode="true"
@@ -59,9 +62,9 @@
                     <b-card-img v-if="imagen.idTipo!=4 && imagen.idTipo!=5"
                       :src="ruta + imagen.uuid"
                       alt="Image"
-                      style="width: 150px; height: 150px">
+                      style="height: 15vh; width:15vh;">
                     </b-card-img>
-                      <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 150px; width: 150px;padding: 2%">
+                      <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 15vh; width:15vh;">
                         <source :src="rutaVideo + imagen.uuid"  type="video/mp4" />
                       </video>
                   </slide>
@@ -271,17 +274,16 @@ export default {
 </script>
 
 <style scoped>
-.hooper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.card-petstore-detalle{
+  height: 50vh !important;
+  object-fit: unset;
 }
 .hooper-pagination {
   position: absolute;
   bottom: 0;
   right: 50%;
   transform: translateX(50%);
-  display: flex;
+  display: inline;
   padding-bottom: 30px;
 }
 </style>
