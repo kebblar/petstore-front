@@ -10,19 +10,19 @@
                 <div class="row">
                     <div class="col-sm-4">
                       <div class="imagenes fill">
-                          <a href="#"><img src="../assets/catCaninos.png"/>
+                          <a href="#" @click="consultaAnuncios(1)"><img src="../assets/catCaninos.png"/>
                           <div class="centered">Caninos</div></a>
                       </div>
                     </div>
                     <div class="col-sm-4" style="text-align: right;">
                       <div class="imagenes fill">
-                          <a href="#"><img src="../assets/catFelinos.png"/>
+                          <a href="#" @click="consultaAnuncios(2)"><img src="../assets/catFelinos.png"/>
                           <div class="centered">Felinos</div></a>
                       </div>
                     </div>
                     <div class="col-sm-4" style="text-align: right;">
                       <div class="imagenes fill">
-                          <a href="#"><img src="../assets/catPeces.png"/>
+                          <a href="#" @click="consultaAnuncios(5)"><img src="../assets/catPeces.png"/>
                           <div class="centered">Peces</div></a>
                       </div>
                     </div>
@@ -30,19 +30,19 @@
                 <div class="row">
                     <div class="col-sm-4">
                       <div class="imagenes fill">
-                          <a href="#"><img src="../assets/catAranas.png"/>
+                          <a href="#" @click="consultaAnuncios(3)"><img src="../assets/catAranas.png"/>
                           <div class="centered">Arañas</div></a>
                       </div>
                     </div>
                     <div class="col-sm-4" style="text-align: right;">
                       <div class="imagenes fill">
-                          <a href="#"><img src="../assets/catReptiles.png"/>
+                          <a href="#" @click="consultaAnuncios(4)"><img src="../assets/catReptiles.png"/>
                           <div class="centered">Reptiles</div></a>
                       </div>
                     </div>
                     <div class="col-sm-4" style="text-align: right;">
                       <div class="imagenes fill">
-                          <a href="#"><img src="../assets/catAves.png"/>
+                          <a href="#" @click="consultaAnuncios(6)"><img src="../assets/catAves.png"/>
                           <div class="centered">Aves</div></a>
                       </div>
                     </div>
@@ -51,6 +51,20 @@
     </div>
   </div>
 </template>
+<script>
+import router from '../router';
+
+export default ({
+  setup() {
+    
+  },
+  methods: {
+    consultaAnuncios(idCatInit) {
+     router.push({path:'/ui/consulta-anuncios-publico/'+idCatInit}).catch(()=>{});
+    }
+  },
+})
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

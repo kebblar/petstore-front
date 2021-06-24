@@ -193,7 +193,7 @@
                       <div class="form-row form-group">
                         <b-button-group>
                           <div class="row">
-                            <div class="col-3 align-self-start">
+                            <div class="col-3 align-self-start" v-if="entry.idEstatus != 5 ">
                               <p class="h6 mb-1">
                                 <b-button
                                   @click='verAnuncio(entry.id)'
@@ -207,7 +207,7 @@
                               </p>
                             </div>
                             <div class="col-3 align-self-center">
-                              <div v-if="entry.idEstatus != 5 ">
+                              <div v-if="entry.idEstatus != 5 &&  entry.idEstatus != 4">
                                 <p class="h6 mb-1">
                                   <b-button
                                     @click='editarAnuncio(entry.id)'
