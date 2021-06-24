@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        destination: '/ui/upload',
+        destination: '/',
         session: {
             nombreCompleto: '',
             detalles: null,
