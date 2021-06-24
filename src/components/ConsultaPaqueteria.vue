@@ -9,11 +9,11 @@
 
             <div class="row">
                 <div class="form-inline">
-                    <label for="nombre" class="col-form-label mr-2">Agregar paqueteria:</label>
-                    <!--input type="text" required class="form-control mr-3"  v-model="name"-->
+                    <label for="nombre" class="col-form-label mr-2">Buscar paqueteria:</label>
+                    <input type="text" required class="form-control mr-3"  v-model="name">
 
-                    <!--button type="button" @click="submition" class="btn btn-primary mr-2">
-                        <i class="fa fa-search fa-fw" aria-hidden="true"></i>Consultar</button-->
+                    <button type="button" @click="submition" class="btn btn-primary mr-2">
+                        <i class="fa fa-search fa-fw" aria-hidden="true"></i>Consultar</button>
                     <button type="button" @click="openAdd" class="btn btn-success mr-2">
                         <i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
@@ -27,17 +27,20 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Descripción</th>
                             <th scope="col">Precio</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">HTML Descripción</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="p in paqueterias" :key="p.id">
                             <td>{{p.id}}</td>
                             <td>{{p.nombre}}</td>
-                            <td>{{p.breveDescripcion}}</td>
                             <td>{{p.precio}}</td>
-                            <td>
+                            <td>{{p.breveDescripcion}}</td>
+                            <td>{{p.htmlDescripcion}}</td>
+                            <td class="btn-contenido">
                                 <button type="button" @click="openEdit(p.id)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
                                 <button type="button" @click="openDelete(p.id)" class="btn btn-danger mb-2 mr-4">
@@ -56,7 +59,7 @@
             name="editarRegistro"
             :clickToClose="false"
             :reset="true"
-            :width="600"
+            :width="700"
             :height="590">
             <div class="card">
                 <div class="card-header">Editar Paquetería</div>
@@ -124,7 +127,7 @@
             name="agregarRegistro"
             :clickToClose="false"
             :reset="true"
-            :width="600"
+            :width="700"
             :height="590">
             <div class="card">
                 <div class="card-header">Agregar Paqueteria</div>
@@ -476,7 +479,18 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    console.info("...")
+                    axios.get('api/paqueteria/list/'+this.name+'.json', {
+                    }).then(response => {
+                        console.log("enviado");
+                        console.log(response);
+                        this.paqueterias=response.data;
+                    }).catch(error => {
+                        console.log(error.response.status);
+                        console.log(error.response.data);
+                        this.msgErr = error.response.data['exceptionLongDescription'];
+                        this.msnErrorIrreconocible = this.msgErr;
+                        this.$modal.show('modal-general');
+                    })
                 }
                 else {
                     console.log(store.state);
@@ -612,4 +626,8 @@
 .right-addon .icon { right: 0px;}
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+.btn-contenido {
+min-width: 150px;
+text-align: center;
+}
 </style>
