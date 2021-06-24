@@ -19,8 +19,11 @@
             <table class="table">
 
               <tr v-for="mascota in shoppingKart" :key="mascota.idAnuncio" align="center" >
-                <td class="w-25 tamanoImg">
-                  <img :src="mascota.urlImagen" class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="80%">
+                <td v-if="mascota.urlImagen.split('.').pop() !== 'mp4'" class="w-25 tamanoImg">
+                  <img :src=mascota.urlImagen class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="60%">
+                </td>
+                <td v-else class="w-25 tamanoImg">
+                  <video :src=getVideoUrl(mascota.urlImagen) class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="60%"></video>
                 </td>
                 <td style="padding: 3% 0;">{{mascota.titulo}}</td>
                 <td style="padding: 3% 0;" >${{mascota.precio}}</td>
@@ -90,7 +93,7 @@
                                     <li><b>{{pa.nombre}}</b>  ${{pa.precio}}<br>
                                       <small>{{pa.breveDescripcion}}</small><br>
                                       <div class="text-primary my-3" style="font-size: 12px;">
-                                        {{pa.htmlDescripcion}}
+                                        <p v-html="pa.htmlDescripcion"></p>
                                       </div>
                                     </li>
                                   </div>
@@ -300,8 +303,8 @@
           </div>
           <div class="row">
             <div class="col" style="height: 30%">
-              <div class="container" style="width: 83%; ">
-                <button style="height: 33px; margin-bottom: -10px;" v-show="shoppingKart.length>0" type="button" class="btn btn-block btn-outline-success mt-3" @click="getCartera" data-toggle="modal" data-target="#carteraBtc">Bitcoin</button>
+              <div class="container">
+                <button v-show="shoppingKart.length>0" style="width: 77%" type="button" class="btn btn-block btn-outline-success mt-3 mx-auto" @click="getCartera" data-toggle="modal" data-target="#carteraBtc">Bitcoin</button>
 
                 <div class="modal fade" id="carteraBtc" role="dialog" tabindex="-1" aria-labelledby="MyWallet" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -374,7 +377,7 @@ export default {
 
   data(){
     return {
-
+      url_video : process.env.VUE_APP_URL_MEDIA_VIDEO,
       shoppingKart : [],
       precioEnCripto : { monto: 0.000456,
                          cambio : 764567.0 },
@@ -438,6 +441,9 @@ export default {
   },
 
   methods: {
+    getVideoUrl(url){
+      return url.replace("https://photos.ci.ultrasist.net/", this.url_video);
+    },
     getCartera(){
       axios.get('/api/wallet/'+this.usuario+'.json', {}).then(response => {
         this.cartera = response.data;
