@@ -20,7 +20,12 @@
                   <b-nav-form>
                     <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
                     <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-                    <div v-if="!admin">
+                    <div v-if="admin">
+                        <a href="#" @click="navega('/ui/admin')">
+                          <i class="fas fa-home fa-2x divider3"></i>
+                        </a>                      
+                    </div>
+                    <div v-else>
                       <Carrito :ruta="ruta" :cantidad="cantidad" ></Carrito>
                     </div>
                   </b-nav-form>
@@ -47,6 +52,8 @@
                       <b-dropdown-item href="#" @click="navega('/ui/consulta-atributos')">Atributos</b-dropdown-item>
                       <b-dropdown-item href="#" @click="navega('/ui/consulta-categorias')">Categorias</b-dropdown-item>
                       <b-dropdown-item href="#" @click="navega('/ui/reporte-graficas')">Reportes Gráficos</b-dropdown-item>
+                      <b-dropdown-divider/>
+                      <b-dropdown-item href="#" @click="navega('/ui/admin')">Home Admin</b-dropdown-item>
                     </div>
                     <b-dropdown-divider  />
                     <b-dropdown-item href="#" @click="logout">Salir</b-dropdown-item>
@@ -170,6 +177,9 @@ export default {
 }
 .divider2 {
   margin-right: 10px;
+}
+.divider3 {
+  margin-left: 10px;
 }
 .verde {
   color:green;
