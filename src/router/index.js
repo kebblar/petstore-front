@@ -197,7 +197,7 @@ const routes = [
     meta: { allowedRoles: ['admin'] }
   },
   {
-    path: '/ui/consulta-anuncios-publico',
+    path: '/ui/consulta-anuncios-publico/:idCatInit?',
     name: 'consulta-anuncios-publico',
     component: ConsultaAnunciosPublico
   },

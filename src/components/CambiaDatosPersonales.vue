@@ -313,7 +313,7 @@
           //console.log(response.data);
           // actualiza el store
               var ud = response.data;
-              var nombreCompleto = ud.nombre + ' ' + ud.apellidoPaterno + ' ' + ud.apellidoMaterno;
+              var nombreCompleto = ud.nickName; //ud.nombre + ' ' + ud.apellidoPaterno + ' ' + ud.apellidoMaterno;
               store.commit('setNombreCompleto', nombreCompleto);
               store.commit('setDetalles', ud);
           // Redirige al home
