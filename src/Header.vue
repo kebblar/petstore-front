@@ -21,11 +21,12 @@
                     <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
                     <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
                     <div v-if="admin">
-                        <a href="#" @click="navega('/ui/admin')">
-                          <i class="fas fa-home fa-2x divider3"></i>
-                        </a>                      
+                        <a href="#" @click="navega('/ui/admin')"><i class="fas fa-home fa-2x divider3"></i></a>                      
                     </div>
                     <div v-else>
+                        <a href="#" @click="navega('/')"><i class="fas fa-home fa-2x divider3"></i></a>                      
+                    </div>
+                    <div v-if="!admin">
                       <Carrito :ruta="ruta" :cantidad="cantidad" ></Carrito>
                     </div>
                   </b-nav-form>
