@@ -85,6 +85,16 @@
                     </b-card-text>
                 </b-tab>
 
+                <b-tab 
+                    v-on:click="graficar_importe_total_ventas"
+                    title="Roles de Usuario">
+                    <b-card-text>
+                        <div class="ancho centra box-shadow">
+                            <ConsultaRol />
+                        </div>
+                    </b-card-text>
+                </b-tab>
+
 
 
 
@@ -107,6 +117,7 @@ import ConsultaPaqueteria from './ConsultaPaqueteria'
 import ConsultaMediaTipo from './ConsultaMediaTipo'
 import ConsultaAtributo from './ConsultaAtributo'
 import ConsultaCategoria from './ConsultaCategoria'
+import ConsultaRol from './ConsultaRol'
 
 export default {
     components: {
@@ -117,7 +128,8 @@ export default {
       ConsultaPaqueteria,
       ConsultaMediaTipo,
       ConsultaAtributo,
-      ConsultaCategoria
+      ConsultaCategoria,
+      ConsultaRol
     },
 }
 </script>

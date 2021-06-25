@@ -40,6 +40,7 @@ import ConsultaEstatusAnuncio from '@/components/ConsultaEstatusAnuncio'
 import ConsultaPais from '@/components/ConsultaPais'
 import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
+import ConsultaRol from '@/components/ConsultaRol'
 import Graficas from '@/components/Graficas'
 import ConsultaPaqueteria from '@/components/ConsultaPaqueteria'
 import Catalogos from '@/components/Catalogos'
@@ -254,6 +255,12 @@ const routes = [
     path: '/ui/consulta-municipio',
     name: 'ConsultaMunicipio',
     component:ConsultaMunicipio,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/consulta-rol',
+    name: 'ConsultaRol',
+    component:ConsultaRol,
     meta: { allowedRoles: ['admin'] }
   },
   {
