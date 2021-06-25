@@ -92,7 +92,8 @@ export default {
       tavo : '',
       vacio : true,
       shoppingKart : [],
-      url_video : process.env.VUE_APP_URL_MEDIA_VIDEO
+      url_video : process.env.VUE_APP_URL_MEDIA_VIDEO,
+      url_img : process.env.VUE_APP_URL_MEDIA,
     }
   },
   computed : {
@@ -117,7 +118,7 @@ export default {
       this.total = i;
     },
     getVideoUrl(url){
-      return url.replace("https://photos.ci.ultrasist.net/", this.url_video);
+      return url.replace(this.url_img, this.url_video);
     },
     actualiza() {
       axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {

@@ -378,6 +378,7 @@ export default {
   data(){
     return {
       url_video : process.env.VUE_APP_URL_MEDIA_VIDEO,
+      url_img : process.env.VUE_APP_URL_MEDIA,
       shoppingKart : [],
       precioEnCripto : { monto: 0.000456,
                          cambio : 764567.0 },
@@ -442,7 +443,7 @@ export default {
 
   methods: {
     getVideoUrl(url){
-      return url.replace("https://photos.ci.ultrasist.net/", this.url_video);
+      return url.replace(this.url_img, this.url_video);
     },
     getCartera(){
       axios.get('/api/wallet/'+this.usuario+'.json', {}).then(response => {
