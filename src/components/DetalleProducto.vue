@@ -276,7 +276,8 @@ export default {
 <style scoped>
 .card-petstore-detalle{
   height: 50vh !important;
-  object-fit: unset;
+  object-fit: contain;
+  background-color: black;
 }
 .hooper-pagination {
   position: absolute;

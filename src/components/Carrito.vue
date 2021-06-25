@@ -33,8 +33,11 @@
               </tr>
               </thead>
               <tr v-for="mascota in shoppingKart" :key="mascota.idAnuncio" align="center" >
-                <td class="w-25 tamanoImg">
+                <td v-if="mascota.urlImagen.split('.').pop() !== 'mp4'" class="w-25 tamanoImg">
                   <img :src=mascota.urlImagen class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="60%">
+                </td>
+                <td v-else class="w-25 tamanoImg">
+                  <video :src=getVideoUrl(mascota.urlImagen) class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="60%"></video>
                 </td>
                 <td style="padding: 3% 0;">{{mascota.titulo}}</td>
                 <td style="padding: 3% 0;" >${{mascota.precio}}</td>
@@ -88,7 +91,9 @@ export default {
       total : 0,
       tavo : '',
       vacio : true,
-      shoppingKart : []
+      shoppingKart : [],
+      url_video : process.env.VUE_APP_URL_MEDIA_VIDEO,
+      url_img : process.env.VUE_APP_URL_MEDIA,
     }
   },
   computed : {
@@ -111,6 +116,9 @@ export default {
         i = i + elem.precio;
       }
       this.total = i;
+    },
+    getVideoUrl(url){
+      return url.replace(this.url_img, this.url_video);
     },
     actualiza() {
       axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {

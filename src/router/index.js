@@ -42,6 +42,7 @@ import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 import ConsultaRol from '@/components/ConsultaRol'
 import Graficas from '@/components/Graficas'
+import ConsultaPaqueteria from '@/components/ConsultaPaqueteria'
 
 
 import GraficaMontoPorCategoriaContainer from '@/components/GraficaMontoPorCategoriaContainer'
@@ -253,6 +254,12 @@ const routes = [
     path: '/ui/consulta-rol',
     name: 'ConsultaRol',
     component:ConsultaRol,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/consulta-paqueteria',
+    name: 'ConsultaPaqueteria',
+    component:ConsultaPaqueteria,
     meta: { allowedRoles: ['admin'] }
   },
 ]
