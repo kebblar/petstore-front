@@ -2,43 +2,31 @@
   <div>
     <div>
       <b-card no-body>
+
         <b-tabs pills card vertical>
-          <b-tab
+
+          <b-tab 
             v-on:click="graficar_importe_total_ventas"
             title="Importe total ventas"
-            active
-          >
+            active>
             <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
-                >
-                  Gráfica de importe total de ventas
-                </h1>
+              <div class="ancho centra box-shadow">
+                <h1 class="title-style">Gráfica de importe total de ventas</h1>
                 <line-chart
                   v-if="loaded_importe_total_ventas"
                   :chartdata="chartdata_importe_total_ventas"
                   :options="options_line"
-                  style="margin-left:5%; width75%;"
-                />
+                  style="margin-left:5%; width75%;"/>
               </div>
             </b-card-text>
           </b-tab>
+
           <b-tab
             v-on:click="graficar_importe_total_ventas_filtro"
-            title="Importe total ventas con filtro de fechas"
-          >
+            title="Importe total ventas con filtro de fechas">
             <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
-                >
-                  Gráfica de importe total de ventas con filtro de fechas
-                </h1>
+              <div class="ancho centra box-shadow">
+                <h1 class="title-style">Gráfica de importe total de ventas con filtro de fechas</h1>
                 <div style="margin;auto; width:80%">
                   <HotelDatePicker
                     @check-in-changed="checkIn_importe_total_ventas"
@@ -46,8 +34,7 @@
                     format="YYYY-MM-DD"
                     style="margin-left: 15%; width: 50%"
                     :startDate="startDate"
-                    :i18n="i18n"
-                  />
+                    :i18n="i18n"/>
                   <button
                     v-on:click="graficar_importe_total_ventas_filtro"
                     class="btn btn-info"
@@ -55,12 +42,10 @@
                       margin-left: 2%;
                       background-color: #28a745;
                       color: #fff;
-                      border-radius: 0.25rem;
-                    "
+                      border-radius: 0.25rem;"
                     data-toggle="tooltip"
                     data-placement="left"
-                    title="Selecciona un rango de fecha para mostrar gráfica."
-                  >
+                    title="Selecciona un rango de fecha para mostrar gráfica.">
                     Actualizar
                   </button>
                 </div>
@@ -68,31 +53,22 @@
                   v-if="loaded_importe_total_ventas_filtro"
                   :chartdata="chartdata_importe_total_ventas_filtro"
                   :options="options_bar"
-                  style="margin-left: 15%; width: 75%"
-                />
+                  style="margin-left: 15%; width: 75%"/>
               </div>
             </b-card-text>
           </b-tab>
+
           <b-tab
             v-on:click="compradorG"
-            title="Compradores más asiduos (Top 5)"
-          >
+            title="Compradores más asiduos (Top 5)">
             <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
-                >
-                  Compradores más asiduos (Top 5)
-                </h1>
-
+              <div class="ancho centra box-shadow">
+                <h1 class="title-style">Compradores más asiduos (Top 5)</h1>
                 <pie-chart
                   v-if="loaded_comprador"
                   :chartdata="compradorPie"
                   :options="options_pie"
-                  style="margin-left:5%; width75%;"
-                />
+                  style="margin-left:5%; width75%;"/>
 
                 <div v-if="hideMeCMAG">
                   <br />
@@ -135,6 +111,7 @@
               </div>
             </b-card-text>
           </b-tab>
+          
           <b-tab
             v-on:click="graficar_numero_ordenes_total_ventas"
             title="Número total de órdenes de compra"
@@ -157,6 +134,7 @@
               </div>
             </b-card-text>
           </b-tab>
+          
           <b-tab
             v-on:click="graficar_numero_ordenes_total_ventas_filtro"
             title="Número total de órdenes de compra con filtro de fechas"
@@ -205,6 +183,7 @@
               </div>
             </b-card-text>
           </b-tab>
+          
           <b-tab
             v-on:click="graficar_monto_categoria"
             title="Ventas totales por categoría"
@@ -275,6 +254,7 @@
               </div>
             </b-card-text>
           </b-tab>
+          
           <b-tab
             v-on:click="mascotaVendidaG"
             title="Categoría de mascota más vendida (Top 5)"
@@ -340,6 +320,7 @@
               </div>
             </b-card-text>
           </b-tab>
+          
           <b-tab
             v-on:click="graficar_monto_tipo_pago"
             title="Ventas totales por tipo de pago"
@@ -362,6 +343,7 @@
               </div>
             </b-card-text>
           </b-tab>
+          
           <b-tab
             v-on:click="graficar_monto_tipo_pago_filtro"
             title="Ventas totales por tipo de pago con filtro de fechas"
@@ -476,7 +458,9 @@
               </div>
             </b-card-text>
           </b-tab>
+        
         </b-tabs>
+      
       </b-card>
 
       <!-- Modal -->
@@ -497,8 +481,11 @@
           </div>
         </div>
       </modal>
+    
     </div>
+  
   </div>
+
 </template>
 
 <script>

@@ -45,17 +45,9 @@
                     </div>
                     <div v-if="admin">
                       <b-dropdown-divider/>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-pais')">Catálogo Paises</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-estado')">Catálogo Estados</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-municipio')">Catálogo Municipios</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-estatus-anuncio')">Estatus Anuncio</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-paqueteria')">Paqueterias</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-tipos-medias')">Tipos Media</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-atributos')">Atributos</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-categorias')">Categorias</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/catalogos')">Catálogos</b-dropdown-item>
                       <b-dropdown-item href="#" @click="navega('/ui/reporte-graficas')">Reportes Gráficos</b-dropdown-item>
-                      <b-dropdown-divider/>
-                      <b-dropdown-item href="#" @click="navega('/ui/admin')">Home Admin</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/admin')">Home</b-dropdown-item>
                     </div>
                     <b-dropdown-divider  />
                     <b-dropdown-item href="#" @click="logout">Salir</b-dropdown-item>
@@ -104,11 +96,10 @@
 import router from './router'
 import store from './store'
 import Carrito from './components/Carrito'
-//import Navbar from './components/Navbar'
 
 export default {
     components: {
-      Carrito //, Navbar
+      Carrito
     },
     computed: {
       logged: function() {

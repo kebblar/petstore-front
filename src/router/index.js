@@ -42,6 +42,7 @@ import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
 import Graficas from '@/components/Graficas'
 import ConsultaPaqueteria from '@/components/ConsultaPaqueteria'
+import Catalogos from '@/components/Catalogos'
 
 
 import GraficaMontoPorCategoriaContainer from '@/components/GraficaMontoPorCategoriaContainer'
@@ -53,6 +54,12 @@ import Creditos from '@/components/Creditos'
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/catalogos',
+    name: 'Catalogos',
+    component: Catalogos,
+    meta: { allowedRoles: ['admin'] }
+  },
   {
     path: '/ui/reporte-graficas',
     name: 'ReporteGraficas',
