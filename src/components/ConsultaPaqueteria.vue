@@ -39,7 +39,7 @@
                             <td>{{p.nombre}}</td>
                             <td>{{p.precio}}</td>
                             <td>{{p.breveDescripcion}}</td>
-                            <td>{{p.htmlDescripcion}}</td>
+                            <td><p v-html="p.htmlDescripcion"></p></td>
                             <td class="btn-contenido">
                                 <button type="button" @click="openEdit(p.id)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
@@ -324,7 +324,7 @@
                     this.msgName1="La paqueteria debe contener más de 3 letras";
                     this.className1="redColor incorrect";
                 }
-                if (this.nombreNuevo.trim().length>20) {
+                if (this.nombreNuevo.trim().length>30) {
                     this.msgName1="La paqueteria debe contener menos letras";
                     this.className1="redColor incorrect";
                 }
@@ -361,7 +361,7 @@
                     this.msgName1="El pais debe contener más de 3 letras";
                     this.className1="redColor incorrect";
                 }
-                if (this.nombreActual.trim().length>20) {
+                if (this.nombreActual.trim().length>30) {
                     this.msgName1="La paqueteria debe contener menos letras";
                     this.className1="redColor incorrect";
                 }
@@ -395,7 +395,7 @@
         },
         computed: {
             habilitaBoton: function() {
-                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2 && this.nombreNuevo.length<=20
+                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2 && this.nombreNuevo.length<=30
                 && this.descripcion && this.descripcion.length<=50
                 && this.detalladaDescripcion && this.detalladaDescripcion.length<=500
                 && this.precio
@@ -403,7 +403,7 @@
             },
             habilitaBotonActualizar: function() {
                 var dato = true && this.nombreActual && this.nombreActual.length>2
-                && this.nombreActual && this.nombreActual.length<=20
+                && this.nombreActual && this.nombreActual.length<=30
                 && this.descripcionN && this.descripcionN.length<=50
                 && this.detalladaDescripcionN && this.detalladaDescripcionN.length<=500
                 && this.precioN
