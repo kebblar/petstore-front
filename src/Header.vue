@@ -49,6 +49,7 @@
                       <b-dropdown-item href="#" @click="navega('/ui/consulta-estado')">Catálogo Estados</b-dropdown-item>
                       <b-dropdown-item href="#" @click="navega('/ui/consulta-municipio')">Catálogo Municipios</b-dropdown-item>
                       <b-dropdown-item href="#" @click="navega('/ui/consulta-estatus-anuncio')">Estatus Anuncio</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/consulta-paqueteria')">Paqueterias</b-dropdown-item>
                       <b-dropdown-item href="#" @click="navega('/ui/consulta-tipos-medias')">Tipos Media</b-dropdown-item>
                       <b-dropdown-item href="#" @click="navega('/ui/consulta-atributos')">Atributos</b-dropdown-item>
                       <b-dropdown-item href="#" @click="navega('/ui/consulta-categorias')">Categorias</b-dropdown-item>
