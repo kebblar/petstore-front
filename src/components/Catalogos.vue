@@ -4,9 +4,7 @@
 
             <b-tabs pills card vertical>
 
-                <b-tab 
-                    v-on:click="graficar_importe_total_ventas"
-                    title="Paises"
+                <b-tab title="Paises"
                     active>
                     <b-card-text>
                         <div class="ancho centra box-shadow">
@@ -15,9 +13,7 @@
                     </b-card-text>
                 </b-tab>
 
-                <b-tab 
-                    v-on:click="graficar_importe_total_ventas"
-                    title="Estados">
+                <b-tab title="Estados">
                     <b-card-text>
                         <div class="ancho centra box-shadow">
                             <ConsultaEstado />
@@ -25,9 +21,7 @@
                     </b-card-text>
                 </b-tab>
 
-                <b-tab 
-                    v-on:click="graficar_importe_total_ventas"
-                    title="Municipios">
+                <b-tab title="Municipios">
                     <b-card-text>
                         <div class="ancho centra box-shadow">
                             <ConsultaMunicipio />
@@ -35,9 +29,7 @@
                     </b-card-text>
                 </b-tab>
 
-                <b-tab 
-                    v-on:click="graficar_importe_total_ventas"
-                    title="Estatus para Anuncios">
+                <b-tab title="Estatus para Anuncios">
                     <b-card-text>
                         <div class="ancho centra box-shadow">
                             <ConsultaEstatusAnuncio />
@@ -45,9 +37,7 @@
                     </b-card-text>
                 </b-tab>
 
-                <b-tab 
-                    v-on:click="graficar_importe_total_ventas"
-                    title="Servicios de Paqueteria">
+                <b-tab title="Servicios de Paqueteria">
                     <b-card-text>
                         <div class="ancho centra box-shadow">
                             <ConsultaPaqueteria />
@@ -55,9 +45,7 @@
                     </b-card-text>
                 </b-tab>
 
-                <b-tab 
-                    v-on:click="graficar_importe_total_ventas"
-                    title="Tipos de Multimedia">
+                <b-tab title="Tipos de Multimedia">
                     <b-card-text>
                         <div class="ancho centra box-shadow">
                             <ConsultaMediaTipo />
@@ -65,9 +53,7 @@
                     </b-card-text>
                 </b-tab>
 
-                <b-tab 
-                    v-on:click="graficar_importe_total_ventas"
-                    title="Categirias de Animales">
+                <b-tab title="Categirias de Animales">
                     <b-card-text>
                         <div class="ancho centra box-shadow">
                             <ConsultaCategoria />
@@ -75,9 +61,7 @@
                     </b-card-text>
                 </b-tab>
 
-                <b-tab 
-                    v-on:click="graficar_importe_total_ventas"
-                    title="Atributos de Categiria">
+                <b-tab title="Atributos de Categiria">
                     <b-card-text>
                         <div class="ancho centra box-shadow">
                             <ConsultaAtributo />
@@ -85,9 +69,7 @@
                     </b-card-text>
                 </b-tab>
 
-                <b-tab 
-                    v-on:click="graficar_importe_total_ventas"
-                    title="Roles de Usuario">
+                <b-tab title="Roles de Usuario">
                     <b-card-text>
                         <div class="ancho centra box-shadow">
                             <ConsultaRol />

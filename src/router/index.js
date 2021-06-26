@@ -74,7 +74,7 @@ const routes = [
     meta: { allowedRoles: ['admin'] }
   },
   {
-    path: '/ui/pba',
+    path: '/post/:seccion/:descripcion',
     name: 'pba',
     component: Pruebas
   },
