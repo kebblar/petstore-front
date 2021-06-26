@@ -9,19 +9,15 @@
       <li>{{e}}</li>
       <li>{{f}}</li>
       <b-button>Hola Mundo</b-button>
+      <h1>{{ resultado }}</h1>
+      <h1>{{ status }}</h1>
     </ul>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
 import store from '../store'
 import axios from 'axios';
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
 
 export default {
     data: function () {
@@ -31,7 +27,9 @@ export default {
           c: store.state.session.jwt,
           d: store.state.session.ultimoAcceso,
           e: store.state.session.roles,
-          f: store.state.destination
+          f: store.state.destination,
+          resultado:[],
+          status:''
         }
     },
     mounted() {
@@ -40,20 +38,23 @@ export default {
 
       axios.get('api/content/'+seccion+'/'+descripcion, {
       }).then(response => {
-        console.log(response);
-        console.log(response.data);
-        console.log(response.status);
+        this.status = response.status;
+        this.resultado = response.data;
       }).catch(error => {
         if(error.response) {
-            console.log(error);
+          console.log(error.response);
+        } else {
+          console.log(error);
         }
       }).finally(
-        console.log('finaliza proceso de solicitud de regeneracion de clave')
+        console.log('finaliza proceso de solicitud info via url path vars')
       );
 
     }
 }
 </script>
+
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 h3 {
