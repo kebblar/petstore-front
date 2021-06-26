@@ -38,7 +38,7 @@
                             <td>
                                 <button type="button" @click="openEdit(pais.id, pais.nombre)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
-                                <button type="button" @click="openDelete(pais.id)" class="btn btn-danger mb-2 mr-4">
+                                <button type="button" @click="openDelete(pais.id,pais.nombre)" class="btn btn-danger mb-2 mr-4">
                                     <i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
@@ -158,7 +158,7 @@
             <div class="card">
                 <div class="card-header">Eliminar pais</div>
                 <div class="card-body">
-                    <p class="card-text">¿Está seguro que desea eliminar el país?</p>
+                    <p class="card-text">¿Está seguro que desea eliminar el país {{this.nombreActual}}?</p>
                     <div class="my-4" style="text-align: right;">
                         <b-button variant="warning" class="mr-2" @click="eliminarPais">Si, eliminar!</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalDelete">Cerrar</b-button>
@@ -295,8 +295,9 @@
                 this.nombreActual=nombre;
                 this.$modal.show('editarPais');
             },
-            openDelete(id){
+            openDelete(id,nombre){
                 this.idActual=id;
+                this.nombreActual=nombre;
                 this.$modal.show('eliminarPais');
             },
             closeModalDelete: function() {

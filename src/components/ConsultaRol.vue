@@ -39,7 +39,7 @@
                             <td>
                                 <button type="button" @click="openEdit(r.id, r.nombre, r.activo)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
-                                <button type="button" @click="openDelete(r.id)" class="btn btn-danger mb-2 mr-4">
+                                <button type="button" @click="openDelete(r.id, r.nombre)" class="btn btn-danger mb-2 mr-4">
                                     <i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
@@ -66,11 +66,8 @@
                         <small class="notValid">{{msgName1}}</small>
                     </div>
 
-                    <div class="custom-control custom-checkbox my-3">
-                        <input type="checkbox"
-                        v-model="activo"  
-                            class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1" >Activo</label>
+                    <div >
+                       <b-form-checkbox v-model="activo">Activo</b-form-checkbox>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
@@ -165,7 +162,7 @@
             <div class="card">
                 <div class="card-header">Eliminar</div>
                 <div class="card-body">
-                    <p class="card-text">¿Está seguro que desea eliminar el registro?</p>
+                    <p class="card-text">¿Está seguro que desea eliminar el registro {{this.nombreActual}}?</p>
                     <div class="my-4" style="text-align: right;">
                         <b-button variant="warning" class="mr-2" @click="eliminarRegistro">Si, eliminar!</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalDelete">Cerrar</b-button>
@@ -279,11 +276,11 @@
                 this.msgName2="";
                 this.className2="greenColor correct";
                 if (this.nombreNuevo.trim().length<3) {
-                    this.msgName2="La paqueteria debe contener más de 3 letras";
+                    this.msgName2="El rol debe contener más de 3 letras";
                     this.className2="redColor incorrect";
                 }
                 if (this.nombreNuevo.trim().length>20) {
-                    this.msgName2="La paqueteria debe contener menos letras";
+                    this.msgName2="El rol debe contener menos letras";
                     this.className2="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
@@ -292,11 +289,11 @@
                 this.msgName1="";
                 this.className1="greenColor correct";
                 if (this.nombreActual.trim().length<3) {
-                    this.msgName1="El pais debe contener más de 3 letras";
+                    this.msgName1="El rol debe contener más de 3 letras";
                     this.className1="redColor incorrect";
                 }
                 if (this.nombreActual.trim().length>20) {
-                    this.msgName1="La paqueteria debe contener menos letras";
+                    this.msgName1="La rol debe contener menos letras";
                     this.className1="redColor incorrect";
                 }
                 this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
@@ -327,7 +324,8 @@
                 this.activo=activo;
                 this.$modal.show('editarRegistro');
             },
-            openDelete(id){
+            openDelete(id, nombre){
+                this.nombreActual=nombre;
                 this.idActual=id;
                 this.$modal.show('eliminarRegistro');
             },

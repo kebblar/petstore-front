@@ -2,13 +2,13 @@
 <div class="ancho centra" style="max-width:1200px">
     <div class="card defaultColor">
         <div class="card-header">
-            <label class="control-label h4">Consulta de Mediatipos</label>
+            <label class="control-label h4">Consulta de Multimedias</label>
         </div>
         <div class="card-body align" style="margin:20px;">
 
             <div class="row">
                 <div class="form-inline">
-                    <label for="nombre" class="col-form-label mr-2">Nombre del mediatipo:</label>
+                    <label for="nombre" class="col-form-label mr-2">Nombre del multimedias:</label>
                     <input type="text" required class="form-control mr-3" placeholder="PNG" v-model="name">
                     <!--small class="notValid">{{msgName}}</small-->
 
@@ -39,7 +39,7 @@
                             <td>
                                 <button type="button" @click="openEdit(mediatipo.id, mediatipo.descripcion,mediatipo.activo)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
-                                <button type="button" @click="openDelete(mediatipo.id)" class="btn btn-danger mb-2 mr-4">
+                                <button type="button" @click="openDelete(mediatipo.id, mediatipo.descripcion)" class="btn btn-danger mb-2 mr-4">
                                     <i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
@@ -58,11 +58,11 @@
             :width="480"
             :height="245">
             <div class="card">
-                <div class="card-header">Editar mediatipo</div>
+                <div class="card-header">Editar multimedias</div>
                 <div class="card-body">
                     <!--label class="mr-2" style="width:220px">Id: {{idActual}}</label-->
                     <div class="form-group">
-                        <label for="mediatipo">Nombre del mediatipo:</label>
+                        <label for="mediatipo">Nombre del multimedias:</label>
                         <input id="mediatipo" type="text" required class="form-control" :class="className" placeholder="PNG" v-model="nombreActual">
                         <small class="notValid">{{msgName}}</small>
                         <div class="custom-control custom-checkbox my-3">
@@ -92,7 +92,7 @@
             <div class="card">
                 <div class="card-header">Actualización Exitosa</div>
                 <div class="card-body">
-                    <h5 class="card-title">El mediatipo se actualizo correctamente</h5>
+                    <h5 class="card-title">El multimedia se actualizo correctamente</h5>
                     <p class="h1 mb-2" style="text-align:center;font-size:4em">
                         <b-icon icon="check-circle" variant="success"></b-icon>
                     </p>
@@ -112,7 +112,7 @@
             :width="480"
             :height="245">
             <div class="card">
-                <div class="card-header">Agregar mediatipo</div>
+                <div class="card-header">Agregar Multimedia</div>
                 <div class="card-body">
                     <div class="form-group">
                         <label for="mediatipo">Nombre del mediatipo:</label>
@@ -143,7 +143,7 @@
             <div class="card">
                 <div class="card-header">Registro Exitoso</div>
                 <div class="card-body">
-                    <h5 class="card-title">El mediatipo se agrego correctamente</h5>
+                    <h5 class="card-title">El multimedia se agrego correctamente</h5>
                     <p class="h1 mb-2" style="text-align:center;font-size:4em">
                         <b-icon icon="check-circle" variant="success"></b-icon>
                     </p>
@@ -163,9 +163,9 @@
             :width="480"
             :height="200">
             <div class="card">
-                <div class="card-header">Eliminar mediatipo</div>
+                <div class="card-header">Eliminar Multimedia</div>
                 <div class="card-body">
-                    <p class="card-text">¿Está seguro que desea eliminar el mediatipo?</p>
+                    <p class="card-text">¿Está seguro que desea eliminar el multimedia {{this.nombreActual}}?</p>
                     <div class="my-4" style="text-align: right;">
                         <b-button variant="warning" class="mr-2" @click="eliminarMediatipo">Si, eliminar!</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalDelete">Cerrar</b-button>
@@ -185,7 +185,7 @@
             <div class="card">
                 <div class="card-header">Borrado Exitoso</div>
                 <div class="card-body">
-                    <h5 class="card-title">El mediatipo se elimino correctamente</h5>
+                    <h5 class="card-title">El multimedia se elimino correctamente</h5>
                     <p class="h1 mb-2" style="text-align:center;font-size:4em">
                         <b-icon icon="check-circle" variant="success"></b-icon>
                     </p>
@@ -267,7 +267,7 @@
                 this.msgNameN="";
                 this.classNameN="greenColor correct";
                 if (this.nombreNuevo.trim().length<3) {
-                    this.msgNameN="La mediatipo debe contener más de 3 letras";
+                    this.msgNameN="El multimedia debe contener más de 3 letras";
                     this.classNameN="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
@@ -276,7 +276,7 @@
                 this.msgName="";
                 this.className="greenColor correct";
                 if (this.nombreActual.trim().length<3) {
-                    this.msgName="La mediatipo debe contener más de 3 letras";
+                    this.msgName="El multimedia debe contener más de 3 letras";
                     this.className="redColor incorrect";
                 }
                 this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
@@ -302,7 +302,8 @@
                 this.estatusActual=estatus;
                 this.$modal.show('editarMediatipo');
             },
-            openDelete(id){
+            openDelete(id,nombre){
+                this.nombreActual=nombre;
                 this.idActual=id;
                 this.$modal.show('eliminarMediatipo');
             },

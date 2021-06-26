@@ -67,7 +67,7 @@
 
                 <b-tab 
                     v-on:click="graficar_importe_total_ventas"
-                    title="Categirias de Animales">
+                    title="Categorias de Animales">
                     <b-card-text>
                         <div class="ancho centra box-shadow">
                             <ConsultaCategoria />
