@@ -89,9 +89,8 @@ methods: {
         this.$modal.hide('aviso');
     },
     changePage: function(numero){
-      numero = numero - 1;
-      this.currentPage = this.compras.slice((this.perPage*numero), ((this.perPage*numero))+this.perPage);
-      this.page=numero+1;
+      this.currentPage = this.compras.slice((this.perPage*(numero - 1)), ((this.perPage*(numero - 1)))+this.perPage);
+      this.page=numero;
     },
     getHistorial(){
       axios.get('api/administracion-compras.json/').then(response => {
