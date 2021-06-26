@@ -43,7 +43,7 @@
                         <template #cell(Acciones)="row">
                             <b-button variant="success" @click="openEdit(row.item.id, row.item.nombre, row.item.idPais)" class="mr-4">
                                 <i class="fa fa-edit" aria-hidden="true"></i></b-button>
-                            <b-button variant="danger" @click="openDelete(row.item.id)">
+                            <b-button variant="danger" @click="openDelete(row.item.id,row.item.nombre)">
                                 <i class="fa fa-trash" aria-hidden="true"></i></b-button>
                         </template>
                 </b-table>
@@ -84,7 +84,7 @@
 
                     <div class="form-group mt-3">
                         <label for="pais">País:</label>
-                        <select id="pais" v-model="idPaisNuevo" class="custom-select" :class="className">
+                        <select id="pais" v-model="idPaisNuevo" class="custom-select">
                             <option v-for="pais in paises" v-bind:key="pais.id" v-bind:value="pais.id">
                                 {{ pais.nombre }}
                             </option>
@@ -192,7 +192,7 @@
             <div class="card">
                 <div class="card-header">Eliminar estado</div>
                 <div class="card-body">
-                      <p class="card-text">¿Está seguro que desea eliminar el estado?</p>
+                      <p class="card-text">¿Está seguro que desea eliminar el estado {{this.nombreActual}}?</p>
                     <div class="my-4" style="text-align: right;">
                         <b-button variant="warning" class="mr-4" @click="eliminarEstado">Si, eliminar</b-button>
                         <b-button variant="danger" class="mr-4" @click="closeModalDelete">Cerrar</b-button>
@@ -386,8 +386,9 @@
                 this.idPaisNuevo = idPais;
                 this.$modal.show('editarEstado');
             },
-            openDelete(id){
+            openDelete(id,nombre){
                 this.idActual=id;
+                this.nombreActual=nombre;
                 this.$modal.show('eliminarEstado');
             },
             closeModalDelete: function() {
@@ -518,9 +519,12 @@
                     this.$modal.show('mensaje-exito-delete');
                     this.submition();
                 }).catch(error => {
+                    this.$modal.hide('eliminarEstado');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
+                    this.msnErrorIrreconocible = this.msgErr;
+                    this.$modal.show('modal-general');
                 });
             }
         }

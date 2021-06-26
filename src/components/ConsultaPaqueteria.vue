@@ -43,7 +43,7 @@
                             <td class="btn-contenido">
                                 <button type="button" @click="openEdit(p.id)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
-                                <button type="button" @click="openDelete(p.id)" class="btn btn-danger mb-2 mr-4">
+                                <button type="button" @click="openDelete(p.id,p.nombre)" class="btn btn-danger mb-2 mr-4">
                                     <i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
@@ -204,7 +204,7 @@
             <div class="card">
                 <div class="card-header">Eliminar</div>
                 <div class="card-body">
-                    <p class="card-text">¿Está seguro que desea eliminar el registro?</p>
+                    <p class="card-text">¿Está seguro que desea eliminar el registro {{this.nombreActual}}?</p>
                     <div class="my-4" style="text-align: right;">
                         <b-button variant="warning" class="mr-2" @click="eliminarRegistro">Si, eliminar!</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalDelete">Cerrar</b-button>
@@ -358,7 +358,7 @@
                 this.msgName1="";
                 this.className1="greenColor correct";
                 if (this.nombreActual.trim().length<3) {
-                    this.msgName1="El pais debe contener más de 3 letras";
+                    this.msgName1="La paqueteria debe contener más de 3 letras";
                     this.className1="redColor incorrect";
                 }
                 if (this.nombreActual.trim().length>30) {
@@ -406,7 +406,7 @@
                 && this.nombreActual && this.nombreActual.length<=30
                 && this.descripcionN && this.descripcionN.length<=50
                 && this.detalladaDescripcionN && this.detalladaDescripcionN.length<=500
-                && this.precioN
+                && this.precioN > -1
                 return !dato;
             }
         },
@@ -429,7 +429,8 @@
                 this.detalladaDescripcionN=data.htmlDescripcion;
                 this.precioN=data.precio;
             },
-            openDelete(id){
+            openDelete(id,nombre){
+                this.nombreActual=nombre;
                 this.idActual=id;
                 console.log("Se va a eliminar el id: "+ this.idActual)
                 this.$modal.show('eliminarRegistro');
