@@ -3,15 +3,14 @@
 <div class="ancho centra" style="max-width:1200px">
     <div class="card defaultColor">
         <div class="card-header">
-            <label class="control-label h4">Consulta de País</label>
+            <label class="control-label h4">Registro de Paqueterias</label>
         </div>
         <div class="card-body align" style="margin:20px;">
 
             <div class="row">
                 <div class="form-inline">
-                    <label for="nombre" class="col-form-label mr-2">Nombre del pais:</label>
-                    <input type="text" required class="form-control mr-3"  placeholder="México" v-model="name">
-                    <!--small class="notValid">{{msgName}}</small-->
+                    <label for="nombre" class="col-form-label mr-2">Buscar paqueteria:</label>
+                    <input type="text" required class="form-control mr-3"  v-model="name">
 
                     <button type="button" @click="submition" class="btn btn-primary mr-2">
                         <i class="fa fa-search fa-fw" aria-hidden="true"></i>Consultar</button>
@@ -28,17 +27,23 @@
                         <tr>
                             <th scope="col">id</th>
                             <th scope="col">Nombre</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">HTML Descripción</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="pais in paises" :key="pais.id">
-                            <td>{{pais.id}}</td>
-                            <td>{{pais.nombre}}</td>
-                            <td>
-                                <button type="button" @click="openEdit(pais.id, pais.nombre)" class="btn btn-success mb-2 mr-4">
+                        <tr v-for="p in paqueterias" :key="p.id">
+                            <td>{{p.id}}</td>
+                            <td>{{p.nombre}}</td>
+                            <td>{{p.precio}}</td>
+                            <td>{{p.breveDescripcion}}</td>
+                            <td><p v-html="p.htmlDescripcion"></p></td>
+                            <td class="btn-contenido">
+                                <button type="button" @click="openEdit(p.id)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
-                                <button type="button" @click="openDelete(pais.id,pais.nombre)" class="btn btn-danger mb-2 mr-4">
+                                <button type="button" @click="openDelete(p.id,p.nombre)" class="btn btn-danger mb-2 mr-4">
                                     <i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
@@ -51,23 +56,43 @@
         <!-- Modal -->
 
         <modal
-            name="editarPais"
+            name="editarRegistro"
             :clickToClose="false"
             :reset="true"
-            :width="480"
-            :height="245">
+            :width="700"
+            :height="590">
             <div class="card">
-                <div class="card-header">Editar pais</div>
+                <div class="card-header">Editar Paquetería</div>
                 <div class="card-body">
-                    <!--label class="mr-2" style="width:220px">Id: {{idActual}}</label-->
                     <div class="form-group">
-                        <label for="pais">Nombre del pais:</label>
-                        <input id="pais" type="text" required class="form-control" :class="className" placeholder="México" v-model="nombreActual">
-                        <small class="notValid">{{msgName}}</small>
+                        <label for="nombrepaqueteria">Nombre:</label>
+                        <input id="nombrepaqueteria" type="text" required class="form-control" :class="className1" v-model="nombreActual">
+                        <small class="notValid">{{msgName1}}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resdescripEdit">Breve descripción:</label>
+                        <input id="resdescripEdit" type="text" required class="form-control" :class="className2" v-model="descripcionN">
+                        <small class="notValid">{{msgName2}}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descDetalladaEdit">Descripción Detallada:</label>
+                        <b-form-textarea id="descDetalladaEdit" type="text-area" required class="form-control" :class="className3" v-model="detalladaDescripcionN" rows="4" max-rows="4"></b-form-textarea>
+                        <small class="notValid">{{msgName3}}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="precioEdit">Costo de Envío:</label>
+                        <div class="inner-addon left-addon">
+                            <b-icon class="icon" icon="cash-stack"></b-icon>
+                            <input id="precioEdit" type="text" required autocomplete="off" class="form-control" :class="className4" v-model="precioN" @keypress="ingresaDinero">
+                        </div>
+                        <small class="notValid">{{msgName4}}</small>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button variant="primary" :disabled="habilitaBotonActualizar" class="mr-2" @click="modificarPais">Aceptar</b-button>
+                        <b-button variant="primary" :disabled="habilitaBotonActualizar" class="mr-2" @click="modificarRegistro">Aceptar</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalEdit">Cancelar</b-button>
                     </div>
                 </div>
@@ -85,7 +110,7 @@
             <div class="card">
                 <div class="card-header">Actualización Exitosa</div>
                 <div class="card-body">
-                    <h5 class="card-title">El pais se actualizo correctamente</h5>
+                    <h5 class="card-title">Se actualizo correctamente</h5>
                     <p class="h1 mb-2" style="text-align:center;font-size:4em">
                         <b-icon icon="check-circle" variant="success"></b-icon>
                     </p>
@@ -99,18 +124,39 @@
         <!-- Modal -->
 
         <modal
-            name="agregarPais"
+            name="agregarRegistro"
             :clickToClose="false"
             :reset="true"
-            :width="480"
-            :height="245">
+            :width="700"
+            :height="590">
             <div class="card">
-                <div class="card-header">Agregar pais</div>
+                <div class="card-header">Agregar Paqueteria</div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="pais">Nombre del pais:</label>
-                        <input id="pais" type="text" required class="form-control" :class="classNameN" placeholder="México" v-model="nombreNuevo">
-                        <small class="notValid">{{msgNameN}}</small>
+                        <label for="nombrepaqueteria">Nombre:</label>
+                        <input id="nombrepaqueteria" type="text" required class="form-control" :class="className1" v-model="nombreNuevo">
+                        <small class="notValid">{{msgName1}}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="resdescrip">Breve descripción:</label>
+                        <input id="resdescrip" type="text" required class="form-control" :class="className2" v-model="descripcion">
+                        <small class="notValid">{{msgName2}}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pais">Descrpcion Detallada:</label>
+                        <b-form-textarea id="pais" type="text-area" required class="form-control" :class="className3" v-model="detalladaDescripcion" rows="4" max-rows="4"></b-form-textarea>
+                        <small class="notValid">{{msgName3}}</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="precio">Costo de Envío:</label>
+                        <div class="inner-addon left-addon">
+                            <b-icon class="icon" icon="cash-stack"></b-icon>
+                            <input id="precio" type="text" required autocomplete="off" class="form-control" :class="className4" v-model="precio" @keypress="ingresaDinero">
+                        </div>
+                        <small class="notValid">{{msgName4}}</small>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
@@ -118,7 +164,7 @@
                             :disabled="habilitaBoton"
                             variant="primary"
                             class="mr-4"
-                            @click="agregarPais">Aceptar</b-button>
+                            @click="agregarRegistro">Aceptar</b-button>
                         <b-button variant="danger" @click="closeModalAdd2">Cancelar</b-button>
                     </div>
                 </div>
@@ -136,7 +182,7 @@
             <div class="card">
                 <div class="card-header">Registro Exitoso</div>
                 <div class="card-body">
-                    <h5 class="card-title">El pais se agrego correctamente</h5>
+                    <h5 class="card-title">Se agrego correctamente</h5>
                     <p class="h1 mb-2" style="text-align:center;font-size:4em">
                         <b-icon icon="check-circle" variant="success"></b-icon>
                     </p>
@@ -150,17 +196,17 @@
         <!-- Modal -->
 
         <modal
-            name="eliminarPais"
+            name="eliminarRegistro"
             :clickToClose="false"
             :reset="true"
             :width="480"
             :height="200">
             <div class="card">
-                <div class="card-header">Eliminar pais</div>
+                <div class="card-header">Eliminar</div>
                 <div class="card-body">
-                    <p class="card-text">¿Está seguro que desea eliminar el país {{this.nombreActual}}?</p>
+                    <p class="card-text">¿Está seguro que desea eliminar el registro {{this.nombreActual}}?</p>
                     <div class="my-4" style="text-align: right;">
-                        <b-button variant="warning" class="mr-2" @click="eliminarPais">Si, eliminar!</b-button>
+                        <b-button variant="warning" class="mr-2" @click="eliminarRegistro">Si, eliminar!</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalDelete">Cerrar</b-button>
                     </div>
                 </div>
@@ -178,7 +224,7 @@
             <div class="card">
                 <div class="card-header">Borrado Exitoso</div>
                 <div class="card-body">
-                    <h5 class="card-title">El pais se elimino correctamente</h5>
+                    <h5 class="card-title">Se elimino correctamente</h5>
                     <p class="h1 mb-2" style="text-align:center;font-size:4em">
                         <b-icon icon="check-circle" variant="success"></b-icon>
                     </p>
@@ -230,10 +276,24 @@
                 name: '',
                 msgName : null,
                 msgNameN : null,
+                msgName1 : null,
+                msgName2 : null,
+                msgName3 : null,
+                msgName4 : null,
+                className1: null,
+                className2: null,
+                className3: null,
+                className4: null,
                 idActual: 0,
                 nombreActual: '',
                 paises: null,
                 nombreNuevo: '',
+                descripcion: '',
+                detalladaDescripcion: '',
+                precio: '',
+                descripcionN: '',
+                detalladaDescripcionN: '',
+                precioN: '',
                 className: 'defaultColor',
                 classNameN: 'defaultColor',
                 styleCarac : 'color:grey;',
@@ -253,84 +313,178 @@
                 sliderValue : 100,
                 pwConfDisabled: true,
                 msnErrorIrreconocible: '',
+                paqueterias: {},
             }
         },
         watch: {
             nombreNuevo() {
-                this.msgNameN="";
-                this.classNameN="greenColor correct";
+                this.msgName1="";
+                this.className1="greenColor correct";
                 if (this.nombreNuevo.trim().length<3) {
-                    this.msgNameN="El pais debe contener más de 3 letras";
-                    this.classNameN="redColor incorrect";
+                    this.msgName1="La paqueteria debe contener más de 3 letras";
+                    this.className1="redColor incorrect";
+                }
+                if (this.nombreNuevo.trim().length>30) {
+                    this.msgName1="La paqueteria debe contener menos letras";
+                    this.className1="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
             },
+            descripcion() {
+                this.msgName2="";
+                this.className2="greenColor correct";
+                if (this.descripcion.trim().length>50) {
+                    this.msgName2="La descripcion debe ser más breve";
+                    this.className2="redColor incorrect";
+                }
+            },
+            detalladaDescripcion() {
+                this.msgName3="";
+                this.className3="greenColor correct";
+                if (this.detalladaDescripcion.trim().length>=500) {
+                    this.msgName3="La descripcion sobrepaso el limite";
+                    this.className3="redColor incorrect";
+                }
+            },
+            precio() {
+                this.msgName4="";
+                this.className4="greenColor correct";
+                if (this.precio.trim().length<1) {
+                    this.msgName4="Ingrese al menos un precio";
+                    this.className4="redColor incorrect";
+                }
+            },
             nombreActual() {
-                this.msgName="";
-                this.className="greenColor correct";
+                this.msgName1="";
+                this.className1="greenColor correct";
                 if (this.nombreActual.trim().length<3) {
-                    this.msgName="El pais debe contener más de 3 letras";
-                    this.className="redColor incorrect";
+                    this.msgName1="La paqueteria debe contener más de 3 letras";
+                    this.className1="redColor incorrect";
+                }
+                if (this.nombreActual.trim().length>30) {
+                    this.msgName1="La paqueteria debe contener menos letras";
+                    this.className1="redColor incorrect";
                 }
                 this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
-            }
+            },
+            descripcionN() {
+                this.msgName2="";
+                this.className2="greenColor correct";
+                if (this.descripcionN.trim().length>50) {
+                    this.msgName2="La descripcion debe ser más breve";
+                    this.className2="redColor incorrect";
+                }
+            },
+            detalladaDescripcionN() {
+                this.msgName3="";
+                this.className3="greenColor correct";
+                if (this.detalladaDescripcionN.trim().length>=500) {
+                    this.msgName3="La descripcion sobrepaso el limite";
+                    this.className3="redColor incorrect";
+                }
+            },
+            precioN() {
+                this.msgName4="";
+                this.className4="greenColor correct";
+                if (this.precioN.trim().length<1) {
+                    this.msgName4="Ingrese al menos un precio";
+                    this.className4="redColor incorrect";
+                }
+            },
 
         },
         computed: {
             habilitaBoton: function() {
-                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2
+                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2 && this.nombreNuevo.length<=30
+                && this.descripcion && this.descripcion.length<=50
+                && this.detalladaDescripcion && this.detalladaDescripcion.length<=500
+                && this.precio
                 return !dato;
             },
             habilitaBotonActualizar: function() {
                 var dato = true && this.nombreActual && this.nombreActual.length>2
+                && this.nombreActual && this.nombreActual.length<=30
+                && this.descripcionN && this.descripcionN.length<=50
+                && this.detalladaDescripcionN && this.detalladaDescripcionN.length<=500
+                && this.precioN > -1
                 return !dato;
             }
+        },
+        beforeMount() {
+            this.getPaqueterias()
         },
         methods: {
             openGen(){
                 this.$modal.hide('modal-general');
             },
-            openEdit(id, nombre){
+            openEdit(id){
+                this.getInfoEdit(id)
+                this.$modal.show('editarRegistro');
+            },
+            async getInfoEdit(id){
+                const { data } = await axios.get('api/paqueteria/'+id+'.json')
                 this.idActual=id;
-                this.nombreActual=nombre;
-                this.$modal.show('editarPais');
+                this.nombreActual=data.nombre;
+                this.descripcionN=data.breveDescripcion;
+                this.detalladaDescripcionN=data.htmlDescripcion;
+                this.precioN=data.precio;
             },
             openDelete(id,nombre){
-                this.idActual=id;
                 this.nombreActual=nombre;
-                this.$modal.show('eliminarPais');
+                this.idActual=id;
+                console.log("Se va a eliminar el id: "+ this.idActual)
+                this.$modal.show('eliminarRegistro');
+            },
+            getPaqueterias(){
+                axios.get('api/paqueterias.json', {
+                    }).then(response => {
+                        this.paqueterias=response.data;
+                    }).catch(error => {
+                        this.msgErr = error.response.data['exceptionLongDescription'];
+                        this.msnErrorIrreconocible = this.msgErr;
+                        this.$modal.show('modal-general');
+                    })
             },
             closeModalDelete: function() {
-                this.$modal.hide('eliminarPais');
+                this.$modal.hide('eliminarRegistro');
             },
             closeModalDelete2: function() {
                 this.$modal.hide('mensaje-exito-delete');
             },
             closeModalEdit: function() {
-                this.$modal.hide('editarPais');
+                this.$modal.hide('editarRegistro');
             },
             openAdd(){
                 this.nombreNuevo= '',
-                this.$modal.show('agregarPais');
+                this.descripcion= '',
+                this.detalladaDescripcion= ''
+                this.precio= '',
+                this.$modal.show('agregarRegistro');
             },
             closeModalAdd: function() {
                 this.$modal.hide('mensaje-exito-add');
             },
             closeModalAdd2: function() {
-                this.$modal.hide('agregarPais');
+                this.$modal.hide('agregarRegistro');
             },
             closeModalExito: function() {
                 this.$modal.hide('mensaje-exito');
-                this.$modal.hide('editarPais');
+                this.$modal.hide('editarRegistro');
+            },
+            ingresaDinero($event) {
+                let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
+                if ((keyCode < 48 || keyCode > 57)) { 
+                    $event.preventDefault();
+                }
             },
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/paises/list/'+this.name+'.json', {
+                    axios.get('api/paqueteria/list/'+this.name+'.json', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
-                        this.paises=response.data;
+                        this.paqueterias=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -341,11 +495,10 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/paises.json', {
+                    axios.get('api/paqueterias.json', {
                     }).then(response => {
-                        console.log("enviado-paises");
                         console.log(response);
-                        this.paises=response.data;
+                        this.paqueterias=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -355,10 +508,13 @@
                     });
                 }
             },
-            modificarPais() {
-                axios.put('api/pais.json', {
+            modificarRegistro() {
+                axios.put('api/paqueteria.json', {
                     id:this.idActual,
-                    nombre : this.nombreActual
+                    nombre : this.nombreActual,
+                    breveDescripcion : this.descripcionN,
+                    htmlDescripcion : this.detalladaDescripcionN,
+                    precio : this.precioN,
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
@@ -370,15 +526,18 @@
                     this.msgErr = error.response.data['exceptionLongDescription'];
                 })
             },
-            agregarPais() {
+            agregarRegistro() {
                 console.log(store.state);
-                axios.post('api/pais.json', {
-                    nombre : this.nombreNuevo
+                axios.post('api/paqueteria.json', {
+                    nombre : this.nombreNuevo,
+                    breveDescripcion : this.descripcion,
+                    htmlDescripcion : this.detalladaDescripcion,
+                    precio : this.precio,
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
 
-                    this.$modal.hide('agregarPais');
+                    this.$modal.hide('agregarRegistro');
                     this.$modal.show('mensaje-exito-add');
                     this.submition();
                 }).catch(error => {
@@ -387,20 +546,19 @@
                     this.msgErr = error.response.data['exceptionLongDescription'];
                 })
             },
-            eliminarPais() {
-                axios.delete('api/pais.json', {
+            eliminarRegistro() {
+                axios.delete('api/paqueteria.json', {
                     data: {
                         id:this.idActual
                     }
                 }).then(response => {
-                    console.log("enviado");
                     console.log(response);
-                    this.paises=response.data;
-                    this.$modal.hide('eliminarPais');
+                    this.paqueterias=response.data;
+                    this.$modal.hide('eliminarRegistro');
                     this.$modal.show('mensaje-exito-delete');
                     this.submition();
                 }).catch(error => {
-                    this.$modal.hide('eliminarPais');
+                    this.$modal.hide('eliminarRegistro');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
@@ -456,5 +614,21 @@
 }
 .show{
     display: block;
+}
+.inner-addon { 
+    position: relative; 
+}
+.inner-addon .icon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+.left-addon .icon  { left:  0px;}
+.right-addon .icon { right: 0px;}
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+.btn-contenido {
+min-width: 150px;
+text-align: center;
 }
 </style>

@@ -1,19 +1,19 @@
+
 <template>
 <div class="ancho centra" style="max-width:1200px">
     <div class="card defaultColor">
         <div class="card-header">
-            <label class="control-label h4">Consulta de Multimedias</label>
+            <label class="control-label h4">Registro de Roles</label>
         </div>
         <div class="card-body align" style="margin:20px;">
 
             <div class="row">
                 <div class="form-inline">
-                    <label for="nombre" class="col-form-label mr-2">Nombre del multimedias:</label>
-                    <input type="text" required class="form-control mr-3" placeholder="PNG" v-model="name">
-                    <!--small class="notValid">{{msgName}}</small-->
+                    <label for="nombre" class="col-form-label mr-2">Agregar Rol:</label>
+                    <!--input type="text" required class="form-control mr-3"  v-model="name">
 
                     <button type="button" @click="submition" class="btn btn-primary mr-2">
-                        <i class="fa fa-search fa-fw" aria-hidden="true"></i>Consultar</button>
+                        <i class="fa fa-search fa-fw" aria-hidden="true"></i>Consultar</button-->
                     <button type="button" @click="openAdd" class="btn btn-success mr-2">
                         <i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
@@ -32,14 +32,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="mediatipo in mediatipos" :key="mediatipo.id">
-                            <td>{{mediatipo.id}}</td>
-                            <td>{{mediatipo.descripcion}}</td>
-                            <td class="center"><h4><span v-if="mediatipo.activo == 1" class="badge badge-info ml-2">Activo</span><span v-else class="badge badge-danger">Inactivo</span></h4></td>
+                        <tr v-for="r in roles" :key="r.id">
+                            <td>{{r.id}}</td>
+                            <td>{{r.nombre}}</td>
+                            <td class="center"><h4><span v-if="r.activo == 1" class="badge badge-info ml-2">Activo</span><span v-else class="badge badge-danger">Inactivo</span></h4></td>
                             <td>
-                                <button type="button" @click="openEdit(mediatipo.id, mediatipo.descripcion,mediatipo.activo)" class="btn btn-success mb-2 mr-4">
+                                <button type="button" @click="openEdit(r.id, r.nombre, r.activo)" class="btn btn-success mb-2 mr-4">
                                     <i class="fa fa-edit" aria-hidden="true"></i></button>
-                                <button type="button" @click="openDelete(mediatipo.id, mediatipo.descripcion)" class="btn btn-danger mb-2 mr-4">
+                                <button type="button" @click="openDelete(r.id, r.nombre)" class="btn btn-danger mb-2 mr-4">
                                     <i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
@@ -52,29 +52,26 @@
         <!-- Modal -->
 
         <modal
-            name="editarMediatipo"
+            name="editarRegistro"
             :clickToClose="false"
             :reset="true"
-            :width="480"
-            :height="245">
+            :width="400"
+            :height="270">
             <div class="card">
-                <div class="card-header">Editar multimedias</div>
+                <div class="card-header">Editar Rol</div>
                 <div class="card-body">
-                    <!--label class="mr-2" style="width:220px">Id: {{idActual}}</label-->
                     <div class="form-group">
-                        <label for="mediatipo">Nombre del multimedias:</label>
-                        <input id="mediatipo" type="text" required class="form-control" :class="className" placeholder="PNG" v-model="nombreActual">
-                        <small class="notValid">{{msgName}}</small>
-                        <div class="custom-control custom-checkbox my-3">
-                            <input type="checkbox"
-                            v-model="estatusActual"  true-value="1"  false-value="0"
-                             class="custom-control-input" id="customCheck1">
-                            <label class="custom-control-label" for="customCheck1" >Activo</label>
-                        </div>
+                        <label for="nombrepaqueteria">Nombre:</label>
+                        <input id="nombrepaqueteria" type="text" required class="form-control" :class="className1" v-model="nombreActual">
+                        <small class="notValid">{{msgName1}}</small>
+                    </div>
+
+                    <div >
+                       <b-form-checkbox v-model="activo">Activo</b-form-checkbox>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
-                        <b-button variant="primary" :disabled="habilitaBotonActualizar" class="mr-2" @click="modificarMediatipo">Aceptar</b-button>
+                        <b-button variant="primary" :disabled="habilitaBotonActualizar" class="mr-2" @click="modificarRegistro">Aceptar</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalEdit">Cancelar</b-button>
                     </div>
                 </div>
@@ -92,7 +89,7 @@
             <div class="card">
                 <div class="card-header">Actualización Exitosa</div>
                 <div class="card-body">
-                    <h5 class="card-title">El multimedia se actualizo correctamente</h5>
+                    <h5 class="card-title">Se actualizo correctamente</h5>
                     <p class="h1 mb-2" style="text-align:center;font-size:4em">
                         <b-icon icon="check-circle" variant="success"></b-icon>
                     </p>
@@ -106,18 +103,18 @@
         <!-- Modal -->
 
         <modal
-            name="agregarMediatipo"
+            name="agregarRegistro"
             :clickToClose="false"
             :reset="true"
-            :width="480"
-            :height="245">
+            :width="400"
+            :height="250">
             <div class="card">
-                <div class="card-header">Agregar Multimedia</div>
+                <div class="card-header">Agregar Rol</div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="mediatipo">Nombre del mediatipo:</label>
-                        <input id="mediatipo" type="text" required class="form-control" :class="classNameN" placeholder="PNG" v-model="nombreNuevo">
-                        <small class="notValid">{{msgNameN}}</small>
+                        <label for="nombrepaqueteria">Nombre:</label>
+                        <input id="nombrepaqueteria" type="text" required class="form-control" :class="className2" v-model="nombreNuevo">
+                        <small class="notValid">{{msgName2}}</small>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
@@ -125,7 +122,7 @@
                             :disabled="habilitaBoton"
                             variant="primary"
                             class="mr-4"
-                            @click="agregarMediatipo">Aceptar</b-button>
+                            @click="agregarRegistro">Aceptar</b-button>
                         <b-button variant="danger" @click="closeModalAdd2">Cancelar</b-button>
                     </div>
                 </div>
@@ -143,7 +140,7 @@
             <div class="card">
                 <div class="card-header">Registro Exitoso</div>
                 <div class="card-body">
-                    <h5 class="card-title">El multimedia se agrego correctamente</h5>
+                    <h5 class="card-title">Se agrego correctamente</h5>
                     <p class="h1 mb-2" style="text-align:center;font-size:4em">
                         <b-icon icon="check-circle" variant="success"></b-icon>
                     </p>
@@ -157,17 +154,17 @@
         <!-- Modal -->
 
         <modal
-            name="eliminarMediatipo"
+            name="eliminarRegistro"
             :clickToClose="false"
             :reset="true"
             :width="480"
             :height="200">
             <div class="card">
-                <div class="card-header">Eliminar Multimedia</div>
+                <div class="card-header">Eliminar</div>
                 <div class="card-body">
-                    <p class="card-text">¿Está seguro que desea eliminar el multimedia {{this.nombreActual}}?</p>
+                    <p class="card-text">¿Está seguro que desea eliminar el registro {{this.nombreActual}}?</p>
                     <div class="my-4" style="text-align: right;">
-                        <b-button variant="warning" class="mr-2" @click="eliminarMediatipo">Si, eliminar!</b-button>
+                        <b-button variant="warning" class="mr-2" @click="eliminarRegistro">Si, eliminar!</b-button>
                         <b-button variant="danger" class="mr-2" @click="closeModalDelete">Cerrar</b-button>
                     </div>
                 </div>
@@ -185,7 +182,7 @@
             <div class="card">
                 <div class="card-header">Borrado Exitoso</div>
                 <div class="card-body">
-                    <h5 class="card-title">El multimedia se elimino correctamente</h5>
+                    <h5 class="card-title">Se elimino correctamente</h5>
                     <p class="h1 mb-2" style="text-align:center;font-size:4em">
                         <b-icon icon="check-circle" variant="success"></b-icon>
                     </p>
@@ -203,12 +200,12 @@
             :width="480"
             :height="245">
             <div class="card">
-                <div class="card-header">Información</div>
+                <div class="card-header">Error</div>
                 <div class="card-body">
                     <div class="form-group">
-                        <h4>Se presenta lo siguiente:</h4>
+                        <h4>No fue posible realizar está acción.</h4>
                         <p>{{msnErrorIrreconocible}}</p>
-                        <small>Favor de comunicar este mensaje con el administrador del sistema.</small>
+                        <small></small>
                     </div>
 
                     <div class="form-group my-4" style="text-align: right;">
@@ -226,7 +223,9 @@
     import axios from 'axios';
     import store from '../store';
     import "vue-range-slider/dist/vue-range-slider.css";
-  //import { mapMutations } from 'vuex'
+    import { BootstrapVue } from 'bootstrap-vue';
+    import Vue from "vue";
+    Vue.use(BootstrapVue);
     export default {
         components: {
         },
@@ -235,12 +234,20 @@
                 name: '',
                 msgName : null,
                 msgNameN : null,
+                msgName1 : null,
+                msgName2 : null,
+                className1: null,
+                className2: null,
                 idActual: 0,
-                estatus:0,
-                estatusActual:0,
                 nombreActual: '',
-                mediatipos: null,
+                paises: null,
                 nombreNuevo: '',
+                descripcion: '',
+                detalladaDescripcion: '',
+                precio: '',
+                descripcionN: '',
+                activoActual: '',
+                precioN: '',
                 className: 'defaultColor',
                 classNameN: 'defaultColor',
                 styleCarac : 'color:grey;',
@@ -251,6 +258,7 @@
                 styleNum2 : 'show',
                 styleCalendar : '',
                 isVisible : 'hidden',
+                activo: 0,
                 activoClave : true, //Cambia el valor del booleano para ver las distintas versiones de validaciones de la clave
                 dateConfig : {
                     initial : new Date(2000,0,1),
@@ -260,100 +268,109 @@
                 sliderValue : 100,
                 pwConfDisabled: true,
                 msnErrorIrreconocible: '',
+                roles: {},
             }
         },
         watch: {
             nombreNuevo() {
-                this.msgNameN="";
-                this.classNameN="greenColor correct";
+                this.msgName2="";
+                this.className2="greenColor correct";
                 if (this.nombreNuevo.trim().length<3) {
-                    this.msgNameN="El multimedia debe contener más de 3 letras";
-                    this.classNameN="redColor incorrect";
+                    this.msgName2="El rol debe contener más de 3 letras";
+                    this.className2="redColor incorrect";
+                }
+                if (this.nombreNuevo.trim().length>20) {
+                    this.msgName2="El rol debe contener menos letras";
+                    this.className2="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
             },
             nombreActual() {
-                this.msgName="";
-                this.className="greenColor correct";
+                this.msgName1="";
+                this.className1="greenColor correct";
                 if (this.nombreActual.trim().length<3) {
-                    this.msgName="El multimedia debe contener más de 3 letras";
-                    this.className="redColor incorrect";
+                    this.msgName1="El rol debe contener más de 3 letras";
+                    this.className1="redColor incorrect";
+                }
+                if (this.nombreActual.trim().length>20) {
+                    this.msgName1="La rol debe contener menos letras";
+                    this.className1="redColor incorrect";
                 }
                 this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
             }
+
         },
         computed: {
             habilitaBoton: function() {
-                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2;
+                var dato = true && this.nombreNuevo && this.nombreNuevo.length>2 && this.nombreNuevo.length<=20
                 return !dato;
             },
             habilitaBotonActualizar: function() {
-                var dato = true && this.nombreActual && this.nombreActual.length>2;
+                var dato = true && this.nombreActual && this.nombreActual.length>2
+                && this.nombreActual && this.nombreActual.length<=20
                 return !dato;
             }
+        },
+        beforeMount() {
+            this.getroles()
         },
         methods: {
             openGen(){
                 this.$modal.hide('modal-general');
             },
-            openEdit(id, nombre,estatus){
+            openEdit(id, nombre, activo){
                 this.idActual=id;
                 this.nombreActual=nombre;
-                this.estatusActual=estatus;
-                this.$modal.show('editarMediatipo');
+                this.activo=activo;
+                this.$modal.show('editarRegistro');
             },
-            openDelete(id,nombre){
+            openDelete(id, nombre){
                 this.nombreActual=nombre;
                 this.idActual=id;
-                this.$modal.show('eliminarMediatipo');
+                this.$modal.show('eliminarRegistro');
+            },
+            getroles(){
+                axios.get('api/roles.json', {
+                    }).then(response => {
+                        this.roles=response.data;
+                    }).catch(error => {
+                        this.msgErr = error.response.data['exceptionLongDescription'];
+                        this.msnErrorIrreconocible = this.msgErr;
+                        this.$modal.show('modal-general');
+                    })
             },
             closeModalDelete: function() {
-                this.$modal.hide('eliminarMediatipo');
+                this.$modal.hide('eliminarRegistro');
             },
             closeModalDelete2: function() {
                 this.$modal.hide('mensaje-exito-delete');
             },
             closeModalEdit: function() {
-                this.$modal.hide('editarMediatipo');
+                this.$modal.hide('editarRegistro');
             },
             openAdd(){
-                this.nombreNuevo= '';
-                this.$modal.show('agregarMediatipo');
-                this.estatus=0;
+                this.nombreNuevo= '',
+                this.activo=1,
+                this.$modal.show('agregarRegistro');
             },
             closeModalAdd: function() {
                 this.$modal.hide('mensaje-exito-add');
             },
             closeModalAdd2: function() {
-                this.$modal.hide('agregarMediatipo');
+                this.$modal.hide('agregarRegistro');
             },
             closeModalExito: function() {
                 this.$modal.hide('mensaje-exito');
-                this.$modal.hide('editarMediatipo');
+                this.$modal.hide('editarRegistro');
             },
             submition() {
-                console.log("submition");
                 if (this.name) {
-                    axios.get('api/mediatipos/list/'+this.name+'.json', {
-                    }).then(response => {
-                        console.log("enviado");
-                        console.log(response);
-                        this.mediatipos=response.data;
-                    }).catch(error => {
-                        console.log(error.response.status);
-                        console.log(error.response.data);
-                        this.msgErr = error.response.data['exceptionLongDescription'];
-                        this.msnErrorIrreconocible = this.msgErr;
-                        this.$modal.show('modal-general');
-                    })
+                    console.log("...")
                 }
                 else {
-                    console.log(store.state);
-                    axios.get('api/media-tipos.json', {
+                    axios.get('api/roles.json', {
                     }).then(response => {
-                        console.log("enviado-mediatipos");
-                        console.log(response);
-                        this.mediatipos=response.data;
+                        this.roles=response.data;
                     }).catch(error => {
                         console.log(error.response.status);
                         console.log(error.response.data);
@@ -363,13 +380,12 @@
                     });
                 }
             },
-            modificarMediatipo() {
-                axios.put('api/media-tipo.json', {
+            modificarRegistro() {
+                axios.put('api/rol.json', {
                     id:this.idActual,
-                    descripcion : this.nombreActual,
-                    activo: this.estatusActual
+                    nombre : this.nombreActual,
+                    activo: this.activo,
                 }).then(response => {
-                    console.log("enviado");
                     console.log(response);
                     this.submition();
                     this.$modal.show('mensaje-exito');
@@ -379,15 +395,16 @@
                     this.msgErr = error.response.data['exceptionLongDescription'];
                 })
             },
-            agregarMediatipo() {
+            agregarRegistro() {
                 console.log(store.state);
-                axios.post('api/media-tipo.json', {
-                    descripcion : this.nombreNuevo,
-                    activo:1
+                axios.post('api/rol.json', {
+                    nombre : this.nombreNuevo,
+                    activo : 1,
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    this.$modal.hide('agregarMediatipo');
+
+                    this.$modal.hide('agregarRegistro');
                     this.$modal.show('mensaje-exito-add');
                     this.submition();
                 }).catch(error => {
@@ -396,20 +413,24 @@
                     this.msgErr = error.response.data['exceptionLongDescription'];
                 })
             },
-            eliminarMediatipo() {
-                axios.delete('api/media-tipo.json', {
-                    data:{id:this.idActual}
+            eliminarRegistro() {
+                axios.delete('api/rol.json', {
+                    data: {
+                        id:this.idActual
+                    }
                 }).then(response => {
-                    console.log("enviado");
                     console.log(response);
-                    this.mediatipos=response.data;
-                    this.$modal.hide('eliminarMediatipo');
+                    this.roles=response.data;
+                    this.$modal.hide('eliminarRegistro');
                     this.$modal.show('mensaje-exito-delete');
                     this.submition();
                 }).catch(error => {
+                    this.$modal.hide('eliminarRegistro');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
+                    this.msnErrorIrreconocible = 'La Eliminación del registro indicado no se completo ya que cuenta con usuario que lo utilizan.'
+                    this.$modal.show('modal-general');
                 });
             }
         }
@@ -460,5 +481,21 @@
 }
 .show{
     display: block;
+}
+.inner-addon { 
+    position: relative; 
+}
+.inner-addon .icon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+.left-addon .icon  { left:  0px;}
+.right-addon .icon { right: 0px;}
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+.btn-contenido {
+min-width: 150px;
+text-align: center;
 }
 </style>

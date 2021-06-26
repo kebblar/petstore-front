@@ -146,7 +146,23 @@
           </div>
         </div>
 
-
+      <modal
+          name="aviso"
+          :clickToClose="false"
+          :reset="true"
+          :width="480"
+          :height="260">
+        <div class="card">
+          <div class="card-header" style="text-align:center">Advertencia del sistema</div>
+          <div class="card-body">
+            <h5 class="card-title">{{texto}}</h5>
+            <p class="card-text">{{ descripcionModal }}</p>
+            <div style="text-align: right;">
+              <a href="#" class="btn btn-primary" @click="closeModal">Aceptar</a>
+            </div>
+          </div>
+        </div>
+      </modal>
 
     </div>
   </div><!-- ends header-->
@@ -246,6 +262,8 @@
         pwConfDisabled: true,
 
         loading: false,
+        texto : '',
+        descripcionModal : ''
      }
     },
     watch: {
@@ -344,6 +362,9 @@
 
     },
     methods: {
+      closeModal: function() {
+        this.$modal.hide('aviso');
+      },
       onCaptchaVerified(recaptchaToken) {
           axios.post('api/check-captcha.json', {
             response: recaptchaToken,
@@ -385,7 +406,10 @@
           this.loading = false
           this.msgErr = error;
           if(error.response) {
-              this.msgErr = error.response.data['exceptionLongDescription'];
+            this.$modal.show('aviso');
+            this.texto = "¡Ha ocurrido un problema!"
+            this.descripcionModal = "Ya existe una cuenta con este correo"
+            this.msgErr = error.response.data['exceptionLongDescription'];
           }
           this.$modal.show('mensaje-login');
         }).finally(

@@ -40,7 +40,10 @@ import ConsultaEstatusAnuncio from '@/components/ConsultaEstatusAnuncio'
 import ConsultaPais from '@/components/ConsultaPais'
 import ConsultaEstado from '@/components/ConsultaEstado'
 import ConsultaMunicipio from '@/components/ConsultaMunicipio'
+import ConsultaRol from '@/components/ConsultaRol'
 import Graficas from '@/components/Graficas'
+import ConsultaPaqueteria from '@/components/ConsultaPaqueteria'
+import Catalogos from '@/components/Catalogos'
 
 
 import GraficaMontoPorCategoriaContainer from '@/components/GraficaMontoPorCategoriaContainer'
@@ -52,6 +55,12 @@ import Creditos from '@/components/Creditos'
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/catalogos',
+    name: 'Catalogos',
+    component: Catalogos,
+    meta: { allowedRoles: ['admin'] }
+  },
   {
     path: '/ui/reporte-graficas',
     name: 'ReporteGraficas',
@@ -65,7 +74,7 @@ const routes = [
     meta: { allowedRoles: ['admin'] }
   },
   {
-    path: '/ui/pba',
+    path: '/post/:seccion/:descripcion',
     name: 'pba',
     component: Pruebas
   },
@@ -246,6 +255,18 @@ const routes = [
     path: '/ui/consulta-municipio',
     name: 'ConsultaMunicipio',
     component:ConsultaMunicipio,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/consulta-rol',
+    name: 'ConsultaRol',
+    component:ConsultaRol,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/consulta-paqueteria',
+    name: 'ConsultaPaqueteria',
+    component:ConsultaPaqueteria,
     meta: { allowedRoles: ['admin'] }
   },
 ]

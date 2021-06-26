@@ -16,6 +16,7 @@
 <script>
 import Vue from 'vue'
 import store from '../store'
+import axios from 'axios';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -33,6 +34,24 @@ export default {
           f: store.state.destination
         }
     },
+    mounted() {
+      var seccion = this.$route.params.seccion;
+      var descripcion = this.$route.params.descripcion;
+
+      axios.get('api/content/'+seccion+'/'+descripcion, {
+      }).then(response => {
+        console.log(response);
+        console.log(response.data);
+        console.log(response.status);
+      }).catch(error => {
+        if(error.response) {
+            console.log(error);
+        }
+      }).finally(
+        console.log('finaliza proceso de solicitud de regeneracion de clave')
+      );
+
+    }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

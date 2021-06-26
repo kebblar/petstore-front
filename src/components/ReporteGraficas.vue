@@ -3,9 +3,10 @@
     <div>
       <b-card no-body>
         <b-tabs pills card vertical>
-          <b-tab
+          <b-tab 
             v-on:click="graficar_importe_total_ventas"
             title="Importe total ventas"
+            active
           >
             <b-card-text>
               <div
@@ -60,8 +61,7 @@
           </b-tab>
           <b-tab
             v-on:click="compradorG"
-            title="Compradores más asiduos (Top 5)"
-          >
+            title="Compradores más asiduos (Top 5)">
             <b-card-text>
               <div class="ancho centra box-shadow">
                 <h1 class="title-style">Compradores más asiduos (Top 5)</h1>
@@ -228,7 +228,6 @@
                 >
                   {{ nombre_boton_total }}
                 </button>
-
                 <pie-chart
                   v-if="loaded_mascota"
                   :chartdata="mascotaPoint"
@@ -636,7 +635,7 @@ export default {
       this.loaded_monto_categoria_filtro = false;
       try {
         const path_filtro =
-          "http://127.0.0.1:9999/api/grafica-total-fechas-categoria-filtro.json?fechaFin=" +
+          "/api/grafica-total-fechas-categoria-filtro.json?fechaFin=" +
           this.fechaFin_monto_categoria +
           "&fechaInicio=" +
           this.fechaInicio_monto_categoria;
@@ -656,7 +655,7 @@ export default {
       this.loaded_monto_categoria_filtro = false;
       try {
         const response = await fetch(
-          "http://127.0.0.1:9999/api/grafica-total-fechas-categoria.json"
+          "/api/grafica-total-fechas-categoria.json"
         ).then((response) => response.json());
         this.chartdata_monto_categoria_filtro = response.chartdata;
         this.error_fecha_monto_categoria = false;
@@ -670,7 +669,7 @@ export default {
       this.loaded_tipo_pago_filtro = false;
       try {
         const response = await fetch(
-          "http://127.0.0.1:9999/api/grafica-tipo-pago.json"
+          "/api/grafica-tipo-pago.json"
         ).then((response) => response.json());
         this.chartdata_tipo_pago_filtro = response.chartdata;
         this.error_fecha_tipo_pago = false;
@@ -684,7 +683,7 @@ export default {
       this.loaded_tipo_pago_filtro = false;
       try {
         const path_filtro =
-          "http://127.0.0.1:9999/api/grafica-tipo-pago-rango.json?fechaFin=" +
+          "/api/grafica-tipo-pago-rango.json?fechaFin=" +
           this.fechaFin_tipo_pago +
           "&fechaInicio=" +
           this.fechaInicio_tipo_pago;
@@ -704,7 +703,7 @@ export default {
       this.loaded_importe_total_ventas_filtro = false;
       try {
         const response = await fetch(
-          "http://127.0.0.1:9999/api/grafica-total-importe-ventas.json"
+          "/api/grafica-total-importe-ventas.json"
         ).then((response) => response.json());
         console.log("response");
         console.log(response);
@@ -720,7 +719,7 @@ export default {
       this.loaded_importe_total_ventas_filtro = false;
       try {
         const path_filtro =
-          "http://127.0.0.1:9999/api/grafica-total-importe-ventas-filtro.json?fechaFin=" +
+          "/api/grafica-total-importe-ventas-filtro.json?fechaFin=" +
           this.fechaFin_importe_total_ventas +
           "&fechaInicio=" +
           this.fechaInicio_importe_total_ventas;
@@ -742,7 +741,7 @@ export default {
       this.loaded_numero_ordenes_total_ventas_filtro = false;
       try {
         const response = await fetch(
-          "http://127.0.0.1:9999/api/grafica-total-numero-ordenes-ventas.json"
+          "/api/grafica-total-numero-ordenes-ventas.json"
         ).then((response) => response.json());
         response.chartdata.datasets[0].borderColor = "#17a2b8";
         this.chartdata_numero_ordenes_total_ventas_filtro = response.chartdata;
@@ -757,7 +756,7 @@ export default {
       this.loaded_numero_ordenes_total_ventas_filtro = false;
       try {
         const path_filtro =
-          "http://127.0.0.1:9999/api/grafica-total-numero-ordenes-ventas-filtro.json?fechaFin=" +
+          "/api/grafica-total-numero-ordenes-ventas-filtro.json?fechaFin=" +
           this.fechaFin_numero_ordenes_total_ventas +
           "&fechaInicio=" +
           this.fechaInicio_numero_ordenes_total_ventas;

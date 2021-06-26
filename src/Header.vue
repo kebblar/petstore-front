@@ -20,7 +20,15 @@
                   <b-nav-form>
                     <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
                     <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-                    <Carrito :ruta="ruta" :cantidad="cantidad" ></Carrito>
+                    <div v-if="admin">
+                        <a href="#" @click="navega('/ui/admin')"><i class="fas fa-home fa-2x divider3"></i></a>                      
+                    </div>
+                    <div v-else>
+                        <a href="#" @click="navega('/')"><i class="fas fa-home fa-2x divider3"></i></a>                      
+                    </div>
+                    <div v-if="!admin">
+                      <Carrito :ruta="ruta" :cantidad="cantidad" ></Carrito>
+                    </div>
                   </b-nav-form>
 
                   <b-nav-item-dropdown right>
@@ -30,18 +38,16 @@
                     </template>
                     <b-dropdown-item href="#" @click="navega('/ui/cambia-clave')">Cambiar Clave</b-dropdown-item>
                     <b-dropdown-item href="#" @click="navega('/ui/cambia-datos-personales')">Perfil</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="navega('/ui/compras')">Mis Compras</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="navega('/ui/mis-direcciones')">Mis Direcciones</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="navega('/ui/mis-metodos-pago')">Mis Métodos de pago</b-dropdown-item>
+                    <div v-if="!admin">
+                      <b-dropdown-item href="#" @click="navega('/ui/compras')">Mis Compras</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/mis-direcciones')">Mis Direcciones</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/mis-metodos-pago')">Mis Métodos de pago</b-dropdown-item>
+                    </div>
                     <div v-if="admin">
                       <b-dropdown-divider/>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-pais')">Catálogo Paises</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-estado')">Catálogo Estados</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-municipio')">Catálogo Municipios</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-estatus-anuncio')">Estatus Anuncio</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-tipos-medias')">Tipos Media</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-atributos')">Atributos</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/consulta-categorias')">Categorias</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/catalogos')">Catálogos</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/reporte-graficas')">Reportes Gráficos</b-dropdown-item>
+                      <b-dropdown-item href="#" @click="navega('/ui/admin')">Home</b-dropdown-item>
                     </div>
                     <b-dropdown-divider  />
                     <b-dropdown-item href="#" @click="logout">Salir</b-dropdown-item>
@@ -90,11 +96,10 @@
 import router from './router'
 import store from './store'
 import Carrito from './components/Carrito'
-//import Navbar from './components/Navbar'
 
 export default {
     components: {
-      Carrito //, Navbar
+      Carrito
     },
     computed: {
       logged: function() {
@@ -165,6 +170,9 @@ export default {
 }
 .divider2 {
   margin-right: 10px;
+}
+.divider3 {
+  margin-left: 10px;
 }
 .verde {
   color:green;
