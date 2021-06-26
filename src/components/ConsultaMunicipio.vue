@@ -55,7 +55,7 @@
                         <template #cell(Acciones)="row">
                             <b-button variant="success" @click="openEdit(row.item.id, row.item.nombre, row.item.idEstado)" class="mr-4">
                                 <i class="fa fa-edit" aria-hidden="true"></i></b-button>
-                            <b-button variant="danger" @click="openDelete(row.item.id)">
+                            <b-button variant="danger" @click="openDelete(row.item.id,row.item.nombre)">
                                 <i class="fa fa-trash" aria-hidden="true"></i></b-button>
                         </template>
                 </b-table>
@@ -165,7 +165,7 @@
 
                     <div class="form-group mt-3">
                         <label for="pais">País:</label>
-                        <select id="pais" v-model="idPaisNuevo" @change="findEstadoByPais(idPaisNuevo)" class="custom-select" :class="className">
+                        <select id="pais" v-model="idPaisNuevo" @change="findEstadoByPais(idPaisNuevo)" class="custom-select" >
                             <option v-for="pais in paises" v-bind:key="pais.id" v-bind:value="pais.id">
                                 {{ pais.nombre }}
                             </option>
@@ -174,7 +174,7 @@
 
                     <div class="form-group mt-3">
                         <label for="estado">Estado:</label>
-                        <select id="estado" v-model="idEstadoNuevo" class="custom-select" :class="className">
+                        <select id="estado" v-model="idEstadoNuevo" class="custom-select" >
                             <option v-for="estado in estados" v-bind:key="estado.id" v-bind:value="estado.id">
                                 {{ estado.nombre }}
                             </option>
@@ -222,7 +222,7 @@
             <div class="card">
                 <div class="card-header">Eliminar municipio</div>
                 <div class="card-body">
-                    <p class="card-text">¿Está seguro que desea eliminar el municipio?</p>
+                    <p class="card-text">¿Está seguro que desea eliminar el municipio {{this.nombreActual}}?</p>
                     <div class="my-4" style="text-align: right;">
                         <b-button variant="warning" class="mr-4" @click="eliminarMunicipio">Si, eliminar</b-button>
                         <b-button variant="danger" class="mr-4" @click="closeModalDelete">Cerrar</b-button>
@@ -359,7 +359,7 @@
                 this.msgNameN="";
                 this.classNameN="greenColor correct";
                 if (this.nombreNuevo.trim().length<3) {
-                    this.msgNameN="El pais debe contener más de 3 letras";
+                    this.msgNameN="El Municipio debe contener más de 3 letras";
                     this.classNameN="redColor incorrect";
                 }
                 this.nombreNuevo= this.nombreNuevo.length===1 ? this.nombreNuevo.toUpperCase() : this.nombreNuevo;
@@ -368,7 +368,7 @@
                 this.msgName="";
                 this.className="greenColor correct";
                 if (this.nombreActual.trim().length<3) {
-                    this.msgName="El pais debe contener más de 3 letras";
+                    this.msgName="El Municipio debe contener más de 3 letras";
                     this.className="redColor incorrect";
                 }
                 this.nombreActual= this.nombreActual.length===1 ? this.nombreActual.toUpperCase() : this.nombreActual;
@@ -438,7 +438,8 @@
                 });
                 this.$modal.show('editarMunicipio');
             },
-            openDelete(id){
+            openDelete(id,nombre){
+                this.nombreActual=nombre;
                 this.idActual=id;
                 this.$modal.show('eliminarMunicipio');
             },
@@ -530,9 +531,12 @@
                     this.$modal.show('mensaje-exito-delete');
                     this.submition();
                 }).catch(error => {
+                   this.$modal.hide('eliminarMunicipio');
                     console.log(error.response.status);
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
+                    this.msnErrorIrreconocible = this.msgErr;
+                    this.$modal.show('modal-general');
                 });
             },
             findEstadoByPais(pais){
