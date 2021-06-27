@@ -26,7 +26,7 @@ import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras'
 import CompraConfirmada from '@/components/CompraConfirmada'
 
-import Pruebas from '@/components/Pruebas'
+//import Pruebas from '@/components/Pruebas'
 import DetalleProducto from '@/components/DetalleProducto'
 import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
 import AdminAnuncio from '@/components/admin/Anuncio'
@@ -45,16 +45,21 @@ import Graficas from '@/components/Graficas'
 import ConsultaPaqueteria from '@/components/ConsultaPaqueteria'
 import Catalogos from '@/components/Catalogos'
 
-
 import GraficaMontoPorCategoriaContainer from '@/components/GraficaMontoPorCategoriaContainer'
 import ReporteGraficas from '@/components/ReporteGraficas'
-
 import Creditos from '@/components/Creditos'
-
+import PostsList from'@/components/PostsList'
+import PostDetail from'@/components/PostDetail'
+import NotFound from'@/components/NotFound'
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/not-found',
+    name: 'not-found',
+    component: NotFound
+  },
   {
     path: '/ui/catalogos',
     name: 'Catalogos',
@@ -74,9 +79,14 @@ const routes = [
     meta: { allowedRoles: ['admin'] }
   },
   {
-    path: '/post/:seccion/:descripcion',
-    name: 'pba',
-    component: Pruebas
+    path: '/posts/',
+    name: 'postsList',
+    component: PostsList
+  },
+  {
+    path: '/posts/search/:descripcion/:id',
+    name: 'postDetail',
+    component: PostDetail
   },
   {
     path: '/ui/creditos',
@@ -316,7 +326,7 @@ router.beforeEach((to, from, next) => {
 
   axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
     store.commit('setCarrito', response.data);
-    console.log(response.data);
+    //console.log(response.data);
   }).catch(e => {
     console.log(e);
   });
