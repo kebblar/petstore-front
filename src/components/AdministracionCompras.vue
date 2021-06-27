@@ -7,7 +7,18 @@
       <div class="card-body align">
         <hr style="background-color:black">
           <div class="container">
-            <div class="row" v-for="(compra, index) in compras" :key="index" style="background-color:#D7EAF9;margin-bottom:1%">
+            <b-pagination
+              v-model="page"
+              :total-rows="rows"
+              :per-page="perPage"
+              first-text="Primero"
+              prev-text="Anterior"
+              next-text="Siguiente"
+              last-text="Último"
+              @change="changePage"
+              class="mt-4 text-center">
+            </b-pagination>
+            <div class="row" v-for="(compra, index) in currentPage" :key="index" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
                     <div class="container" >
                         <div class="row">
@@ -33,6 +44,7 @@
           </div>
     </div>
   </div>
+            
           <modal
             name="aviso"
             :clickToClose="false"
@@ -63,6 +75,10 @@ export default {
       compras: [],
       titulo : '',
       descripcion: '',
+      currentPage: null,
+      page: 1,
+      rows: null,
+      perPage: 5,
     }
   },
   mounted () {
@@ -72,12 +88,19 @@ methods: {
     closeModal: function() {
         this.$modal.hide('aviso');
     },
+    changePage: function(numero){
+      this.currentPage = this.compras.slice((this.perPage*(numero - 1)), ((this.perPage*(numero - 1)))+this.perPage);
+      this.page=numero;
+    },
     getHistorial(){
       axios.get('api/administracion-compras.json/').then(response => {
           response.data.forEach((value) => {
               this.compras.push(value);
           });
-
+          this.compras = this.compras.sort((a,b) => (a.fechaCompra > b.fechaCompra) ? 1 : ((b.fechaCompra > a.fechaCompra) ? -1 : 0)).reverse();
+          this.currentPage = this.compras.slice(0, this.perPage);
+          this.rows = this.compras.length;
+          this.page = 1;
       }).catch(error => {
           console.log(error);
           this.$modal.show('aviso');
