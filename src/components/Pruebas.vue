@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h3>Registro Aideé</h3>
+    <h3>Lista de anuncios</h3>
+
     <ul>
       <li>{{a}}</li>
       <li>{{b}}</li>
@@ -8,10 +9,9 @@
       <li>{{d}}</li>
       <li>{{e}}</li>
       <li>{{f}}</li>
-      <b-button>Hola Mundo</b-button>
-      <h1>{{ resultado }}</h1>
-      <h1>{{ status }}</h1>
     </ul>
+
+
   </div>
 </template>
 
@@ -20,6 +20,9 @@ import store from '../store'
 import axios from 'axios';
 
 export default {
+    appPageTitle () {
+      return `Foo Page — ${this.b}`
+    },
     data: function () {
         return {
           a: store.state.session.nombreCompleto,
@@ -27,29 +30,8 @@ export default {
           c: store.state.session.jwt,
           d: store.state.session.ultimoAcceso,
           e: store.state.session.roles,
-          f: store.state.destination,
-          resultado:[],
-          status:''
+          f: store.state.destination
         }
-    },
-    mounted() {
-      var seccion = this.$route.params.seccion;
-      var descripcion = this.$route.params.descripcion;
-
-      axios.get('api/content/'+seccion+'/'+descripcion, {
-      }).then(response => {
-        this.status = response.status;
-        this.resultado = response.data;
-      }).catch(error => {
-        if(error.response) {
-          console.log(error.response);
-        } else {
-          console.log(error);
-        }
-      }).finally(
-        console.log('finaliza proceso de solicitud info via url path vars')
-      );
-
     }
 }
 </script>

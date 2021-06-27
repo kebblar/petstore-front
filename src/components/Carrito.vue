@@ -131,7 +131,7 @@ export default {
     },
     deleteElement(i) {
       axios.delete('/api/carrito/'+i+'.json').then (response => {
-        console.log(response);
+        if(response!=null) {console.log("OK");}
         this.actualiza();
       }).catch(e => {
         console.log(e);
