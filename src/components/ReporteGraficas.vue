@@ -2,74 +2,78 @@
   <div>
     <div>
       <b-card no-body>
-
         <b-tabs pills card vertical>
-
           <b-tab 
             v-on:click="graficar_importe_total_ventas"
             title="Importe total ventas"
-            active>
+            active
+          >
             <b-card-text>
-              <div class="ancho centra box-shadow">
-                <h1 class="title-style">Gráfica de importe total de ventas</h1>
+              <div
+                class="ancho centra box-shadow"
+                style="margin: auto; width: 100%"
+              >
+                <h1 class="title-style" style="margin-left: 5%; width: 80%">
+                  Gráfica de importe total de ventas
+                </h1>
+                <button
+                  @click="graficar_importe_total_ventas()"
+                  class="btn btn-secondary mr-4"
+                >
+                  {{ nombre_boton_total }}
+                </button>
                 <line-chart
-                  v-if="loaded_importe_total_ventas"
-                  :chartdata="chartdata_importe_total_ventas"
-                  :options="options_line"
-                  style="margin-left:5%; width75%;"/>
-              </div>
-            </b-card-text>
-          </b-tab>
-
-          <b-tab
-            v-on:click="graficar_importe_total_ventas_filtro"
-            title="Importe total ventas con filtro de fechas">
-            <b-card-text>
-              <div class="ancho centra box-shadow">
-                <h1 class="title-style">Gráfica de importe total de ventas con filtro de fechas</h1>
-                <div style="margin;auto; width:80%">
+                  v-if="loaded_importe_total_ventas_filtro"
+                  :chartdata="chartdata_importe_total_ventas_filtro"
+                  :options="options_line_importe"
+                  style="margin-left: 5%; width: 90%"
+                />
+                <div style="margin: auto; width: 100%">
                   <HotelDatePicker
                     @check-in-changed="checkIn_importe_total_ventas"
                     @check-out-changed="checkOut_importe_total_ventas"
                     format="YYYY-MM-DD"
-                    style="margin-left: 15%; width: 50%"
+                    style="margin-left: 15%; width: 60%"
                     :startDate="startDate"
-                    :i18n="i18n"/>
+                    :displayClearButton="false"
+                    :positionRight="true"
+                    :i18n="i18n"
+                  />
                   <button
                     v-on:click="graficar_importe_total_ventas_filtro"
                     class="btn btn-info"
-                    style="
-                      margin-left: 2%;
-                      background-color: #28a745;
-                      color: #fff;
-                      border-radius: 0.25rem;"
                     data-toggle="tooltip"
                     data-placement="left"
-                    title="Selecciona un rango de fecha para mostrar gráfica.">
-                    Actualizar
+                    title="Selecciona un rango de fecha para mostrar gráfica."
+                  >
+                    <b-icon icon="funnel"></b-icon>
+                    {{ nombre_boton_filtro }}
                   </button>
                 </div>
-                <line-chart
-                  v-if="loaded_importe_total_ventas_filtro"
-                  :chartdata="chartdata_importe_total_ventas_filtro"
-                  :options="options_bar"
-                  style="margin-left: 15%; width: 75%"/>
+                <label
+                  name="error"
+                  v-if="error_fecha_importe_total_ventas"
+                  style="color: red"
+                  >{{ mensaje_error_datos }}</label
+                >
               </div>
             </b-card-text>
           </b-tab>
-
           <b-tab
             v-on:click="compradorG"
             title="Compradores más asiduos (Top 5)">
             <b-card-text>
               <div class="ancho centra box-shadow">
                 <h1 class="title-style">Compradores más asiduos (Top 5)</h1>
+                <button @click="compradorG()" class="btn btn-secondary mr-4">
+                  {{ nombre_boton_total }}
+                </button>
                 <pie-chart
                   v-if="loaded_comprador"
                   :chartdata="compradorPie"
                   :options="options_pie"
-                  style="margin-left:5%; width75%;"/>
-
+                  style="margin-left:5%; width75%;"
+                />
                 <div v-if="hideMeCMAG">
                   <br />
                   <div style="display: inline-flex">
@@ -85,197 +89,151 @@
                     <button
                       class="btn btn-success btn-sm mt-1"
                       style="height: 95%"
-                      @click="findComprador()"
+                      @click="findComprador"
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Selecciona un mes para mostrar gráfica."
                     >
-                      <b-icon icon="search"></b-icon>
+                      <b-icon icon="funnel"></b-icon>
+                      {{ nombre_boton_filtro_mes }}
                     </button>
                   </div>
                   <br />
                 </div>
-
-                <button @click="compradorG()" class="btn btn-secondary mr-4">
-                  Total
-                </button>
-                <button
-                  @click="menuBusquedaCMAG()"
-                  class="btn btn-info"
-                  style="
-                    margin-left: 2%;
-                    background-color: #28a745;
-                    color: #fff;
-                    border-radius: 0.25rem;
-                  "
+                <label
+                  name="error"
+                  v-if="error_fecha_comprador"
+                  style="color: red"
+                  >{{ mensaje_error_datos }}</label
                 >
-                  Filtrar por mes
-                </button>
               </div>
             </b-card-text>
           </b-tab>
-          
           <b-tab
             v-on:click="graficar_numero_ordenes_total_ventas"
             title="Número total de órdenes de compra"
           >
             <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
-                >
+              <div class="ancho centra box-shadow">
+                <h1 class="title-style">
                   Gráfica de número total de órdenes de compra
                 </h1>
-                <line-chart
-                  v-if="loaded_numero_ordenes_total_ventas"
-                  :chartdata="chartdata_numero_ordenes_total_ventas"
-                  :options="options_line"
-                  style="margin-left:5%; width75%;"
-                />
-              </div>
-            </b-card-text>
-          </b-tab>
-          
-          <b-tab
-            v-on:click="graficar_numero_ordenes_total_ventas_filtro"
-            title="Número total de órdenes de compra con filtro de fechas"
-          >
-            <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
+                <button
+                  @click="graficar_numero_ordenes_total_ventas()"
+                  class="btn btn-secondary mr-4"
                 >
-                  Gráfica de número total de órdenes de compra con filtro de
-                  fechas
-                </h1>
-                <div style="margin;auto; width:80%">
+                  {{ nombre_boton_total }}
+                </button>
+                <line-chart
+                  v-if="loaded_numero_ordenes_total_ventas_filtro"
+                  :chartdata="chartdata_numero_ordenes_total_ventas_filtro"
+                  :options="options_line"
+                  style="margin-left: 5%; width: 90%"
+                />
+                <div style="margin;auto; width:100%">
                   <HotelDatePicker
                     @check-in-changed="checkIn_numero_ordenes_total_ventas"
                     @check-out-changed="checkOut_numero_ordenes_total_ventas"
                     format="YYYY-MM-DD"
-                    style="margin-left: 15%; width: 50%"
+                    style="margin-left: 15%; width: 60%"
                     :startDate="startDate"
+                    :displayClearButton="false"
+                    :positionRight="true"
                     :i18n="i18n"
                   />
                   <button
                     v-on:click="graficar_numero_ordenes_total_ventas_filtro"
                     class="btn btn-info"
-                    style="
-                      margin-left: 2%;
-                      background-color: #28a745;
-                      color: #fff;
-                      border-radius: 0.25rem;
-                    "
                     data-toggle="tooltip"
                     data-placement="left"
                     title="Selecciona un rango de fecha para mostrar gráfica."
                   >
-                    Actualizar
+                    <b-icon icon="funnel"></b-icon>
+                    {{ nombre_boton_filtro }}
                   </button>
                 </div>
-                <line-chart
-                  v-if="loaded_numero_ordenes_total_ventas_filtro"
-                  :chartdata="chartdata_numero_ordenes_total_ventas_filtro"
-                  :options="options_bar"
-                  style="margin-left: 15%; width: 75%"
-                />
+                <label
+                  name="error"
+                  v-if="error_fecha_numero_ordenes_total_ventas"
+                  style="color: red"
+                  >{{ mensaje_error_datos }}</label
+                >
               </div>
             </b-card-text>
           </b-tab>
-          
           <b-tab
             v-on:click="graficar_monto_categoria"
-            title="Ventas totales por categoría"
-          >
-            <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
-                >
-                  Gráfica de ventas totales por categoría
-                </h1>
-                <bar-chart
-                  v-if="loaded"
-                  :chartdata="chartdata"
-                  :options="options_bar"
-                  style="margin-left:5%; width75%;"
-                />
-              </div>
-            </b-card-text>
-          </b-tab>
-
-          <b-tab
-            v-on:click="graficar_monto_categoria_filtro"
             title="Ventas totales por categoría con filtro de fechas"
           >
             <b-card-text>
-              <div
-                class="ancho centra font-shadow"
-              >
-                <h1
-                  class="title-style"
-                >
+              <div class="ancho centra font-shadow">
+                <h1 class="title-style">
                   Gráfica de ventas totales por categoría con filtro de fechas
                 </h1>
-                <div style="margin;auto; width:80%">
+                <button
+                  @click="graficar_monto_categoria()"
+                  class="btn btn-secondary mr-4"
+                >
+                  {{ nombre_boton_total }}
+                </button>
+                <bar-chart
+                  v-if="loaded_monto_categoria_filtro"
+                  :chartdata="chartdata_monto_categoria_filtro"
+                  :options="options_bar_importe"
+                  style="margin-left: 5%; width: 90%"
+                />
+                <div style="margin;auto; width:100%">
                   <HotelDatePicker
-                    @check-in-changed="checkIn"
-                    @check-out-changed="checkOut"
+                    @check-in-changed="checkIn_monto_categoria"
+                    @check-out-changed="checkOut_monto_categoria"
                     format="YYYY-MM-DD"
-                    style="margin-left: 15%; width: 50%"
+                    style="margin-left: 15%; width: 60%"
                     :startDate="startDate"
+                    :displayClearButton="false"
+                    :positionRight="true"
                     :i18n="i18n"
                   />
                   <button
                     v-on:click="graficar_monto_categoria_filtro"
                     class="btn btn-info"
-                    style="
-                      margin-left: 2%;
-                      background-color: #28a745;
-                      color: #fff;
-                      border-radius: 0.25rem;
-                    "
                     data-toggle="tooltip"
                     data-placement="left"
                     title="Selecciona un rango de fecha para mostrar gráfica."
                   >
-                    Actualizar
+                    <b-icon icon="funnel"></b-icon>
+                    {{ nombre_boton_filtro }}
                   </button>
                 </div>
-                <bar-chart
-                  v-if="loaded_filtro"
-                  :chartdata="chartdata_filtro"
-                  :options="options_bar"
-                  style="margin-left: 15%; width: 75%"
-                />
+                <label
+                  name="error"
+                  v-if="error_fecha_monto_categoria"
+                  style="color: red"
+                  >{{ mensaje_error_datos }}</label
+                >
               </div>
             </b-card-text>
           </b-tab>
-          
           <b-tab
             v-on:click="mascotaVendidaG"
             title="Categoría de mascota más vendida (Top 5)"
           >
             <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
-                >
+              <div class="ancho centra box-shadow">
+                <h1 class="title-style">
                   Categoría de mascota más vendida (Top 5)
                 </h1>
-
-                <line-chart
+                <button
+                  @click="mascotaVendidaG()"
+                  class="btn btn-secondary mr-4"
+                >
+                  {{ nombre_boton_total }}
+                </button>
+                <pie-chart
                   v-if="loaded_mascota"
                   :chartdata="mascotaPoint"
-                  :options="options_line"
+                  :options="options_pie"
                   style="margin-left:5%; width75%;"
                 />
-
                 <div v-if="hideMe">
                   <br />
                   <div style="display: inline-flex">
@@ -292,128 +250,96 @@
                       class="btn btn-success btn-sm mt-1"
                       style="height: 95%"
                       @click="findMascotaVendida"
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Selecciona un mes para mostrar gráfica."
                     >
-                      <b-icon icon="search"></b-icon>
+                      <b-icon icon="funnel"></b-icon>
+                      {{ nombre_boton_filtro_mes }}
                     </button>
                   </div>
                   <br />
                 </div>
-
-                <button
-                  @click="mascotaVendidaG()"
-                  class="btn btn-secondary mr-4"
+                <label
+                  name="error"
+                  v-if="error_fecha_mascota"
+                  style="color: red"
+                  >{{ mensaje_error_datos }}</label
                 >
-                  Total
-                </button>
-                <button
-                  @click="menuBusquedaMVG()"
-                  class="btn btn-info"
-                  style="
-                    margin-left: 2%;
-                    background-color: #28a745;
-                    color: #fff;
-                    border-radius: 0.25rem;
-                  "
-                >
-                  Filtrar por mes
-                </button>
               </div>
             </b-card-text>
           </b-tab>
-          
           <b-tab
             v-on:click="graficar_monto_tipo_pago"
             title="Ventas totales por tipo de pago"
           >
             <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
-                >
+              <div class="ancho centra box-shadow">
+                <h1 class="title-style">
                   Gráfica de ventas totales por tipo de pago
                 </h1>
-                <bar-chart
-                  v-if="loaded_tipo_pago"
-                  :chartdata="chartdata_tipo_pago"
-                  :options="options_bar"
-                  style="margin-left:5%; width75%;"
-                />
-              </div>
-            </b-card-text>
-          </b-tab>
-          
-          <b-tab
-            v-on:click="graficar_monto_tipo_pago_filtro"
-            title="Ventas totales por tipo de pago con filtro de fechas"
-          >
-            <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
+                <button
+                  @click="graficar_monto_tipo_pago()"
+                  class="btn btn-secondary mr-4"
                 >
-                  Gráfica de ventas totales por tipo de pago con filtro de
-                  fechas
-                </h1>
-                <div style="margin;auto; width:80%">
+                  {{ nombre_boton_total }}
+                </button>
+                <bar-chart
+                  v-if="loaded_tipo_pago_filtro"
+                  :chartdata="chartdata_tipo_pago_filtro"
+                  :options="options_bar_importe"
+                  style="margin-left: 5%; width: 90%"
+                />
+                <div style="margin;auto; width:100%">
                   <HotelDatePicker
                     @check-in-changed="checkIn_tipo_pago"
                     @check-out-changed="checkOut_tipo_pago"
                     format="YYYY-MM-DD"
-                    style="margin-left: 15%; width: 50%"
+                    style="margin-left: 15%; width: 60%"
                     :startDate="startDate"
+                    :displayClearButton="false"
+                    :positionRight="true"
                     :i18n="i18n"
                   />
                   <button
                     v-on:click="graficar_monto_tipo_pago_filtro"
                     class="btn btn-info"
-                    style="
-                      margin-left: 2%;
-                      background-color: #28a745;
-                      color: #fff;
-                      border-radius: 0.25rem;
-                    "
                     data-toggle="tooltip"
                     data-placement="left"
                     title="Selecciona un rango de fecha para mostrar gráfica."
                   >
-                    Actualizar
+                    <b-icon icon="funnel"></b-icon>
+                    {{ nombre_boton_filtro }}
                   </button>
                 </div>
-                <bar-chart
-                  v-if="loaded_tipo_pago_filtro"
-                  :chartdata="chartdata_tipo_pago_filtro"
-                  :options="options_bar"
-                  style="margin-left: 15%; width: 75%"
-                />
+                <label
+                  name="error"
+                  v-if="error_fecha_tipo_pago"
+                  style="color: red"
+                  >{{ mensaje_error_datos }}</label
+                >
               </div>
             </b-card-text>
           </b-tab>
-
           <b-tab
             v-on:click="paqueteriaUtilizadaG"
             title="Paquetería más popular"
           >
             <b-card-text>
-              <div
-                class="ancho centra box-shadow"
-              >
-                <h1
-                  class="title-style"
+              <div class="ancho centra box-shadow">
+                <h1 class="title-style">Paquetería más popular</h1>
+                <button
+                  @click="paqueteriaUtilizadaG()"
+                  class="btn btn-secondary mr-4"
                 >
-                  Paquetería más popular
-                </h1>
-
-                <bar-chart
+                  {{ nombre_boton_total }}
+                </button>
+                <pie-chart
                   v-if="loaded_paqueteria"
                   :chartdata="paqueteriaBar"
-                  :options="options_bar"
+                  :options="options_pie"
                   style="margin-left:5%; width75%;"
                 />
-
                 <div v-if="hideMePMPG">
                   <br />
                   <div style="display: inline-flex">
@@ -430,62 +356,29 @@
                       class="btn btn-success btn-sm mt-1"
                       style="height: 95%"
                       @click="findPaqueteriaUtilizada"
+                      data-toggle="tooltip"
+                      data-placement="left"
+                      title="Selecciona un mes para mostrar gráfica."
                     >
-                      <b-icon icon="search"></b-icon>
+                      <b-icon icon="funnel"></b-icon>
+                      {{ nombre_boton_filtro_mes }}
                     </button>
                   </div>
                   <br />
                 </div>
-
-                <button
-                  @click="paqueteriaUtilizadaG()"
-                  class="btn btn-secondary mr-4"
+                <label
+                  name="error"
+                  v-if="error_fecha_paqueteria"
+                  style="color: red"
+                  >{{ mensaje_error_datos }}</label
                 >
-                  Total
-                </button>
-                <button
-                  @click="menuBusquedaPMPG()"
-                  class="btn btn-info"
-                  style="
-                    margin-left: 2%;
-                    background-color: #28a745;
-                    color: #fff;
-                    border-radius: 0.25rem;
-                  "
-                >
-                  Filtrar por mes
-                </button>
               </div>
             </b-card-text>
           </b-tab>
-        
         </b-tabs>
-      
       </b-card>
-
-      <!-- Modal -->
-      <modal name="info" :clickToClose="true" :width="480" :height="220">
-        <div class="card">
-          <div class="card-header">Error en búsqueda</div>
-          <div class="card-body">
-            <div class="card-text">
-              <p>
-                No fue posible encontrar información con la fecha especificada
-              </p>
-              <div style="text-align: right">
-                <a href="#" class="btn btn-primary" @click="closeModal"
-                  >Aceptar</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </modal>
-    
     </div>
-  
   </div>
-
 </template>
 
 <script>
@@ -550,52 +443,101 @@ export default {
       "Nov",
       "Dic",
     ],
+    mensaje_error_datos: "No se encontraron datos",
+    error_fecha_monto_categoria: false,
+    error_fecha_tipo_pago: false,
+    error_fecha_importe_total_ventas: false,
+    error_fecha_numero_ordenes_total_ventas: false,
+    error_fecha_comprador: false,
+    error_fecha_mascota: false,
+    error_fecha_paqueteria: false,
     selectedMonthMascota: "",
     selectedMonthPaqueteria: "",
     selectedMonthComprador: "",
     mascotaPoint: null,
     paqueteriaBar: null,
     compradorPie: null,
-    paqueteriaOptions: null,
-    hideMe: false,
-    hideMePMPG: false,
-    hideMeCMAG: false,
-    message: "Seleccione una fecha a filtrar",
+    hideMe: true,
+    hideMePMPG: true,
+    hideMeCMAG: true,
+    message: "Seleccione un mes para filtrar",
+    nombre_boton_total: "Todo",
+    nombre_boton_filtro: "Filtrar",
+    nombre_boton_filtro_mes: "Filtrar por mes",
     tabIndex: 0,
-    loaded: false,
-    loaded_filtro: false,
-    loaded_tipo_pago: false,
+    loaded_monto_categoria_filtro: false,
     loaded_tipo_pago_filtro: false,
     loaded_comprador: false,
     loaded_mascota: false,
     loaded_paqueteria: false,
-    loaded_importe_total_ventas: false,
     loaded_importe_total_ventas_filtro: false,
-    loaded_numero_ordenes_total_ventas: false,
     loaded_numero_ordenes_total_ventas_filtro: false,
-    chartdata: null,
-    chartdata_filtro: null,
-    chartdata_tipo_pago: null,
+    chartdata_monto_categoria_filtro: null,
     chartdata_tipo_pago_filtro: null,
-    chartdata_importe_total_ventas: false,
     chartdata_importe_total_ventas_filtro: false,
-    chartdata_numero_ordenes_total_ventas: false,
     chartdata_numero_ordenes_total_ventas_filtro: false,
     dateRange: "",
-    fechaInicio: "",
-    fechaFin: "",
+    fechaInicio_monto_categoria: "",
+    fechaFin_monto_categoria: "",
     fechaInicio_tipo_pago: "",
     fechaFin_tipo_pago: "",
     fechaInicio_importe_total_ventas: "",
     fechaFin_importe_total_ventas: "",
     fechaInicio_numero_ordenes_total_ventas: "",
     fechaFin_numero_ordenes_total_ventas: "",
-    options_line: {
+    colores_graficas: {
+      CANINOS: "#96590C",
+      FELINOS: "#FF6400",
+      ARACNIDOS: "#FF00D4",
+      REPTILES: "#96FF33",
+      PECES: "#00FFA2",
+      AVES: "#85DBFC",
+      ROEDORES: "#FFFA5A",
+    },
+    options_line_importe: {
+      scales: {
+        yAxes: [
+          {
+            title: {
+              display: true,
+              text: "Tipo",
+              scale: "logaritmic",
+            },
+            ticks: {
+              callback: function (value) {
+                return "$" + value;
+              },
+            },
+            gridLines: {
+              display: true,
+            },
+          },
+        ],
+      },
       responsive: true,
       maintainAspectRatio: false,
       fill: false,
     },
-    options_bar: {
+    options_line: {
+      scales: {
+        yAxes: [
+          {
+            title: {
+              display: true,
+              text: "Tipo",
+              scale: "logaritmic",
+            },
+            gridLines: {
+              display: true,
+            },
+          },
+        ],
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      fill: false,
+    },
+    options_bar_importe: {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
@@ -611,6 +553,9 @@ export default {
             },
             ticks: {
               precision: 0,
+              callback: function (value) {
+                return "$" + value;
+              },
             },
             title: {
               display: true,
@@ -650,13 +595,14 @@ export default {
     },
   }),
   methods: {
-    checkIn(val) {
+    checkIn_monto_categoria(val) {
       var fecha = moment(new Date(val)).format("YYYY-MM-DD");
-      this.fechaInicio = fecha;
+      this.fechaInicio_monto_categoria = fecha;
     },
-    checkOut(val) {
+    checkOut_monto_categoria(val) {
       var fecha = moment(new Date(val)).format("YYYY-MM-DD");
-      this.fechaFin = fecha;
+      this.fechaFin_monto_categoria = fecha;
+      this.graficar_monto_categoria_filtro();
     },
     checkIn_tipo_pago(val) {
       var fecha = moment(new Date(val)).format("YYYY-MM-DD");
@@ -665,6 +611,7 @@ export default {
     checkOut_tipo_pago(val) {
       var fecha = moment(new Date(val)).format("YYYY-MM-DD");
       this.fechaFin_tipo_pago = fecha;
+      this.graficar_monto_tipo_pago_filtro();
     },
     checkIn_importe_total_ventas(val) {
       var fecha = moment(new Date(val)).format("YYYY-MM-DD");
@@ -673,6 +620,7 @@ export default {
     checkOut_importe_total_ventas(val) {
       var fecha = moment(new Date(val)).format("YYYY-MM-DD");
       this.fechaFin_importe_total_ventas = fecha;
+      this.graficar_importe_total_ventas_filtro();
     },
     checkIn_numero_ordenes_total_ventas(val) {
       var fecha = moment(new Date(val)).format("YYYY-MM-DD");
@@ -681,48 +629,54 @@ export default {
     checkOut_numero_ordenes_total_ventas(val) {
       var fecha = moment(new Date(val)).format("YYYY-MM-DD");
       this.fechaFin_numero_ordenes_total_ventas = fecha;
+      this.graficar_numero_ordenes_total_ventas_filtro();
     },
     async graficar_monto_categoria_filtro() {
-      this.loaded_filtro = false;
+      this.loaded_monto_categoria_filtro = false;
       try {
         const path_filtro =
           "/api/grafica-total-fechas-categoria-filtro.json?fechaFin=" +
-          this.fechaFin +
+          this.fechaFin_monto_categoria +
           "&fechaInicio=" +
-          this.fechaInicio;
+          this.fechaInicio_monto_categoria;
         console.log(path_filtro);
         const response = await fetch(path_filtro).then((response) =>
           response.json()
         );
-        this.chartdata_filtro = response.chartdata;
-        console.log(this.chartdata_filtro);
-        this.loaded_filtro = true;
+        this.chartdata_monto_categoria_filtro = response.chartdata;
+        this.error_fecha_monto_categoria = false;
+        this.loaded_monto_categoria_filtro = true;
       } catch (e) {
         console.error(e);
+        this.error_fecha_monto_categoria = true;
       }
     },
     async graficar_monto_categoria() {
-      this.loaded = false;
+      this.loaded_monto_categoria_filtro = false;
       try {
         const response = await fetch(
           "/api/grafica-total-fechas-categoria.json"
         ).then((response) => response.json());
-        this.chartdata = response.chartdata;
-        this.loaded = true;
+        this.chartdata_monto_categoria_filtro = response.chartdata;
+        this.error_fecha_monto_categoria = false;
+        this.loaded_monto_categoria_filtro = true;
       } catch (e) {
         console.error(e);
+        this.error_fecha_monto_categoria = true;
       }
     },
     async graficar_monto_tipo_pago() {
-      this.loaded_tipo_pago = false;
+      this.loaded_tipo_pago_filtro = false;
       try {
         const response = await fetch(
           "/api/grafica-tipo-pago.json"
         ).then((response) => response.json());
-        this.chartdata_tipo_pago = response.chartdata;
-        this.loaded_tipo_pago = true;
+        this.chartdata_tipo_pago_filtro = response.chartdata;
+        this.error_fecha_tipo_pago = false;
+        this.loaded_tipo_pago_filtro = true;
       } catch (e) {
         console.error(e);
+        this.error_fecha_tipo_pago = true;
       }
     },
     async graficar_monto_tipo_pago_filtro() {
@@ -738,21 +692,27 @@ export default {
           response.json()
         );
         this.chartdata_tipo_pago_filtro = response.chartdata;
+        this.error_fecha_tipo_pago = false;
         this.loaded_tipo_pago_filtro = true;
       } catch (e) {
         console.error(e);
+        this.error_fecha_tipo_pago = true;
       }
     },
     async graficar_importe_total_ventas() {
-      this.loaded_importe_total_ventas = false;
+      this.loaded_importe_total_ventas_filtro = false;
       try {
         const response = await fetch(
           "/api/grafica-total-importe-ventas.json"
         ).then((response) => response.json());
-        this.chartdata_importe_total_ventas = response.chartdata;
-        this.loaded_importe_total_ventas = true;
+        console.log("response");
+        console.log(response);
+        this.chartdata_importe_total_ventas_filtro = response.chartdata;
+        this.error_fecha_importe_total_ventas = false;
+        this.loaded_importe_total_ventas_filtro = true;
       } catch (e) {
         console.error(e);
+        this.error_fecha_importe_total_ventas = true;
       }
     },
     async graficar_importe_total_ventas_filtro() {
@@ -767,22 +727,29 @@ export default {
         const response = await fetch(path_filtro).then((response) =>
           response.json()
         );
+        console.log("response");
+        console.log(response);
         this.chartdata_importe_total_ventas_filtro = response.chartdata;
+        this.error_fecha_importe_total_ventas = false;
         this.loaded_importe_total_ventas_filtro = true;
       } catch (e) {
         console.error(e);
+        this.error_fecha_importe_total_ventas = true;
       }
     },
     async graficar_numero_ordenes_total_ventas() {
-      this.loaded_numero_ordenes_total_ventas = false;
+      this.loaded_numero_ordenes_total_ventas_filtro = false;
       try {
         const response = await fetch(
           "/api/grafica-total-numero-ordenes-ventas.json"
         ).then((response) => response.json());
-        this.chartdata_numero_ordenes_total_ventas = response.chartdata;
-        this.loaded_numero_ordenes_total_ventas = true;
+        response.chartdata.datasets[0].borderColor = "#17a2b8";
+        this.chartdata_numero_ordenes_total_ventas_filtro = response.chartdata;
+        this.error_fecha_numero_ordenes_total_ventas = false;
+        this.loaded_numero_ordenes_total_ventas_filtro = true;
       } catch (e) {
         console.error(e);
+        this.error_fecha_numero_ordenes_total_ventas = true;
       }
     },
     async graficar_numero_ordenes_total_ventas_filtro() {
@@ -798,22 +765,12 @@ export default {
           response.json()
         );
         this.chartdata_numero_ordenes_total_ventas_filtro = response.chartdata;
+        this.error_fecha_numero_ordenes_total_ventas = false;
         this.loaded_numero_ordenes_total_ventas_filtro = true;
       } catch (e) {
         console.error(e);
+        this.error_fecha_numero_ordenes_total_ventas = true;
       }
-    },
-    linkClass(idx) {
-      if (this.tabIndex === idx) {
-        this.graficar_monto_categoria();
-        return ["bg-primary", "text-light"];
-      } else {
-        this.graficar_monto_categoria();
-        return ["bg-light", "text-info"];
-      }
-    },
-    closeModal() {
-      this.$modal.hide("info");
     },
     coloresGenerador() {
       let col = [];
@@ -835,58 +792,6 @@ export default {
       let fecFin = y + "-" + m + "-" + ultimoDia;
       return [fecIni, fecFin];
     },
-    generadorDataset(dataObj) {
-      let labels = [];
-      let recolector = {};
-      let data = {};
-      Object.assign(data, {
-        labels: [
-          "Enero",
-          "Febrero",
-          "Marzo",
-          "Abril",
-          "Mayo",
-          "Junio",
-          "Julio",
-          "Agosto",
-          "Septiembre",
-          "Octubre",
-          "Noviembre",
-          "Diciembre",
-        ],
-      });
-      Object.assign(data, { datasets: [] });
-
-      dataObj.chart.map(function (i) {
-        if (!labels.includes(i.label)) {
-          labels.push(i.label);
-          recolector[i.label] = [];
-          recolector[i.label].push([i.mes - 1, i.data]);
-        } else {
-          recolector[i.label].push([i.mes - 1, i.data]);
-        }
-      });
-
-      let colores = this.coloresGenerador();
-      let i = 0;
-      for (let key in recolector) {
-        let arrData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        recolector[key].forEach(function (e) {
-          for (var i = 0; i < 12; i++) {
-            if (e[0] == i) {
-              arrData[i] += e[1];
-            }
-          }
-        });
-        data.datasets.push({
-          label: key,
-          data: arrData,
-          backgroundColor: colores[i],
-        });
-        i++;
-      }
-      return data;
-    },
     async compradorG() {
       this.loaded_comprador = false;
       const { data } = await axios.get("/api/grafica-comprador-asiduo.json");
@@ -900,39 +805,44 @@ export default {
           },
         ],
       };
+      this.error_fecha_comprador = false;
       this.loaded_comprador = true;
-      this.hideMeCMAG = false;
     },
     async mascotaVendidaG() {
       this.loaded_mascota = false;
       const { data } = await axios.get("/api/grafica-mascota-mas-vendida.json");
-      let colores = this.coloresGenerador();
-      const source = {
-        fill: false,
-        borderWidth: 2,
-        pointStyle: "triangle",
-        pointRadius: 10,
-        pointBorderColor: "rgb(0, 0, 0)",
-      };
-      let dataGenerada = this.generadorDataset(data);
+      let colores = ["", "", "", "", ""];
       let i = 0;
-      dataGenerada.datasets.map(function (e) {
-        Object.assign(e, source);
-        Object.assign(e, { borderColor: colores[i] });
+      for (let index in data.chart.label) {
+        colores[i] = this.colores_graficas[data.chart.label[index]];
         i++;
-      });
-
-      this.mascotaPoint = dataGenerada;
-      this.showMe = true;
+      }
+      this.mascotaPoint = {
+        labels: data.chart.label,
+        datasets: [
+          {
+            data: data.chart.data,
+            backgroundColor: colores,
+          },
+        ],
+      };
+      this.error_fecha_mascota = false;
       this.loaded_mascota = true;
-      this.hideMe = false;
     },
     async paqueteriaUtilizadaG() {
       this.loaded_paqueteria = false;
       const { data } = await axios.get("/api/grafica-paqueteria.json");
-      console.log("data de paqueteria: " + JSON.stringify(data));
-      this.paqueteriaBar = this.generadorDataset(data);
-      this.hideMePMPG = false;
+      let colores = this.coloresGenerador();
+      this.paqueteriaBar = {
+        labels: data.chart.label,
+        datasets: [
+          {
+            data: data.chart.data,
+            backgroundColor: colores,
+          },
+        ],
+      };
+      this.error_fecha_paqueteria = false;
       this.loaded_paqueteria = true;
     },
     async buscarGrafica(update, data, objActual) {
@@ -951,36 +861,36 @@ export default {
           this.compradorPie = tmp;
         }
         if (objActual == "mascota") {
-          let colores = this.coloresGenerador();
-          const source = {
-            fill: false,
-            borderWidth: 2,
-            pointStyle: "triangle",
-            pointRadius: 10,
-            pointBorderColor: "rgb(0, 0, 0)",
-          };
-          let dataGenerada = this.generadorDataset(data);
+          let colores = ["", "", "", "", ""];
           let i = 0;
-          dataGenerada.datasets.map(function (e) {
-            Object.assign(e, source);
-            Object.assign(e, { borderColor: colores[i] });
+          for (let index in data.chart.label) {
+            colores[i] = this.colores_graficas[data.chart.label[index]];
             i++;
-          });
-          this.mascotaPoint = dataGenerada;
+          }
+          let tmp = {
+            labels: data.chart.label,
+            datasets: [
+              {
+                backgroundColor: colores,
+                data: data.chart.data,
+              },
+            ],
+          };
+          this.mascotaPoint = tmp;
         }
         if (objActual == "paqueteria") {
-          this.paqueteriaBar = this.generadorDataset(data);
+          let tmp = {
+            labels: data.chart.label,
+            datasets: [
+              {
+                backgroundColor: colores,
+                data: data.chart.data,
+              },
+            ],
+          };
+          this.paqueteriaBar = tmp;
         }
       }
-    },
-    menuBusquedaCMAG() {
-      this.hideMeCMAG = true;
-    },
-    menuBusquedaMVG() {
-      this.hideMe = true;
-    },
-    menuBusquedaPMPG() {
-      this.hideMePMPG = true;
     },
     async findComprador() {
       this.loaded_comprador = false;
@@ -1001,11 +911,12 @@ export default {
           JSON.stringify(data)
       );
       if (!data) {
-        this.$modal.show("info");
+        this.error_fecha_comprador = true;
       } else {
         this.buscarGrafica(true, data, "comprador");
+        this.error_fecha_comprador = false;
+        this.loaded_comprador = true;
       }
-      this.loaded_comprador = true;
     },
     async findMascotaVendida() {
       this.loaded_mascota = false;
@@ -1025,12 +936,13 @@ export default {
           "\nCon los siguientes datos:" +
           JSON.stringify(data)
       );
-      if (data.chart.length == 0) {
-        this.$modal.show("info");
+      if (!data) {
+        this.error_fecha_mascota = true;
       } else {
         this.buscarGrafica(true, data, "mascota");
+        this.error_fecha_mascota = false;
+        this.loaded_mascota = true;
       }
-      this.loaded_mascota = true;
     },
     async findPaqueteriaUtilizada() {
       this.loaded_paqueteria = false;
@@ -1046,15 +958,15 @@ export default {
           "\nCon los siguientes datos:" +
           JSON.stringify(data)
       );
-      if (data.chart.length == 0) {
-        this.$modal.show("info");
+      if (!data) {
+        this.error_fecha_paqueteria = true;
       } else {
         this.buscarGrafica(true, data, "paqueteria");
+        this.error_fecha_paqueteria = false;
+        this.loaded_paqueteria = true;
       }
-      this.loaded_paqueteria = true;
     },
   },
-
   async mounted() {
     this.graficar_importe_total_ventas();
   },
@@ -1070,7 +982,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
 .nav-link.active {
   background-color: #28a745 !important;
   color: #fff !important;
@@ -1091,17 +1002,28 @@ export default {
   border-radius: 20px;
   margin: 50px 0;
 }
-.box-shadow{
-    width: 95%;
-    margin-top: 5%;
-    box-shadow: #6c757d 2px 2px 15px 2px;
-    border-radius: 7px;
-    padding: 15px;
+.box-shadow {
+  width: 95%;
+  margin-top: 5%;
+  box-shadow: #6c757d 2px 2px 15px 2px;
+  border-radius: 7px;
+  padding: 15px;
 }
-.title-style{
-  margin-left: 15%;
+.title-style {
+  margin-left: 5%;
   font-size: 28px;
   font-weight: bold;
-  /*text-shadow: -1px -1px 1px #333;*/
+  text-shadow: -1px -1px 1px #333;
+}
+h1 {
+  margin-left: 5%;
+  width: 80%;
+}
+.btn-info {
+  margin-left: 2% !important;
+  background-color: #28a745 !important;
+  color: #fff !important;
+  border-color: #28a745 !important;
+  border-radius: 0.25rem !important;
 }
 </style>
