@@ -73,6 +73,6 @@ export default {
 
 <style scoped>
 .ancho {
-    max-width: 400px;
+    max-width: 600px;
 }
 </style>
