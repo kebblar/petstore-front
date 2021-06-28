@@ -1,7 +1,7 @@
 <template>
 
   <div id = "carrito">
-  <a v-show="noDetalle" href="#" class="mr-4" data-toggle="modal" data-target="#kartModal" @click="actualiza" >
+  <a href="#" class="mr-4" data-toggle="modal" data-target="#kartModal" @click="actualiza" >
     <div class="icon-wrapper" style="font-size: 9px;">
       <i class="fas fa-shopping-cart fa-3x icon-black" style="color: green"></i>
       <span class="badge my-auto" >{{ cantidad  }}</span>
@@ -78,7 +78,6 @@ import router from '../router'
 
 export default {
   props : {
-    ruta : String,
     cantidad: Number
   },
   watch: {
@@ -94,11 +93,6 @@ export default {
       shoppingKart : [],
       url_video : process.env.VUE_APP_URL_MEDIA_VIDEO,
       url_img : process.env.VUE_APP_URL_MEDIA,
-    }
-  },
-  computed : {
-    noDetalle () {
-      return this.ruta !== '/ui/detalle-pago';
     }
   },
   mounted() {
@@ -131,7 +125,7 @@ export default {
     },
     deleteElement(i) {
       axios.delete('/api/carrito/'+i+'.json').then (response => {
-        console.log(response);
+        if(response!=null) {console.log("OK");}
         this.actualiza();
       }).catch(e => {
         console.log(e);

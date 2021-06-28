@@ -26,8 +26,9 @@
                     <div v-else>
                         <a href="#" @click="navega('/')"><i class="fas fa-home fa-2x divider3"></i></a>                      
                     </div>
-                    <div v-if="!admin">
-                      <Carrito :ruta="ruta" :cantidad="cantidad" ></Carrito>
+                    <div v-if="!admin && logged && detallePago">
+                      <Carrito :cantidad="cantidad" ></Carrito>
+
                     </div>
                   </b-nav-form>
 
@@ -114,6 +115,9 @@ export default {
       admin: function() {
            return store.state.session.jwt && store.state.session.jwt.length>10
          && store.state.session.roles[0].nombre.includes('admin');
+      },
+      detallePago: function(){
+        return window.location.pathname != '/ui/detalle-pago';
       }
     },
     data() {

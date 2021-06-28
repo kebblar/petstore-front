@@ -296,15 +296,16 @@
             </div>
             </div>
 
-          <div v-show="shoppingKart.length===0" class="row my-4">
+          <div v-if="pintar<1" class="row my-4">
             <div class="col" align="center">
               <p class="text-center text-danger">No puedes continuar porque tu carrito está vacío</p>
             </div>
           </div>
+
           <div class="row">
             <div class="col" style="height: 30%">
               <div class="container">
-                <button v-show="shoppingKart.length>0" style="width: 77%" type="button" class="btn btn-block btn-outline-success mt-3 mx-auto" @click="getCartera" data-toggle="modal" data-target="#carteraBtc">Bitcoin</button>
+                <button v-show="pintar>0" style="width: 77%" type="button" class="btn btn-block btn-outline-success mt-3 mx-auto" @click="getCartera" data-toggle="modal" data-target="#carteraBtc">Bitcoin</button>
 
                 <div class="modal fade" id="carteraBtc" role="dialog" tabindex="-1" aria-labelledby="MyWallet" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -341,7 +342,7 @@
               </div>
             </div>
           </div>
-          <div v-show="shoppingKart.length>0" class="row mt-4">
+          <div v-show="pintar>0" class="row mt-4">
             <div class="col">
               <div class="w-75 mx-auto" ref="paypal"></div>
             </div>
@@ -664,6 +665,9 @@ export default {
 
   },
   computed: {
+    pintar() {
+      return store.state.session.carrito.length;
+    },
     validaDetalles(){
       var x = true && (this.dirSelected!==0) && (this.paqSelected!==0);
       return !x;
