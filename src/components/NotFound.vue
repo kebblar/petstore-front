@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div align="center" class="my-5">
     <a href="#"><img src="../assets/not-found.jpg" @click="goLogin"/></a>
   </div>
 </template>

@@ -26,7 +26,7 @@
                     <div v-else>
                         <a href="#" @click="navega('/')"><i class="fas fa-home fa-2x divider3"></i></a>                      
                     </div>
-                    <div v-if="!admin">
+                    <div v-if="!admin && logged">
                       <Carrito :ruta="ruta" :cantidad="cantidad" ></Carrito>
                     </div>
                   </b-nav-form>
