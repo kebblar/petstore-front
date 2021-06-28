@@ -28,6 +28,7 @@
                     </div>
                     <div v-if="!admin && logged && detallePago">
                       <Carrito :cantidad="cantidad" ></Carrito>
+
                     </div>
                   </b-nav-form>
 
