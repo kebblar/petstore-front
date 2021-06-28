@@ -42,13 +42,16 @@ export default {
         router.push( {path: this.build(data) } );
       },
       getUrl(data) {
-        return this.urlBase + this.build(data);
+        return this.urlBase + this.build2(data);
       },
       build(data){
         var n = data.indexOf("-");
         var parte1 = data.substring(0,n);
         var parte2 = data.substring(n+1);
         return '/posts/search/' + parte2 + "/" + parte1 + "/";
+      },
+      build2(data){
+        return '/posts/search/' + data.substring(data.indexOf("-")+1);
       }
     },
     created() {
