@@ -22,7 +22,7 @@
           </div>
           <div class ="form-row form-group col-md-10">
             <div class="col-md-12">
-              <label for="nombre">Precio :</label>
+              <label for="nombre">Precio máximo :</label>
             </div>
             <div class="letraBusqueda col-md-12">
               <input type="number" pattern="[0-9]" required
