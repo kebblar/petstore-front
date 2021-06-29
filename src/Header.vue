@@ -19,7 +19,7 @@
                   
                   <b-nav-form>
                     <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-                    <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+                    <b-button size="sm" class="my-2 my-sm-0" type="button"  @click="navega('/ui/consulta-anuncios-publico')"  >Buscar</b-button>
                     <div v-if="admin">
                         <a href="#" @click="navega('/ui/admin')"><i class="fas fa-home fa-2x divider3"></i></a>                      
                     </div>
@@ -76,19 +76,8 @@
 
         <div class="buscador">
           <label>Bienvenido</label>
-          <div class="row">
-              <div class="col-sm-9">
-              <input
-                  type="text"
-                  class="form-control"
-                  placeholder="palabras de búsqueda"
-                  value="" />
-              </div>
-              <div class="col-sm4">
-              <input type="button" class="btn btn-success" value="Buscar" @click="navega('/ui/consulta-anuncios-publico')"/>
-              </div>
-          </div>
         </div>
+
     </div>
 </template>
 
@@ -155,11 +144,11 @@ export default {
   margin-right: 10%;
 }
 .buscador {
-  width: 300px;
-  min-width: 300px;
+  width: 100px;
+  min-width: 100px;
   text-align: left;
-  margin-top: -140px;
-  margin-left: 10%;
+  margin-top: -260px;
+  margin-left: 8%;
   z-index: 10;
 }
 .buscador label {

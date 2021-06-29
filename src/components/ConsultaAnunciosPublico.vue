@@ -7,7 +7,7 @@
       <div class="card-body align ">
         <div class="col-md-3 inline topAlign">
           <div class="form-row form-group col-md-10 raya">
-            <h1>Búsqueda</h1>
+            <h5 class="control-label text-center">Búsqueda</h5>
           </div>
           <div class="form-row form-group col-md-10">
             <div class="col-md-12">
