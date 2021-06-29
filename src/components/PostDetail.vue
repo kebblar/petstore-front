@@ -47,9 +47,8 @@ export default {
       },
       build(data){
         var n = data.indexOf("-");
-        var parte1 = data.substring(0,n);
         var parte2 = data.substring(n+1);
-        return 'Petstore Ultrasist - ' + parte2 + " - [" + parte1 + "]";
+        return 'Petstore Ultrasist - ' + parte2.replace(/-/g, ' ');
       }
     },
     created() {
