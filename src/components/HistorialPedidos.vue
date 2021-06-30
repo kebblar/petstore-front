@@ -21,7 +21,7 @@
             <div class="row" v-for="compra in currentPage" :key="compra.idCompra" style="background-color:#D7EAF9;margin-bottom:1%">
                 <div class="col-sm" >
                     <div v-if="compra.urlImagen.split('.').pop() === 'mp4'">
-                      <video class="rounded img-thumbnail" :src="url_video + compra.urlImagen" alt="video mascota" style="height: 100px; width: 100px;float:left"></video>
+                      <video poster="../assets/processing.gif" class="rounded img-thumbnail" :src="url_video + compra.urlImagen" alt="video mascota" style="height: 100px; width: 100px;float:left"></video>
                     </div>
                     <div v-else>
                       <img class="rounded img-thumbnail" :src="url + compra.urlImagen" alt="imagen mascota" style="height: 100px; width: 100px;float:left">

@@ -41,7 +41,7 @@
                       <td class="col-5"> 
                         <img v-if="!item.uuid.includes('mp4') && !item.uuid.includes('avi')" :src="ruta+item.uuid" class="img-fluid" 
                           width="150px" height="150px" /><br/>
-                        <video v-if="item.uuid.includes('mp4') || item.uuid.includes('avi')" class="video-fluid" autoplay 
+                        <video poster="../../assets/processing.gif" v-if="item.uuid.includes('mp4') || item.uuid.includes('avi')" class="video-fluid" autoplay 
                           loop muted width="150px" height="150px">
                           <source :src="rutaVideo + item.uuid" type="video/mp4" />
                         </video>

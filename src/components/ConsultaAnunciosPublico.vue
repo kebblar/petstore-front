@@ -139,7 +139,7 @@
                             class="card-img-top card-petstore-notActive" :src="ruta + entry.imagenes[0].uuid" img-alt="Image"/>
                             
                             <div v-else>
-                              <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top>
+                              <video poster="../assets/processing.gif" class="video-fluid" autoplay loop muted width="97%" height="50%" img-top>
                                 <source :src="rutaVideo + entry.imagenes[0].uuid" type="video/mp4" />
                               </video>
                             </div>
@@ -158,7 +158,7 @@
                     <img v-if="entry.imagenes[0].idTipo!=4  && entry.imagenes[0].idTipo!=5 && isActive" 
                             class="card-img-top card-petstore" :src="ruta + entry.imagenes[0].uuid" img-alt="Image"/>
                     <div v-else >
-                      <video  class="video-fluid" autoplay loop muted width="97%" height="50%" img-top v-if="isActive">
+                      <video poster="../assets/processing.gif" class="video-fluid" autoplay loop muted width="97%" height="50%" img-top v-if="isActive">
                         <source :src="rutaVideo + entry.imagenes[0].uuid" type="video/mp4" />
                       </video>
                     </div>

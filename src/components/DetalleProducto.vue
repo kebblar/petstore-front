@@ -48,7 +48,7 @@
                       alt="Image"
                       class="card-img-top card-petstore-detalle">
                     </b-card-img>
-                    <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 50vh; width:100%; padding: 2%">
+                    <video poster="../assets/processing.gif" v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 50vh; width:100%; padding: 2%">
                       <source :src="rutaVideo + imagen.uuid" type="video/mp4" />
                     </video>
                   </slide>
@@ -64,7 +64,7 @@
                       alt="Image"
                       style="height: 15vh; width:15vh;">
                     </b-card-img>
-                      <video v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 15vh; width:15vh;">
+                      <video poster="../assets/processing.gif" v-if="imagen.idTipo==4 || imagen.idTipo==5" class="video-fluid" autoplay loop muted style="height: 15vh; width:15vh;">
                         <source :src="rutaVideo + imagen.uuid"  type="video/mp4" />
                       </video>
                   </slide>

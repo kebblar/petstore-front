@@ -23,7 +23,7 @@
                   <img :src=mascota.urlImagen class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="60%">
                 </td>
                 <td v-else class="w-25 tamanoImg">
-                  <video :src=getVideoUrl(mascota.urlImagen) class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="60%"></video>
+                  <video poster="../assets/processing.gif" :src=getVideoUrl(mascota.urlImagen) class="mw-100 img-thumbnail" style="max-height: 80px;" height="auto" width="60%"></video>
                 </td>
                 <td style="padding: 3% 0;">{{mascota.titulo}}</td>
                 <td style="padding: 3% 0;" >${{mascota.precio}}</td>

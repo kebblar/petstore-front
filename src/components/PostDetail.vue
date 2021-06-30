@@ -19,6 +19,17 @@
                       <li>{{unico.titulo}}</li>
                       <li><span v-html="unico.descripcion" /></li>
                       <li>{{unico.precio}}</li>
+                      <li>
+                        <video 
+                           class="video-fluid" 
+                           loop 
+                           autoplay
+                           muted 
+                           poster="../assets/processing.gif"
+                           style="height: 50vh; width:100%; padding: 2%">
+                          <source :src=rutaVideo type="video/mp4" />
+                        </video>
+                      </li>
                     </ul>
                 </div>
             </div>
@@ -38,6 +49,7 @@ export default {
     data: function () {
         return {
           unico:[],
+          rutaVideo:'https://petstore-media.ci.ultrasist.net/hola2.mp4',
           urlBase : process.env.VUE_APP_URL
         }
     },
