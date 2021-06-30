@@ -207,7 +207,7 @@
                           {{ item.imagen }}
                         </div>
                         <div v-else>
-                            <video  class="video-fluid" autoplay loop muted style="padding: 2%" :style="item.principal?'border: 5px solid #469b27;':''" width="150px" height="150px">
+                            <video poster="../../assets/processing.gif" class="video-fluid" autoplay loop muted style="padding: 2%" :style="item.principal?'border: 5px solid #469b27;':''" width="150px" height="150px">
                             <source :src="rutaVideo + item.uuid" type="video/mp4" />
                           </video>
                         </div>
