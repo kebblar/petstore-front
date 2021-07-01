@@ -22,16 +22,16 @@
                       <li>
                         <ul v-for="imagen in unico.imagenes"  :key="imagen.idImagen">
                           <div v-if="imagen.idTipo==1">
-                            <li><img :src=creaRutaFotos(imagen.uuid) width="300px;"/></li>
+                            <li><img :src=creaRutaFotos(imagen.uuid) width="320px;"/></li>
                           </div>
                           <div v-if="imagen.idTipo==4">
                             <video 
-                              class="video-fluid" 
+                              class="video-fluid"
+                              width="320"
                               loop 
                               autoplay
                               muted 
-                              poster="../assets/processing.gif"
-                              style="height: 50vh; width:100%; padding: 2%">
+                              poster="../assets/processing.gif">
                               <source :src=creaRutaVideo(imagen.uuid) type="video/mp4" />
                             </video>
                           </div>
