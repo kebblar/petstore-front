@@ -48,9 +48,10 @@ export default {
         var n = data.indexOf("-");
         var parte1 = data.substring(0,n);
         var parte2 = data.substring(n+1);
-        return '/posts/search/' + parte2 + "/" + parte1 + "/";
+        return '/posts/search/' + parte1 + "/" + parte2 + "/";
       },
-      build2(data){
+      build2(data) {
+        // esto va en el título de la página
         return '/posts/search/' + data.substring(data.indexOf("-")+1);
       }
     },

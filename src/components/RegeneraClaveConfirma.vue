@@ -154,10 +154,11 @@
 </script>
 
 
-<style>
-
+<style scoped>
 hr.dashed {
   border-top: 3px dashed #bbb;
 }
-
+.ancho {
+    max-width: 390px;
+}
 </style>

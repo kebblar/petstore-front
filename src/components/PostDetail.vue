@@ -20,15 +20,22 @@
                       <li><span v-html="unico.descripcion" /></li>
                       <li>{{unico.precio}}</li>
                       <li>
-                        <video 
-                           class="video-fluid" 
-                           loop 
-                           autoplay
-                           muted 
-                           poster="../assets/processing.gif"
-                           style="height: 50vh; width:100%; padding: 2%">
-                          <source :src=rutaVideo type="video/mp4" />
-                        </video>
+                        <ul v-for="imagen in unico.imagenes"  :key="imagen.idImagen">
+                          <div v-if="imagen.idTipo==1">
+                            <li><img :src=creaRutaFotos(imagen.uuid) width="300px;"/></li>
+                          </div>
+                          <div v-if="imagen.idTipo==4">
+                            <video 
+                              class="video-fluid" 
+                              loop 
+                              autoplay
+                              muted 
+                              poster="../assets/processing.gif"
+                              style="height: 50vh; width:100%; padding: 2%">
+                              <source :src=creaRutaVideo(imagen.uuid) type="video/mp4" />
+                            </video>
+                          </div>
+                        </ul>
                       </li>
                     </ul>
                 </div>
@@ -49,7 +56,8 @@ export default {
     data: function () {
         return {
           unico:[],
-          rutaVideo:'https://petstore-media.ci.ultrasist.net/hola2.mp4',
+          fotos:'https://photos.ci.ultrasist.net/',
+          rutaVideo:'https://petstore-media.ci.ultrasist.net/',
           urlBase : process.env.VUE_APP_URL
         }
     },
@@ -61,7 +69,13 @@ export default {
         var n = data.indexOf("-");
         var parte2 = data.substring(n+1);
         return 'Petstore Ultrasist - ' + parte2.replace(/-/g, ' ');
-      }
+      },
+      creaRutaFotos(data) {
+          return this.fotos + data;
+      },
+      creaRutaVideo(data) {
+          return this.rutaVideo + data;
+      }      
     },
     created() {
       axios.get('api/content/' + this.$route.params.id + "-" + this.$route.params.descripcion , {

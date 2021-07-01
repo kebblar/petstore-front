@@ -84,7 +84,7 @@ const routes = [
     component: PostsList
   },
   {
-    path: '/posts/search/:descripcion/:id',
+    path: '/posts/search/:id/:descripcion',
     name: 'postDetail',
     component: PostDetail
   },
