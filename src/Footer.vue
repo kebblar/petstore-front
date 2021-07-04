@@ -76,9 +76,9 @@
                             <div class="kilimanjaro_single_contact_info">
                                 <h4 style="margin-bottom: 10px;"><i class="fas fa-envelope fa-lg" style="padding-top: 10%"></i> Correos</h4>
                                 <p>
-                                  <a href = "mailto: abc@example.com">support@webblogoverflow.com</a> 
+                                  <a href = "mailto: asupport@petstore.ci.ultrasist.net">support@petstore.ci.ultrasist.net</a> 
                                   <br> 
-                                  <a href = "mailto: abc@example.com">luckmoshy@gmail.com</a>
+                                  <a href = "mailto: petstore@gmail.com">petstore@gmail.com</a>
                                 </p>
                             </div>
                             <div class="kilimanjaro_single_contact_info">
@@ -96,7 +96,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <p>© Todos los derechos reservados. Sitio desarrollado por: <a href="https://ultrasist.mx" target="_blank" style="color:#27ae60;">Ultrasist SA de CV -(con amor) <i class="fa fa-heart rojo" aria-hidden="true"></i></a></p>
+                        <p>© Todos los derechos reservados. 2021<br/>Sitio desarrollado por: <br/><a href="https://ultrasist.mx" target="_blank" style="color:#27ae60;">Ultrasist SA de CV -(con amor) <i class="fa fa-heart rojo" aria-hidden="true"></i></a></p>
                     </div>
                 </div>
             </div>
