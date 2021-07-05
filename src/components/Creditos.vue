@@ -48,8 +48,7 @@
         <hr style="width:99%"/>
         <div class="row">
           <div class="col">
-            <a href='#' @click="open">Aprender, Enseñar y Trascender... </a>
-            <a href='#' @click="open">esa es la misión.</a>
+            <a href='#' @click="open">Aprender, Enseñar y Trascender... esa es la misión.</a>
           </div>
         </div>
       </div>
@@ -71,11 +70,11 @@
 
 <script>
 import Aviso from '../Aviso';
+
 export default {
     data: function () {
         return {
-          listo7: 'Super Goose !!!',
-          destino: ''
+          hola: ''
         }
     },
     components: {
@@ -89,6 +88,9 @@ export default {
     computed: {
       listo: function() {
         return 'Super Goose Arellano !!! '
+      },
+      destino: function() {
+        return ''
       }
     }
 }
@@ -96,13 +98,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.derecha {
-  width: 300px;
-  text-align: right;
-}
-.izquierda {
-  text-align: left;
-}
 .cabecera {
   margin-top: 10px;
   color:#ff0000;

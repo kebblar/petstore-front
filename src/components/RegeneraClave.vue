@@ -75,6 +75,6 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ancho {
-    max-width: 340px;
-}
+    max-width: 450px;
+    padding: 20px;}
 </style>
