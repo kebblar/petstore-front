@@ -76,5 +76,5 @@
 <style scoped>
 .ancho {
     max-width: 450px;
-    padding: 20px;}
+}
 </style>

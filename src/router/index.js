@@ -102,7 +102,8 @@ const routes = [
   {
     path: '/ui/cambia-datos-personales',
     name: 'cambia-datos-personales',
-    component: CambiaDatosPersonales
+    component: CambiaDatosPersonales,
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/detalle-producto/:idp',
@@ -300,8 +301,10 @@ function checaJwt(jwt, active) {
     if (active && jwt && jwt !== undefined && jwt.length > 0) {
         console.log(jwt);
         const jwtPayload = parseJwt(jwt);
-        //console.log(jwtPayload);
-        if (jwtPayload.exp < Date.now() / 1000) {
+        //jwtPayload.exp=1625505833-28*60;
+        console.log(jwtPayload);
+        const limite = (Date.now() / 1000)-(2*60); // fecha actual menos dos minutos
+        if (jwtPayload.exp < limite) {
             store.commit('setSession', {
                 nombreCompleto: '',
                 roles: [],
@@ -313,20 +316,21 @@ function checaJwt(jwt, active) {
             });
             store.commit('setDestination', '/');
         } else {
-            //const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
+            const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
+            console.log('Tiempo para que expire:' + timeToExpire);
         }
     }
 }
 
-
 router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   axios.defaults.headers.common = {"jwt": store.state.session.jwt};
-  checaJwt(store.state.session.jwt, false);
+  checaJwt(store.state.session.jwt, true);
 
-  axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+  axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {
+    // no le mando parámetros .... ni headers aqui...
+  }).then(response => {
     store.commit('setCarrito', response.data);
-    //console.log(response.data);
   }).catch(e => {
     console.log(e);
   });

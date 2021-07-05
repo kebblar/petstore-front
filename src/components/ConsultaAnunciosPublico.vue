@@ -243,7 +243,6 @@ export default {
   mounted () {
     this.ruta      = process.env.VUE_APP_URL_MEDIA;
     this.rutaVideo = process.env.VUE_APP_URL_MEDIA_VIDEO;
-    console.log('-------------->'+this.rutaVideo);
 
     axios.get('api/categorias.json').then(response => {
         response.data.forEach((obj, key) => {

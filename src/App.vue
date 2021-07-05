@@ -41,8 +41,7 @@ html,body {
 }
 .centra {
   margin: auto;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 20px;
 }
 .loader {
   position: fixed;

@@ -145,63 +145,22 @@
           <div class="col text-center" >
               <button
                 :disabled="habilitaBoton"
-                type="button"
-                id="button"
-                data-toggle="modal"
                 class="btn btn-success"
-                @click="submition"
-                data-target="#modalExito">Registrarme</button>
+                @click="submition">Registrarme</button>
           </div>
         </div>
-
-      <modal
-          name="aviso"
-          :clickToClose="false"
-          :reset="true"
-          :width="480"
-          :height="260">
-        <div class="card">
-          <div class="card-header" style="text-align:center">Advertencia del sistema</div>
-          <div class="card-body">
-            <h5 class="card-title">{{texto}}</h5>
-            <p class="card-text">{{ descripcionModal }}</p>
-            <div style="text-align: right;">
-              <a href="#" class="btn btn-primary" @click="closeModal">Aceptar</a>
-            </div>
-          </div>
-        </div>
-      </modal>
 
     </div><!-- ends card body -->
 
   </div><!-- ends card -->
 
-  <!-- Modal -->
-  <div 
-    class="modal fade" 
-    name="modalExito" 
-    tabindex="-1" 
-    role="dialog" 
-    aria-labelledby="exampleModalLabel" 
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Registro exitoso</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Has quedado registrado en el sistema, ahora puedes iniciar sesión
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Iniciar sesión</button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <Aviso
+      ref='aviso'
+      ancho='320'
+      alto='290'
+      :target=target
+      :avisoMsg=msgErr
+      :avisoTitulo=texto /> 
 
 </div>
 
@@ -213,6 +172,7 @@
   import router from '../router';
   import RangeSlider from "vue-range-slider";
   import "vue-range-slider/dist/vue-range-slider.css";
+  import Aviso from '../Aviso';
 
   const HTTP_STATUS = {
     OK : 200,
@@ -226,10 +186,14 @@
   export default {
     components: {
       VueRecaptcha,
-      RangeSlider
+      RangeSlider,
+      Aviso
     },
     data() {
       return {
+        msgErr:'',
+        target:'',
+
         name: '',
         email : '',
         password : '',
@@ -411,14 +375,14 @@
           fechaNacimiento : this.fNacimiento
         }).then(response => {
           this.loading = false
-          console.log(response.data);
+          if(response.data) console.log('ok');
           router.push('confirma-registro');
         }).catch(error => {
           this.loading = false
           this.msgErr = error;
           if(error.response) {
             this.$modal.show('aviso');
-            this.texto = "¡Ha ocurrido un problema!"
+            this.texto = error.response.data['exceptionShortDescription'];
             this.descripcionModal = "Ya existe una cuenta con este correo"
             this.msgErr = error.response.data['exceptionLongDescription'];
           }

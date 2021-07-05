@@ -17,12 +17,7 @@
               <b-nav-form>
                 <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
                 <b-button size="sm" class="my-2 my-sm-0 divider2" type="button" @click="navega('/ui/consulta-anuncios-publico')"  >Buscar</b-button>
-                <div v-if="admin">
-                    <a href="#" @click="navega('/ui/admin')" class="fas fa-home fa-2x fondo"></a>
-                </div>
-                <div v-else>
-                    <a href="#" @click="navega('/')" class="fas fa-home fa-2x fondo"></a>
-                </div>
+
                 <div v-if="!admin && logged">
                   <Carrito :cantidad="cantidad" ></Carrito>
                 </div>
@@ -33,9 +28,11 @@
                 <template #button-content>
                   <em style="color:#ffff">{{ nombre }}</em>
                 </template>
-                <b-dropdown-item href="#" @click="navega('/ui/cambia-clave')">Cambiar Clave</b-dropdown-item>
-                <b-dropdown-item href="#" @click="navega('/ui/cambia-datos-personales')">Perfil</b-dropdown-item>
-                <div v-if="!admin">
+                <div v-if="logged">
+                  <b-dropdown-item href="#" @click="navega('/ui/cambia-clave')">Cambiar Clave</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/cambia-datos-personales')">Perfil</b-dropdown-item>
+                </div>
+                <div v-if="!admin && logged">
                   <b-dropdown-item href="#" @click="navega('/ui/compras')">Mis Compras</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/mis-direcciones')">Mis Direcciones</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/mis-metodos-pago')">Mis Métodos de pago</b-dropdown-item>
@@ -46,15 +43,22 @@
                   <b-dropdown-item href="#" @click="navega('/ui/reporte-graficas')">Reportes Gráficos</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/admin')">Home</b-dropdown-item>
                 </div>
-                <b-dropdown-divider  />
-                <b-dropdown-item href="#" @click="logout">Salir</b-dropdown-item>
+                <div v-if="logged">
+                  <b-dropdown-divider  />
+                  <b-dropdown-item href="#" @click="logout">Salir</b-dropdown-item>
+                </div>
+                <div v-else>
+                  <b-dropdown-item href="#" @click="navega('/')">Home</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/login')">Login</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/registro')">Registro</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/consulta-anuncios-publico')">Consulta detallada</b-dropdown-item>
+                </div>
               </b-nav-item-dropdown>
 
               <div v-if="logged">
                 <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
               </div>
               <div v-else>
-                <input @click="navega('/ui/registro')" type="button" class="btn btn-outline-warning divider2" value="Registrarse" />
                 <input @click="navega('/ui/login')" type="button" class="btn btn-outline-success" value="Ingresar" />
               </div>        
 
@@ -77,10 +81,13 @@ export default {
     },
     computed: {
       logged: function() {
-        return store.state.session.jwt && store.state.session.jwt.length>10;
+        var response = store.state.session.jwt && store.state.session.jwt.length>10;
+        console.log(response);
+        return response;
       },
       nombre: function() {
-        return store.state.session.nombreCompleto;
+        var nc = store.state.session.nombreCompleto;
+        return nc.length>1?nc:'Invitado';
       },
       cantidad: function() {
         return store.state.session.carrito.length;

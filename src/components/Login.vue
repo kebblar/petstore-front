@@ -112,7 +112,7 @@ export default {
                 usuario: this.usr,
                 clave: this.psw
             }).then(response => {
-                var rd = response.data;
+                var rd = response.data; 
                 var ud = rd.usuarioDetalle;
                 console.log(response.data);
                 store.commit('setSession', {
