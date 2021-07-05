@@ -1,86 +1,70 @@
 <template>
     <div>
-        <div class="barra">
-
-          <div class="row">
-              <div class="col">
-                <img src="./assets/logo.png" width="50px;" @click="navega('/ui/creditos')"/> <label style="font-size:32px;">The Petstore App</label>
-              </div>
+      <div class="row">
+          <div class="col">
+            <img src="./assets/logo.png" width="50px;" style="margin-left:10px;" @click="navega('/ui/creditos')"/> <label style="font-size:32px;">The Petstore App</label>
           </div>
-                
-          <b-navbar toggleable="lg" type="dark" variant="info">
+      </div>
+      <b-navbar toggleable="lg" type="dark" variant="dark">
 
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-              <b-collapse id="nav-collapse" is-nav>
+          <b-collapse id="nav-collapse" is-nav>
 
-                <!-- Right aligned nav items -->
-                <b-navbar-nav class="ml-auto">
-                  
-                  <b-nav-form>
-                    <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-                    <b-button size="sm" class="my-2 my-sm-0" type="button"  @click="navega('/ui/consulta-anuncios-publico')"  >Buscar</b-button>
-                    <div v-if="admin">
-                        <a href="#" @click="navega('/ui/admin')"><i class="fas fa-home fa-2x divider3"></i></a>                      
-                    </div>
-                    <div v-else>
-                        <a href="#" @click="navega('/')"><i class="fas fa-home fa-2x divider3"></i></a>                      
-                    </div>
-                    <div v-if="!admin && logged">
-                      <Carrito :cantidad="cantidad" ></Carrito>
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
+              
+              <b-nav-form>
+                <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+                <b-button size="sm" class="my-2 my-sm-0 divider2" type="button" @click="navega('/ui/consulta-anuncios-publico')"  >Buscar</b-button>
+                <div v-if="admin">
+                    <a href="#" @click="navega('/ui/admin')" class="fas fa-home fa-2x fondo"></a>
+                </div>
+                <div v-else>
+                    <a href="#" @click="navega('/')" class="fas fa-home fa-2x fondo"></a>
+                </div>
+                <div v-if="!admin && logged">
+                  <Carrito :cantidad="cantidad" ></Carrito>
+                </div>
+              </b-nav-form>
 
-                    </div>
-                  </b-nav-form>
+              <b-nav-item-dropdown right>
+                <!-- Using 'button-content' slot -->
+                <template #button-content>
+                  <em style="color:#ffff">{{ nombre }}</em>
+                </template>
+                <b-dropdown-item href="#" @click="navega('/ui/cambia-clave')">Cambiar Clave</b-dropdown-item>
+                <b-dropdown-item href="#" @click="navega('/ui/cambia-datos-personales')">Perfil</b-dropdown-item>
+                <div v-if="!admin">
+                  <b-dropdown-item href="#" @click="navega('/ui/compras')">Mis Compras</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/mis-direcciones')">Mis Direcciones</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/mis-metodos-pago')">Mis Métodos de pago</b-dropdown-item>
+                </div>
+                <div v-if="admin">
+                  <b-dropdown-divider/>
+                  <b-dropdown-item href="#" @click="navega('/ui/catalogos')">Catálogos</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/reporte-graficas')">Reportes Gráficos</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="navega('/ui/admin')">Home</b-dropdown-item>
+                </div>
+                <b-dropdown-divider  />
+                <b-dropdown-item href="#" @click="logout">Salir</b-dropdown-item>
+              </b-nav-item-dropdown>
 
-                  <b-nav-item-dropdown right>
-                    <!-- Using 'button-content' slot -->
-                    <template #button-content>
-                      <em style="color:#ffff">{{ nombre }}</em>
-                    </template>
-                    <b-dropdown-item href="#" @click="navega('/ui/cambia-clave')">Cambiar Clave</b-dropdown-item>
-                    <b-dropdown-item href="#" @click="navega('/ui/cambia-datos-personales')">Perfil</b-dropdown-item>
-                    <div v-if="!admin">
-                      <b-dropdown-item href="#" @click="navega('/ui/compras')">Mis Compras</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/mis-direcciones')">Mis Direcciones</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/mis-metodos-pago')">Mis Métodos de pago</b-dropdown-item>
-                    </div>
-                    <div v-if="admin">
-                      <b-dropdown-divider/>
-                      <b-dropdown-item href="#" @click="navega('/ui/catalogos')">Catálogos</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/reporte-graficas')">Reportes Gráficos</b-dropdown-item>
-                      <b-dropdown-item href="#" @click="navega('/ui/admin')">Home</b-dropdown-item>
-                    </div>
-                    <b-dropdown-divider  />
-                    <b-dropdown-item href="#" @click="logout">Salir</b-dropdown-item>
-                  </b-nav-item-dropdown>
+              <div v-if="logged">
+                <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
+              </div>
+              <div v-else>
+                <input @click="navega('/ui/registro')" type="button" class="btn btn-outline-warning divider2" value="Registrarse" />
+                <input @click="navega('/ui/login')" type="button" class="btn btn-outline-success" value="Ingresar" />
+              </div>        
 
-                  <div v-if="logged">
-                    <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
-                  </div>
-                  <div v-else>
-                    <input @click="navega('/ui/registro')" type="button" class="btn btn-warning divider2" value="Registrarse" />
-                    <input @click="navega('/ui/login')" type="button" class="btn btn-success" value="Ingresar" />
-                  </div>        
+            </b-navbar-nav>
 
-                </b-navbar-nav>
+          </b-collapse>
 
-              </b-collapse>
-
-          </b-navbar>
-
-        </div>
-
-        <div class="top">
-          <img id="image" src="./assets/pajaro_01.png" width="50%" />
-        </div>
-
-        <div class="buscador">
-          <label>Bienvenido</label>
-        </div>
-
+      </b-navbar>
     </div>
 </template>
-
 
 <script>
 import router from './router'
@@ -136,28 +120,6 @@ export default {
 </script>
 
 <style>
-.top {
-  text-align: right;
-  background-color: #006600;
-}
-.top img {
-  margin-right: 10%;
-}
-.buscador {
-  width: 100px;
-  min-width: 100px;
-  text-align: left;
-  margin-top: -260px;
-  margin-left: 8%;
-  z-index: 10;
-}
-.buscador label {
-  color: #ffff;
-  font-size: 28px;
-}
-.barra {
-  margin: 10px;
-}
 .divider {
   padding-right: 20px;
 }
@@ -167,14 +129,11 @@ export default {
 .divider3 {
   margin-left: 10px;
 }
-.verde {
-  color:green;
+.fondo {
+  color:#a6a6a6;
 }
-.verde:hover {
-  color:green;
-}
-
-img {
-  object-fit: cover;
+.fondo:hover {
+  color:#fff;
+  text-decoration: none;
 }
 </style>

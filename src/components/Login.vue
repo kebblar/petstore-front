@@ -1,15 +1,12 @@
 <template>
     <div class="ancho centra">
 
-        <div class="card" style="width: 380px;">
+        <div class="card">
 
             <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <label>Ingresar al sistema</label>
-                    </div>
-                    <div class="col-sm-6" style="text-align: right;">
-                        <label>V. {{ version }}</label>
                     </div>
                 </div>
             </div><!-- ends header-->
@@ -50,8 +47,8 @@
             name="mensaje-login"
             :clickToClose="false"
             :reset="true"
-            :width="480"
-            :height="260">
+            :width="320"
+            :height="250">
             <div class="card">
                 <div class="card-header">Advertencia del sistema</div>
                 <div class="card-body">
@@ -145,6 +142,6 @@ export default {
 
 <style scoped>
 .ancho {
-    max-width: 400px;
+    max-width: 340px;
 }
 </style>

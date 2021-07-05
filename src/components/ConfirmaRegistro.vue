@@ -1,13 +1,13 @@
 <template>
   <div class="ancho centra">
-    <div class="card" style="width: 390px">
+    <div class="card">
       <div class="card-header">
         <label class="h4">Confirma tu registro</label>
       </div>
 
       <div class="card-body align">
         <small class="form-text text-muted text-center">
-          Un token de 6 dígitos fue enviado a tu correo electrónico, por favor introdúcelo a continuación:
+          Un token alfanumérico fue enviado a tu correo electrónico, por favor introdúcelo a continuación:
         </small>
         <br />
         <div class="form-group form-row">
@@ -23,9 +23,8 @@
               id="token"
               placeholder="XXXXXX"
               v-model="token"
-              maxlength="6"
-              minlength="6"
-            />
+              maxlength="16"
+              minlength="4" />
             <small class="notValid">{{ msgToken }}</small>
           </div>
         </div>
@@ -51,7 +50,7 @@
       name="aviso"
       :clickToClose="false"
       :reset="true"
-      :width="420"
+      :width="360"
       :height="220">
       <div class="card">
         <div class="card-header text-white" style="text-align: center; background-color: #363636">
@@ -87,8 +86,8 @@ export default {
     token() {
       this.msgToken = "";
       this.classToken = "greenColor correct";
-      if (this.token.trim().length != 6) {
-        this.msgToken = "El token debe contener exactamanete 6 caracteres";
+      if (this.token.trim().length<4) {
+        this.msgToken = "La longitud del token debe ser mayor a 3 caracteres";
         this.classToken = "redColor incorrect";
       }
       this.token = this.token.length === 1 ? this.token.toUpperCase() : this.token;
@@ -96,7 +95,7 @@ export default {
   },
   computed: {
     habilitaBoton: function(){
-      var dato = true && this.token && this.token.length==6
+      var dato = true && this.token && this.token.length>3
       return !dato;
     }
   },
@@ -136,7 +135,7 @@ export default {
 
 <style scoped>
 .ancho {
-    max-width: 390px;
+    max-width: 340px;
 }
 .notValid{
   color:rgb(235, 74, 74);

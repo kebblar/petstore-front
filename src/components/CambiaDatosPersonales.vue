@@ -1,139 +1,136 @@
 <template>
-<div class="ancho centra">
+  <div class="ancho centra">
 
-  <div v-if="loading" class="loader"/>
+    <div v-if="loading" class="loader"/>
 
-  <div class="card defaultColor" style="width:560px;">
+    <div class="card defaultColor">
 
-    <div class="card-header">
-         <label class="control-label h4">Actualizar mis datos persoales</label>
-    </div><!-- ends header-->
-    
-    <div class="card-body align" style="margin-top:20px;">
+      <div class="card-header">
+          <label class="control-label h4">Actualizar mis datos persoales</label>
+      </div><!-- ends header-->
+      
+      <div class="card-body align">
 
-        <!-- Nick -->
-        <div class ="form-row form-group">
-          <div class="col-md-4" style="text-align: right;">
-            <label for="nick">Nick:</label>
+          <!-- Nick -->
+          <div class ="form-row form-group">
+            <div class="col-md-4" style="text-align: right;">
+              <label for="nick">Nick:</label>
+            </div>
+            <div class="col">
+              <input type="text" required class="form-control" :class="classNick" placeholder="ejemplo: Goose" v-model="modelNick">
+              <small class="notValid">{{msgNick}}</small>
+            </div>
           </div>
-          <div class="col">
-            <input type="text" required class="form-control" :class="classNick" placeholder="ejemplo: Goose" v-model="modelNick">
-            <small class="notValid">{{msgNick}}</small>
-          </div>
-        </div>
 
-        <!-- Nombre -->
-        <div class ="form-row form-group">
-          <div class="col-md-4" style="text-align: right;">
-            <label for="nombre">Nombre:</label>
+          <!-- Nombre -->
+          <div class ="form-row form-group">
+            <div class="col-md-4" style="text-align: right;">
+              <label for="nombre">Nombre:</label>
+            </div>
+            <div class="col">
+              <input type="text" required class="form-control" :class="className" placeholder="ejemplo: luis" v-model="modelName">
+              <small class="notValid">{{msgName}}</small>
+            </div>
           </div>
-          <div class="col">
-            <input type="text" required class="form-control" :class="className" placeholder="ejemplo: luis" v-model="modelName">
-            <small class="notValid">{{msgName}}</small>
-          </div>
-        </div>
 
-        <!-- correo -->
-        <div class ="form-row form-group">
-          <div class= "col-md-4" style="text-align: right;">
-            <label for="modelCorreo">Correo:</label>
+          <!-- correo -->
+          <div class ="form-row form-group">
+            <div class= "col-md-4" style="text-align: right;">
+              <label for="modelCorreo">Correo:</label>
+            </div>
+            <div class="col">
+              <input type="email" disabled required class="form-control" :class="classMail" id="modelCorreo" placeholder="ejemplo: luis@gmail.com" v-model="modelCorreo">
+              <small class="notValid">{{msgMail}}</small>
+            </div>
           </div>
-          <div class="col">
-            <input type="email" disabled required class="form-control" :class="classMail" id="modelCorreo" placeholder="ejemplo: luis@gmail.com" v-model="modelCorreo">
-            <small class="notValid">{{msgMail}}</small>
-          </div>
-        </div>
 
-        <!-- apellido paterno -->
-        <div class ="form-row form-group">
-          <div class="col-md-4" style="text-align: right;">
-            <label for="modelApPat">Apellido Paterno:</label>
+          <!-- apellido paterno -->
+          <div class ="form-row form-group">
+            <div class="col-md-4" style="text-align: right;">
+              <label for="modelApPat">Apellido Paterno:</label>
+            </div>
+            <div class="col">
+              <input type="text" required :class="classApPat" class="form-control" id="modelApPat" placeholder="ejemplo: López" v-model="modelApPat">
+              <small class="notValid">{{msgApPat}}</small>
+            </div>
           </div>
-          <div class="col">
-            <input type="text" required :class="classApPat" class="form-control" id="modelApPat" placeholder="ejemplo: López" v-model="modelApPat">
-            <small class="notValid">{{msgApPat}}</small>
+
+          <!-- apellido materno -->
+          <div class ="form-row form-group">
+            <div class="col-md-4" style="text-align: right;">
+              <label for="modelApMat">Apellido Materno:</label>
+            </div>
+            <div class="col">
+              <input type="text" required :class="classApMat" class="form-control" id="modelApMat" placeholder="ejemplo: Pérez" v-model="modelApMat">
           </div>
-        </div>
-
-        <!-- apellido materno -->
-        <div class ="form-row form-group">
-          <div class="col-md-4" style="text-align: right;">
-            <label for="modelApMat">Apellido Materno:</label>
           </div>
-          <div class="col">
-            <input type="text" required :class="classApMat" class="form-control" id="modelApMat" placeholder="ejemplo: Pérez" v-model="modelApMat">
-         </div>
-        </div>
 
-        <!-- f nacimiento -->
-        <div class ="form-row form-group">
-          <div class="col-md-4" style="text-align: right;">
-            <label> Fecha de nacimiento:</label>
+          <!-- f nacimiento -->
+          <div class ="form-row form-group">
+            <div class="col-md-4" style="text-align: right;">
+              <label> Fecha de nacimiento:</label>
+            </div>
+            <div class="col">
+              <b-form-datepicker
+                  id="fecha-nacimiento"
+                  v-model="fNacimiento"
+                  :initial-date="dateConfig.initial"
+                  :max="dateConfig.max"
+                  :min="dateConfig.min"
+                  calendar-width="100%"
+                  class="mb-2"
+                  :class="styleCalendar"
+                  hide-header
+                  locale="es"
+                  menu-class="w-100"
+                  nav-button-variant="secondary"
+                  placeholder="MM-DD-YYYY"
+                  show-decade-nav
+                  v-bind:value-as-date=true
+                  />
+                </div>
           </div>
-          <div class="col">
-            <b-form-datepicker
-                id="fecha-nacimiento"
-                v-model="fNacimiento"
-                :initial-date="dateConfig.initial"
-                :max="dateConfig.max"
-                :min="dateConfig.min"
-                calendar-width="100%"
-                class="mb-2"
-                :class="styleCalendar"
-                hide-header
-                locale="es"
-                menu-class="w-100"
-                nav-button-variant="secondary"
-                placeholder="MM-DD-YYYY"
-                show-decade-nav
-                v-bind:value-as-date=true
-                />
-              </div>
-        </div>
 
-        <!-- telefono -->
-        <div class ="form-row form-group">
-          <div class="col-md-4" style="text-align: right;">
-          <label for="telefono">Telefono:</label>
+          <!-- telefono -->
+          <div class ="form-row form-group">
+            <div class="col-md-4" style="text-align: right;">
+            <label for="telefono">Telefono:</label>
+            </div>
+            <div class="col">
+            <input type="tel" class="form-control" required :class="classTel" id="telefono" placeholder="XX XXXX XXXX" v-model="tel">
+            <small class="notValid">{{msgTel}}</small>
+            </div>
           </div>
-          <div class="col">
-          <input type="tel" class="form-control" required :class="classTel" id="telefono" placeholder="XX XXXX XXXX" v-model="tel">
-          <small class="notValid">{{msgTel}}</small>
+
+          <!-- button -->
+          <div class="form-group row">
+            <div class="col text-center" >
+                <button
+                  :disabled="habilitaBoton"
+                  type="button"
+                  id="button"
+                  data-toggle="modal"
+                  class="btn btn-success"
+                  @click="submition"
+                  data-target="#modalExito">Actualizar datos</button>
+            </div>
           </div>
-        </div>
 
-        <!-- button -->
-        <div class="form-group row">
-          <div class="col text-center" >
-              <button
-                :disabled="habilitaBoton"
-                type="button"
-                id="button"
-                data-toggle="modal"
-                class="btn btn-success"
-                @click="submition"
-                data-target="#modalExito">Actualizar datos</button>
-          </div>
-        </div>
+      </div>
 
-    </div>
+    </div><!-- ends body-->
 
-  </div><!-- ends body-->
-
-  <!-- Modal -->
-  <Aviso
-    ref='avisoComp'
-    ancho='420'
-    alto='240'
-    target='/'
-    :avisoMsg=msgErr
-    avisoTitulo='Aviso del sistema' />
+    <!-- Modal -->
+    <Aviso
+      ref='avisoComp'
+      ancho='420'
+      alto='240'
+      target='/'
+      :avisoMsg=msgErr
+      avisoTitulo='Aviso del sistema' />
 
   </div>
-
 </template>
-
-
 
 <script>
   import axios from 'axios';
@@ -337,26 +334,26 @@
 
 </script>
 
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ancho {
-    max-width: 570px;
+    max-width: 340px;
 }
+
 .align {
  text-align: left;
 }
 
-.notValid{
+.notValid {
   color:rgb(235, 74, 74);
 }
 
-.greenColor:focus{
+.greenColor:focus {
   background-color: #eefaee;
   box-shadow: 2px 1px 4px #bdd3ae;
 }
 
-.correct{
+.correct {
   border-color:rgb(96, 161, 99);
   border-width: 1px;
   box-shadow: 1px 1px 3px #d8dcdd;
@@ -366,12 +363,12 @@
   background-position-x: 96%;
 }
 
-.redColor:focus{
-  background-color:   #fff3f3  ;
+.redColor:focus {
+  background-color: #fff3f3  ;
   box-shadow: 2px 1px 4px #dba6a6;
 }
 
-.incorrect{
+.incorrect {
   border-color:rgb(235, 74, 74);
   border-width: 1px;
   box-shadow: 1px 1px 3px #d8dcdd;
@@ -381,16 +378,16 @@
   background-position-x: 96%;
 }
 
-.defaultColor{
+.defaultColor {
   background-color: white;
   box-shadow: 1px 1px 3px #d8dcdd;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.show{
+.show {
   display: block;
 }
 

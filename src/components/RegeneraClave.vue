@@ -1,6 +1,6 @@
 <template>
   <div class="ancho centra">
-    <div class="card" style="width:390px;">
+    <div class="card">
       <div class="card-header">
         <label class="h4">Regeneración de clave de acceso</label>
       </div>
@@ -75,6 +75,6 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ancho {
-    max-width: 390px;
+    max-width: 340px;
 }
 </style>

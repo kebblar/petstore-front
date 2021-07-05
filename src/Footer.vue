@@ -1,7 +1,7 @@
 <template>
-    <footer class="kilimanjaro_area">
+    <footer class="kilimanjaro_area"> 
         <!-- Top Footer Area Start -->
-        <div class="foo_top_header_one section_padding_100_70">
+        <div class="foo_top_header_one section_padding_100_10">
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3">
@@ -16,10 +16,10 @@
                         <div class="kilimanjaro_part">
                             <h5>Nuestras redes sociales</h5>
                             <ul class="kilimanjaro_social_links">
-                                <li><a href="#"><i class="fab fa-facebook-square fa-2x verde" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter-square fa-2x verde" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-pinterest-square fa-2x verde" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-youtube-square fa-2x verde" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="margen-derecho"><i class="fab fa-facebook-square fa-2x verde" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="margen-derecho"><i class="fab fa-twitter-square fa-2x verde" aria-hidden="true"></i></a></li>
+                                <li><a href="#" class="margen-derecho"><i class="fab fa-pinterest-square fa-2x verde" aria-hidden="true"></i></a></li>
+                                <li><a href="#" ><i class="fab fa-youtube-square fa-2x verde" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
 
@@ -105,25 +105,18 @@
 </template>
 
 <style scoped>
-
 /*********footer*******************/
-.poco-margen {
-  margin-bottom: 10px;
+.margen-derecho {
+  margin-right: 8px;
 }
 h4 {
       font-size: 1.2rem;
       color:#666666;
-      margin-bottom: 10px;
 }
 h5 {
     border-bottom: 1px solid #666666;
-    color: rgba(255,255,255,.5);
-    display: block;
-    font-size: 1.25rem;
-    margin-bottom: 5px;
-    padding-bottom: 10px;
 }
-.rojo{
+.rojo {
   color:#ff0000;
 }
 .verde {
@@ -140,13 +133,14 @@ a {
     background-color: #15151e;
     color: #fff;
 }
-.section_padding_100_70 {
+.section_padding_100_10 {
     padding-top: 100px;
-    padding-bottom: 70px;
+    padding-bottom: 10px;
 }
 .foo_top_header_one {
     color: #fff;
-}.kilimanjaro_part {
+}
+.kilimanjaro_part {
     margin-bottom: 30px;
 }
 .foo_top_header_one .kilimanjaro_part > h5 {
@@ -154,6 +148,7 @@ a {
 }
 .kilimanjaro_part h4, .kilimanjaro_part h5 {
     margin-bottom: 30px;
+    padding-bottom: 10px;
 }
 .kilimanjaro_single_contact_info > p, .kilimanjaro_single_contact_info > h5, .kilimanjaro_blog_area > a, .foo_top_header_one .kilimanjaro_part > p {
     color: rgba(255,255,255,.5);

@@ -5,6 +5,7 @@
         <h5 class="control-label text-center">Consultar anuncios</h5>
       </div>
       <div class="card-body align ">
+
         <div class="col-md-3 inline topAlign">
           <div class="form-row form-group col-md-10 raya">
             <h5 class="control-label text-center">Búsqueda</h5>
@@ -114,7 +115,13 @@
               <button type="button" class="btn btn-success font-weight-bold m-1"
                   @click="buscarAnuncios(1)">Buscar</button>
           </div>
+
+          <hr>
+          
         </div>
+
+
+
         <div class='col-md-9 inline' >
           <h6 style="text-align: center; font-size: 14px; font-weight: bold;">Resultado de la búsqueda</h6>
           <div v-if="tablaVacia">

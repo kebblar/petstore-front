@@ -13,8 +13,8 @@
   export default {
     name: "App",
     components: {
-      'Footer' : Footer,
-      'Header': Header
+      'Header': Header,
+      'Footer' : Footer
     }
   }
 </script>
@@ -23,7 +23,7 @@
 
 html,body {
   height:100%;
-  background-color: #e6e6e6;
+  background-color: #fff;
 }
 
 #app {

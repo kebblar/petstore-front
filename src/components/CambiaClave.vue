@@ -1,6 +1,6 @@
 <template>
   <div class="ancho centra">
-    <div class="card" style="width:460px;">
+    <div class="card">
       <div class="card-header">
         <label class="h4">Cambia tu clave</label>
       </div>
@@ -134,7 +134,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ancho {
-  max-width: 460px;
+  max-width: 340px;
 }
 .small {
   color:#ff0000;

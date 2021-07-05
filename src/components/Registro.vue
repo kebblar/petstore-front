@@ -3,40 +3,31 @@
 
   <div v-if="loading" class="loader"/>
 
-  <div class="card defaultColor" style="width:450px;">
+  <div class="card defaultColor">
     <div class="card-header">
          <label class="control-label h4">Registro al sistema</label>
     </div>
-    <div class="card-body align" style="margin-top:20px;">
+    <div class="card-body align" >
 
-        <!-- Nombre -->
+        <!-- Nick -->
         <div class ="form-row form-group">
-          <div class="col-md-4">
-            <label for="nombre">Nick:</label>
-          </div>
-          <div class="col">
-            <input type="text" required class="form-control" :class="className" placeholder="Mi apodo" v-model="name">
-            <small class="notValid">{{msgName}}</small>
-
-          </div>
+          <label for="nombre">Nick:</label>
+          <input type="text" required class="form-control" :class="className" placeholder="Mi apodo" v-model="name">
+          <small class="notValid">{{msgName}}</small>
         </div>
+
         <!-- correo -->
         <div class ="form-row form-group">
-          <div class= "col-md-4">
-            <label for="correo">Correo:</label>
-          </div>
-          <div class="col">
-            <input type="email" required class="form-control" :class="classMail" id="mail" placeholder="ejemplo@gmail.com" v-model="email">
-            <small class="notValid">{{msgMail}}</small>
-          </div>
+          <label for="correo">Correo:</label>
+          <input type="email" required class="form-control" :class="classMail" id="mail" placeholder="ejemplo@gmail.com" v-model="email">
+          <small class="notValid">{{msgMail}}</small>
         </div>
+
         <!-- clave -->
-        <div class ="form-row form-group">
-          <div class="col-md-4">
-            <label for="clave">Clave:</label>
-          </div>
+        <div class="form-row form-group">
+          <label for="clave">Clave:</label>
+          <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
           <div class="col" :class="estiloClave1"> <!--cambiar booleano "activaClave" linea 242-->
-            <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
             <small id="clave" class="form-text text-muted" :class="isVisible">
               <b>La clave contiene:</b>
               <ul>
@@ -47,71 +38,59 @@
               </ul>
             </small>
           </div>
-
-          <div class="col" :class="estiloClave2">
-            <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
-            <small id="clave" class="form-text text-muted" :class="isVisible">
-              <b v-if="msgPasswd!=''">Falta que la clave contenga:</b>
-              <ul>
-                <li :class="styleCarac2">8 carateres como mínimo</li>
-                <li :class="styleUpper2">Una mayúscula</li>
-                <li :class="styleNum2">Un número</li>
-                <li :style="styleSpecial2">Un caracter especial (_, -, #, etc.)</li>
-              </ul>
-            </small>
-          </div>
-
         </div>
+        <div class="col" :class="estiloClave2">
+          <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
+          <small id="clave" class="form-text text-muted" :class="isVisible">
+            <b v-if="msgPasswd!=''">Falta que la clave contenga:</b>
+            <ul>
+              <li :class="styleCarac2">8 carateres como mínimo</li>
+              <li :class="styleUpper2">Una mayúscula</li>
+              <li :class="styleNum2">Un número</li>
+              <li :style="styleSpecial2">Un caracter especial (_, -, #, etc.)</li>
+            </ul>
+          </small>
+        </div>
+
         <!-- clave confirma -->
-        <div class ="form-row form-group">
-          <div class="col-md-4">
-            <label for="confirmacion">Confirmación de la clave:</label>
-          </div>
-          <div class="col">
-            <input type="password" required :disabled="pwConfDisabled" :class="classConfirm" class="form-control" id="confirmacion" placeholder="******" v-model="confirm">
-            <small class="notValid">{{msgConfirm}}</small>
-         </div>
+        <div class="form-row form-group">
+          <label for="confirmacion">Confirmación de la clave:</label>
+          <input type="password" required :disabled="pwConfDisabled" :class="classConfirm" class="form-control" id="confirmacion" placeholder="******" v-model="confirm">
+          <small class="notValid">{{msgConfirm}}</small>
         </div>
-        <!-- f nacimiento -->
+
+        <!-- fecha de nacimiento -->
         <div class ="form-row form-group">
-          <div class="col-md-4">
-            <label> Fecha de nacimiento:</label>
-          </div>
-          <div class="col">
-            <b-form-datepicker
-                id="fecha-nacimiento"
-                v-model="fNacimiento"
-                :initial-date="dateConfig.initial"
-                :max="dateConfig.max"
-                :min="dateConfig.min"
-                calendar-width="100%"
-                class="mb-2"
-                :class="styleCalendar"
-                hide-header
-                locale="es"
-                menu-class="w-100"
-                nav-button-variant="secondary"
-                placeholder="MM-DD-YYYY"
-                show-decade-nav
-                v-bind:value-as-date=true
-                />
-              </div>
+          <label>Fecha de nacimiento:</label>
+          <b-form-datepicker
+            id="fecha-nacimiento"
+            v-model="fNacimiento"
+            :initial-date="dateConfig.initial"
+            :max="dateConfig.max"
+            :min="dateConfig.min"
+            calendar-width="100%"
+            class="mb-2"
+            :class="styleCalendar"
+            hide-header
+            locale="es"
+            menu-class="w-100"
+            nav-button-variant="secondary"
+            placeholder="MM-DD-YYYY"
+            show-decade-nav
+            v-bind:value-as-date=true />
         </div>
+
         <!-- telefono -->
         <div class ="form-row form-group">
-          <div class="col-md-4">
-          <label for="telefono">Telefono:</label>
-          </div>
-          <div class="col">
+          <label for="telefono">Teléfono:</label>
           <input type="tel" class="form-control" required :class="classTel" id="telefono" placeholder="XX XXXX XXXX" v-model="tel">
           <small class="notValid">{{msgTel}}</small>
-          </div>
         </div>
+
         <!-- Google Re captcha V 2.0-->
         <!-- https://www.google.com/recaptcha/admin/site/450433503 -->
         <!-- account: garellanos@ultrasist.com.mx -->
-        <div style="margin:14.5%;">
-        <div class="form-row ">
+        <div class="form-row  form-group">
             <vue-recaptcha
                 id="solvecaptcha"
                 ref="recaptcha"
@@ -120,7 +99,7 @@
                 @verify="onCaptchaVerified"
             />
         </div>
-        </div>
+
         <!-- slider -->
         <div class="form-group text-center">
          <range-slider
@@ -132,6 +111,7 @@
                     />
                     <div>{{ sliderValue }}</div>
         </div>
+
         <!-- button -->
         <div class="form-group row">
           <div class="col text-center" >
@@ -168,7 +148,13 @@
   </div><!-- ends header-->
 
   <!-- Modal -->
-  <div class="modal fade" name="modalExito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div 
+    class="modal fade" 
+    name="modalExito" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered " role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -188,11 +174,9 @@
     </div>
   </div>
 
-  </div>
+</div>
 
 </template>
-
-
 
 <script>
   import VueRecaptcha from 'vue-recaptcha';
@@ -422,26 +406,23 @@
 
 </script>
 
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ancho {
-    max-width: 450px;
+    max-width: 340px;
+    min-width: 340px;
 }
 .align {
  text-align: left;
 }
-
-.notValid{
+.notValid {
   color:rgb(235, 74, 74);
 }
-
-.greenColor:focus{
+.greenColor:focus {
   background-color: #eefaee;
   box-shadow: 2px 1px 4px #bdd3ae;
 }
-
-.correct{
+.correct {
   border-color:rgb(96, 161, 99);
   border-width: 1px;
   box-shadow: 1px 1px 3px #d8dcdd;
@@ -450,13 +431,11 @@
   background-size: 17px;
   background-position-x: 96%;
 }
-
-.redColor:focus{
+.redColor:focus {
   background-color:   #fff3f3  ;
   box-shadow: 2px 1px 4px #dba6a6;
 }
-
-.incorrect{
+.incorrect {
   border-color:rgb(235, 74, 74);
   border-width: 1px;
   box-shadow: 1px 1px 3px #d8dcdd;
@@ -465,20 +444,14 @@
   background-size: 20px;
   background-position-x: 96%;
 }
-
-.defaultColor{
+.defaultColor {
   background-color: white;
   box-shadow: 1px 1px 3px #d8dcdd;
 }
-
-.hidden{
+.hidden {
   display: none;
 }
-
-.show{
+.show {
   display: block;
 }
-
-
-
 </style>

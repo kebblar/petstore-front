@@ -1,11 +1,10 @@
 <template>
   <div class="ancho centra">
-    <div class="card" style="width:390px;">
+    <div class="card">
       <div class="card-header">
         <label class="h4">Regenera tu clave</label>
       </div>
       <div class="card-body align">
-        <form>
           <small class="form-text text-muted text-center">Un token de 6 dígitos fue enviado a tu correo electrónico, por favor introdúcelo a continuación:</small>
           <br>
           <div class ="form-group form-row">
@@ -15,15 +14,10 @@
             <div class = "col form-group">
               <input type="text" class="form-control" id="token" placeholder="XXXXXX" v-model="token"/>
             </div>
-
-
-
           </div>
-        </form>
 
         <hr class="dashed">
 
-        <form>
           <small class="form-text text-muted text-center">Ingresa tu nueva clave y su confirmación</small>
           <br>
           <div class ="form-group form-row">
@@ -43,7 +37,6 @@
               <input type="password" class="form-control" id="token" placeholder="******" v-model="confirmaClave">
             </div>
           </div>
-        </form>
 
         <div class="form-group row text-center">
           <div class="col text-center">
@@ -59,7 +52,7 @@
     name="aviso" 
     :clickToClose="true"
     :reset="true"
-    :width="420"
+    :width="360"
     height="auto">
     <div class="card">
         <div class="card-header text-white" style="text-align: center; background-color: #363636;">
@@ -74,6 +67,7 @@
               <div v-else>
                 {{ modalMessage }}
               </div>
+              <br>
             <div style="text-align: right;">
                 <a href="#" class="btn btn-primary" @click="go">Aceptar</a>
             </div>
@@ -89,6 +83,10 @@
 <script>
   import axios from 'axios';
   import router from '../router';
+  import Vue from 'vue';
+  import VueToast from 'vue-toast-notification';
+
+  Vue.use(VueToast);
 
   export default {
     data() {
@@ -104,6 +102,14 @@
       }
     },
     methods: {
+      abreToast(msg) {
+            Vue.$toast.open({
+                message: msg,
+                type: 'error',
+                duration: 5000,
+                position:'top'
+            });
+      },
       go() {
         if(this.modalShowsError) {
           this.$modal.hide('aviso');
@@ -116,20 +122,16 @@
         this.modalShowsError = true;
 
         if(this.clave.length<4) {
-          this.modalTitulo ='Error de captura';
-          this.modalMessage = 'La clave debe poseer al menos 4 caracteres';
-          this.$modal.show('aviso');
+          this.abreToast('La clave debe poseer al menos 4 caracteres');
           return;
         }
         if(this.clave != this.confirmaClave) {
-          this.modalTitulo ='Error de captura';
-          this.modalMessage = 'La clave y su confirmación deben coincidir';
-          this.$modal.show('aviso');
+          this.abreToast('La clave y su confirmación deben coincidir');
           return;
         }
         axios.get('api/confirma-regenera-clave.json?token='+this.token+'&clave='+this.clave, {
         }).then(response => {
-          console.log(response);
+          if(response) console.log('ok');
           this.modalShowsError = false;
           this.modalTitulo ='Regeneración exitosa';
           this.modalMessage = 'Tu clave ha sido regenerada exitosamente, ahora puedes iniciar sesión !';
@@ -158,7 +160,7 @@
 hr.dashed {
   border-top: 3px dashed #bbb;
 }
-.ancho {
-    max-width: 390px;
+.ancho7 {
+    max-width: 540px;
 }
 </style>
