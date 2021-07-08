@@ -216,6 +216,11 @@
                     @click.prevent="sube"><i class="fa fa-upload" aria-hidden="true"></i> Subir imagenes</a>
                 </div>
 
+                <br>
+                <label>https://photos.ci.ultrasist.net/_</label>
+                <ul v-for="(url, index) in respuesta" :key="index">
+                  <li>{{ url.nuevoNombre }}</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -253,7 +258,8 @@ export default {
       fileName: 'unknown',
       fileSize: 0,
       newSize: 0,
-      caja:[]
+      caja:[],
+      respuesta:[]
     };
   },
   methods: {
@@ -267,7 +273,7 @@ export default {
       axios.post("/api/up/imagen2.json", this.formData, { 
         headers 
       }).then(response =>{ 
-        if(response) console.log("OK");
+        this.respuesta = response.data;
       }).catch(error => {
         let currentMsg='';
         if(error.response && error.response.data && error.response.data.exceptionLongDescription) {
