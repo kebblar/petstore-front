@@ -51,10 +51,16 @@ import Creditos from '@/components/Creditos'
 import PostsList from'@/components/PostsList'
 import PostDetail from'@/components/PostDetail'
 import NotFound from'@/components/NotFound'
+import Cortador from'@/components/Cortador'
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/cortador',
+    name: 'cortador',
+    component: Cortador
+  },
   {
     path: '/ui/not-found',
     name: 'not-found',

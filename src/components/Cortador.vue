@@ -263,7 +263,7 @@ export default {
         "Access-Control-Allow-Origin": "*",
         "jwt": store.state.session.jwt,
         "idAnuncio":1
-      };
+      }; 
       axios.post("/api/up/imagen2.json", this.formData, { 
         headers 
       }).then(response =>{ 

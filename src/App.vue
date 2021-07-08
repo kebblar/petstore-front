@@ -32,6 +32,7 @@ html,body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-top: 1px;
 }
 #contenedor {
   width: 100%;
@@ -56,5 +57,10 @@ html,body {
   z-index:10000000;
   opacity: 0.4;
   filter: alpha(opacity=40);
+}
+.card-custom-header {
+  color: #fff;
+  text-align: center; 
+  background-color: #363636; 
 }
 </style>
