@@ -217,9 +217,9 @@
                 </div>
 
                 <br>
-                <label>https://photos.ci.ultrasist.net/_</label>
+                <label></label>
                 <ul v-for="(url, index) in respuesta" :key="index">
-                  <li>{{ url.nuevoNombre }}</li>
+                  <li><a :href=salta(url.nuevoNombre) target="_blank">liga {{ index }}</a></li>
                 </ul>
               </div>
             </div>
@@ -452,6 +452,9 @@ export default {
     },
     calc(num) {
       return num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+    },
+    salta(url) {
+      return 'https://photos.ci.ultrasist.net/_'+url
     }
   },
 };
