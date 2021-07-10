@@ -173,6 +173,10 @@
   import RangeSlider from "vue-range-slider";
   import "vue-range-slider/dist/vue-range-slider.css";
   import Aviso from '../Aviso';
+  import Vue from 'vue';
+  import VueToast from 'vue-toast-notification'; 
+
+  Vue.use(VueToast);
 
   const HTTP_STATUS = {
     OK : 200,
@@ -182,6 +186,7 @@
   const emaiRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   const passRegex = new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
   const regularExpression = new RegExp(/[&\\#, +(\-\\_)$~%.'":*?<>{}]/g);
+  const nameRegExp = new RegExp(/^([A-Za-z0-9]{3,8})$/);
 
   export default {
     components: {
@@ -247,11 +252,11 @@
       name(){
         this.msgName="";
         this.className="greenColor correct";
-        if (this.name.trim().length<3){
-          this.msgName="El nombre debe contener más de 3 letras";
+        if (!nameRegExp.test(this.name)){
+          this.msgName="El nombre debe mayor a 3 caracteres, sin espacios ni caracteres especiales. Puede contener números.";
           this.className="redColor incorrect";
         }
-        this.name= this.name.length===1 ? this.name.toUpperCase() : this.name;
+        //this.name= this.name.length===1 ? this.name.toUpperCase() : this.name;
       },
 
       email(){
@@ -379,14 +384,17 @@
           router.push('confirma-registro');
         }).catch(error => {
           this.loading = false
-          this.msgErr = error;
           if(error.response) {
-            this.$modal.show('aviso');
-            this.texto = error.response.data['exceptionShortDescription'];
-            this.descripcionModal = "Ya existe una cuenta con este correo"
-            this.msgErr = error.response.data['exceptionLongDescription'];
+            Vue.$toast.open({
+                message: error.response.data['exceptionLongDescription'],
+                type: 'error',
+                duration: 5000,
+                position:'top'
+            });
+          } else {
+            console.log(error.data);
+            this.$modal.show('mensaje-login');
           }
-          this.$modal.show('mensaje-login');
         }).finally(
           console.log('end ulpoad')
         );
