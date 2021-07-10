@@ -167,16 +167,13 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import VueRecaptcha from 'vue-recaptcha';
   import axios from 'axios';
   import router from '../router';
   import RangeSlider from "vue-range-slider";
   import "vue-range-slider/dist/vue-range-slider.css";
   import Aviso from '../Aviso';
-  import Vue from 'vue';
-  import VueToast from 'vue-toast-notification'; 
-
-  Vue.use(VueToast);
 
   const HTTP_STATUS = {
     OK : 200,

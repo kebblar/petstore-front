@@ -229,14 +229,14 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import "vue-toast-notification/dist/theme-sugar.css";
-import VueConfirmDialog from 'vue-confirm-dialog';
+//import VueConfirmDialog from 'vue-confirm-dialog';
 import router from '../router';
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
-Vue.use(VueConfirmDialog);
+//Vue.use(VueConfirmDialog);
 Vue.use(VueToast);
-Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
+//Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 
 export default {
   name: "ConsultaAnunciosPublico.vue",

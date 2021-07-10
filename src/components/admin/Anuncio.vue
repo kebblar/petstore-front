@@ -226,15 +226,15 @@
 <script>
 import {FormWizard, TabContent} from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
-import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
+//import VueToast from 'vue-toast-notification'; 
+//import 'vue-toast-notification/dist/theme-sugar.css';
 import Imagen from '@/components/admin/Imagen';
 import moment from 'moment';
 import Vue from 'vue';
 import axios from 'axios';
 import { VueEditor } from 'vue2-editor';
 
-Vue.use(VueToast);
+//Vue.use(VueToast);
 
 export default {
   components: {
@@ -681,6 +681,7 @@ export default {
   }
 };
 </script>
+
 <style>
   .required:after {
     content:"*";

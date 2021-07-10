@@ -49,3 +49,8 @@ export default {
 }
 </script>
 
+<style scoped>
+.aceptar {
+  text-align: center;
+}
+</style>

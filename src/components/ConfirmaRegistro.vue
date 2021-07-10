@@ -1,85 +1,73 @@
 <template>
-  <div class="ancho centra">
-    <div class="card">
-      <div class="card-header">
-        <label class="h4">Confirma tu registro</label>
-      </div>
-
-      <div class="card-body align">
-        <small class="form-text text-muted text-center">
-          Un token alfanumérico fue enviado a tu correo electrónico, por favor introdúcelo a continuación:
-        </small>
-        <br />
-        <div class="form-group form-row">
-          <div class="col-sm-4">
-            <label for="correo">Token:</label>
-          </div>
-          <div class="col form-group">
-            <input
-              type="text"
-              required
-              class="form-control"
-              :class="classToken"
-              id="token"
-              placeholder="XXXXXX"
-              v-model="token"
-              maxlength="16"
-              minlength="4" />
-            <small class="notValid">{{ msgToken }}</small>
-          </div>
-        </div>
-        <hr class="dashed" />
-        <div class="form-group row text-center">
-          <div class="col text-center">
-            <button
-              type="button"
-              :disabled="habilitaBoton"
-              @click="confirma"
-              class="btn btn-success">
-              Completar registro
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- card-body ends -->
-    </div>
-    <!-- card ends -->
-
-    <!-- Modal -->
-    <modal
-      name="aviso"
-      :clickToClose="false"
-      :reset="true"
-      :width="360"
-      :height="220">
+  <div>
+    <ConfirmDialogue ref="confirmDialogue" />
+    <div class="ancho centra">
       <div class="card">
-        <div class="card-header text-white" style="text-align: center; background-color: #363636">
-          <label class="control-label h4">{{ modalTitulo }}</label>
+        <div class="card-header card-custom-header">
+          <label class="h4">Confirmar registro</label>
         </div>
-        <div class="card-body">
-          <p class="card-text">{{ modalMessage }}</p>
-          <div style="text-align: right">
-            <a href="#" class="btn btn-primary" @click="go">Aceptar</a>
+        <div class="card-body align">
+          <small class="form-text text-muted">
+            Un token alfanumérico fue enviado al correo electrónico proporcionado.<br>Favor de introdúcelo a continuación:
+          </small>
+          <br />
+          <div class="form-group form-row">
+            <div class="col-sm-4">
+              <label for="correo">Token:</label>
+            </div>
+            <div class="col form-group">
+              <input
+                type="text"
+                required
+                class="form-control"
+                :class="classToken"
+                id="token"
+                placeholder="XXXXXX"
+                v-model="token"
+                maxlength="16"
+                minlength="4" />
+              <small class="notValid">{{ msgToken }}</small>
+            </div>
+          </div>
+          <hr class="dashed" />
+          <div class="form-group row text-center">
+            <div class="col text-center">
+              <button
+                type="button"
+                :disabled="habilitaBoton"
+                @click="confirma"
+                class="btn btn-success">
+                Completar registro
+              </button>
+            </div>
           </div>
         </div>
+        <!-- card-body ends -->
       </div>
-    </modal>
+      <!-- card ends -->
+    </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import axios from "axios";
 import router from "../router";
+import ConfirmDialogue from './custom/Dialogue/ConfirmDialogue.vue'
 
 export default {
+  components: {
+    ConfirmDialogue
+  },
   data() {
     return {
       token: "",
       modalShowsError: false,
-      modalTitulo: "",
       modalMessage: "",
       msgToken: null,
-      classToken: "defaultColor",
+      classToken: "defaultColor", 
+      modalTarget: '', 
+      modalTitulo: ''
     };
   },
   watch: {
@@ -100,34 +88,39 @@ export default {
     }
   },
   methods: {
-    go() {
-      if (this.modalShowsError) {
-        this.$modal.hide("aviso");
-      } else {
-        router.push("/ui/login");
-      }
+    async openDialogue() {
+      const ok = await this.$refs.confirmDialogue.show({
+          title: 'Felicidades',
+          message: 'El registro al sistema ha sido exitoso. Ahora ya es posible iniciar sesión.',
+          secondaryButton: 'Cancelar',
+          acceptButton: 'Aceptar',
+          accept: true
+      });
+      if(ok) router.push('/ui/login');
     },
     confirma() {
       axios.get("api/confirma-preregistro.json?token=" + this.token, {
         token: this.token,
       })
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
-        console.log(response.status);
-        this.modalShowsError = false;
-        this.modalTitulo = "Registro exitoso";
-        this.modalMessage = "Has quedado registrado en el sistema, ahora puedes iniciar sesión !";
+        if(response.data) console.log("ok");
+        this.openDialogue();
       })
       .catch((error) => {
-        this.modalShowsError = true;
-        this.modalTitulo = "Error en el proceso de confirmación";
-        this.modalMessage = error;
+        this.modalMessage = error.data;
         if (error.response) {
           this.modalMessage = error.response.data["exceptionLongDescription"];
         }
+        Vue.$toast.open({
+            message: this.modalMessage,
+            type: 'error',
+            duration: 5000,
+            position:'top'
+        });
       })
-      .finally(this.$modal.show("aviso"));
+      .finally(
+        console.log('end confira registro')
+      );
     },
   },
 };
