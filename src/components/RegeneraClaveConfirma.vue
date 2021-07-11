@@ -47,36 +47,24 @@
       </div>
     </div> 
 
-  <!-- Modal -->
-  <modal
-    name="aviso" 
-    :clickToClose="true"
-    :reset="true"
-    :width="360"
-    height="auto"> 
-    <div class="popup-modal">
-      <h2 style="margin-top: 0; text-align: center;">{{ modalTitulo }}</h2>
-
-      <div v-if='fortalezaIncorrecta'>
-        <ul v-for="(msg, index) in modalMessage" :key="index">
-          <li>{{ msg }}</li>
-        </ul>
-      </div>
-      <div v-else>
-        {{ modalMessage }}
-      </div>
-
-      <hr>
-
-      <div style="text-align: right;">
-          <a href="#" class="green-btn" @click="go">Aceptar</a>
-      </div>
-
-    </div>
-  </modal>
+    <!-- Modal -->
+    <Aviso
+      ref='avisoComp'
+      ancho='360'
+      :avisoTitulo=modalTitulo >
+        <div>
+          <div v-if='fortalezaIncorrecta'>
+            <ul v-for="(msg, index) in modalMessage" :key="index">
+              <li>{{ msg }}</li>
+            </ul>
+          </div>
+          <div v-else>
+            {{ modalMessage }}
+          </div>
+        </div>
+    </Aviso>        
 
   </div>
-
 </template>
 
 <script>
@@ -84,10 +72,14 @@
   import router from '../router';
   import Vue from 'vue';
   import VueToast from 'vue-toast-notification';
+  import Aviso from './custom/dialog/Aviso';
 
   Vue.use(VueToast);
 
   export default {
+    components: {
+      'Aviso': Aviso
+    },
     data() {
       return {
         token: '',
@@ -101,12 +93,12 @@
     },
     methods: {
       abreToast(msg) {
-            Vue.$toast.open({
-                message: msg,
-                type: 'error',
-                duration: 5000,
-                position:'top'
-            });
+        Vue.$toast.open({
+          message: msg,
+          type: 'error',
+          duration: 5000,
+          position:'top'
+        });
       },
       go() {
         if(this.modalShowsError) {
@@ -137,15 +129,15 @@
           this.modalTitulo ='Error en el proceso de restauración de clave';
           this.modalMessage = error;
           if(error.response) {
-              if(error.response.data.strengthViolations) {
-                this.fortalezaIncorrecta = true;
-                this.modalMessage = error.response.data.strengthViolations;
-              } else {
-                this.modalMessage = error.response.data.exceptionLongDescription;
-              }
+            if(error.response.data.strengthViolations) {
+              this.fortalezaIncorrecta = true;
+              this.modalMessage = error.response.data.strengthViolations;
+            } else {
+              this.modalMessage = error.response.data.exceptionLongDescription;
+            }
           }
         }).finally(
-          this.$modal.show('aviso')
+          this.$refs.avisoComp.abre()
         );
       }
     }
@@ -153,21 +145,10 @@
 </script>
 
 <style scoped>
+.ancho {
+  max-width: 380px;
+}
 hr.dashed {
   border-top: 3px dashed #bbb;
-}
-.popup-modal {
-    padding: 1rem;
-}
-.green-btn {
-    padding: 0.5em 1em;
-    background-color: #d5eae7;
-    color: #35907f;
-    border: 2px solid #0ec5a4;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 16px;
-    text-transform: uppercase;
-    cursor: pointer;
 }
 </style>

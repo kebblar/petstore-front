@@ -126,7 +126,6 @@ export default {
                 // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
                 this.msgErr = error;
                 if(error.response) {
-                    var errorTypeNumber = error.response.data['exceptionTypeNumber'];
                     this.msgErr = error.response.data['exceptionLongDescription'];
                  }
                 this.$refs.avisoComp.abre();
