@@ -65,8 +65,7 @@
 <script>
 import axios from 'axios'
 import store from '../store'
-//import router from '../router'
-import Aviso from '../Aviso'
+import Aviso from './custom/dialog/Aviso'
 
 export default {
     data: function () {

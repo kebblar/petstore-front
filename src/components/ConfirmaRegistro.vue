@@ -53,7 +53,8 @@
 import Vue from 'vue'
 import axios from "axios";
 import router from "../router";
-import ConfirmDialogue from './custom/Dialogue/ConfirmDialogue.vue'
+import ConfirmDialogue from './custom/dialog/ConfirmDialogue'
+
 
 export default {
   components: {

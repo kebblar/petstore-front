@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import Aviso from '../Aviso';
+import Aviso from './custom/dialog/Aviso';
 
 export default {
     data: function () {

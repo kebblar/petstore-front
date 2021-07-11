@@ -136,7 +136,7 @@
   import axios from 'axios';
   import store from '../store';
   import "vue-range-slider/dist/vue-range-slider.css";
-  import Aviso from '../Aviso';
+  import Aviso from './custom/dialog/Aviso';
 
   export default {
     components: {

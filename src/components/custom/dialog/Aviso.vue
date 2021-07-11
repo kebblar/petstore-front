@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import router from './router'
+import router from '../../../router'
 
 export default {
     props: ['avisoTitulo', 'avisoMsg','target','ancho','alto'],

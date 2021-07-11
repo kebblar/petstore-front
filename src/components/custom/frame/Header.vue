@@ -2,7 +2,7 @@
     <div>
       <div class="row">
           <div class="col">
-            <img src="./assets/logo.png" width="50px;" style="margin-left:10px;" @click="navega('/ui/creditos')"/> <label style="font-size:32px;">The Petstore App</label>
+            <img src="@/assets/logo.png" width="50px;" style="margin-left:10px;" @click="navega('/ui/creditos')"/> <label style="font-size:32px;">The Petstore App</label>
           </div>
       </div>
       <b-navbar toggleable="lg" type="dark" variant="dark">
@@ -71,9 +71,9 @@
 </template>
 
 <script>
-import router from './router'
-import store from './store'
-import Carrito from './components/Carrito'
+import router from '../../../router'
+import store from '../../../store'
+import Carrito from '../../Carrito'
 
 export default {
     components: {

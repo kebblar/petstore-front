@@ -173,7 +173,7 @@
   import router from '../router';
   import RangeSlider from "vue-range-slider";
   import "vue-range-slider/dist/vue-range-slider.css";
-  import Aviso from '../Aviso';
+  import Aviso from './custom/dialog/Aviso';
 
   const HTTP_STATUS = {
     OK : 200,
