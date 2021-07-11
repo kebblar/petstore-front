@@ -286,6 +286,10 @@ const routes = [
     component:ConsultaPaqueteria,
     meta: { allowedRoles: ['admin'] }
   },
+  { 
+    path: "*", 
+    component: NotFound 
+  }
 ]
 
 const router = new Router({
@@ -305,10 +309,10 @@ function parseJwt(token) {
 
 function checaJwt(jwt, active) {
     if (active && jwt && jwt !== undefined && jwt.length > 0) {
-        console.log(jwt);
+        //console.log(jwt);
         const jwtPayload = parseJwt(jwt);
         //jwtPayload.exp=1625505833-28*60;
-        console.log(jwtPayload);
+        //console.log(jwtPayload);
         const limite = (Date.now() / 1000)-(2*60); // fecha actual menos dos minutos
         if (jwtPayload.exp < limite) {
             store.commit('setSession', {
