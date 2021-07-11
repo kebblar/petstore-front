@@ -4,13 +4,14 @@
     -->
   <modal
     name="aviso"
+    :reset="true"
     :clickToClose="false"
     :width=ancho
-    :height=alto>
+    height="auto"> 
       <div class="popup-modal"> 
         <div class="window">
           <h2 style="margin-top: 0; text-align: center;">{{ avisoTitulo }}</h2>
-          <p>{{ avisoMsg }}</p>
+          <p>{{ avisoMsg }}</p> <!-- hay que experimentar aqui haciéndolo un Slot-->
           <hr/>
           <div class="centrado">
               <button class="green-btn" @click="go">Aceptar</button>
@@ -25,7 +26,7 @@
 import router from '../../../router'
 
 export default {
-    props: ['avisoTitulo', 'avisoMsg','target','ancho','alto'],
+    props: ['avisoTitulo', 'avisoMsg','target','ancho'],
     data: function () {
         return {
           //ancho:720
@@ -48,6 +49,9 @@ export default {
 
 <style scoped>
 .popup-modal {
+    padding: 1rem;
+}
+.popup-modal2 {
     background-color: transparent;
     position: fixed;
     top: 0;
@@ -60,7 +64,7 @@ export default {
     z-index: 1;
 }
 
-.window {
+.window2 {
     background: #fff;
     border-radius: 5px;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);

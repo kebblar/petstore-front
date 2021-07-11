@@ -45,7 +45,7 @@
         </div>
 
       </div>
-    </div>
+    </div> 
 
   <!-- Modal -->
   <modal
@@ -53,32 +53,31 @@
     :clickToClose="true"
     :reset="true"
     :width="360"
-    height="auto">
-    <div class="card">
-        <div class="card-header text-white" style="text-align: center; background-color: #363636;">
-          <label class="control-label h4" >{{ modalTitulo }}</label>
-        </div>
-        <div class="card-body">
-              <div v-if='fortalezaIncorrecta'>
-                <ul v-for="(msg, index) in modalMessage" :key="index">
-                  <li>{{ msg }}</li>
-                </ul>
-              </div>
-              <div v-else>
-                {{ modalMessage }}
-              </div>
-              <br>
-            <div style="text-align: right;">
-                <a href="#" class="btn btn-primary" @click="go">Aceptar</a>
-            </div>
-        </div>
+    height="auto"> 
+    <div class="popup-modal">
+      <h2 style="margin-top: 0; text-align: center;">{{ modalTitulo }}</h2>
+
+      <div v-if='fortalezaIncorrecta'>
+        <ul v-for="(msg, index) in modalMessage" :key="index">
+          <li>{{ msg }}</li>
+        </ul>
+      </div>
+      <div v-else>
+        {{ modalMessage }}
+      </div>
+
+      <hr>
+
+      <div style="text-align: right;">
+          <a href="#" class="green-btn" @click="go">Aceptar</a>
+      </div>
+
     </div>
   </modal>
 
   </div>
 
 </template>
-
 
 <script>
   import axios from 'axios';
@@ -98,7 +97,6 @@
         modalTitulo:'',
         modalMessage: '',
         fortalezaIncorrecta: false,
-        alto: 220
       }
     },
     methods: {
@@ -136,7 +134,6 @@
           this.modalTitulo ='Regeneración exitosa';
           this.modalMessage = 'Tu clave ha sido regenerada exitosamente, ahora puedes iniciar sesión !';
         }).catch(error => {
-          this.alto = 420;
           this.modalTitulo ='Error en el proceso de restauración de clave';
           this.modalMessage = error;
           if(error.response) {
@@ -155,12 +152,22 @@
   }
 </script>
 
-
 <style scoped>
 hr.dashed {
   border-top: 3px dashed #bbb;
 }
-.ancho7 {
-    max-width: 540px;
+.popup-modal {
+    padding: 1rem;
+}
+.green-btn {
+    padding: 0.5em 1em;
+    background-color: #d5eae7;
+    color: #35907f;
+    border: 2px solid #0ec5a4;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 </style>

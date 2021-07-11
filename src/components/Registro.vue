@@ -157,7 +157,6 @@
     <Aviso
       ref='aviso'
       ancho='320'
-      alto='290'
       :target=target
       :avisoMsg=msgErr
       :avisoTitulo=texto /> 

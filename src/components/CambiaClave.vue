@@ -53,7 +53,6 @@
       <Aviso
       ref='avisoComp'
       ancho='420'
-      alto='200'
       target=''
       :avisoMsg=modalMessage
       :avisoTitulo=modalTitulo />

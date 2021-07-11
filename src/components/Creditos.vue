@@ -60,7 +60,6 @@
     <Aviso
       ref='avisoComp'
       ancho='320'
-      alto='240'
       :target=destino
       :avisoMsg=listo
       avisoTitulo='Con la participación especial de...' />

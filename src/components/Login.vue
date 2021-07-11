@@ -43,23 +43,14 @@
 
         </div><!-- ends card-->
 
-        <modal
-            name="mensaje-login"
-            :clickToClose="false"
-            :reset="true"
-            :width="320"
-            :height="250">
-            <div class="card">
-                <div class="card-header">Advertencia del sistema</div>
-                <div class="card-body">
-                    <h5 class="card-title">Error de ingreso al sistema</h5>
-                    <p class="card-text">{{ msgErr }}</p>
-                    <div style="text-align: right;">
-                        <a href="#" class="btn btn-primary" @click="closeModal">Aceptar</a>
-                    </div>
-                </div>
-            </div>
-        </modal><!-- ends modal-->
+
+
+    <Aviso
+      ref='avisoComp'
+      ancho='320'
+      target=''
+      :avisoMsg=msgErr
+      avisoTitulo='Error de ingreso al sistema' />        
 
     </div>
 </template>
@@ -68,8 +59,12 @@
 import axios from 'axios';
 import router from '../router'
 import store from '../store'
+import Aviso from './custom/dialog/Aviso';
 
 export default {
+    components: {
+      'Aviso': Aviso
+    },
     data: function () {
         return {
           usr: "",
@@ -114,7 +109,7 @@ export default {
             }).then(response => {
                 var rd = response.data; 
                 var ud = rd.usuarioDetalle;
-                console.log(response.data);
+                //console.log(response.data);
                 store.commit('setSession', {
                     nombreCompleto: ud.nickName, //ud.nombre + ' ' + ud.apellidoPaterno + ' ' + ud.apellidoMaterno, 
                     detalles:     ud,
@@ -131,9 +126,10 @@ export default {
                 // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
                 this.msgErr = error;
                 if(error.response) {
+                    var errorTypeNumber = error.response.data['exceptionTypeNumber'];
                     this.msgErr = error.response.data['exceptionLongDescription'];
-                }
-                this.$modal.show('mensaje-login');
+                 }
+                this.$refs.avisoComp.abre();
             })
         }
     },

@@ -124,7 +124,6 @@
     <Aviso
       ref='avisoComp'
       ancho='420'
-      alto='240'
       target='/'
       :avisoMsg=msgErr
       avisoTitulo='Aviso del sistema' />
