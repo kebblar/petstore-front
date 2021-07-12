@@ -54,6 +54,7 @@
             <br><label>Ambiente: {{ ambiente }}</label>
             <br><label>Local address: {{ address }}</label>
             <br><label>Perfil: {{ profile }}</label>
+            <br><label>Remote address: {{ remote }}</label>
             </div>
           </div>
         </div>
@@ -83,7 +84,8 @@ export default {
           version: 'v',
           ambiente: 'am',
           address: 'ad',
-          profile: 'pr'
+          profile: 'pr',
+          remote: 'rm'
         }
     },
     mounted() {
@@ -99,10 +101,11 @@ export default {
       obten: function() {
         axios.get('/api/health.json?inputData=ls', {
         }).then(response => {
-            this.version =response.data['app.backend.version'];
-            this.ambiente=response.data['app.profile.identifier'];
-            this.address =response.data['local.address.1'];
-            this.profile =response.data['kebblar.profile'];
+            this.version = response.data['app.backend.version'];
+            this.ambiente= response.data['app.profile.identifier'];
+            this.address = response.data['local.address.1'];
+            this.profile = response.data['kebblar.profile'];
+            this.remote  = response.data['remote.add'];
         })
       },
     },
