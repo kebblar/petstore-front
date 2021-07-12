@@ -49,6 +49,12 @@
         <div class="row">
           <div class="col">
             <a href='#' @click="open">Aprender, Enseñar y Trascender... esa es la misión.</a>
+            <div class="info">
+            <br><label>Versión: {{ version }}</label>
+            <br><label>Ambiente: {{ ambiente }}</label>
+            <br><label>Local address: {{ address }}</label>
+            <br><label>Perfil: {{ profile }}</label>
+            </div>
           </div>
         </div>
       </div>
@@ -68,21 +74,37 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Aviso from './custom/dialog/Aviso';
 
 export default {
     data: function () {
         return {
-          hola: ''
+          version: 'v',
+          ambiente: 'am',
+          address: 'ad',
+          profile: 'pr'
         }
     },
+    mounted() {
+      this.obten();
+    },    
     components: {
       'Aviso': Aviso
     },
     methods: {
       open: function() {
         this.$refs.avisoComp.abre();
-      }
+      },
+      obten: function() {
+        axios.get('/api/health.json?inputData=ls', {
+        }).then(response => {
+            this.version =response.data['app.backend.version'];
+            this.ambiente=response.data['app.profile.identifier'];
+            this.address =response.data['local.address.1'];
+            this.profile =response.data['kebblar.profile'];
+        })
+      },
     },
     computed: {
       listo: function() {
@@ -104,5 +126,9 @@ export default {
 .leyenda {
   text-align:center; 
   margin-bottom:20px;
+}
+.info {
+  font-size: 10px;
+  color: #330000;
 }
 </style>
