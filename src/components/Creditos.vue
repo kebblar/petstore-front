@@ -50,11 +50,12 @@
           <div class="col">
             <a href='#' @click="open">Aprender, Enseñar y Trascender... esa es la misión.</a>
             <div class="info">
-            <br><label>Versión: {{ version }}</label>
-            <br><label>Ambiente: {{ ambiente }}</label>
-            <br><label>Local address: {{ address }}</label>
-            <br><label>Perfil: {{ profile }}</label>
-            <br><label>Remote address: {{ remote }}</label>
+              <br><label>Versión: {{ version }}</label>
+              <br><label>Ambiente: {{ ambiente }}</label>
+              <br><label>Deployment node address: {{ address }}</label>
+              <br><label>Perfil: {{ profile }}</label>
+              <br><label>Reverse proxy address: {{ remote }}</label>
+              <br><label>Client Remote address: {{ remote2 }}</label>
             </div>
           </div>
         </div>
@@ -85,7 +86,8 @@ export default {
           ambiente: 'am',
           address: 'ad',
           profile: 'pr',
-          remote: 'rm'
+          remote: 'rm',
+          remote2: 'rm',
         }
     },
     mounted() {
@@ -106,6 +108,7 @@ export default {
             this.address = response.data['local.address.1'];
             this.profile = response.data['kebblar.profile'];
             this.remote  = response.data['remote.add'];
+            this.remote2  = response.data['remote.add.2'];
         })
       },
     },
