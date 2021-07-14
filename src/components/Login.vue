@@ -1,6 +1,11 @@
 <template>
     <div class="ancho centra">
 
+  <div class="row">
+    <div class="col-sm-6" >
+      <img src="../assets/login.jpg" width="100%"/>
+    </div>
+    <div class="col-sm-6">
         <div class="card">
 
             <div class="card-header">
@@ -43,7 +48,7 @@
 
         </div><!-- ends card-->
 
-
+</div></div>
 
     <Aviso
       ref='avisoComp'
@@ -136,7 +141,7 @@ export default {
 </script>
 
 <style scoped>
-.ancho {
+.ancho2 {
     max-width: 340px;
 }
 </style>

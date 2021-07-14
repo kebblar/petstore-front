@@ -1,34 +1,43 @@
 <template>
   <div class="ancho centra">
-    <div class="card">
-      <div class="card-header">
-        <label class="h4">Regeneración de clave de acceso</label>
+    <div class="row">
+      <div class="col-sm-6" >
+        <img src="../assets/forgot.png" width="100%"/>
       </div>
-      <div class="card-body align">
+      <div class="col-sm-6">
 
-          <small class="form-text text-muted text-center">Por favor introduce el correo electrónico con el que te registraste en el sistema para recuperar tu cuenta</small>
-          <br>
-
-          <div class ="form-group text-center">
-            <label for="correo">Correo electrónico</label>
-            <input type="email" class="form-control" id="mail" placeholder="ejemplo@gmail.com" v-model="correo">
+        <div class="card">
+          <div class="card-header">
+            <label class="h4">Regeneración de clave de acceso</label>
           </div>
-          <br>
+          <div class="card-body align">
 
-          <div>
-            <vue-recaptcha
-                id="solvecaptcha"
-                ref="recaptcha"
-                sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
-            />
-          </div>
-          <br>
+              <small class="form-text text-muted text-center">Por favor introduce el correo electrónico con el que te registraste en el sistema para recuperar tu cuenta</small>
+              <br>
 
-          <div class="form-group row text-center">
-            <div class="col text-center">
-              <button type="button" @click="cambiaClave" class="btn btn-success">Recuperar mi clave</button>
-            </div>
+              <div class ="form-group text-center">
+                <label for="correo">Correo electrónico</label>
+                <input type="email" class="form-control" id="mail" placeholder="ejemplo@gmail.com" v-model="correo">
+              </div>
+              <br>
+
+              <div>
+                <vue-recaptcha
+                    id="solvecaptcha"
+                    ref="recaptcha"
+                    sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
+                />
+              </div>
+              <br>
+
+              <div class="form-group row text-center">
+                <div class="col text-center">
+                  <button type="button" @click="cambiaClave" class="btn btn-success">Recuperar mi clave</button>
+                </div>
+              </div>
+
           </div>
+        </div>
 
       </div>
     </div>
@@ -74,7 +83,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.ancho {
+.ancho2 {
     max-width: 450px;
 }
 </style>

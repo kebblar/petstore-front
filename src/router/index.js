@@ -6,7 +6,9 @@ import axios from 'axios';
 // Importación de cada componente
 import Inicio from '@/components/Inicio'
 import Login from '@/components/Login'
-import Registro from '@/components/Registro'
+// ************************************************************
+import Registro from '@/components/Registro2'
+
 import ConfirmaRegistro from '@/components/ConfirmaRegistro'
 import RegeneraClave from '@/components/RegeneraClave'
 import RegeneraClaveConfirma from '@/components/RegeneraClaveConfirma'
