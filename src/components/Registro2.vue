@@ -115,27 +115,17 @@
               </div>
             </div>
 
-            <!-- telefono -->
-            <div class ="form-row form-group">
-              <div class="col-md-4">
-                <label for="telefono">Teléfono:</label>
-              </div>
-              <div class="col">
-                <input type="tel" class="form-control" required :class="classTel" id="telefono" placeholder="XX XXXX XXXX" v-model="tel">
-                <small class="notValid">{{msgTel}}</small>
-              </div>
-            </div>
-
             <!-- Agree -->
             <div class ="form-row form-group">
-              <div class="col-md-4">
-                <label for="telefono">.</label>
-              </div>
               <div class="col">
-                <input type="checkbox"  required  id="agree" /> 
-                <span class="info"> Estoy de acuerdo con los
-                  <a href="#"> términos de servicio </a> y con la política de 
-                  <a href="#"> resguardo de datos personales</a>
+                <span class="info"> 
+                  He leido y estoy de acuerdo con:<br>
+                  <input type="checkbox"  required  id="agree" /> 
+                  <a href="#"> Los términos de servicio</a><br>
+                  <input type="checkbox"  required  id="agree" /> 
+                  <a href="#" @click="$modal.show('gustavo')"> El aviso de privacidad de datos personales</a><br>
+                  <input type="checkbox"  required  id="agree" /> 
+                  <a href="#"> Que soy mayor de edad y publico por mi propia voluntad</a><br>
                 </span>
               </div>
             </div>
@@ -179,6 +169,7 @@
       :avisoMsg=msgErr
       :avisoTitulo=texto /> 
 
+    <ModalLogin ref='gustavo' />
 </div>
 
 </template>
@@ -190,6 +181,7 @@
   import router from '../router';
   import "vue-range-slider/dist/vue-range-slider.css";
   import Aviso from './custom/dialog/Aviso';
+  import ModalLogin from '../components/custom/dialog/ModalLogin.vue'
 
   const HTTP_STATUS = {
     OK : 200,
@@ -204,7 +196,8 @@
   export default {
     components: {
       VueRecaptcha,
-      Aviso
+      Aviso,
+      ModalLogin
     },
     data() {
       return {
@@ -379,7 +372,6 @@
           && this.name && this.name.length>2
           && this.email && emaiRegex.test(this.email)
           && this.password && passRegex.test(this.password)
-          && this.tel && this.tel.length==14
           && this.password===this.confirm
           && this.captcha
           //console.log(dato);
@@ -428,7 +420,7 @@
           nick: this.name,
           claveHash: this.password,
           correo: this.email,
-          telefono : this.tel,
+          telefono : '5587654321',
           year : this.year,
           month : this.month,
           day : this.day

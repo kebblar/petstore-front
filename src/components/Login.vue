@@ -1,61 +1,61 @@
 <template>
     <div class="ancho centra">
 
-  <div class="row">
-    <div class="col-sm-6" >
-      <img src="../assets/login.jpg" width="100%"/>
-    </div>
-    <div class="col-sm-6">
-        <div class="card">
+        <div class="row">
+            <div class="col-sm-6" >
+                <img src="../assets/login.jpg" width="100%"/>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
 
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label>Ingresar al sistema</label>
-                    </div>
-                </div>
-            </div><!-- ends header-->
-
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12 text-left">
-                        <div class="form-group">
-                            <label for="precioVenta">Usuario</label>
-                            <input type="text" class="form-control" v-model="usr" />
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Ingresar al sistema</label>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-6 text-left">
-                                    <label for="cantidadVenta">Clave</label>
+                    </div><!-- ends header-->
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 text-left">
+                                <div class="form-group">
+                                    <label for="precioVenta">Usuario</label>
+                                    <input type="text" class="form-control" v-model="usr" />
                                 </div>
-                                <div class="col-sm-6 text-right">
-                                    <a href="#" @click="openForgotPage">Olvidé mi clave</a>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 text-left">
+                                            <label for="cantidadVenta">Clave</label>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <a href="#" @click="openForgotPage">Olvidé mi clave</a>
+                                        </div>
+                                    </div>
+                                    <input type="password" class="form-control" v-model="psw" />
                                 </div>
                             </div>
-                            <input type="password" class="form-control" v-model="psw" />
+                            <div class="col-sm-12" style="text-align: center;">
+                                <button @click="checkCredentials" class="btn btn-warning">Ingresar al sistema</button>
+                            </div>
+                            <div class="col-sm-12" style="text-align: center;">
+                                <hr/>
+                                <a href="#" @click="openRegistroPage" >Deseo registrarme al sistema</a>
+                            </div>
+
                         </div>
-                    </div>
-                    <div class="col-sm-12" style="text-align: center;">
-                        <button @click="checkCredentials" class="btn btn-warning">Ingresar al sistema</button>
-                    </div>
-                    <div class="col-sm-12" style="text-align: center;">
-                        <hr/>
-                        <a href="#" @click="openRegistroPage" >Deseo registrarme al sistema</a>
-                    </div>
+                    </div><!-- ends body-->
 
-                </div>
-            </div><!-- ends body-->
+                </div><!-- ends card-->
+            </div>
+        </div>
 
-        </div><!-- ends card-->
-
-</div></div>
-
-    <Aviso
-      ref='avisoComp'
-      ancho='320'
-      target=''
-      :avisoMsg=msgErr
-      avisoTitulo='Error de ingreso al sistema' />        
+        <Aviso
+        ref='avisoComp'
+        ancho='320'
+        target=''
+        :avisoMsg=msgErr
+        avisoTitulo='Error de ingreso al sistema' />        
 
     </div>
 </template>

@@ -97,15 +97,104 @@
                 <div class="row">
                     <div class="col-12">
                         <p>© Todos los derechos reservados. 2021<br/>Sitio desarrollado por: <br/><a href="https://ultrasist.mx" target="_blank" style="color:#27ae60;">Ultrasist SA de CV -(con amor) <i class="fa fa-heart rojo" aria-hidden="true"></i></a></p>
+                        <button class="btn green" @click="$modal.show('demo-login')">Demo: Login</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <modal
+            name="advertencia"
+            :clickToClose="false"
+            width=89%
+            height="auto"> 
+            <transition name="slide" appear>
+            <div class="largo">
+                <div class="row contenedor">
+                    <div class="col-sm-8 izq">
+                        <!-- Este sitio es sólo para mayores de edad y hace uso de cookies -->
+                        <label>Este sitio hace uso de cookies</label>
+                    </div>
+                    <div class="col-sm-4 der">
+                        <button class="btn btn-outline-success" @click="ok()">Aceptar</button>
+                        &nbsp;
+                        <a class="btn btn-outline-danger" href="https://www.google.com">Rechazar</a>
+                    </div>
+                </div>
+            </div>
+            </transition>
+        </modal>
+
     </footer>
 </template>
 
+<script>
+  export default {
+
+    methods: {
+        ok() {
+            this.setCookie('law', true, 2);
+            this.$modal.hide('advertencia');
+        },
+        getCookie: function(name) {
+            var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+            return v ? v[2] : null;
+        },
+        setCookie: function(name, value, minutes) {
+            var d = new Date;
+            d.setTime(d.getTime() + minutes*60*1000);
+            document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
+        },
+        deleteCookie: function(name) { 
+            this.setCookie(name, '', -1); 
+        }
+    },
+    mounted() {
+        var c = this.getCookie('law');
+        if(c===null) {
+            console.log('no hay');
+            //this.setCookie('law', true, 2);
+            this.$modal.show('advertencia');
+        } else {
+            console.log('si hay');
+        }
+    }
+  }
+</script>
+
 <style scoped>
-/*********footer*******************/
+.slide-enter-active,
+.slide-leave-active {
+    transform: transform .5s;
+}
+.slide-enter,
+.slide-leave-to {
+    transform: translateY(-50%) translateX(100vw);
+}
+.Cookie {
+    background-color:rgb(60,60,60,0.5);
+    height: 100%;
+}
+.der {
+    padding-right: 0px;
+    margin-right: 0px;
+}
+.izq {
+    text-align: left;
+}
+.largo {
+    width: 100%;
+    height: auto;
+    text-align: right;
+    background-color:#ffc850;
+    padding:12px;
+    border: 2px solid #f8ab04;
+    border-radius: 2px;
+    margin:auto;
+}
+.contenedor {
+    padding-right:14px;
+}
 .margen-derecho {
   margin-right: 8px;
 }
@@ -317,5 +406,10 @@ p, ul li, ol li {
     margin-bottom: 5px;
     padding-bottom: 10px;
 }
-
+.btn-outline-danger {
+    color:rgb(245, 73, 73);
+}
+.btn-outline-danger:hover {
+    color:#fff;
+}
 </style>

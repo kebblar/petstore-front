@@ -5,7 +5,6 @@
         <img src="../assets/forgot.png" width="100%"/>
       </div>
       <div class="col-sm-6">
-
         <div class="card">
           <div class="card-header">
             <label class="h4">Regeneración de clave de acceso</label>
@@ -38,7 +37,6 @@
 
           </div>
         </div>
-
       </div>
     </div>
   </div>
