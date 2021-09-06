@@ -1,163 +1,136 @@
 <template>
   <div class="ancho centra">
 
-    <input
-      ref="input"
-      type="file"
-      name="image"
-      accept="image/*"
-      @change="setImage" />
+    <input ref="input" type="file" name="image" accept="image/*" @change="setImage" />
 
     <div class="card">
 
       <div class="card-header card-custom-header" >
-        <label class="control-label h4">Ajuste y carga de imagenes a la nube</label>
+        <label class="control-label h4">Ajuste y carga de imagenes a la nube
+        </label>
       </div><!-- ends header -->
 
-      <div class="card-body" style="background-color: #f6f6f6;">
-        
-
+      <div class="card-body" style="background-color: #FBFBD9;">
+      
           <div class="row">
-            <div class="col-sm-6">
-                <div class="actions">
+            <div class="col-md-6" align="center">
+              <div class="actions">
                 
-                <div class="img-cropper">
-                  <vue-cropper
-                    ref="cropper"
-                    :src="imgSrc"
-                    preview=".preview"
-                  />
-                </div>
+                  <div class="img-cropper">
+                    <vue-cropper
+                      ref="cropper"
+                      :src="imgSrc"
+                      preview=".preview"
+                    />
+                  </div>
 
-                <br>
+                  <br>
 
-                  <a
-                    href="#"
-                    class="btn btn-danger"
-                    @click.prevent="showFileChooser">Seleccionar <i class="fa fa-camera" aria-hidden="true"></i></a>
+                  <a href="#" class="btn btn-danger" @click.prevent="showFileChooser">
+                    Seleccionar <i class="fa fa-camera" aria-hidden="true"></i>
+                    </a>
 
-                  <a
-                    href="#"
-                    class="btn btn-warning"
-                    @click.prevent="reset">R</a>
+                  <a href="#" class="btn btn-warning" @click.prevent="reset">R
+                    </a>
 
-                <a
-                    href="#"
-                    class="btn btn-success"
-                    @click.prevent="cropImage"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                  <a href="#" class="btn btn-success" @click.prevent="cropImage">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    </a>
 
                   <hr/>
 
-                  <a
-                    href="#"
-                    class="btn btn-outline-success"
-                    @click.prevent="zoom(0.2)"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
-                  <a
-                    href="#"
-                    class="btn btn-outline-success"
-                    @click.prevent="zoom(-0.2)"><i class="fa fa-search-minus" aria-hidden="true"></i></a>
-                  <a
-                    href="#"
-                    class="btn btn-outline-success"
-                    @click.prevent="rotate(45)"><i class="fa fa-undo fa-flip-horizontal" aria-hidden="true"></i></a>
-                  <a
-                    href="#"
-                    class="btn btn-outline-success"
-                    @click.prevent="rotate(-45)"><i class="fa fa-undo" aria-hidden="true"></i></a>
+                  <a href="#" class="btn btn-outline-success" @click.prevent="zoom(0.2)">
+                    <i class="fa fa-search-plus" aria-hidden="true"></i>
+                    </a>
+
+                  <a href="#" class="btn btn-outline-success" @click.prevent="zoom(-0.2)">
+                    <i class="fa fa-search-minus" aria-hidden="true"></i>
+                    </a>
+
+                  <a href="#" class="btn btn-outline-success" @click.prevent="rotate(45)">
+                    <i class="fa fa-undo fa-flip-horizontal" aria-hidden="true"></i>
+                    </a>
+
+                  <a href="#" class="btn btn-outline-success" @click.prevent="rotate(-45)">
+                    <i class="fa fa-undo" aria-hidden="true"></i>
+                    </a>
 
                   <hr/>
 
+                  <div id="accordion1">
+                    <div class="card">
 
-              <div id="accordion1">
-                <div class="card">
-                  <div class="card-header" id="headingOne">
-                    <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fa fa-wrench" aria-hidden="true"></i> Mas opciones</a>
-                  </div>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion1">
-                      <div class="card-body">
-                      <a
-                        href="#"
-                        class="btn btn-outline-success"
-                        @click.prevent="move(-10, 0)"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                      <a
-                        href="#"
-                        class="btn btn-outline-success"
-                        @click.prevent="move(10, 0)"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                      <a
-                        href="#"
-                        class="btn btn-outline-success"
-                        @click.prevent="move(0, -10)"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-                      <a
-                        href="#"
-                        class="btn btn-outline-success"
-                        @click.prevent="move(0, 10)"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+                      <div class="card-header" id="headingOne">
+                        <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                          <i class="fa fa-wrench" aria-hidden="true"></i> Mas opciones</a>
+                      </div>
 
-                      <hr/>
+                      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion1">
+                        
+                        <div class="card-body">
 
-                      <a
-                        ref="flipX"
-                        href="#"
-                        class="btn btn-outline-success"
-                        @click.prevent="flipX">Ref. Horiz.</a>
-                      <a
-                        ref="flipY"
-                        href="#"
-                        class="btn btn-outline-success"
-                        @click.prevent="flipY">Ref. Vert.</a>
+                        <a href="#" class="btn btn-outline-success" @click.prevent="move(-10, 0)">
+                          <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 
+                        <a href="#" class="btn btn-outline-success" @click.prevent="move(10, 0)">
+                          <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
+                        <a href="#" class="btn btn-outline-success" @click.prevent="move(0, -10)">
+                          <i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+
+                        <a href="#" class="btn btn-outline-success" @click.prevent="move(0, 10)">
+                          <i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+
+                        <hr/>
+
+                        <a ref="flipX" href="#" class="btn btn-outline-success" @click.prevent="flipX">Ref. Horiz.</a>
+                        
+                        <a ref="flipY" href="#" class="btn btn-outline-success" @click.prevent="flipY">Ref. Vert.</a>
+
+                        </div>
                       </div>
                     </div>
-                </div>
-              </div>
-              
-              <br>
-              
-              <div id="accordion2">
-                <div class="card">
-                  <div class="card-header" id="headingTwo">
-                     <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-info-circle" aria-hidden="true"></i> info</a>
                   </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
-                      <div class="card-body">
-                        <label>Nombre: {{ this.fileName }}</label><br> 
-                        <label>Tamaño: {{ this.fileSize }} bytes</label><br> 
-                        <label>Tipo: {{ this.fileType }}</label><br> 
+              
+                  <br>
+              
+                  <div id="accordion2">
+                    <div class="card">
+                      <div class="card-header" id="headingTwo">
+                        <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-info-circle" aria-hidden="true"></i> info</a>
                       </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
+                          <div class="card-body">
+                            <label>Nombre: {{ this.fileName }}</label><br> 
+                            <label>Tamaño: {{ this.fileSize }} bytes</label><br> 
+                            <label>Tipo: {{ this.fileType }}</label><br> 
+                          </div>
+                        </div>
                     </div>
-                </div>
-              </div>
+                  </div>
 
                   <div v-if="false">
                     <hr/>
 
-                    <a
-                      href="#"
-                      role="button"
-                      @click.prevent="getData">Get Data</a>
-                    <a
-                      href="#"
-                      role="button"
-                      @click.prevent="setData">Set Data</a>
+                    <a href="#" role="button" @click.prevent="getData">Get Data</a>
+                    
+                    <a href="#" role="button" @click.prevent="setData">Set Data</a>
 
                     <hr/>
 
-                    <a
-                      href="#"
-                      role="button"
-                      @click.prevent="getCropBoxData">Get CropBox Data</a>
-                    <a
-                      href="#"
-                      role="button"
-                      @click.prevent="setCropBoxData">Set CropBox Data</a>
+                    <a href="#" role="button" @click.prevent="getCropBoxData">Get CropBox Data</a>
+                    
+                    <a href="#" role="button" @click.prevent="setCropBoxData">Set CropBox Data</a>
 
                     <textarea v-model="data" />
 
                   </div>
 
-                </div>
-                <hr>
+              </div>
+
+              <hr>
             </div>
-            <div class="col-sm-6">
+            <div class="col-md-6" align="center">
               <div class="seleccion">
                 <h3>Archivos seleccionados</h3>
                 <div class="preview7" />
@@ -175,57 +148,55 @@
                   <br><label>Nuevo tamaño: {{ this.newSize }}</label>
                   <br><label>Nuevo tipo: {{ this.newType }}</label>
                 </div>
-    -->
+                -->
 
                 <table  class="table table-hover table-sm table-striped">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th></th>
+                  <thead class="thead-dark centered">
+                    <tr style="text-align:center;">
                       <th></th>
                       <th>Tamaño</th>
-                      <th><i class="fa fa-trash" aria-hidden="true"></i></th>
-                      <th><i class="fa fa-upload" aria-hidden="true"></i></th>
+                      <th>Borrar</th>
+                      <th>Subir</th>
                     </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="(renglon, index) in caja" :key="index">
-                    <td>
-                      <div v-if="index<1">
-                        <input type="radio" name="principal" id="principal" checked />
-                      </div>
-                      <div v-else>
-                        <input type="radio" name="principal" id="principal" />
-                      </div>
-                    </td>
-                    <td>
-                      <img :src=renglon.picture width="50" height="50" />
-                    </td>
-                    <td>{{ renglon.tam }} kb</td>
-                    <td><a href="#" @click="caja.splice(index,1)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                    <td><a href="#" @click="caja.splice(index,1)"><i class="fa fa-upload" aria-hidden="true"></i></a></td>
-                  </tr>
+                    <tr style="text-align:center;" v-for="(renglon, index) in caja" :key="index">
+                      <td>
+                        <img :src=renglon.picture width="50" height="50" />
+                      </td>
+                      <td>
+                        {{ renglon.tam }} kb
+                      </td>
+                      <td>
+                        <a href="#" @click="caja.splice(index,1)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      </td>
+                      <td>
+                        <a href="#" @click="caja.splice(index,1)"><i class="fa fa-upload" aria-hidden="true"></i></a>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
 
                 <br>
 
                 <div v-if="cropImg">
-                  <a
-                    href="#"
-                    class="btn btn-success" alt="hola"
-                    @click.prevent="sube"><i class="fa fa-upload" aria-hidden="true"></i> Subir imagenes</a>
+                  <a href="#" class="btn btn-success" alt="hola" @click.prevent="sube">
+                    <i class="fa fa-upload" aria-hidden="true"></i> Subir imagenes
+                    </a>
                 </div>
 
                 <br>
+
                 <label></label>
                 <ul v-for="(url, index) in respuesta" :key="index">
-                  <li><a :href=salta(url.nuevoNombre) target="_blank">liga {{ index }}</a></li>
+                  <li>
+                    <a :href=salta(url.nuevoNombre) target="_blank">liga {{ index }}</a>
+                  </li>
                 </ul>
               </div>
             </div>
           </div>
           
-        
       </div><!-- ends body -->
 
     </div>
@@ -300,8 +271,8 @@ export default {
         .getCroppedCanvas()
         .toBlob(blob => {
             this.newSize = blob.size;
-            //this.formData = new FormData();
             this.formData.append("file", blob, this.fileName);
+            console.log(this.formData.get("file"))
             this.caja.push({
               'picture':this.cropImg, 
               'tam':this.calc(this.newSize/1000), 
@@ -311,7 +282,6 @@ export default {
           this.newType, 
           0.8
         );
-
      
     },
     flipX() {
