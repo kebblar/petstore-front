@@ -103,7 +103,8 @@
                           <div class="card-body">
                             <label>Nombre: {{ this.fileName }}</label><br> 
                             <label>Tamaño: {{ this.fileSize }} bytes</label><br> 
-                            <label>Tipo: {{ this.fileType }}</label><br> 
+                            <label>Tipo: {{ this.fileType }}</label><br>
+                            <label>Id: {{ this.fileId }}</label><br>
                           </div>
                         </div>
                     </div>
@@ -168,10 +169,10 @@
                         {{ renglon.tam }} kb
                       </td>
                       <td>
-                        <a href="#" @click="caja.splice(index,1)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        <a href="#" @click.prevent="elimina(index)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                       </td>
                       <td>
-                        <a href="#" @click="caja.splice(index,1)"><i class="fa fa-upload" aria-hidden="true"></i></a>
+                        <a href="#" @click.prevent="subir(index)"><i class="fa fa-upload" aria-hidden="true"></i></a>
                       </td>
                     </tr>
                   </tbody>
@@ -228,6 +229,7 @@ export default {
       fileType: 'image/unknown',
       fileName: 'unknown',
       fileSize: 0,
+      fileId: 0,
       newSize: 0,
       caja:[],
       respuesta:[]
@@ -262,7 +264,44 @@ export default {
       this.formData = new FormData();
       this.caja = [];
     },
+    elimina(index){
+      var fileid = this.caja[index].id
+      this.caja.splice(index,1)
+      var arr = this.formData.getAll("file")
+      for (var i=0; i<arr.length; i++) {
+        if (fileid == arr[i].name) {
+          arr.splice(i,1)
+          console.log("listo")
+        }
+      }
+      this.formData = new FormData();
+      for(var v of arr){
+        this.formData.append("file", v)
+      }
+    },
+    subir(index){
+      console.log(index)
+      var caja2 = this.caja
+      var fileid = this.caja[index].id
+      this.caja.splice(index, 1);
+      var arr = this.formData.getAll("file")
+      this.formData = new FormData();
+      for (var i=0; i<arr.length; i++) {
+        if (fileid == arr[i].name) {
+          this.formData.append("file",arr[i])
+          this.sube()
+          arr.splice(i,1)
+        }
+      }
+      this.formData = new FormData();
+      this.caja = caja2
+      for(var v of arr){
+        this.formData.append("file", v)
+      }
+
+    },
     cropImage() {
+      this.fileId +=1;
       this.cropImg = this.$refs.cropper
         .getCroppedCanvas()
         .toDataURL(this.newType, 0.5);
@@ -271,9 +310,9 @@ export default {
         .getCroppedCanvas()
         .toBlob(blob => {
             this.newSize = blob.size;
-            this.formData.append("file", blob, this.fileName);
-            console.log(this.formData.get("file"))
+            this.formData.append("file", blob, this.fileId);
             this.caja.push({
+              'id':this.fileId,
               'picture':this.cropImg, 
               'tam':this.calc(this.newSize/1000), 
               'tipo':this.newType
@@ -427,6 +466,7 @@ export default {
       return 'https://photos.ci.ultrasist.net/_'+url
     }
   },
+
 };
 </script>
 
