@@ -1,137 +1,107 @@
 <template>
-  <div class="ancho centra">
+  <div class="centra">
 
     <input ref="input" type="file" name="image" accept="image/*" @change="setImage" />
 
-    <div class="card">
-
-      <div class="card-header card-custom-header" >
-        <label class="control-label h4">Ajuste y carga de imagenes a la nube
-        </label>
-      </div><!-- ends header -->
-
-      <div class="card-body" style="background-color: #FBFBD9;">
-      
-          <div class="row">
-            <div class="col-md-6" align="center">
-              <div class="actions">
-                
-                  <div class="img-cropper">
-                    <vue-cropper
-                      ref="cropper"
-                      :src="imgSrc"
-                      preview=".preview"
-                    />
-                  </div>
-
-                  <br>
-
-                  <a href="#" class="btn btn-danger" @click.prevent="showFileChooser">
-                    Seleccionar <i class="fa fa-camera" aria-hidden="true"></i>
-                    </a>
-
-                  <a href="#" class="btn btn-warning" @click.prevent="reset">R
-                    </a>
-
-                  <a href="#" class="btn btn-success" @click.prevent="cropImage">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    </a>
-
-                  <hr/>
-
-                  <a href="#" class="btn btn-outline-success" @click.prevent="zoom(0.2)">
-                    <i class="fa fa-search-plus" aria-hidden="true"></i>
-                    </a>
-
-                  <a href="#" class="btn btn-outline-success" @click.prevent="zoom(-0.2)">
-                    <i class="fa fa-search-minus" aria-hidden="true"></i>
-                    </a>
-
-                  <a href="#" class="btn btn-outline-success" @click.prevent="rotate(45)">
-                    <i class="fa fa-undo fa-flip-horizontal" aria-hidden="true"></i>
-                    </a>
-
-                  <a href="#" class="btn btn-outline-success" @click.prevent="rotate(-45)">
-                    <i class="fa fa-undo" aria-hidden="true"></i>
-                    </a>
-
-                  <hr/>
-
-                  <div id="accordion1">
-                    <div class="card">
-
-                      <div class="card-header" id="headingOne">
-                        <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                          <i class="fa fa-wrench" aria-hidden="true"></i> Mas opciones</a>
-                      </div>
-
-                      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion1">
-                        
-                        <div class="card-body">
-
-                        <a href="#" class="btn btn-outline-success" @click.prevent="move(-10, 0)">
-                          <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-
-                        <a href="#" class="btn btn-outline-success" @click.prevent="move(10, 0)">
-                          <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-
-                        <a href="#" class="btn btn-outline-success" @click.prevent="move(0, -10)">
-                          <i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-
-                        <a href="#" class="btn btn-outline-success" @click.prevent="move(0, 10)">
-                          <i class="fa fa-arrow-down" aria-hidden="true"></i></a>
-
-                        <hr/>
-
-                        <a ref="flipX" href="#" class="btn btn-outline-success" @click.prevent="flipX">Ref. Horiz.</a>
-                        
-                        <a ref="flipY" href="#" class="btn btn-outline-success" @click.prevent="flipY">Ref. Vert.</a>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              
-                  <br>
-              
-                  <div id="accordion2">
-                    <div class="card">
-                      <div class="card-header" id="headingTwo">
-                        <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-info-circle" aria-hidden="true"></i> info</a>
-                      </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
-                          <div class="card-body">
-                            <label>Nombre: {{ this.fileName }}</label><br> 
-                            <label>Tamaño: {{ this.fileSize }} bytes</label><br> 
-                            <label>Tipo: {{ this.fileType }}</label><br>
-                            <label>Id: {{ this.fileId }}</label><br>
-                          </div>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div v-if="false">
-                    <hr/>
-
-                    <a href="#" role="button" @click.prevent="getData">Get Data</a>
-                    
-                    <a href="#" role="button" @click.prevent="setData">Set Data</a>
-
-                    <hr/>
-
-                    <a href="#" role="button" @click.prevent="getCropBoxData">Get CropBox Data</a>
-                    
-                    <a href="#" role="button" @click.prevent="setCropBoxData">Set CropBox Data</a>
-
-                    <textarea v-model="data" />
-
-                  </div>
-
+    <div class="section w-75 mx-auto">
+      <div class="card w-100">
+        <div class="card-header card-custom-header" >
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-12 col-md-9 col-lg-10">
+                <div class="h5 my-auto">Ajuste y carga de imagenes a la nube</div>
               </div>
 
-              <hr>
+              <div class="col-12 col-md-3 col-lg-2">
+                <div class="d-flex flex-row justify-content-around align-items-center">
+
+                  <div class="p-2">
+                    <a href="#" class="btn" @click.prevent="cropImage">
+                      <i class="fas fa-check text-light"></i>
+                    </a>
+                  </div>
+                  <div class="p-2">
+                    <a href="#" class="btn" @click.prevent="showFileChooser">
+                      <i class="fa fa-camera text-light" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  <div class="p-2">
+                    <a href="#" class="btn" @click.prevent="reset">
+                      <i class="fas fa-window-close text-light"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-6" align="center">
+          </div>
+        </div>
+        <div class="card-body p-0" style="position: relative">
+          <div class="actions w-100">
+
+            <div class="img-cropper">
+              <vue-cropper
+                  ref="cropper"
+                  :src="imgSrc"
+                  preview=".preview"
+              />
+            </div>
+
+              <div class="container rounded bg-dark text-light " style="position: absolute; top: 1%; right: 0; left: 0; z-index: 1; box-sizing:border-box; opacity: 0.5; width: 100%;">
+                <div class="d-flex align-content-center flex-wrap flex-row justify-content-around pt-1" >
+                  <div>
+                    <a href="#" @click.prevent="zoom(0.2)" >
+                      <i class="fa fa-search-plus text-light" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  <div>
+                    <a href="#" @click.prevent="zoom(-0.2)">
+                      <i class="fa fa-search-minus text-light" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  <div>
+                    <a href="#" @click.prevent="rotate(45)">
+                      <i class="fa fa-undo fa-flip-horizontal text-light" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  <div>
+                    <a href="#" @click.prevent="rotate(-45)">
+                      <i class="fa fa-undo text-light" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  <div>
+                    <a href="#" @click.prevent="move(-10, 0)">
+                      <i class="fa fa-arrow-left text-light" aria-hidden="true"></i></a>
+                  </div>
+                  <div>
+                    <a href="#" @click.prevent="move(10, 0)">
+                      <i class="fa fa-arrow-right text-light" aria-hidden="true"></i></a>
+                  </div>
+                  <div>
+                    <a href="#" @click.prevent="move(0, -10)">
+                      <i class="fa fa-arrow-up text-light" aria-hidden="true"></i></a>
+                  </div>
+                  <div>
+                    <a href="#" @click.prevent="move(0, 10)">
+                      <i class="fa fa-arrow-down text-light" aria-hidden="true"></i></a>
+                  </div>
+                  <div>
+                    <a ref="flipX" href="#" @click.prevent="flipX">
+                      <i class="fas fa-ruler-vertical text-light"></i></a>
+                  </div>
+                  <div>
+                    <a ref="flipY" href="#" @click.prevent="flipY">
+                      <i class="fas fa-ruler-horizontal text-light"></i></a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        <div class="container-fluid">
+
+          <div class="row my-3">
+            <div class="col text-center" v-if="verifica">
               <div class="seleccion">
                 <h3>Archivos seleccionados</h3>
                 <div class="preview7" />
@@ -140,7 +110,7 @@
                 <!--
                 <p>Imagen ajustada</p>
                 <div class="cropped-image">
-                  <img 
+                  <img
                     v-if="cropImg"
                     :src="cropImg"
                     alt="Cropped Image"
@@ -153,54 +123,70 @@
 
                 <table  class="table table-hover table-sm table-striped">
                   <thead class="thead-dark centered">
-                    <tr style="text-align:center;">
-                      <th></th>
-                      <th>Tamaño</th>
-                      <th>Borrar</th>
-                      <th>Subir</th>
-                    </tr>
+                  <tr style="text-align:center;">
+                    <th></th>
+                    <th>Tamaño</th>
+                    <th>Borrar</th>
+                    <th>Subir</th>
+                  </tr>
                   </thead>
                   <tbody>
-                    <tr style="text-align:center;" v-for="(renglon, index) in caja" :key="index">
-                      <td>
-                        <img :src=renglon.picture width="50" height="50" />
-                      </td>
-                      <td>
-                        {{ renglon.tam }} kb
-                      </td>
-                      <td>
-                        <a href="#" @click.prevent="elimina(index)"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                      </td>
-                      <td>
-                        <a href="#" @click.prevent="subir(index)"><i class="fa fa-upload" aria-hidden="true"></i></a>
-                      </td>
-                    </tr>
+                  <tr class="text-center" v-for="(renglon, index) in caja" :key="index">
+                    <td>
+                      <img :src=renglon.picture width="40" height="40" />
+                    </td>
+                    <td>
+                      {{ renglon.tam }} kb
+                    </td>
+                    <td>
+                      <a href="#" @click.prevent="elimina(index)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                    <td>
+                      <a href="#" @click.prevent="subir(index)"><i class="fa fa-upload" aria-hidden="true"></i></a>
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
 
                 <br>
 
-                <div v-if="cropImg">
+                <div>
                   <a href="#" class="btn btn-success" alt="hola" @click.prevent="sube">
-                    <i class="fa fa-upload" aria-hidden="true"></i> Subir imagenes
-                    </a>
+                    <i class="fa fa-upload" aria-hidden="true"></i> Subir imagenes </a>
                 </div>
 
-                <br>
-
-                <label></label>
-                <ul v-for="(url, index) in respuesta" :key="index">
-                  <li>
-                    <a :href=salta(url.nuevoNombre) target="_blank">liga {{ index }}</a>
-                  </li>
-                </ul>
               </div>
             </div>
-          </div>
-          
-      </div><!-- ends body -->
 
+            <div class="w-100"></div>
+
+            <div class="col">
+              <div id="accordion2">
+                <div class="card">
+                  <div class="card-header" id="headingTwo">
+                    <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"><i class="fa fa-info-circle" aria-hidden="true"></i> info</a>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion2">
+                    <div class="card-body">
+                      <label>Nombre: {{ this.fileName }}</label><br>
+                      <label>Tamaño: {{ this.fileSize }} bytes</label><br>
+                      <label>Tipo: {{ this.fileType }}</label><br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ul v-for="(url, index) in respuesta" :key="index">
+                <li>
+                  <a :href=salta(url.nuevoNombre) target="_blank">liga {{ index }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
+
 
   </div>
 </template>
@@ -222,7 +208,7 @@ export default {
   data() {
     return {
       imgSrc: 'https://3.bp.blogspot.com/--C1wpaf_S4M/W7V__10nRoI/AAAAAAAAK24/1NSfapuYSIY0f0wzXY9NgoH0FjQLT07YACKgBGAs/s1600/maxresdefault.jpg',
-      cropImg: '',
+      cropImg: 'x',
       data: null,
       formData: new FormData(),
       newType: 'image/unknown',
@@ -235,7 +221,13 @@ export default {
       respuesta:[]
     };
   },
+  computed: {
+    verifica(){
+      return (this.caja.length !== 0)
+      }
+  },
   methods: {
+
     sube() {
       const headers = {
         "Content-Type": "multipart/form-data",
@@ -298,8 +290,8 @@ export default {
       for(var v of arr){
         this.formData.append("file", v)
       }
-
     },
+
     cropImage() {
       this.fileId +=1;
       this.cropImg = this.$refs.cropper
@@ -360,30 +352,34 @@ export default {
       if (!this.data) return;
       this.$refs.cropper.setData(JSON.parse(this.data));
     },
+
     setImage(e) {
       const file = e.target.files[0];
-      this.fileType = file.type;
-      this.fileName = file.name;
-      this.fileSize = file.size;
-      if (file.type.indexOf('image/') === -1) {
-          Vue.$toast.open({
+
+      if (typeof FileReader === 'function') {
+        var reader = new FileReader();
+
+        reader.onload = (event) => {
+          this.imgSrc = event.target.result;
+          console.log(this.imgSrc)
+          this.fileType = this.dataURLtoMimeType(this.imgSrc);
+          console.log(this.fileType)
+          if (this.fileType === 'unknown') {
+            Vue.$toast.open({
               message: "Sólo seleccionar imágenes, por favor",
               type: 'error',
               duration: 5000,
               position:'top'
-          });
-          return;
-      }
-
-      if (typeof FileReader === 'function') {
-        const reader = new FileReader();
-
-        reader.onload = (event) => {
-          this.imgSrc = event.target.result;
-          this.fileType = this.dataURLtoMimeType(this.imgSrc);
+            });
+            return;
+          }
           // rebuild cropperjs with the updated source
           this.$refs.cropper.replace(event.target.result);
         };
+
+        this.fileType = file.type;
+        this.fileName = file.name;
+        this.fileSize = file.size;
 
         reader.readAsDataURL(file);
       } else {
@@ -399,22 +395,21 @@ export default {
 
     dataURLtoMimeType(dataURL) {
         // FROM: https://github.com/fengyuanchen/cropper/issues/542
-        var mimeType = 'desconocido';
+        var mimeType = 'unknown';
         var contentType = [];
         var parts = [];
         var i = 0;
 
-        var BASE64_MARKER = ';base64,';
         var data;
 
         if(contentType==null) console.log("raro");
 
-        if (dataURL.indexOf(BASE64_MARKER) == -1) {
+        if (dataURL.indexOf(';base64,') == -1) {
             parts = dataURL.split(',');
             contentType = parts[0].split(':')[1];
             data = decodeURIComponent(parts[1]);
         } else {
-            parts = dataURL.split(BASE64_MARKER);
+            parts = dataURL.split(';base64,');
             contentType = parts[0].split(':')[1];
             var raw = window.atob(parts[1]);
             var rawLength = raw.length;
@@ -427,11 +422,11 @@ export default {
         }
 
         var arr = data.subarray(0, 4);
+        console.log(arr)
         var header = "";
         for(i = 0; i < arr.length; i++) {
             header += arr[i].toString(16);
         }
-        //console.log(header+"___________________kkkk");
         this.newType = "image/png";
         switch (header) {
             case "3c3f786d":
@@ -454,7 +449,8 @@ export default {
                 this.newType = "image/jpeg";
                 break;
             default:
-                mimeType = "image/png"; // Or you can use the blob.type as fallback
+                mimeType = "unknown"; // Or you can use the blob.type as fallback
+              this.newType = "unknown"
                 break;
         }
         return mimeType;
@@ -491,24 +487,14 @@ input[type="file"] {
   width: 400px;
 }
 
-.img-cropper {
-  width: 300px;
+.quita-margen {
+  margin: 0;
 }
+
+
 
 .seleccion {
   margin-top: 1rem;
-}
-
-.actions {
-  margin-top: 1rem;
-  width: 300px;
-}
-
-.actions a {
-  display: inline-block;
-  padding: 5px 15px;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
 }
 
 
