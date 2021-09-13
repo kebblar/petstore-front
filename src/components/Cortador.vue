@@ -3,7 +3,7 @@
 
     <input ref="input" type="file" name="image" accept="image/*" @change="setImage" />
 
-    <div class="section w-75 mx-auto">
+    <div class="section mx-auto card-width">
       <div class="card w-100">
         <div class="card-header card-custom-header" >
           <div class="container-fluid">
@@ -35,7 +35,7 @@
             </div>
           </div>
         </div>
-        <div class="card-body p-0" style="position: relative">
+        <div class="card-body p-0">
           <div class="actions w-100">
 
             <div class="img-cropper">
@@ -46,7 +46,7 @@
               />
             </div>
 
-              <div class="container rounded bg-dark text-light " style="position: absolute; top: 1%; right: 0; left: 0; z-index: 1; box-sizing:border-box; opacity: 0.5; width: 100%;">
+              <div class="container rounded-bottom bg-dark text-light " style="position: relative;">
                 <div class="d-flex align-content-center flex-wrap flex-row justify-content-around pt-1" >
                   <div>
                     <a href="#" @click.prevent="zoom(0.2)" >
@@ -150,7 +150,7 @@
 
                 <br>
 
-                <div>
+                <div class="mb-4">
                   <a href="#" class="btn btn-success" alt="hola" @click.prevent="sube">
                     <i class="fa fa-upload" aria-hidden="true"></i> Subir imagenes </a>
                 </div>
@@ -221,11 +221,13 @@ export default {
       respuesta:[]
     };
   },
+
   computed: {
     verifica(){
       return (this.caja.length !== 0)
       }
   },
+
   methods: {
 
     sube() {
@@ -244,7 +246,7 @@ export default {
         if(error.response && error.response.data && error.response.data.exceptionLongDescription) {
           currentMsg = error.response.data.exceptionLongDescription;
         } else {
-          currentMsg = error;
+          currentMsg = "No podemos conectar con el servidor, intente más tarde.";
         }
         Vue.$toast.open({
             message: currentMsg,
@@ -256,6 +258,7 @@ export default {
       this.formData = new FormData();
       this.caja = [];
     },
+
     elimina(index){
       var fileid = this.caja[index].id
       this.caja.splice(index,1)
@@ -271,6 +274,7 @@ export default {
         this.formData.append("file", v)
       }
     },
+    
     subir(index){
       console.log(index)
       var caja2 = this.caja
@@ -366,7 +370,7 @@ export default {
           console.log(this.fileType)
           if (this.fileType === 'unknown') {
             Vue.$toast.open({
-              message: "Sólo seleccionar imágenes, por favor",
+              message: "El archivo proporcionado no es de tipo imagen.",
               type: 'error',
               duration: 5000,
               position:'top'
@@ -491,8 +495,6 @@ input[type="file"] {
   margin: 0;
 }
 
-
-
 .seleccion {
   margin-top: 1rem;
 }
@@ -533,5 +535,11 @@ textarea {
   background-color: #b6b6b6;
   max-width: 300px;
   max-height: 300px;
+}
+
+@media only screen and (min-width: 587px) {
+  .card-width {
+    width : 75%;
+  }
 }
 </style>
