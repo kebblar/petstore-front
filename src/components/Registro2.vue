@@ -135,12 +135,14 @@
             <!-- account: garellanos@ultrasist.com.mx -->
             <div class="row">
               <div class="centra">
-                <vue-recaptcha
-                    id="solvecaptcha"
-                    ref="recaptcha"
-                    sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
-                    @expired="onCaptchaExpired"
-                    @verify="onCaptchaVerified"/>
+                <div class="g-recaptcha">
+                  <vue-recaptcha
+                      id="solvecaptcha"
+                      ref="recaptcha"
+                      sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
+                      @expired="onCaptchaExpired"
+                      @verify="onCaptchaVerified"/>
+                </div>
               </div>
             </div>
 
@@ -506,5 +508,9 @@
 }
 .info {
   font-size: 10px;
+}
+.g-recaptcha {
+  transform:scale(0.9);
+  transform-origin: 0 0;
 }
 </style>
