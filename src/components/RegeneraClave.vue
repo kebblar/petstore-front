@@ -20,7 +20,7 @@
               </div>
               <br>
 
-              <div>
+              <div class="g-recaptcha">
                 <vue-recaptcha
                     id="solvecaptcha"
                     ref="recaptcha"
@@ -83,5 +83,9 @@
 <style scoped>
 .ancho2 {
     max-width: 450px;
+}
+.g-recaptcha {
+  transform:scale(0.9);
+  transform-origin: 0 0;
 }
 </style>
