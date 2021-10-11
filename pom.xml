@@ -15,8 +15,8 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>nexus.ci.ultrasist.net</id>
-            <url>https://nexus.ci.ultrasist.net/repository/ultra-mvn-artifacts/</url>
+            <id>curso</id>
+            <url>https://nexus.qbits.mx/repository/ultra-mvn-artifacts/</url>
             <uniqueVersion>true</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
