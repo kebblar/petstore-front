@@ -469,6 +469,10 @@
   background-color: #eefaee;
   box-shadow: 2px 1px 4px #bdd3ae;
 }
+
+input {
+  padding-right: 15%;
+}
 .correct {
   border-color:rgb(96, 161, 99);
   border-width: 1px;
