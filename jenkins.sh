@@ -56,7 +56,7 @@ if [ $? -eq 0 ]
 then
   mv dist $RUTA/lib/src/main/resources/static
   cp pom.xml $RUTA/lib/
-  mvn -U -f lib/pom.xml clean deploy
+  mvn -U -f lib/pom.xml clean install deploy
   echo "Proceso concluido exitosamente..."
 else
   echo "El proceso falló"
