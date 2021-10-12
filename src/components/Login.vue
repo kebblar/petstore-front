@@ -11,7 +11,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-12">
-                                <label>Ingresar al sistema !@#</label>
+                                <label>Ingresar al sistema</label>
                             </div>
                         </div>
                     </div><!-- ends header-->
