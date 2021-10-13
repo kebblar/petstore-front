@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if=show>
       <div class="row">
           <div class="col">
             <img src="@/assets/logo.png" width="50px;" style="margin-left:10px;" @click="navega('/ui/creditos')"/> <label style="font-size:32px;">The Petstore App</label>
@@ -98,6 +98,9 @@ export default {
       },
       detallePago: function(){
         return window.location.pathname != '/ui/detalle-pago';
+      },
+      show: function() {
+          return store.state.toggleHeader;
       }
     },
     data() {

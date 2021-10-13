@@ -64,7 +64,7 @@
 import axios from 'axios';
 import router from '../router'
 import store from '../store'
-import Aviso from './custom/dialog/Aviso';
+import Aviso from './custom/dialog/Aviso'
 
 export default {
     components: {
@@ -136,12 +136,16 @@ export default {
                 this.$refs.avisoComp.abre();
             })
         }
-    },
+    }, 
+    mounted() {
+        store.commit('setToggleHeader', false);
+        store.commit('setToggleFooter', false);
+    }
 }
 </script>
 
 <style scoped>
-.ancho2 {
-    max-width: 340px;
+.ancho {
+    max-width: 760px;
 }
 </style>

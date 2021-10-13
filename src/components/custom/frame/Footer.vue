@@ -1,103 +1,105 @@
 <template>
     <footer class="kilimanjaro_area"> 
-        <!-- Top Footer Area Start -->
-        <div class="foo_top_header_one section_padding_100_10">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="kilimanjaro_part">
-                            <h5>Nosotros</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis nisl diam. </p>
-                            <p>Donec dui lectus, euismod eget nunc sed, faucibus congue odio. Fusce mauris erat, dictum vitae rutrum in, fermentum quis ex. Phasellus aliquet id mauris nec porta. Praesent vitae arcu sapien. Integer a tortor est. Sed eget diam ac velit bibendum volutpat a at ipsum.</p>
-                            <p>Ut convallis egestas nunc nec egestas. Ut cursus suscipit dolor nec sagittis. Ut convallis egestas nunc nec egestas. Ut cursus suscipit dolor nec sagittis.</p>
+
+        <div v-if=show>
+            <div class="foo_top_header_one section_padding_100_10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="kilimanjaro_part">
+                                <h5>Nosotros</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis nisl diam. </p>
+                                <p>Donec dui lectus, euismod eget nunc sed, faucibus congue odio. Fusce mauris erat, dictum vitae rutrum in, fermentum quis ex. Phasellus aliquet id mauris nec porta. Praesent vitae arcu sapien. Integer a tortor est. Sed eget diam ac velit bibendum volutpat a at ipsum.</p>
+                                <p>Ut convallis egestas nunc nec egestas. Ut cursus suscipit dolor nec sagittis. Ut convallis egestas nunc nec egestas. Ut cursus suscipit dolor nec sagittis.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="kilimanjaro_part">
-                            <h5>Nuestras redes sociales</h5>
-                            <ul class="kilimanjaro_social_links">
-                                <li><a href="#" class="margen-derecho"><i class="fab fa-facebook-square fa-2x verde" aria-hidden="true"></i></a></li>
-                                <li><a href="#" class="margen-derecho"><i class="fab fa-twitter-square fa-2x verde" aria-hidden="true"></i></a></li>
-                                <li><a href="#" class="margen-derecho"><i class="fab fa-pinterest-square fa-2x verde" aria-hidden="true"></i></a></li>
-                                <li><a href="#" ><i class="fab fa-youtube-square fa-2x verde" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="kilimanjaro_part">
+                                <h5>Nuestras redes sociales</h5>
+                                <ul class="kilimanjaro_social_links">
+                                    <li><a href="#" class="margen-derecho"><i class="fab fa-facebook-square fa-2x verde" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" class="margen-derecho"><i class="fab fa-twitter-square fa-2x verde" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" class="margen-derecho"><i class="fab fa-pinterest-square fa-2x verde" aria-hidden="true"></i></a></li>
+                                    <li><a href="#" ><i class="fab fa-youtube-square fa-2x verde" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
 
 
-                        <div class="kilimanjaro_part m-top-15">
-                            <h5>Ligas de interés</h5>
-                            <ul class="kilimanjaro_links">
-                                <li><a href="#" @click="aviso('condiciones')"><i class="fa fa-angle-right" aria-hidden="true"></i>Términos & Condiciones</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Licencia de uso</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Ayuda & Soporte</a></li>
-                                <li><a href="#" @click="aviso('galletas')"><i class="fa fa-angle-right" aria-hidden="true"></i>Política de Cookies</a></li>
-                                <li><a href="#" @click="aviso('aviso')"><i class="fa fa-angle-right" aria-hidden="true"></i>Política de privacidad de datos</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Foros y comunidad</a></li>
-                            </ul>
+                            <div class="kilimanjaro_part m-top-15">
+                                <h5>Ligas de interés</h5>
+                                <ul class="kilimanjaro_links">
+                                    <li><a href="#" @click="aviso('condiciones')"><i class="fa fa-angle-right" aria-hidden="true"></i>Términos & Condiciones</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Licencia de uso</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Ayuda & Soporte</a></li>
+                                    <li><a href="#" @click="aviso('galletas')"><i class="fa fa-angle-right" aria-hidden="true"></i>Política de Cookies</a></li>
+                                    <li><a href="#" @click="aviso('aviso')"><i class="fa fa-angle-right" aria-hidden="true"></i>Política de privacidad de datos</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Foros y comunidad</a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="kilimanjaro_part">
-                            <h5>Últimas noticias</h5>
-                            <div class="kilimanjaro_blog_area">
-                                <div class="kilimanjaro_thumb">
-								<img class="img-fluid" src="https://3.bp.blogspot.com/--C1wpaf_S4M/W7V__10nRoI/AAAAAAAAK24/1NSfapuYSIY0f0wzXY9NgoH0FjQLT07YACKgBGAs/s1600/maxresdefault.jpg" alt="">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="kilimanjaro_part">
+                                <h5>Últimas noticias</h5>
+                                <div class="kilimanjaro_blog_area">
+                                    <div class="kilimanjaro_thumb">
+                                    <img class="img-fluid" src="https://3.bp.blogspot.com/--C1wpaf_S4M/W7V__10nRoI/AAAAAAAAK24/1NSfapuYSIY0f0wzXY9NgoH0FjQLT07YACKgBGAs/s1600/maxresdefault.jpg" alt="">
 
+                                    </div>
+                                    <a href="#">Canario del áfrica central</a>
+                                    <p class="kilimanjaro_date">21 Enero 2018</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur</p>
                                 </div>
-                                <a href="#">Canario del áfrica central</a>
-                                <p class="kilimanjaro_date">21 Enero 2018</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                            </div>
-                            <div class="kilimanjaro_blog_area">
-                                <div class="kilimanjaro_thumb">
-								<img class="img-fluid" src="https://3.bp.blogspot.com/--C1wpaf_S4M/W7V__10nRoI/AAAAAAAAK24/1NSfapuYSIY0f0wzXY9NgoH0FjQLT07YACKgBGAs/s1600/maxresdefault.jpg" alt="">
+                                <div class="kilimanjaro_blog_area">
+                                    <div class="kilimanjaro_thumb">
+                                    <img class="img-fluid" src="https://3.bp.blogspot.com/--C1wpaf_S4M/W7V__10nRoI/AAAAAAAAK24/1NSfapuYSIY0f0wzXY9NgoH0FjQLT07YACKgBGAs/s1600/maxresdefault.jpg" alt="">
+                                    </div>
+                                    <a href="#">Perrito cruzado con pulpo</a>
+                                    <p class="kilimanjaro_date">14 Junio 2020</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur</p>
                                 </div>
-                                <a href="#">Perrito cruzado con pulpo</a>
-                                <p class="kilimanjaro_date">14 Junio 2020</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur</p>
-                            </div>
-                            <div class="kilimanjaro_blog_area">
-                                <div class="kilimanjaro_thumb">
-								<img class="img-fluid" src="https://3.bp.blogspot.com/--C1wpaf_S4M/W7V__10nRoI/AAAAAAAAK24/1NSfapuYSIY0f0wzXY9NgoH0FjQLT07YACKgBGAs/s1600/maxresdefault.jpg" alt="">
+                                <div class="kilimanjaro_blog_area">
+                                    <div class="kilimanjaro_thumb">
+                                    <img class="img-fluid" src="https://3.bp.blogspot.com/--C1wpaf_S4M/W7V__10nRoI/AAAAAAAAK24/1NSfapuYSIY0f0wzXY9NgoH0FjQLT07YACKgBGAs/s1600/maxresdefault.jpg" alt="">
+                                    </div>
+                                    <a href="#">Pecesito dorado come tarántulas</a>
+                                    <p class="kilimanjaro_date">27 Diciembre 2021</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur</p>
                                 </div>
-                                <a href="#">Pecesito dorado come tarántulas</a>
-                                <p class="kilimanjaro_date">27 Diciembre 2021</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="kilimanjaro_part">
-                            <h5>Contacto</h5>
-                            <div class="kilimanjaro_single_contact_info">
-                                <h4 style="margin-bottom: 10px;"><i class="fas fa-phone fa-lg" style="padding-top: 10%"></i> Teléfonos</h4>
-                                <p>+52 (55) 1691 3060<br> +1 (418) 909 400</p>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="kilimanjaro_part">
+                                <h5>Contacto</h5>
+                                <div class="kilimanjaro_single_contact_info">
+                                    <h4 style="margin-bottom: 10px;"><i class="fas fa-phone fa-lg" style="padding-top: 10%"></i> Teléfonos</h4>
+                                    <p>+52 (55) 1691 3060<br> +1 (418) 909 400</p>
+                                </div>
+                                <div class="kilimanjaro_single_contact_info">
+                                    <h4 style="margin-bottom: 10px;"><i class="fas fa-envelope fa-lg" style="padding-top: 10%"></i> Correos</h4>
+                                    <p>
+                                    <a href = "mailto: asupport@petstore.ci.ultrasist.net">support@petstore.ci.ultrasist.net</a> 
+                                    <br> 
+                                    <a href = "mailto: petstore@gmail.com">petstore@gmail.com</a>
+                                    </p>
+                                </div>
+                                <div class="kilimanjaro_single_contact_info">
+                                    <h4 style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt fa-lg" style="padding-top: 10%"></i> Direccion</h4>
+                                    <p>Calle Kopoma 395 <br> Col. Pedregal de San Nicolás <br> Del Tlalpan, CP 14100<br>Ciudad de México, MÉXICO</p>
+                                </div>
                             </div>
-                            <div class="kilimanjaro_single_contact_info">
-                                <h4 style="margin-bottom: 10px;"><i class="fas fa-envelope fa-lg" style="padding-top: 10%"></i> Correos</h4>
-                                <p>
-                                  <a href = "mailto: asupport@petstore.ci.ultrasist.net">support@petstore.ci.ultrasist.net</a> 
-                                  <br> 
-                                  <a href = "mailto: petstore@gmail.com">petstore@gmail.com</a>
-                                </p>
-                            </div>
-                            <div class="kilimanjaro_single_contact_info">
-                                <h4 style="margin-bottom: 10px;"><i class="fas fa-map-marker-alt fa-lg" style="padding-top: 10%"></i> Direccion</h4>
-                                <p>Calle Kopoma 395 <br> Col. Pedregal de San Nicolás <br> Del Tlalpan, CP 14100<br>Ciudad de México, MÉXICO</p>
-                            </div>
+                    
                         </div>
-                
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Footer Bottom Area Start -->
-        <div class=" kilimanjaro_bottom_header_one section_padding_50 text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <p>© Todos los derechos reservados. 2021<br/>Sitio desarrollado por: <br/><a href="https://ultrasist.mx" target="_blank" style="color:#27ae60;">Ultrasist SA de CV -(con amor) <i class="fa fa-heart rojo" aria-hidden="true"></i></a></p>
-                        <button class="btn green" @click="$modal.show('demo-login')">Demo: Login</button>
+            <!-- Footer Bottom Area Start -->
+            <div class=" kilimanjaro_bottom_header_one section_padding_50 text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>© Todos los derechos reservados. 2021<br/>Sitio desarrollado por: <br/><a href="https://ultrasist.mx" target="_blank" style="color:#27ae60;">Ultrasist SA de CV -(con amor) <i class="fa fa-heart rojo" aria-hidden="true"></i></a></p>
+                            <button class="btn green" @click="$modal.show('demo-login')">Demo: Login</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -471,8 +473,9 @@ Registro Mercantil de Las Palmas T 212 L0 F 181, l 2ª</p>
 </template>
 
 <script>
-  export default {
+import store from '../../../store'
 
+  export default { 
     methods: {
         aviso(name){
             this.$modal.show(name);
@@ -502,6 +505,11 @@ Registro Mercantil de Las Palmas T 212 L0 F 181, l 2ª</p>
             this.$modal.show('advertencia');
         } else {
             console.log('si hay');
+        }
+    }, 
+    computed: {
+        show: function() {
+            return store.state.toggleFooter;
         }
     }
   }
