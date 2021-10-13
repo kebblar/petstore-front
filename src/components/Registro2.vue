@@ -5,11 +5,10 @@
   <div v-if="loading" class="loader"/>
 
   <div class="row">
-    <div class="col-sm-6" >
+    <div class="col-md-5 col-lg-6 col-12" >
       <img src="../assets/registro.webp" width="100%"/>
     </div>
-    <div class="col-sm-6">
-
+    <div class="col-md-7 col-lg-6 col-12">
 
       <div class="card defaultColor">
 
@@ -141,18 +140,17 @@
             <!-- Google Re captcha V 2.0-->
             <!-- https://www.google.com/recaptcha/admin/site/450433503 -->
             <!-- account: garellanos@ultrasist.com.mx -->
-            <div class="row">
-              <div class="centra">
-                <div class="g-recaptcha">
-                  <vue-recaptcha
-                      id="solvecaptcha"
-                      ref="recaptcha"
-                      sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
-                      @expired="onCaptchaExpired"
-                      @verify="onCaptchaVerified"/>
-                </div>
-              </div>
-            </div>
+
+                  <div class="row py-3 pl-4">
+                      <div class="g-recaptcha mx-auto">
+                        <vue-recaptcha
+                            id="solvecaptcha"
+                            ref="recaptcha"
+                            sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
+                            @expired="onCaptchaExpired"
+                            @verify="onCaptchaVerified"/>
+                      </div>
+                    </div>
 
             <!-- button -->
             <div class="form-group row">
@@ -478,6 +476,10 @@
 .greenColor:focus {
   background-color: #eefaee;
   box-shadow: 2px 1px 4px #bdd3ae;
+}
+
+input {
+  padding-right: 15%;
 }
 .correct {
   border-color:rgb(96, 161, 99);
