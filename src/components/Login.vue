@@ -66,7 +66,7 @@
         </div>
 
         <Aviso
-        ref='avisoComp'
+        ref='avisoComponente'
         ancho='320'
         target=''
         :avisoMsg=msgErr
@@ -156,7 +156,7 @@ export default {
                 if(error.response) {
                     this.msgErr = error.response.data['exceptionLongDescription'];
                  }
-                this.$refs.avisoComp.abre();
+                this.$refs.avisoComponente.abre();
             })
         },
       oculta () {

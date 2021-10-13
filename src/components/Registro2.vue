@@ -98,7 +98,7 @@
                 </select>
                 </div>
                 <div class="col">
-                <select class="form-control combo" v-model="month">
+                <select class="form-control combo" v-model="month" style="width:200px;">
                   <option value="1">Enero</option>
                   <option value="2">Febrero</option>
                   <option value="3">Marzo</option>

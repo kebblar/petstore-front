@@ -126,7 +126,7 @@
         </modal>
 
         <modal
-            name="aviso"
+            name="avisoPoliticaPrivacidad"
             :clickToClose="true"
             width=89%
             height="auto"> 
