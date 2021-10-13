@@ -17,8 +17,10 @@
               <div class ="form-group text-center">
                 <label for="correo">Correo electrónico</label>
                 <input type="email" class="form-control" id="mail" placeholder="ejemplo@gmail.com" v-model="correo">
+                <a href="#" @click="openLoginPage">Regresar a login</a>
               </div>
               <br>
+
 
               <div class="g-recaptcha">
                 <vue-recaptcha
@@ -47,6 +49,7 @@
   import VueRecaptcha from 'vue-recaptcha';
   import router from '../router'
   import axios from 'axios'
+  import store from '../store'
 
   export default {
       data() {
@@ -58,24 +61,29 @@
         VueRecaptcha
       },
       methods: {
-      cambiaClave() {
-        axios.get('api/regenera-clave.json?correo='+this.correo, {
-        }).then(response => {
-          console.log(response);
-          console.log(response.data);
-          console.log(response.status);
-        }).catch(error => {
-          if(error.response) {
-              console.log(error);
-          }
-        }).finally(
-          console.log('finaliza proceso de solicitud de regeneracion de clave')
-        );
-        router.push('/ui/regenera-clave-confirma').catch(()=>{});
+        cambiaClave() {
+          axios.get('api/regenera-clave.json?correo='+this.correo, {
+          }).then(response => {
+            console.log(response);
+            console.log(response.data);
+            console.log(response.status);
+          }).catch(error => {
+            if(error.response) {
+                console.log(error);
+            }
+          }).finally(
+            console.log('finaliza proceso de solicitud de regeneracion de clave')
+          );
+          router.push('/ui/regenera-clave-confirma').catch(()=>{});
+        }, 
+        openLoginPage() {
+          router.push('/ui/login').catch(()=>{});
+        }
+      }, 
+      mounted() {
+          store.commit('setToggleHeader', false);
+          store.commit('setToggleFooter', false); 
       }
-    }
-
-
   }
 </script>
 
@@ -87,5 +95,9 @@
 .g-recaptcha {
   transform:scale(0.9);
   transform-origin: 0 0;
+}
+.centra {
+  margin: auto;
+  padding-top: 10%;
 }
 </style>

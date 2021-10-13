@@ -1,4 +1,6 @@
 <template>
+
+
     <div class="ancho centra">
 
         <div class="row">
@@ -58,6 +60,8 @@
         avisoTitulo='Error de ingreso al sistema' />        
 
     </div>
+
+
 </template>
 
 <script>
@@ -146,6 +150,10 @@ export default {
 
 <style scoped>
 .ancho {
-    max-width: 760px;
+    max-width: 760px; 
+}
+.centra {
+  margin: auto;
+  padding-top: 10%;
 }
 </style>

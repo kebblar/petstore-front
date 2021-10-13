@@ -122,7 +122,7 @@
               <span class="info">(debes ser mayor de 21 años para registrarte)</span>
             </div>
 
-            <!-- Agree -->
+            <!-- Agree --
             <div class ="form-row form-group">
               <div class="col">
                 <span class="info"> 
@@ -135,6 +135,10 @@
                   <a href="#"> Que soy mayor de edad y publico por mi propia voluntad</a><br>
                 </span>
               </div>
+            </div>
+            -->
+            <div class ="form-row form-group">
+              <a href="#" @click="openLoginPage">Regresar a login</a>
             </div>
 
             <!-- Google Re captcha V 2.0-->
@@ -190,6 +194,7 @@
   import "vue-range-slider/dist/vue-range-slider.css";
   import Aviso from './custom/dialog/Aviso';
   import ModalLogin from '../components/custom/dialog/ModalLogin.vue'
+  import store from '../store'
 
   const HTTP_STATUS = {
     OK : 200,
@@ -394,6 +399,9 @@
 
     },
     methods: {
+      openLoginPage() {
+        router.push('/ui/login').catch(()=>{});
+      },      
       closeModal: function() {
         this.$modal.hide('aviso');
       },
@@ -453,8 +461,11 @@
           console.log('end ulpoad')
         );
       }
+    },
+    mounted() {
+        store.commit('setToggleHeader', false);
+        store.commit('setToggleFooter', false); 
     }
-
   }
 
 </script>
