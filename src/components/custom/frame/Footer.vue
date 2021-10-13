@@ -141,10 +141,10 @@ Las Palmas de Gran Canaria<br />
 35004 Las Palmas, España<br />
 CIF B98731144<br />
 Registro Mercantil de Las Palmas T 212 L0 F 181, l 2ª</p>
-<p>Sitio web: mileroticos.com</p>
-<p>Correo electrónico info arroba mileroticos.com</p>
+<p>Sitio web: petstore.com</p>
+<p>Correo electrónico info arroba petstore.com</p>
 <p>Protección de datos de carácter personal según la LOPD</p>
-<p>La empresa expuesta arriba, en adelante el “PROVEEDOR DE SERVICIOS”, es propietaria de este sitio mileroticos.com en adelante, el “SITIO WEB”.</p>
+<p>La empresa expuesta arriba, en adelante el “PROVEEDOR DE SERVICIOS”, es propietaria de este sitio petstore.com en adelante, el “SITIO WEB”.</p>
 <p>PROVEEDOR DE SERVICIOS, en aplicación de la normativa vigente en materia de protección de datos de carácter personal, informa que los datos personales que se recogen a través de los formularios del Sitio web: SITIO WEB, se incluyen en los ficheros automatizados específicos de usuarios de los servicios de PROVEEDOR DE SERVICIOS.</p>
 <p>La recogida y tratamiento automatizado de los datos de carácter personal tiene como finalidad el correcto funcionamiento del servicio que da el SITIO WEB, el mantenimiento de la relación comercial en caso que la haya y el desempeño de tareas de información, asesoramiento y otras actividades propias de PROVEEDOR DE SERVICIOS.</p>
 <p>Estos datos únicamente serán cedidos a aquellas entidades que sean necesarias con el único objetivo de dar cumplimiento a la finalidad anteriormente expuesta.</p>
@@ -226,7 +226,7 @@ Registro Mercantil de Las Palmas T 212 L0 F 181, l 2ª</p>
                     <div class="col-sm-12">
 <p>CONDICIONES DE USO ACTUALIZADAS EL 08/02/2020</p>
 <p>1.- Titularidad del sitio web.</p>
-<p>Majestic Solutions S.L. Leon y Castillo 87 p3 - 1 Las Palmas de Gran Canaria 35004 Las Palmas, Espa&ntilde;a CIF B98731144 Registro Mercantil de Las Palmas T 212 L0 F 181, l 2&ordf; Correo electr&oacute;nico info arroba mileroticos.com</p>
+<p>Majestic Solutions S.L. Leon y Castillo 87 p3 - 1 Las Palmas de Gran Canaria 35004 Las Palmas, Espa&ntilde;a CIF B98731144 Registro Mercantil de Las Palmas T 212 L0 F 181, l 2&ordf; Correo electr&oacute;nico info arroba petstore.com</p>
 
 <p>2.- Aceptaci&oacute;n de las condiciones de uso</p>
 <p>Este SITIO WEB es titularidad de la empresa rese&ntilde;ada en el punto uno de este documento, en adelante el PROVEEDOR DE SERVICIOS.</p>
@@ -390,10 +390,10 @@ Registro Mercantil de Las Palmas T 212 L0 F 181, l 2ª</p>
 <p>Titularidad del sitio web.</p>
 <p>Majestic Solutions S.L.  Leon y Castillo 87 p3 - 1  Las Palmas de Gran Canaria  35004 Las Palmas, Espa&ntilde;a  CIF B98731144  Registro Mercantil de Las Palmas T 212 L0 F 181, l 2&ordf;   </p>
 
-<p>Sitio web: mileroticos.com</p>
+<p>Sitio web: petstore.com</p>
 
-<p>Correo electr&oacute;nico info arroba mileroticos.com</p>
-<p>La empresa expuesta arriba, en adelante el &ldquo;PROVEEDOR DE SERVICIOS&rdquo;, es propietaria de este sitio mileroticos.com en adelante, el &ldquo;SITIO WEB&rdquo;.</p>
+<p>Correo electr&oacute;nico info arroba petstore.com</p>
+<p>La empresa expuesta arriba, en adelante el &ldquo;PROVEEDOR DE SERVICIOS&rdquo;, es propietaria de este sitio petstore.com en adelante, el &ldquo;SITIO WEB&rdquo;.</p>
 
 <p>Pol&iacute;tica de cookies</p>
 <p>PROVEEDOR DE SERVICIOS informa acerca del uso de las cookies en su p&aacute;gina web: SITIO WEB</p>
