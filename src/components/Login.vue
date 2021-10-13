@@ -21,18 +21,31 @@
                             <div class="col-sm-12 text-left">
                                 <div class="form-group">
                                     <label for="precioVenta">Usuario</label>
-                                    <input type="text" class="form-control" v-model="usr" />
+                                  <div class="row px-3">
+                                    <input type="text" class="form-control" id="text-usr" v-model="usr" />
+                                    <span class="fas fa-user errspan"></span>
+                                  </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-6 text-left">
+                                        <div class=" col-2 col-sm-6 text-left">
                                             <label for="cantidadVenta">Clave</label>
                                         </div>
-                                        <div class="col-sm-6 text-right">
+                                        <div class=" col-10 col-sm-6 text-right">
                                             <a href="#" @click="openForgotPage">Olvidé mi clave</a>
                                         </div>
                                     </div>
-                                    <input type="password" class="form-control" v-model="psw" />
+                                  <div class="row px-3">
+                                    <input :type=pwInputValue class="form-control" id="password" v-model="psw" />
+                                    <span class="fas fa-lock errspan"></span>
+                                    <div class="ojo put-right">
+                                      <a href="#" @click="oculta">
+                                        <div class="icon-wrapper">
+                                          <i :class="[pwVisible ? 'fas fa-eye-slash' : 'fas fa-eye']"></i>
+                                        </div>
+                                      </a>
+                                    </div>
+                                  </div>
                                 </div>
                             </div>
                             <div class="col-sm-12" style="text-align: center;">
@@ -70,12 +83,17 @@ export default {
     components: {
       'Aviso': Aviso
     },
+    mounted() {
+      store.commit("setToogleFooter", false);
+    },
     data: function () {
         return {
           usr: "",
           psw: "",
           msgErr: "",
-          version: process.env.VUE_APP_VERSION
+          version: process.env.VUE_APP_VERSION,
+          pwVisible: false,
+          pwInputValue : "password"
         }
     },
     methods: {
@@ -135,7 +153,11 @@ export default {
                  }
                 this.$refs.avisoComp.abre();
             })
-        }
+        },
+      oculta () {
+          this.pwVisible = !this.pwVisible;
+          this.pwInputValue = (this.pwVisible) ? "text" : "password";
+      }
     },
 }
 </script>
@@ -143,5 +165,28 @@ export default {
 <style scoped>
 .ancho2 {
     max-width: 340px;
+}
+.errspan{
+  left: 29px;
+  margin-top: 11px;
+  position: absolute;
+  z-index: 2;
+  color: #0073ff;
+}
+#text-usr{
+  padding-left: 33px;
+  padding-top: 11px;
+}
+#password{
+  padding-left: 33px;
+  padding-top: 10px;
+  padding-right: 37px;
+}
+.put-right{
+  position: absolute;
+  right: 28px;
+  margin-top: 9px;
+  z-index: 2;
+
 }
 </style>
