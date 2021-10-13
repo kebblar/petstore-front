@@ -86,13 +86,18 @@
 
             <!-- fecha de nacimiento -->
             <div class ="form-row form-group">
-              <div class="col-md-4">
-                <label>Fecha de nacimiento:</label>
+              <div class="row">
+                <div class="col">
+                  <label>Fecha de nacimiento:</label>
+                </div>
               </div>
-              <div class="col">
+              <div class="row">
+                <div class="col">
                 <select class="form-control combo" v-model="year">
                   <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
                 </select>
+                </div>
+                <div class="col">
                 <select class="form-control combo" v-model="month">
                   <option value="1">Enero</option>
                   <option value="2">Febrero</option>
@@ -107,14 +112,17 @@
                   <option value="11">Noviembre</option>
                   <option value="12">Diciembre</option>
                 </select>
+                </div>
+                <div class="col">
                 <select class="form-control combo" v-model="day">
                   <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
                 </select>
-                <span class="info">(debes ser mayor de 21 años para registrarte)</span>
+                </div>
               </div>
+              <span class="info">(debes ser mayor de 21 años para registrarte)</span>
             </div>
 
-            <!-- Agree -->
+            <!-- Agree --
             <div class ="form-row form-group">
               <div class="col">
                 <span class="info"> 
@@ -127,6 +135,10 @@
                   <a href="#"> Que soy mayor de edad y publico por mi propia voluntad</a><br>
                 </span>
               </div>
+            </div>
+            -->
+            <div class ="form-row form-group">
+              <a href="#" @click="openLoginPage">Regresar a login</a>
             </div>
 
             <!-- Google Re captcha V 2.0-->
@@ -182,6 +194,7 @@
   import "vue-range-slider/dist/vue-range-slider.css";
   import Aviso from './custom/dialog/Aviso';
   import ModalLogin from '../components/custom/dialog/ModalLogin.vue'
+  import store from '../store'
 
   const HTTP_STATUS = {
     OK : 200,
@@ -386,6 +399,9 @@
 
     },
     methods: {
+      openLoginPage() {
+        router.push('/ui/login').catch(()=>{});
+      },      
       closeModal: function() {
         this.$modal.hide('aviso');
       },
@@ -445,8 +461,11 @@
           console.log('end ulpoad')
         );
       }
+    },
+    mounted() {
+        store.commit('setToggleHeader', false);
+        store.commit('setToggleFooter', false); 
     }
-
   }
 
 </script>

@@ -1,13 +1,10 @@
 <template>
   <div class="ancho centra">
     <div class="row">
-      <div class="col-sm-6" >
-        <img src="../assets/forgot.png" width="100%"/>
-      </div>
-      <div class="col-sm-6">
+      <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <label class="h4">Regeneración de clave de acceso Phone</label>
+            <label class="h4">Regeneración de clave de acceso Web</label>
           </div>
           <div class="card-body align">
 
@@ -47,6 +44,7 @@
   import VueRecaptcha from 'vue-recaptcha';
   import router from '../router'
   import axios from 'axios'
+  import store from '../store'
 
   export default {
       data() {
@@ -73,9 +71,11 @@
         );
         router.push('/ui/regenera-clave-confirma').catch(()=>{});
       }
-    }
-
-
+      }, 
+      mounted() {
+          store.commit('setToggleHeader', false);
+          store.commit('setToggleFooter', false); 
+      }
   }
 </script>
 
@@ -87,5 +87,9 @@
 .g-recaptcha {
   transform:scale(0.9);
   transform-origin: 0 0;
+}
+.centra {
+  margin: auto;
+  padding-top: 10%;
 }
 </style>

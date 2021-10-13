@@ -1,4 +1,6 @@
 <template>
+
+
     <div class="ancho centra">
 
         <div class="row">
@@ -71,20 +73,23 @@
         avisoTitulo='Error de ingreso al sistema' />        
 
     </div>
+
+
 </template>
 
 <script>
 import axios from 'axios';
 import router from '../router'
 import store from '../store'
-import Aviso from './custom/dialog/Aviso';
+import Aviso from './custom/dialog/Aviso'
 
 export default {
     components: {
       'Aviso': Aviso
     },
     mounted() {
-      store.commit("setToogleFooter", false);
+      store.commit('setToggleHeader', false);
+      store.commit('setToggleFooter', false);
     },
     data: function () {
         return {
@@ -163,8 +168,12 @@ export default {
 </script>
 
 <style scoped>
-.ancho2 {
-    max-width: 340px;
+.ancho {
+    max-width: 760px; 
+}
+.centra {
+  margin: auto;
+  padding-top: 10%;
 }
 .errspan{
   left: 29px;
