@@ -86,75 +86,51 @@
 
             <!-- fecha de nacimiento -->
             <div class ="form-row form-group">
-              <div class="row">
-                <div class="col">
+
+                <div class="col-md-4 col-12">
                   <label>Fecha de nacimiento:</label>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col">
+
+                <div class="col-sm-12 col-md-8">
                 <select class="form-control combo" v-model="year">
                   <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
                 </select>
                 </div>
-                <div class="col">
-                <select class="form-control combo" v-model="month" style="width:200px;">
-                  <option value="1">Enero</option>
-                  <option value="2">Febrero</option>
-                  <option value="3">Marzo</option>
-                  <option value="4">Abril</option>
-                  <option value="5">Mayo</option>
-                  <option value="6">Junio</option>
-                  <option value="7">Julio</option>
-                  <option value="8">Agosto</option>
-                  <option value="9">Septiembre</option>
-                  <option value="10">Octubre</option>
-                  <option value="11">Noviembre</option>
-                  <option value="12">Diciembre</option>
-                </select>
-                </div>
-                <div class="col">
+                <div class="col-sm-4 offset-lg-4 offset-md-4 col-md-8 col-lg-3 ">
                 <select class="form-control combo" v-model="day">
                   <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
                 </select>
                 </div>
+                <div class="col-sm-8 col-md-8 col-lg-5 offset-md-4 offset-lg-0">
+                  <select class="form-control combo" v-model="month">
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                  </select>
+                </div>
+              <div class="col-sm-8 col-md-8 offset-md-4">
+                <span class="info">(debes ser mayor de 21 años para registrarte)</span>
               </div>
-              <span class="info">(debes ser mayor de 21 años para registrarte)</span>
             </div>
 
-            <!-- Agree --
             <div class ="form-row form-group">
-              <div class="col">
-                <span class="info"> 
-                  He leido y estoy de acuerdo con:<br>
-                  <input type="checkbox"  required  id="agree" /> 
-                  <a href="#"> Los términos de servicio</a><br>
-                  <input type="checkbox"  required  id="agree" /> 
-                  <a href="#" @click="$modal.show('gustavo')"> El aviso de privacidad de datos personales</a><br>
-                  <input type="checkbox"  required  id="agree" /> 
-                  <a href="#"> Que soy mayor de edad y publico por mi propia voluntad</a><br>
-                </span>
+              <div class="mx-auto">
+                <a href="#" @click="openLoginPage">Regresar a login</a>
               </div>
-            </div>
-            -->
-            <div class ="form-row form-group">
-              <a href="#" @click="openLoginPage">Regresar a login</a>
             </div>
 
             <!-- Google Re captcha V 2.0-->
             <!-- https://www.google.com/recaptcha/admin/site/450433503 -->
             <!-- account: garellanos@ultrasist.com.mx -->
-
-                  <div class="row py-3 pl-4">
-                      <div class="g-recaptcha mx-auto">
-                        <vue-recaptcha
-                            id="solvecaptcha"
-                            ref="recaptcha"
-                            sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
-                            @expired="onCaptchaExpired"
-                            @verify="onCaptchaVerified"/>
-                      </div>
-                    </div>
 
             <!-- button -->
             <div class="form-group row">
@@ -162,9 +138,65 @@
                   <button
                     :disabled="habilitaBoton"
                     class="btn btn-success"
-                    @click="submition">Registrarme</button>
+                    data-toggle="modal"
+                    data-target="#termsModal">Registrarme</button>
+
+                <!--          Modal-->
+                  <div class="modal fade" id="termsModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header mb-2 bg-light">
+                          <h5 class="modal-title ml-3" >
+                            <b>Términos y condiciones</b>
+                          </h5>
+                          <button type="button" class="close mr-2" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+
+                        <div class="modal-body mx-2">
+                          <div class="row " style="text-align: left">
+                              <div class="col">
+                                <p class=" h6">
+                                  He leido y estoy de acuerdo con:<br><br>
+                                </p>
+                                <small class="px-4">
+                                  <input type="checkbox"  required  id="agree1" v-model="servicio"/>
+                                  <a href="#"> Los términos de servicio</a><br>
+                                </small >
+                                <small class="px-4">
+                                  <input type="checkbox"  required  id="agree2" v-model="avisoP"/>
+                                  <a href="#" @click="$modal.show('gustavo')"> El aviso de privacidad de datos personales</a><br>
+                                </small>
+                                <small class="px-4">
+                                  <input type="checkbox"  required  id="agree3" v-model="mayor"/>
+                                  <a href="#"> Que soy mayor de edad y publico por mi propia voluntad</a><br>
+                                </small>
+
+                                <div class="row pt-3" style="padding-left: 40px">
+                                  <div class="g-recaptcha mx-auto">
+                                    <vue-recaptcha
+                                        id="solvecaptcha"
+                                        ref="recaptcha"
+                                        sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
+                                        @expired="onCaptchaExpired"
+                                        @verify="onCaptchaVerified"/>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                          </div>
+                        </div>
+                        <div v-if="!vacio" class="modal-footer border-top-0 d-flex justify-content-around px-0 mb-3">
+                          <button type="button" class="btn btn-outline-info" @click="openLoginPage" data-dismiss="modal">Volver al login</button>
+                          <button type="button" :disabled="verifyCheck" class="btn btn-outline-info" data-dismiss="modal" @click="submition">Continuar con el registro</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
 
         </div><!-- ends card body -->
 
@@ -267,7 +299,11 @@
 
         loading: false,
         texto : '',
-        descripcionModal : ''
+        descripcionModal : '',
+
+        servicio : false,
+        avisoP : false,
+        mayor : false
      }
     },
     watch: {
@@ -350,6 +386,9 @@
 
     },
     computed: {
+      verifyCheck() {
+        return !(this.captcha && this.servicio && this.avisoP && this.mayor);
+      },
       diasDelMes: function() {
         if(this.month==1) return 31;
         if(this.month==2) {
@@ -386,7 +425,6 @@
           && this.email && emaiRegex.test(this.email)
           && this.password && passRegex.test(this.password)
           && this.password===this.confirm
-          && this.captcha
           //console.log(dato);
           return !dato;
       },
