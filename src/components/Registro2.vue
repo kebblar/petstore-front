@@ -5,12 +5,12 @@
   <div v-if="loading" class="loader"/>
 
   <div class="row">
-    <div class="col-md-5 col-lg-6 col-12" >
+    <div class="col-md-5 col-lg-5 col-12" >
       <img src="../assets/registro.webp" width="100%"/>
     </div>
-    <div class="col-md-7 col-lg-6 col-12">
+    <div class="col-md-7 col-lg-7 col-12">
 
-      <div class="card defaultColor">
+      <div class="card defaultColor w-100">
 
         <div class="card-header">
             <label class="control-label h4">Registro al sistema</label>
@@ -91,17 +91,17 @@
                   <label>Fecha de nacimiento:</label>
                 </div>
 
-                <div class="col-sm-12 col-md-8">
+                <div class="col-sm-12 col-md-8 col-xl-2 offset-xl-0">
                 <select class="form-control combo" v-model="year">
                   <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
                 </select>
                 </div>
-                <div class="col-sm-4 offset-lg-4 offset-md-4 col-md-8 col-lg-3 ">
+                <div class="col-sm-4 offset-lg-4 offset-md-4 col-md-8 col-lg-3 col-xl-2 offset-xl-0">
                 <select class="form-control combo" v-model="day">
                   <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
                 </select>
                 </div>
-                <div class="col-sm-8 col-md-8 col-lg-5 offset-md-4 offset-lg-0">
+                <div class="col-sm-8 col-md-8 col-lg-5 offset-md-4 offset-lg-0 col-xl-4">
                   <select class="form-control combo" v-model="month">
                     <option value="1">Enero</option>
                     <option value="2">Febrero</option>
@@ -166,7 +166,7 @@
                                 </small >
                                 <small class="px-4">
                                   <input type="checkbox"  required  id="agree2" v-model="avisoP"/>
-                                  <a href="#" @click="$modal.show('gustavo')"> El aviso de privacidad de datos personales</a><br>
+                                  <a href="#"> El aviso de privacidad de datos personales</a><br>
                                 </small>
                                 <small class="px-4">
                                   <input type="checkbox"  required  id="agree3" v-model="mayor"/>
