@@ -3,25 +3,38 @@
   <div class="box">
     <div class="box-part" id="bp-left">
       <div class="partition" id="partition-register">
-        <div class="partition-title">CREAR CUENTA</div>
+        <div class="partition-title">Iniciar Sesión</div>
         <div class="partition-form">
           <form autocomplete="false">
 
-            <div class="autocomplete-fix">
-              <input disabled type="password">
+            <div class="row px-3">
+              <input type="text" placeholder="correo@example.com" class="form-control" id="text-usr" v-model="usr" />
+              <span class="fas fa-user errspan"></span>
+            </div>
+            <div class="row px-3">
+              <input :type=pwInputValue placeholder="*********" class="form-control" id="password" v-model="psw" />
+              <span class="fas fa-lock errspan"></span>
+              <div class="ojo put-right">
+                <a href="#" @click="oculta">
+                  <div class="icon-wrapper">
+                    <i :class="[pwVisible ? 'fas fa-eye-slash' : 'fas fa-eye']"></i>
+                  </div>
+                </a>
+              </div>
             </div>
 
-            <input id="n-email" type="text" placeholder="Correo">
-            <input id="n-username" type="text" placeholder="Usuario">
-            <input id="n-password2" type="password" placeholder="Clave">
           </form>
 
           <div style="margin-top: 42px">
           </div>
 
+          <div class="partition">
+            <a href="#" @click="openForgotPage">Olvidé mi clave</a>
+          </div>
+
           <div class="button-set">
-            <button id="goto-signin-btn" @click="signIn">Ir a Login</button>
-            <button id="register-btn" @click="register">Registrarse</button>
+            <button id="goto-signin-btn" @click="openRegistroPage">Registrarse</button>
+            <button id="register-btn" @click="checkCredentials">Ingresar</button>
           </div>
 
           <button class="large-btn github-btn">Ingresar con <span>github</span></button>
@@ -38,13 +51,23 @@
 </template>
 
 <script>
+import axios from "axios";
+import store from "../../../store";
+import router from "../../../router";
+
 const MODAL_WIDTH = 656
 
 export default {
   name: 'DemoLoginModal',
   data() {
     return {
-      modalWidth: MODAL_WIDTH
+      modalWidth: MODAL_WIDTH,
+      usr: "",
+      psw: "",
+      msgErr: "",
+      version: process.env.VUE_APP_VERSION,
+      pwVisible: false,
+      pwInputValue : "password"
     }
   },
   created() {
@@ -52,12 +75,64 @@ export default {
       window.innerWidth < MODAL_WIDTH ? MODAL_WIDTH / 2 : MODAL_WIDTH
   },
   methods: {
-    signIn() {
-      alert('Sign in')
+    checkCredentials: function() {
+      axios.post('/api/login.json', {
+        usuario: this.usr,
+        clave: this.psw
+      }).then(response => {
+        var rd = response.data;
+        var ud = rd.usuarioDetalle;
+        //console.log(response.data);
+        store.commit('setSession', {
+          nombreCompleto: ud.nickName, //ud.nombre + ' ' + ud.apellidoPaterno + ' ' + ud.apellidoMaterno,
+          detalles:     ud,
+          roles:        rd.roles,
+          correo:       rd.correo,
+          ultimoAcceso: rd.ultimoAcceso,
+          idUser:       ud.id,
+          jwt:          rd.jwt,
+          carrito :     []
+        });
+        this.closeModal();
+        const target = this.detecta(rd.roles);
+        router.push(target);
+      }).catch(error => {
+        // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
+        this.msgErr = error;
+        if(error.response) {
+          this.msgErr = error.response.data['exceptionLongDescription'];
+        }
+        this.$refs.avisoComponente.abre();
+      })
     },
-    register() {
-      alert('Register')
-    }
+    detecta: function(roles) {
+      if(store.state.destination.length>0) {
+        var target = store.state.destination;
+        store.commit('setDestination','');
+        return target;
+      }
+      if (typeof roles === 'string') {
+        return '/';
+      } else {
+        for(var i=0; i<roles.length; i++) {
+          switch(roles[i].nombre) {
+            case 'admin': return '/ui/admin'; // rol 1 = administrador
+            case 'user': return '/ui/consulta-anuncios-publico'; // rol 2 = usuario comun y corriente
+            case 'normal': return '/ui/consulta-anuncios-publico'; // rol 2 = usuario comun y corriente
+            default: return '/ui/consulta-anuncios-publico'; // otro rol cualquiera
+          }
+        } // ends for cycle with switch inside
+      }
+    },
+    closeModal: function() {
+      this.$modal.hide('mensaje-login');
+    },
+    openRegistroPage: function() {
+      router.push({'name':'registro'});
+    },
+    openForgotPage: function() {
+      router.push({'name':'regenera-clave'});
+    },
   }
 }
 </script>
@@ -122,7 +197,7 @@ export default {
    padding: 0 20px;
    box-sizing: border-box;
 }
- .box input[type='password'], .box input[type='text'] {
+ input[type='password'], .box input[type='text'] {
    display: block;
    box-sizing: border-box;
    margin-bottom: 4px;
@@ -204,6 +279,29 @@ export default {
  .pop-out-enter, .pop-out-leave-active {
    opacity: 0;
    transform: translateY(24px);
+}
+.errspan{
+  left: 29px;
+  margin-top: 11px;
+  position: absolute;
+  z-index: 2;
+  color: #0073ff;
+}
+#text-usr{
+  padding-left: 33px;
+}
+#password{
+  padding-left: 33px;
+  margin-top: 11px;
+  padding-top: 10px;
+  padding-right: 37px;
+}
+.put-right{
+  position: absolute;
+  right: 28px;
+  margin-top: 9px;
+  z-index: 2;
+
 }
 
 </style>

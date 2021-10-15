@@ -1,6 +1,5 @@
 <template>
 
-
     <div class="ancho centra">
 
         <div class="row">

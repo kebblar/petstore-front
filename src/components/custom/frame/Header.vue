@@ -49,7 +49,7 @@
                 </div>
                 <div v-else>
                   <b-dropdown-item href="#" @click="navega('/')">Home</b-dropdown-item>
-                  <b-dropdown-item href="#" @click="navega('/ui/login')">Login</b-dropdown-item>
+                  <b-dropdown-item href="#" @click="$modal.show('gustavo')">Login</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/registro')">Registro</b-dropdown-item>
                   <b-dropdown-item href="#" @click="navega('/ui/consulta-anuncios-publico')">Consulta detallada</b-dropdown-item>
                 </div>
@@ -59,7 +59,7 @@
                 <input @click="logout" type="button" class="btn btn-warning" value="Salir" />
               </div>
               <div v-else>
-                <input @click="navega('/ui/login')" type="button" class="btn btn-outline-success" value="Ingresar" />
+                <input @click="$modal.show('gustavo')" type="button" class="btn btn-outline-success" value="Ingresar" />
               </div>        
 
             </b-navbar-nav>
@@ -67,16 +67,20 @@
           </b-collapse>
 
       </b-navbar>
+      <ModalLogin ref='gustavo' />
     </div>
+
 </template>
 
 <script>
 import router from '../../../router'
 import store from '../../../store'
 import Carrito from '../../Carrito'
+import ModalLogin from "../dialog/ModalLogin";
 
 export default {
     components: {
+      ModalLogin,
       Carrito
     },
     computed: {
