@@ -1,5 +1,6 @@
 <template>
 
+    <div>
 
     <div class="ancho centra">
 
@@ -65,6 +66,8 @@
             </div>
         </div>
 
+        
+
         <Aviso
         ref='avisoComponente'
         ancho='320'
@@ -74,6 +77,8 @@
 
     </div>
 
+    <div id="footer-login">Hola</div>
+    </div>
 
 </template>
 
@@ -196,6 +201,12 @@ export default {
   right: 28px;
   margin-top: 9px;
   z-index: 2;
-
+}
+#footer-login {
+   position:fixed;
+   bottom:0;
+   width:100%;
+   height:40px;   /* Height of the footer */
+   background:#b6b6b6;
 }
 </style>
