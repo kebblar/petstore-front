@@ -1,5 +1,5 @@
 <template>
-<modal name="gustavo" transition="pop-out" :width="modalWidth" :focus-trap="fT" :height="400">
+<modal name="gustavo" transition="pop-out" :width="modalWidth" :focus-trap="fT" :height="420">
   <div class="box">
     <div class="box-part" id="bp-left">
       <div class="partition" id="partition-register">
@@ -23,13 +23,16 @@
               </div>
             </div>
           <div v-if="check">
-            <div class="box-error-message mt-2">
+            <div v-if="msgErr.length>40" class="col-md-auto box-error-message mt-2">
+              {{msgErr}}
+            </div>
+            <div v-else class="col-md-auto box-error-message mt-2 mb-4">
               {{msgErr}}
             </div>
           </div>
-          <div v-else style="height: 20px" class="mt-2">
+          <div v-else style="height: 40px" class="mt-2">
           </div>
-          <div class="container mt-4 pl-1">
+          <div class="container mt-2 pl-1">
               <a href="#" class="pw" @click="openForgotPage">Olvidé mi clave</a>
           </div>
           <div class="button-set">
@@ -103,7 +106,7 @@ export default {
         router.push(target);
       }).catch(error => {
         // el catch ocurre aun si el post está bien pero ud es null, por ejemplo !!!!
-        this.msgErr = error.response.data['exceptionShortDescription'];
+        this.msgErr =  error.response.data['exceptionLongDescription'];
         console.log(this.msgErr);
 
       })
@@ -149,7 +152,7 @@ export default {
    background: white;
    overflow: hidden;
    width: 656px;
-   height: 400px;
+   height: 420px;
    border-radius: 2px;
    box-sizing: border-box;
    box-shadow: 0 0 40px black;
@@ -211,6 +214,7 @@ export default {
 }
  .box .box-part#bp-right {
    background: url('../../../assets/panorama.jpg') no-repeat top left;
+   background-size: cover;
    border-left: 1px solid #eee;
 }
  .box .box-messages {
@@ -221,12 +225,15 @@ export default {
 }
  .box .box-error-message {
    position: relative;
-   overflow: hidden;
+   overflow: auto;
    box-sizing: border-box;
-   height: 20px;
-   line-height: 20px;
+   height: auto;
+   padding-bottom: 5px;
+    padding-top: 5px;
+   line-height: 10px;
    text-align: center;
    width: 100%;
+   border-radius: 3px;
    font-size: 11px;
    color: white;
    background: #f38181;
@@ -256,7 +263,7 @@ export default {
    padding: 10px;
    letter-spacing: 1px;
    font-family: 'Open Sans', sans-serif;
-   font-weight: 400;
+   font-weight: 420;
    min-width: 140px;
    margin-top: 8px;
    color: #8b8c8d;
