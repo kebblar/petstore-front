@@ -18,11 +18,17 @@
         </div>
       </div>
       <div class="container">
-        <button type="button" class="btn btn-dark float-right" @click="agregaLista()">Done!</button>
+        <button type="button" :disabled="camposCorrectos" class="btn btn-dark float-right" @click="agregaLista()">Done!</button>
       </div>
-      <div v-if="agregados.length!=0" class="respuestas">
+      <div v-if="agregados.length!==0" class="respuestas">
         <ul>
-          <li></li>
+          <li v-for="elem in agregados" :value="elem.idx" :key="elem.idx">
+            <div class="row">
+              <div class="col">{{elem.name}}</div>
+              <div class="col">{{elem.optionSelected}}</div>
+              <div class="col"><button type="button" class="btn btn-danger btn-sm">x</button></div>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
@@ -68,23 +74,41 @@ export default {
           }
       ],
       opcionActual: 0,
-      atributosActuales: [{id_op : 0, name : 'Selecciona'}],
+      atributosActuales: [],
       atributoActual:0,
       agregados: []
     }
   },
   created() {
     this.entrada.unshift({id : 0, name : 'Selecciona'});
+    this.reinicia();
+  },
+  computed: {
+    camposCorrectos(){
+      return this.opcionActual === 0 || this.atributoActual === 0;
+    }
   },
   methods: {
+    reinicia() {
+      this.opcionActual = 0;
+      this.atributosActuales = [{id_op : 0, name : 'Selecciona'}];
+      this.atributoActual = 0;
+    },
     cambiaAtributos(idA){
-      let posCero = {id_op : 0, name : 'Selecciona'};
+      if(idA===0){
+        this.reinicia();
+        return; }
       let obj = this.entrada.find(item => item.id === idA);
       this.atributosActuales = obj.options;
-      this.atributosActuales.unshift(posCero);
+      this.atributosActuales.unshift({id_op : 0, name : 'Selecciona'});
     },
     agregaLista() {
-//Todo>>>> optionSelecteed + selected
+      let obj = this.entrada.find(item => item.id === this.opcionActual);
+      obj.selected=true;
+      obj.optionSelected=this.atributoActual;
+      this.reinicia();
+      this.agregados.unshift({idx : obj.id, name : obj.name, optionSelected : obj.options.find(item => item.id_op === obj.optionSelected).name});
+      console.log(this.agregados);
     }
   }
 }

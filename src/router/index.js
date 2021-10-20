@@ -28,6 +28,8 @@ import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras'
 import CompraConfirmada from '@/components/CompraConfirmada'
 
+import Dropdowns from '@/components/Dropdowns'
+
 //import Pruebas from '@/components/Pruebas'
 import DetalleProducto from '@/components/DetalleProducto'
 import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
@@ -62,6 +64,11 @@ const routes = [
     path: '/ui/cortador',
     name: 'cortador',
     component: Cortador
+  },
+  {
+    path: '/ui/dropdowns',
+    name: 'dropdowns',
+    component: Dropdowns
   },
   {
     path: '/ui/not-found',
