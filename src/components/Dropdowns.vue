@@ -17,19 +17,15 @@
           </select>
         </div>
       </div>
-      <div class="container">
+      <div class="container mb-3">
         <button type="button" :disabled="camposCorrectos" class="btn btn-dark float-right" @click="agregaLista()">Done!</button>
       </div>
       <div v-if="agregados.length!==0" class="respuestas">
-        <ul>
-          <li v-for="elem in agregados" :value="elem.idx" :key="elem.idx">
-            <div class="row">
-              <div class="col">{{elem.name}}</div>
-              <div class="col">{{elem.optionSelected}}</div>
-              <div class="col"><button type="button" class="btn btn-danger btn-sm">x</button></div>
-            </div>
-          </li>
-        </ul>
+          <div class="row align-items-center text-center mt-2" v-for="elem in agregados" :key="elem.idx">
+            <div class="col">{{elem.name}}</div>
+            <div class="col">{{elem.optionSelected}}</div>
+            <div class="col text-right"><button type="button" class="btn btn-danger btn-sm red-cross" @click="quita(elem.idx)">x</button></div>
+          </div>
       </div>
     </div>
   </div>
@@ -89,6 +85,12 @@ export default {
     }
   },
   methods: {
+    quita(idA){
+      let obj = this.entrada.find(item => item.id === idA);
+      obj.selected = false;
+      obj.optionSelected = 0;
+      this.agregados.splice(this.agregados.indexOf(obj),1);
+    },
     reinicia() {
       this.opcionActual = 0;
       this.atributosActuales = [{id_op : 0, name : 'Selecciona'}];
@@ -139,7 +141,12 @@ export default {
   color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 3px;
-  padding: 5px;
+  padding: 5px 16px;
+}
+
+.red-cross{
+  height: 20px;
+  padding-top: 0;
 }
 
 </style>
