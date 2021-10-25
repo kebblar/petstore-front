@@ -17,7 +17,7 @@
       <div class="form-group row">
           <label for="op1" class="col-sm-4 col-form-label">Opcion 1</label>
         <div class="col-sm-8">
-          <select id="input1" class="form-control" v-model="opcionActual" @change="cambiaAtributos(opcionActual)">
+          <select id="input1" :disabled="resultado" class="form-control" v-model="opcionActual" @change="cambiaAtributos(opcionActual)">
             <option v-for="elem in difference" :value="elem.id" :key="elem.id">{{elem.name}}</option>
           </select>
         </div>
