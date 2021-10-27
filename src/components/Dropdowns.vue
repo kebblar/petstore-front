@@ -53,48 +53,32 @@
 
 </template>
 <script>
+import axios from 'axios';
+import store from '../store';
+import d from './datos.json';
+
 export default {
   name: 'selector',
   created() {
     this.data.unshift({id : -1, name : 'selecciona'});
   },
+  mounted() {
+    store.commit('setToggleHeader', false);
+    store.commit('setToggleFooter', false);
+
+    axios.get('/api/consulta.json', {
+    }).then(response => {
+      console.log(response.data);
+      this.selected = response.data;
+    }).catch(error => {
+      console.log(error);
+    })
+
+  },
   data(){
     return{
-      selected : [{id:1, selected:3}],
-      //[{id:0, selected:0},{id:1, selected:3}]
-      data : [
-          {id : 0,
-           name : 'estatus',
-           options : [{ordinal : 0, value : 'nuevo'},
-                      {ordinal : 1, value : 'usado'}]},
-          {id : 1,
-           name : 'color',
-           options : [{ordinal : 0, value: 'rojo'},
-                      {ordinal : 1, value: 'verde'},
-                      {ordinal : 2, value: 'amarillo'},
-                      {ordinal : 3, value: 'azul'},
-                      {ordinal : 4, value: 'negro'},
-                      {ordinal : 5, value: 'rosa'}],
-          },
-          {id : 2,
-          name : 'nacionalidad',
-          options : [{ordinal : 0, value: 'colombiana'},
-                     {ordinal : 1, value: 'mexicana'},
-                     {ordinal : 2, value: 'canadiense'},
-                     {ordinal : 3, value: 'inglesa'},
-                     {ordinal : 4, value: 'pakistani'},
-                     {ordinal : 5, value: 'australiana'}],
-          },
-          {id : 3,
-          name : 'edad',
-          options : [{ordinal : 0, value: 'de 12 a 17'},
-                     {ordinal : 1, value: 'de 18 a 29'},
-                     {ordinal : 2, value: 'de 30 a 39'},
-                     {ordinal : 3, value: 'de 40 a 49'},
-                     {ordinal : 4, value: 'de 50 a 59'},
-                     {ordinal : 5, value: '60+'}],
-          }
-      ],
+      selected : [],
+      data : d,
       opcionActual: -1,
       atributosActuales: [],
       atributoActual: -1,

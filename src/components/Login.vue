@@ -9,33 +9,18 @@
             <div class="col-sm-6">
                 <div class="card">
 
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label>Ingresar al sistema</label>
-                            </div>
-                        </div>
-                    </div><!-- ends header-->
+
 
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 text-left">
                                 <div class="form-group">
-                                    <label for="precioVenta">Usuario</label>
                                   <div class="row px-3">
                                     <input type="text" class="form-control" id="text-usr" v-model="usr" />
                                     <span class="fas fa-user errspan"></span>
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class=" col-2 col-sm-6 text-left">
-                                            <label for="cantidadVenta">Clave</label>
-                                        </div>
-                                        <div class=" col-10 col-sm-6 text-right">
-                                            <a href="#" @click="openForgotPage">Olvidé mi clave</a>
-                                        </div>
-                                    </div>
                                   <div class="row px-3">
                                     <input :type=pwInputValue class="form-control" id="password" v-model="psw" />
                                     <span class="fas fa-lock errspan"></span>
@@ -53,6 +38,7 @@
                                 <button @click="checkCredentials" class="btn btn-warning">Ingresar al sistema</button>
                             </div>
                             <div class="col-sm-12" style="text-align: center;">
+                                <a href="#" @click="openForgotPage">Olvidé mi clave</a>
                                 <hr/>
                                 <a href="#" @click="openRegistroPage" >Deseo registrarme al sistema</a>
                             </div>
