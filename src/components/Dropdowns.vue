@@ -1,19 +1,7 @@
 <template>
   <div class="w-100 my-5" style="height: 100%;">
-    <div class="contenedor my-3">
-      <div class="row px-3">
-        <p>Ingresa los valores:</p>
-      </div>
-      <textarea :disabled="!enEdicion" rows="5" class="form-control input-elem" @input="hayEntrada"></textarea>
-      <div class="container mt-3">
-        <div class="text-right">
-            <button type="button" class="btn btn-outline-dark " @click="showFields">{{!enEdicion ? 'Editar' : 'OK'}}</button>
-        </div>
-      </div>
 
-    </div>
-
-    <div v-if="pushed" class="contenedor">
+    <div class="contenedor">
       <div class="form-group row">
           <label for="op1" class="col-sm-4 col-form-label">Opcion 1</label>
         <div class="col-sm-8">
@@ -39,14 +27,15 @@
           <div class="row align-items-center text-center mt-3" v-for="a in agregados" :key="a.id">
             <div class="col">{{a.name}}</div>
             <div class="col">{{a.option}}</div>
-            <div class="col text-right"><button type="button" class="btn btn-danger btn-sm red-cross" @click="quita(a)">x</button></div>
+            <div class="col text-right"><button type="button" class="btn btn-danger btn-sm red-cross" @click="quita(a.id)">x</button></div>
           </div>
         <div class="container text-center">
           <button type="button" class="btn btn-outline-light my-3" @click="enviaSeleccion">Listo</button>
         </div>
       </div>
       <div v-if="resultado" class="text-center py-2 px-5">
-        <p>Json Generado = {{selected}}</p>
+        <p>Json Generado = {{answer}}</p>
+
       </div>
     </div>
   </div>
@@ -59,9 +48,7 @@ import d from './datos.json';
 
 export default {
   name: 'selector',
-  created() {
-    this.data.unshift({id : -1, name : 'selecciona'});
-  },
+
   mounted() {
     store.commit('setToggleHeader', false);
     store.commit('setToggleFooter', false);
@@ -72,7 +59,8 @@ export default {
       this.selected = response.data;
     }).catch(error => {
       console.log(error);
-    })
+    });
+    this.data.unshift({id : -1, name : 'selecciona'});
 
   },
   data(){
@@ -83,13 +71,12 @@ export default {
       opcionActual: -1,
       atributosActuales: [],
       atributoActual: -1,
-
-      pushed: false,
-      enEdicion:true,
-      resultado:false
+      resultado:false,
+      answer: ''
     }
   },
   computed: {
+
     difference(){
       return this.data.filter(e => this.selected.find(s => e.id === s.id) === undefined);
     },
@@ -102,25 +89,24 @@ export default {
       for(let i=0;i<this.selected.length; i++){
         let elem = sel.find(x => this.selected[i].id === x.id);
         let val = elem.options.find(x => x.ordinal === this.selected[i].selected);
-        temp[i]={name: elem.name, option: val.value};
+        temp[i]={id: elem.id, name: elem.name, option: val.value};
         }
       return temp;
     }
   },
   methods: {
     enviaSeleccion(){
+      axios.post('api/guarda.json', this.selected).then(response => {
+        this.answer=response.data;
+        console.log(response.data);
+      }).catch(error => {
+        this.answer=error.response.data;
+      });
       this.resultado=true;
     },
-    quita(elem){
-      let obj = this.selected.indexOf(this.selected.find(e => elem.id === e.id));
+    quita(aid){
+      let obj = this.selected.indexOf(this.selected.find(e => aid === e.id));
       this.selected.splice(obj,1);
-    },
-    showFields(){
-      this.enEdicion = !this.enEdicion;
-      this.pushed = !this.pushed;
-    },
-    hayEntrada(event){
-      this.selected = event.target.value
     },
     cambiaAtributos(idA){
       let obj = this.data.find(item => item.id === idA);
@@ -153,7 +139,7 @@ export default {
   padding: 18px;
   font-family: Courier;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  z-index: 2;
+  min-width: 300px;
 }
 .respuestas {
   display: block;

@@ -1,9 +1,9 @@
 [
     {
         "id" : 0,
-        "name" : "estatux",
+        "name" : "estatus",
         "options" : [
-            {"ordinal" : 0, "value" : "nuevo"},
+           {"ordinal" : 0, "value" : "nuevo"},
             {"ordinal" : 1, "value" : "usado"}
         ]
     },
