@@ -79,6 +79,7 @@ export default {
     return{
       selected : [],
       data : d,
+
       opcionActual: -1,
       atributosActuales: [],
       atributoActual: -1,
