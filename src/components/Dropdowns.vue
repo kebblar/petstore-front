@@ -54,14 +54,19 @@ export default {
     store.commit('setToggleFooter', false);
 
     axios.get('/api/consulta.json', {
+    },
+    {
+      headers: {
+        'jwt': store.state.session.jwt
+      }
     }).then(response => {
       console.log(response.data);
+      console.log("se acaba de pintar lo que viene del backend");
       this.selected = response.data;
     }).catch(error => {
       console.log(error);
     });
     this.data.unshift({id : -1, name : 'selecciona'});
-
   },
   data(){
     return{
@@ -76,7 +81,6 @@ export default {
     }
   },
   computed: {
-
     difference(){
       return this.data.filter(e => this.selected.find(s => e.id === s.id) === undefined);
     },
@@ -96,7 +100,15 @@ export default {
   },
   methods: {
     enviaSeleccion(){
-      axios.post('api/guarda.json', this.selected).then(response => {
+      axios.post('api/guarda.json', this.selected,
+      
+          {
+            headers: {
+              'jwt': store.state.session.jwt
+            }
+          }      
+      
+      ).then(response => {
         this.answer=response.data;
         console.log(response.data);
       }).catch(error => {
