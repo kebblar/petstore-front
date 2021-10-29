@@ -23,7 +23,7 @@
         <button type="button" :disabled="camposCorrectos" class="btn btn-dark float-right" @click="agregaLista()">Done!</button>
       </div>
 
-      <div v-if="selected.length!==0 && !resultado" class="respuestas">
+      <div v-if="consulta.length!==0 && !resultado" class="respuestas">
           <div class="row align-items-center text-center mt-3" v-for="a in agregados" :key="a.id">
             <div class="col">{{a.name}}</div>
             <div class="col">{{a.option}}</div>
@@ -62,7 +62,7 @@ export default {
     }).then(response => {
       console.log(response.data);
       console.log("se acaba de pintar lo que viene del backend");
-      this.selected = response.data;
+      this.consulta = response.data;
     }).catch(error => {
       console.log(error);
     });
@@ -70,7 +70,7 @@ export default {
   },
   data(){
     return{
-      selected : [],
+      consulta : [],
       data : d,
 
       opcionActual: -1,
@@ -82,25 +82,34 @@ export default {
   },
   computed: {
     difference(){
-      return this.data.filter(e => this.selected.find(s => e.id === s.id) === undefined);
+      return this.data.filter(e => this.consulta.find(s => e.id === s.id) === undefined);
     },
     camposCorrectos(){
       return this.opcionActual === -1 || this.atributoActual === -1;
     },
     agregados(){
-      const sel = this.data.filter(obj => this.selected.find(s => obj.id === s.id) !== undefined);
       let temp = [];
-      for(let i=0;i<this.selected.length; i++){
-        let elem = sel.find(x => this.selected[i].id === x.id);
-        let val = elem.options.find(x => x.ordinal === this.selected[i].selected);
+      /*
+      const sel = this.data.filter(obj => this.consulta.find(s => obj.id === s.id) !== undefined);
+      console.log(sel);
+      let temp = [];
+      for(let i=0;i<this.consulta.length; i++){
+        console.log(this.consulta[i])
+        let elem = sel.find(x => this.consulta[i].id === x.id);
+        console.log(elem);
+        let val = elem.options.find(x => x.ordinal === this.consulta[i].consulta);
         temp[i]={id: elem.id, name: elem.name, option: val.value};
         }
+        */
+      for(let i=0;i<this.consulta.length; i++){
+        temp[i]={id: this.consulta[i].id, name: "hola"+i, option: this.consulta[i].selected};
+      }
       return temp;
     }
   },
   methods: {
     enviaSeleccion(){
-      axios.post('api/guarda.json', this.selected,
+      axios.post('api/guarda.json', this.consulta,
       
           {
             headers: {
@@ -117,15 +126,15 @@ export default {
       this.resultado=true;
     },
     quita(aid){
-      let obj = this.selected.indexOf(this.selected.find(e => aid === e.id));
-      this.selected.splice(obj,1);
+      let obj = this.consulta.indexOf(this.consulta.find(e => aid === e.id));
+      this.consulta.splice(obj,1);
     },
     cambiaAtributos(idA){
       let obj = this.data.find(item => item.id === idA);
       this.atributosActuales = obj.options;
     },
     agregaLista() {
-      this.selected.unshift({id:this.opcionActual, selected:this.atributoActual});
+      this.consulta.unshift({id:this.opcionActual, consulta:this.atributoActual});
       this.atributosActuales = [];
       this.opcionActual=-1;
       this.atributoActual=-1;
