@@ -60,8 +60,6 @@ export default {
         'jwt': store.state.session.jwt
       }
     }).then(response => {
-      console.log(response.data);
-      console.log("se acaba de pintar lo que viene del backend");
       this.consulta = response.data;
     }).catch(error => {
       console.log(error);
@@ -77,7 +75,7 @@ export default {
       atributosActuales: [],
       atributoActual: -1,
       resultado:false,
-      answer: ''
+      answer: []
     }
   },
   computed: {
@@ -88,38 +86,29 @@ export default {
       return this.opcionActual === -1 || this.atributoActual === -1;
     },
     agregados(){
-      let temp = [];
-      /*
+
       const sel = this.data.filter(obj => this.consulta.find(s => obj.id === s.id) !== undefined);
-      console.log(sel);
       let temp = [];
       for(let i=0;i<this.consulta.length; i++){
-        console.log(this.consulta[i])
         let elem = sel.find(x => this.consulta[i].id === x.id);
-        console.log(elem);
-        let val = elem.options.find(x => x.ordinal === this.consulta[i].consulta);
+        let val = elem.options.find(x => x.ordinal === this.consulta[i].selected);
         temp[i]={id: elem.id, name: elem.name, option: val.value};
         }
-        */
-      for(let i=0;i<this.consulta.length; i++){
-        temp[i]={id: this.consulta[i].id, name: "hola"+i, option: this.consulta[i].selected};
-      }
+
       return temp;
     }
   },
   methods: {
     enviaSeleccion(){
+      console.log('se envia al back:',this.consulta);
       axios.post('api/guarda.json', this.consulta,
-      
           {
             headers: {
               'jwt': store.state.session.jwt
             }
-          }      
-      
+          }
       ).then(response => {
         this.answer=response.data;
-        console.log(response.data);
       }).catch(error => {
         this.answer=error.response.data;
       });
@@ -134,7 +123,7 @@ export default {
       this.atributosActuales = obj.options;
     },
     agregaLista() {
-      this.consulta.unshift({id:this.opcionActual, consulta:this.atributoActual});
+      this.consulta.unshift({id:this.opcionActual, selected:this.atributoActual});
       this.atributosActuales = [];
       this.opcionActual=-1;
       this.atributoActual=-1;
