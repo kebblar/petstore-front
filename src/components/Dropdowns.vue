@@ -3,7 +3,11 @@
 
     <div class="contenedor">
       <div class="form-group row">
-          <label for="op1" class="col-sm-4 col-form-label">Opcion 1</label>
+        <h4>Interfaz de selección de criterios</h4>
+        <hr/>
+      </div>
+      <div class="form-group row">
+          <label for="op1" class="col-sm-4 col-form-label">Categoría</label>
         <div class="col-sm-8">
           <select id="input1" :disabled="resultado" class="form-control" v-model="opcionActual" @change="cambiaAtributos(opcionActual)">
             <option v-for="elem in difference" :value="elem.id" :key="elem.id">{{elem.name}}</option>
@@ -12,7 +16,7 @@
       </div>
 
       <div class="form-group row">
-          <label for="op2" class="col-sm-4 col-form-label">Opcion 2</label>
+          <label for="op2" class="col-sm-4 col-form-label">Valor</label>
         <div class="col-sm-8">
           <select id="input2" :disabled="opcionActual===-1" class="form-control" v-model="atributoActual">
             <option v-for="elem in atributosActuales" :value="elem.ordinal" :key="elem.ordinal">{{elem.value}}</option>
@@ -20,24 +24,24 @@
         </div>
       </div>
       <div class="container my-3">
-        <button type="button" :disabled="camposCorrectos" class="btn btn-dark float-right" @click="agregaLista()">Done!</button>
+        <button type="button" :disabled="camposCorrectos" class="btn btn-dark float-right" @click="agregaLista()">Agregar criterio</button>
       </div>
-
+      <hr/>
       <div v-if="consulta.length!==0 && !resultado" class="respuestas">
           <div class="row align-items-center text-center mt-3" v-for="a in agregados" :key="a.id">
             <div class="col">{{a.name}}</div>
             <div class="col">{{a.option}}</div>
-            <div class="col text-right"><button type="button" class="btn btn-danger btn-sm red-cross" @click="quita(a.id)">x</button></div>
+            <div class="col text-right"><button type="button" class="btn btn-danger btn-sm red-cross" @click="quita(a.id)">Eliminar criterio</button></div>
           </div>
         <div class="container text-center">
-          <button type="button" class="btn btn-outline-light my-3" @click="enviaSeleccion">Listo</button>
+          <button type="button" class="btn btn-outline-light my-3" @click="enviaSeleccion">Salvar criterios</button>
         </div>
       </div>
       <div v-if="resultado" class="text-center py-2 px-5">
-        <p>Json Generado = {{answer}}</p>
-
+        <p>Criterios guardados exitosamente !!!</p>
       </div>
     </div>
+
   </div>
 
 </template>
@@ -86,15 +90,13 @@ export default {
       return this.opcionActual === -1 || this.atributoActual === -1;
     },
     agregados(){
-
-      const sel = this.data.filter(obj => this.consulta.find(s => obj.id === s.id) !== undefined);
       let temp = [];
-      for(let i=0;i<this.consulta.length; i++){
-        let elem = sel.find(x => this.consulta[i].id === x.id);
-        let val = elem.options.find(x => x.ordinal === this.consulta[i].selected);
+      const sel = this.data.filter(obj => this.consulta.find(s => obj.id === s.id) !== undefined);
+      for(let i=0; i<this.consulta.length; i++) {
+        let elem =          sel.find(x => this.consulta[i].id === x.id);
+        let val  = elem.options.find(x => x.ordinal === this.consulta[i].selected);
         temp[i]={id: elem.id, name: elem.name, option: val.value};
-        }
-
+      }
       return temp;
     }
   },
