@@ -27,6 +27,7 @@ import MisMetodosPago from '@/components/MisMetodosPago'
 import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras'
 import CompraConfirmada from '@/components/CompraConfirmada'
+import Perfil from '@/components/Perfil'
 
 //import Pruebas from '@/components/Pruebas'
 import DetalleProducto from '@/components/DetalleProducto'
@@ -62,6 +63,11 @@ const routes = [
     path: '/ui/cortador',
     name: 'cortador',
     component: Cortador
+  },
+  {
+    path: '/ui/perfil',
+    name: 'perfil',
+    component: Perfil
   },
   {
     path: '/ui/not-found',
