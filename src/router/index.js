@@ -56,10 +56,16 @@ import PostsList from'@/components/PostsList'
 import PostDetail from'@/components/PostDetail'
 import NotFound from'@/components/NotFound'
 import Cortador from'@/components/Cortador'
+import Sidebar from'@/components/Sidebar'
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/sidebar',
+    name: 'sidebar',
+    component: Sidebar
+  },
   {
     path: '/ui/cortador',
     name: 'cortador',
