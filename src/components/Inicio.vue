@@ -54,6 +54,7 @@
 
 <script>
 import router from '../router';
+import store from '../store';
 
 export default ({
   methods: {
@@ -61,6 +62,9 @@ export default ({
      router.push({path:'/ui/consulta-anuncios-publico/'+idCatInit}).catch(()=>{});
     }
   },
+  mounted() {
+     store.commit('setToggleSidebar', false);
+  }
 })
 </script>
 
