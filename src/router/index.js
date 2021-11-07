@@ -27,6 +27,7 @@ import MisMetodosPago from '@/components/MisMetodosPago'
 import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras'
 import CompraConfirmada from '@/components/CompraConfirmada'
+import Perfil from '@/components/Perfil'
 
 import Dropdowns from '@/components/Dropdowns'
 
@@ -64,6 +65,11 @@ const routes = [
     path: '/ui/cortador',
     name: 'cortador',
     component: Cortador
+  },
+  {
+    path: '/ui/perfil',
+    name: 'perfil',
+    component: Perfil
   },
   {
     path: '/ui/dropdowns',

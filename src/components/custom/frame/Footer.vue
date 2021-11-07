@@ -481,7 +481,7 @@ import store from '../../../store'
             this.$modal.show(name);
         },
         ok() {
-            this.setCookie('law', true, 2);
+            this.setCookie('law', true, 60);
             this.$modal.hide('advertencia');
         },
         getCookie: function(name) {

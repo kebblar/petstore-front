@@ -10,38 +10,38 @@
         <li>
             <i class='bx bx-search' ></i>
           <input type="text" placeholder="Search...">
-          <span class="tooltip">Burcar</span>
+          <span class="tooltip">Buscar</span>
         </li>
         <li>
-          <a href="#">
+          <a href="#" @click="goLocation('/')">
             <i class='bx bx-grid-alt'></i>
             <span class="links_name">Tablero</span>
           </a>
           <span class="tooltip">Tablero</span>
         </li>
         <li>
-        <a href="#">
+        <a href="#" @click="goLocation('/ui/perfil')">
           <i class='bx bx-user' ></i>
           <span class="links_name">Usuario</span>
         </a>
         <span class="tooltip">Usuario</span>
       </li>
       <li>
-        <a href="#">
+        <a href="#" @click="goLocation('/ui/up3')">
           <i class='bx bx-chat' ></i>
           <span class="links_name">Mensajes</span>
         </a>
         <span class="tooltip">Mensajes</span>
       </li>
       <li>
-        <a href="#">
+        <a href="#" @click="goLocation('/ui/cortador')">
           <i class='bx bx-pie-chart-alt-2' ></i>
           <span class="links_name">Gráficas</span>
         </a>
         <span class="tooltip">Gráfcas</span>
       </li>
       <li>
-        <a href="#">
+        <a href="#" @click="goLocation('/ui/creditos')">
           <i class='bx bx-folder' ></i>
           <span class="links_name">Upload</span>
         </a>
@@ -49,21 +49,21 @@
       </li>
       <li>
         <a href="#">
-          <i class='bx bx-cart-alt' ></i>
+          <i class='bx bx-cart-alt' @click="goLocation('/ui/up2')"></i>
           <span class="links_name">Carrito</span>
         </a>
         <span class="tooltip">Carrito</span>
       </li>
       <li>
         <a href="#">
-          <i class='bx bx-heart' ></i>
+          <i class='bx bx-heart' @click="goLocation('/ui/cambia-clave')"></i>
           <span class="links_name">Favoritos</span>
         </a>
         <span class="tooltip">Favoritos</span>
       </li>
       <li>
         <a href="#">
-          <i class='bx bx-cog' ></i>
+          <i class='bx bx-cog' @click="goLocation('/ui/dropdowns')"></i>
           <span class="links_name">Ajustes</span>
         </a>
         <span class="tooltip">Ajustes</span>
@@ -75,6 +75,7 @@
 
 <script>
   import store from '../../../store'
+  import router from '../../../router'
 
   export default {
     data: function () {
@@ -84,12 +85,15 @@
     },
     methods: {
       cambia: function() {
-        console.log(this.sidebar_toogle);
         if(this.sidebar_toogle==="sidebar") {
           this.sidebar_toogle = "sidebar open";
         } else {
           this.sidebar_toogle = "sidebar";
         }
+      },
+      goLocation: function(location) {
+        console.log(location);
+        router.push(location).catch(()=>{});
       }
     },
     computed: {
