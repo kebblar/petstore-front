@@ -343,8 +343,8 @@ function checaJwt(jwt, active) {
 }
 
 router.beforeEach((to, from, next) => {
-  store.commit('setToggleFooter', true);
-  store.commit('setToggleHeader', true);
+  store.commit('setToggleFooter', true); // Siempre muestra el footer, luego lo puedes quitar
+  store.commit('setToggleHeader', true); // Siempre muestra el header, luego lo puedes quitar
 
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   axios.defaults.headers.common = {"jwt": store.state.session.jwt};

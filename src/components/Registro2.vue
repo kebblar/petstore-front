@@ -502,8 +502,8 @@
     },
     mounted() {
         store.commit('setToggleHeader', false);
-        store.commit('setToggleFooter', true); 
-        store.commit('setToggleSidebar', true);
+        //store.commit('setToggleFooter', true); // true es implícito (lo pone siempre el router)
+        //store.commit('setToggleSidebar', true); // true es implícito (lo pone siempre el router)
     }
   }
 

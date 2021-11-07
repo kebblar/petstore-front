@@ -63,7 +63,7 @@ export default ({
     }
   },
   mounted() {
-     store.commit('setToggleSidebar', false);
+     store.commit('setToggleSidebar', false);// Pero mostrar header y footer
   }
 })
 </script>

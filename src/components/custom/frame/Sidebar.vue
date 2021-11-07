@@ -3,7 +3,7 @@
     <div :class="sidebar_toogle">
       <div class="logo-details">
         <i class='bx bxl-c-plus-plus icon'></i>
-          <div class="logo_name">CodingLab</div>
+          <div class="logo_name">Goose Code</div>
           <i class='bx bx-menu' id="btn" @click="cambia"></i>
       </div>
       <ul class="nav-list">
@@ -50,16 +50,16 @@
       <li>
         <a href="#">
           <i class='bx bx-cart-alt' ></i>
-          <span class="links_name">Ordenes</span>
+          <span class="links_name">Carrito</span>
         </a>
-        <span class="tooltip">Ordenes</span>
+        <span class="tooltip">Carrito</span>
       </li>
       <li>
         <a href="#">
           <i class='bx bx-heart' ></i>
-          <span class="links_name">Salvar</span>
+          <span class="links_name">Favoritos</span>
         </a>
-        <span class="tooltip">Salvar</span>
+        <span class="tooltip">Favoritos</span>
       </li>
       <li>
         <a href="#">
