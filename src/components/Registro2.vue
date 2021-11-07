@@ -87,37 +87,47 @@
             <!-- fecha de nacimiento -->
             <div class ="form-row form-group">
 
-                <div class="col-md-4 col-12">
+                <div class="col-4">
                   <label>Fecha de nacimiento:</label>
                 </div>
 
-                <div class="col-sm-12 col-md-8 col-xl-2 offset-xl-0">
-                  <select class="form-control combo" v-model="year">
-                    <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
-                  </select>
+
+                <div class="col">
+                  <div class="row">
+                    <div class="col-4">
+                      <select class="form-control combo" v-model="year">
+                        <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
+                      </select>
+                    </div>
+                    <div class="col-4">
+                      <select class="form-control combo" v-model="month">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                      </select>
+                    </div>
+                    <div class="col-4">
+                      <select class="form-control combo" v-model="day">
+                        <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-sm-8 col-md-8 col-lg-5 offset-md-4 offset-lg-0 col-xl-4">
-                  <select class="form-control combo" v-model="month">
-                    <option value="1">Enero</option>
-                    <option value="2">Febrero</option>
-                    <option value="3">Marzo</option>
-                    <option value="4">Abril</option>
-                    <option value="5">Mayo</option>
-                    <option value="6">Junio</option>
-                    <option value="7">Julio</option>
-                    <option value="8">Agosto</option>
-                    <option value="9">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
-                  </select>
-                </div>
-                <div class="col-sm-4 offset-lg-4 offset-md-4 col-md-8 col-lg-3 col-xl-2 offset-xl-0">
-                  <select class="form-control combo" v-model="day">
-                    <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
-                  </select>
-                </div>
-              <div class="col-sm-8 col-md-8 offset-md-4">
+            </div>
+
+            <div class ="form-row form-group">
+              <div class="col-4">
+              </div>
+              <div class="col">
                 <span class="info">(debes ser mayor de 21 años para registrarte)</span>
               </div>
             </div>
@@ -303,7 +313,9 @@
 
         servicio : false,
         avisoP : false,
-        mayor : false
+        mayor : false,
+
+        vacio:true
      }
     },
     watch: {

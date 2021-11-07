@@ -504,7 +504,7 @@ import store from '../../../store'
             //this.setCookie('law', true, 2);
             this.$modal.show('advertencia');
         } else {
-            console.log('si hay');
+            //console.log('si hay');
         }
     }, 
     computed: {

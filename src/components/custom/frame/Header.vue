@@ -86,7 +86,7 @@ export default {
     computed: {
       logged: function() {
         var response = store.state.session.jwt && store.state.session.jwt.length>10;
-        console.log(response);
+        //console.log(response);
         return response;
       },
       nombre: function() {

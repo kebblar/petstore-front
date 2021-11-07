@@ -342,8 +342,8 @@ function checaJwt(jwt, active) {
             });
             store.commit('setDestination', '/');
         } else {
-            const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
-            console.log('Tiempo para que expire:' + timeToExpire);
+            //const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
+            //console.log('Tiempo para que expire:' + timeToExpire);
         }
     }
 }

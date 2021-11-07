@@ -31,7 +31,7 @@
           <div class="row align-items-center text-center mt-3" v-for="a in agregados" :key="a.id">
             <div class="col">{{a.name}}</div>
             <div class="col">{{a.option}}</div>
-            <div class="col text-right"><button type="button" class="btn btn-danger btn-sm red-cross" @click="quita(a.id)">Eliminar criterio</button></div>
+            <div class="col text-right"><button type="button" class="btn btn-danger btn-sm red-cross" @click="quita(a.id)">Quitar</button></div>
           </div>
         <div class="container text-center">
           <button type="button" class="btn btn-outline-light my-3" @click="enviaSeleccion">Salvar criterios</button>

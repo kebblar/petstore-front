@@ -13,7 +13,7 @@
           <span class="tooltip">Buscar</span>
         </li>
         <li>
-          <a href="#" @click="goLocation('/')">
+          <a href="#" @click="goLocation('/ui/cambia-datos-personales')">
             <i class='bx bx-grid-alt'></i>
             <span class="links_name">Tablero</span>
           </a>
@@ -34,36 +34,36 @@
         <span class="tooltip">Mensajes</span>
       </li>
       <li>
-        <a href="#" @click="goLocation('/ui/cortador')">
+        <a href="#" @click="goLocation('/ui/cambia-clave')">
           <i class='bx bx-pie-chart-alt-2' ></i>
           <span class="links_name">Gráficas</span>
         </a>
         <span class="tooltip">Gráfcas</span>
       </li>
       <li>
-        <a href="#" @click="goLocation('/ui/creditos')">
+        <a href="#" @click="goLocation('/ui/cortador')">
           <i class='bx bx-folder' ></i>
           <span class="links_name">Upload</span>
         </a>
         <span class="tooltip">Upload</span>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-cart-alt' @click="goLocation('/ui/up2')"></i>
+        <a href="#" @click="goLocation('/ui/up2')">
+          <i class='bx bx-cart-alt'></i>
           <span class="links_name">Carrito</span>
         </a>
         <span class="tooltip">Carrito</span>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-heart' @click="goLocation('/ui/cambia-clave')"></i>
+        <a href="#" @click="goLocation('/ui/creditos')">
+          <i class='bx bx-heart'></i>
           <span class="links_name">Favoritos</span>
         </a>
         <span class="tooltip">Favoritos</span>
       </li>
       <li>
-        <a href="#">
-          <i class='bx bx-cog' @click="goLocation('/ui/dropdowns')"></i>
+        <a href="#" @click="goLocation('/ui/dropdowns')">
+          <i class='bx bx-cog'></i>
           <span class="links_name">Ajustes</span>
         </a>
         <span class="tooltip">Ajustes</span>
@@ -92,8 +92,10 @@
         }
       },
       goLocation: function(location) {
-        console.log(location);
-        router.push(location).catch(()=>{});
+        //console.log(location);
+        router.push(location).catch(failure => {
+            console.log(failure);
+        })
       }
     },
     computed: {
