@@ -28,6 +28,8 @@ import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras'
 import CompraConfirmada from '@/components/CompraConfirmada'
 
+import Dropdowns from '@/components/Dropdowns'
+
 //import Pruebas from '@/components/Pruebas'
 import DetalleProducto from '@/components/DetalleProducto'
 import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
@@ -62,6 +64,12 @@ const routes = [
     path: '/ui/cortador',
     name: 'cortador',
     component: Cortador
+  },
+  {
+    path: '/ui/dropdowns',
+    name: 'dropdowns',
+    component: Dropdowns,
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/not-found',
@@ -342,6 +350,7 @@ router.beforeEach((to, from, next) => {
   axios.defaults.headers.common = {"jwt": store.state.session.jwt};
   checaJwt(store.state.session.jwt, true);
 
+  /*
   axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {
     // no le mando parámetros .... ni headers aqui...
   }).then(response => {
@@ -349,7 +358,7 @@ router.beforeEach((to, from, next) => {
   }).catch(e => {
     console.log(e);
   });
-
+*/
   if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:
     if (store.state.session.jwt==='') {

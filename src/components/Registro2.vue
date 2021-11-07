@@ -92,14 +92,9 @@
                 </div>
 
                 <div class="col-sm-12 col-md-8 col-xl-2 offset-xl-0">
-                <select class="form-control combo" v-model="year">
-                  <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
-                </select>
-                </div>
-                <div class="col-sm-4 offset-lg-4 offset-md-4 col-md-8 col-lg-3 col-xl-2 offset-xl-0">
-                <select class="form-control combo" v-model="day">
-                  <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
-                </select>
+                  <select class="form-control combo" v-model="year">
+                    <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
+                  </select>
                 </div>
                 <div class="col-sm-8 col-md-8 col-lg-5 offset-md-4 offset-lg-0 col-xl-4">
                   <select class="form-control combo" v-model="month">
@@ -115,6 +110,11 @@
                     <option value="10">Octubre</option>
                     <option value="11">Noviembre</option>
                     <option value="12">Diciembre</option>
+                  </select>
+                </div>
+                <div class="col-sm-4 offset-lg-4 offset-md-4 col-md-8 col-lg-3 col-xl-2 offset-xl-0">
+                  <select class="form-control combo" v-model="day">
+                    <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
                   </select>
                 </div>
               <div class="col-sm-8 col-md-8 offset-md-4">
@@ -502,7 +502,8 @@
     },
     mounted() {
         store.commit('setToggleHeader', false);
-        store.commit('setToggleFooter', false); 
+        store.commit('setToggleFooter', true); 
+        store.commit('setToggleSidebar', true);
     }
   }
 
