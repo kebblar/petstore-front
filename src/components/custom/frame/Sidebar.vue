@@ -10,63 +10,63 @@
         <li>
             <i class='bx bx-search' ></i>
           <input type="text" placeholder="Search...">
-          <span class="tooltip">Search</span>
+          <span class="tooltip">Burcar</span>
         </li>
         <li>
           <a href="#">
             <i class='bx bx-grid-alt'></i>
-            <span class="links_name">Dashboard</span>
+            <span class="links_name">Tablero</span>
           </a>
-          <span class="tooltip">Dashboard</span>
+          <span class="tooltip">Tablero</span>
         </li>
         <li>
         <a href="#">
           <i class='bx bx-user' ></i>
-          <span class="links_name">User</span>
+          <span class="links_name">Usuario</span>
         </a>
-        <span class="tooltip">User</span>
+        <span class="tooltip">Usuario</span>
       </li>
       <li>
         <a href="#">
           <i class='bx bx-chat' ></i>
-          <span class="links_name">Messages</span>
+          <span class="links_name">Mensajes</span>
         </a>
-        <span class="tooltip">Messages</span>
+        <span class="tooltip">Mensajes</span>
       </li>
       <li>
         <a href="#">
           <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="links_name">Analytics</span>
+          <span class="links_name">Gráficas</span>
         </a>
-        <span class="tooltip">Analytics</span>
+        <span class="tooltip">Gráfcas</span>
       </li>
       <li>
         <a href="#">
           <i class='bx bx-folder' ></i>
-          <span class="links_name">File Manager</span>
+          <span class="links_name">Upload</span>
         </a>
-        <span class="tooltip">Files</span>
+        <span class="tooltip">Upload</span>
       </li>
       <li>
         <a href="#">
           <i class='bx bx-cart-alt' ></i>
-          <span class="links_name">Order</span>
+          <span class="links_name">Ordenes</span>
         </a>
-        <span class="tooltip">Order</span>
+        <span class="tooltip">Ordenes</span>
       </li>
       <li>
         <a href="#">
           <i class='bx bx-heart' ></i>
-          <span class="links_name">Saved</span>
+          <span class="links_name">Salvar</span>
         </a>
-        <span class="tooltip">Saved</span>
+        <span class="tooltip">Salvar</span>
       </li>
       <li>
         <a href="#">
           <i class='bx bx-cog' ></i>
-          <span class="links_name">Setting</span>
+          <span class="links_name">Ajustes</span>
         </a>
-        <span class="tooltip">Setting</span>
+        <span class="tooltip">Ajustes</span>
       </li>
       </ul>
     </div>
