@@ -1,7 +1,19 @@
 <template>
   <div id="app">
     <Header/>
-    <router-view></router-view>
+    <div class="row">
+      <Sidebar/>
+      <div class="col">
+        <!--
+        <transition
+          name="fade"
+          mode="out-in">
+            <router-view/>
+        </transition>
+        -->
+        <router-view/>
+      </div>
+    </div>
     <Footer/>
   </div>
 </template>
@@ -9,12 +21,14 @@
 <script>
   import Footer from './components/custom/frame/Footer';
   import Header from './components/custom/frame/Header';
+  import Sidebar from './components/custom/frame/Sidebar';
 
   export default {
     name: "App",
     components: {
       'Header': Header,
-      'Footer' : Footer
+      'Footer' : Footer,
+      'Sidebar': Sidebar
     }
   }
 </script>
@@ -62,5 +76,17 @@ html,body {
   color: #fff;
   text-align: center; 
   background-color: #363636; 
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
 }
 </style>

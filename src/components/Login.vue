@@ -75,6 +75,7 @@ export default {
     mounted() {
       store.commit('setToggleHeader', false);
       store.commit('setToggleFooter', false);
+      store.commit('setToggleSidebar', false);
     },
     data: function () {
         return {

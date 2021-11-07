@@ -502,7 +502,7 @@
     },
     mounted() {
         store.commit('setToggleHeader', false);
-        store.commit('setToggleFooter', false); 
+        store.commit('setToggleFooter', true); 
     }
   }
 
