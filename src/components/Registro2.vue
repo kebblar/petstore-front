@@ -1,221 +1,240 @@
 <template>
+  <div>
+    <div class="ancho centra">
 
-<div class="ancho centra">
+      <div v-if="loading" class="loader"/>
 
-  <div v-if="loading" class="loader"/>
+      <div class="row">
+        <div class="col-md-5 col-lg-5 col-12" >
+          <img src="../assets/registro.webp" width="100%"/>
+        </div>
+        <div class="col-md-7 col-lg-7 col-12">
 
-  <div class="row">
-    <div class="col-md-5 col-lg-5 col-12" >
-      <img src="../assets/registro.webp" width="100%"/>
-    </div>
-    <div class="col-md-7 col-lg-7 col-12">
+          <div class="card defaultColor w-100">
 
-      <div class="card defaultColor w-100">
+            <!-- 
+            <div class="card-header">
+                <label class="control-label h4">Registro al sistema</label>
+            </div>ends card header -->
 
-        <div class="card-header">
-            <label class="control-label h4">Registro al sistema</label>
-        </div><!-- ends card header -->
+            <div class="card-body align" >
 
-        <div class="card-body align" >
-
-            <!-- Nick -->
-            <div class ="form-row form-group">
-              <div class="col-md-4">
-                <label for="nombre">Nick:</label> 
-              </div>
-              <div class="col">
-                <input type="text" required class="form-control" :class="className" placeholder="Mi apodo" v-model="name">
-                <small class="notValid">{{msgName}}</small>
-              </div>
-            </div>
-
-            <!-- correo -->
-            <div class ="form-row form-group">
-              <div class="col-md-4">
-                <label for="correo">Correo:</label>
-              </div>
-              <div class="col">
-                <input type="email" required class="form-control" :class="classMail" id="mail" placeholder="ejemplo@gmail.com" v-model="email">
-                <small class="notValid">{{msgMail}}</small>
-              </div>
-            </div>
-
-            <!-- clave -->
-            <div class="form-row form-group">
-              <div class="col-md-4">
-                <label for="clave">Clave:</label>
-              </div>
-              <div class="col">
-                <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
-                <div class="col" :class="estiloClave1"> <!--cambiar booleano "activaClave" linea 242-->
-                  <small id="clave" class="form-text text-muted" :class="isVisible">
-                    <b>La clave contiene:</b>
-                    <ul>
-                      <li :style="styleCarac">8 carateres como mínimo</li>
-                      <li :style="styleUpper">Una mayúscula</li>
-                      <li :style="styleNum">Un número</li>
-                      <li :style="styleSpecial">Un caracte especial, como _, -, #, etc.</li>
-                    </ul>
-                  </small>
-                </div>
-                <div class="col" :class="estiloClave2">
-                  <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
-                  <small id="clave" class="form-text text-muted" :class="isVisible">
-                    <b v-if="msgPasswd!=''">Falta que la clave contenga:</b>
-                    <ul>
-                      <li :class="styleCarac2">8 carateres como mínimo</li>
-                      <li :class="styleUpper2">Una mayúscula</li>
-                      <li :class="styleNum2">Un número</li>
-                      <li :style="styleSpecial2">Un caracter especial (_, -, #, etc.)</li>
-                    </ul>
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            <!-- clave confirma -->
-            <div class="form-row form-group">
-              <div class="col-md-4">
-                <label for="confirmacion">Confirmación de la clave:</label>
-              </div>
-              <div class="col">
-                <input type="password" required :disabled="pwConfDisabled" :class="classConfirm" class="form-control" id="confirmacion" placeholder="******" v-model="confirm">
-                <small class="notValid">{{msgConfirm}}</small>
-              </div>
-            </div>
-
-            <!-- fecha de nacimiento -->
-            <div class ="form-row form-group">
-
-                <div class="col-md-4 col-12">
-                  <label>Fecha de nacimiento:</label>
+                <!-- Nick -->
+                <div class ="form-row form-group">
+                  <div class="col-md-4">
+                    <label for="nombre">Nick:</label> 
+                  </div>
+                  <div class="col">
+                    <input type="text" required class="form-control" :class="className" placeholder="Mi apodo" v-model="name">
+                    <small class="notValid">{{msgName}}</small>
+                  </div>
                 </div>
 
-                <div class="col-sm-12 col-md-8 col-xl-2 offset-xl-0">
-                <select class="form-control combo" v-model="year">
-                  <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
-                </select>
+                <!-- correo -->
+                <div class ="form-row form-group">
+                  <div class="col-md-4">
+                    <label for="correo">Correo:</label>
+                  </div>
+                  <div class="col">
+                    <input type="email" required class="form-control" :class="classMail" id="mail" placeholder="ejemplo@gmail.com" v-model="email">
+                    <small class="notValid">{{msgMail}}</small>
+                  </div>
                 </div>
-                <div class="col-sm-4 offset-lg-4 offset-md-4 col-md-8 col-lg-3 col-xl-2 offset-xl-0">
-                <select class="form-control combo" v-model="day">
-                  <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
-                </select>
+
+                <!-- clave -->
+                <div class="form-row form-group">
+                  <div class="col-md-4">
+                    <label for="clave">Clave:</label>
+                  </div>
+                  <div class="col">
+                    <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
+                    <div class="col" :class="estiloClave1"> <!--cambiar booleano "activaClave" linea 242-->
+                      <small id="clave" class="form-text text-muted" :class="isVisible">
+                        <b>La clave contiene:</b>
+                        <ul>
+                          <li :style="styleCarac">8 carateres como mínimo</li>
+                          <li :style="styleUpper">Una mayúscula</li>
+                          <li :style="styleNum">Un número</li>
+                          <li :style="styleSpecial">Un caracte especial, como _, -, #, etc.</li>
+                        </ul>
+                      </small>
+                    </div>
+                    <div class="col" :class="estiloClave2">
+                      <input type="password" required :class="classPasswd" class="form-control" id="clave" placeholder="******" v-model="password">
+                      <small id="clave" class="form-text text-muted" :class="isVisible">
+                        <b v-if="msgPasswd!=''">Falta que la clave contenga:</b>
+                        <ul>
+                          <li :class="styleCarac2">8 carateres como mínimo</li>
+                          <li :class="styleUpper2">Una mayúscula</li>
+                          <li :class="styleNum2">Un número</li>
+                          <li :style="styleSpecial2">Un caracter especial (_, -, #, etc.)</li>
+                        </ul>
+                      </small>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-sm-8 col-md-8 col-lg-5 offset-md-4 offset-lg-0 col-xl-4">
-                  <select class="form-control combo" v-model="month">
-                    <option value="1">Enero</option>
-                    <option value="2">Febrero</option>
-                    <option value="3">Marzo</option>
-                    <option value="4">Abril</option>
-                    <option value="5">Mayo</option>
-                    <option value="6">Junio</option>
-                    <option value="7">Julio</option>
-                    <option value="8">Agosto</option>
-                    <option value="9">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
-                  </select>
+
+                <!-- clave confirma -->
+                <div class="form-row form-group">
+                  <div class="col-md-4">
+                    <label for="confirmacion">Confirmación de la clave:</label>
+                  </div>
+                  <div class="col">
+                    <input type="password" required :disabled="pwConfDisabled" :class="classConfirm" class="form-control" id="confirmacion" placeholder="******" v-model="confirm">
+                    <small class="notValid">{{msgConfirm}}</small>
+                  </div>
                 </div>
-              <div class="col-sm-8 col-md-8 offset-md-4">
-                <span class="info">(debes ser mayor de 21 años para registrarte)</span>
-              </div>
-            </div>
 
-            <div class ="form-row form-group">
-              <div class="mx-auto">
-                <a href="#" @click="openLoginPage">Regresar a login</a>
-              </div>
-            </div>
+                <!-- fecha de nacimiento -->
+                <div class ="form-row form-group">
 
-            <!-- Google Re captcha V 2.0-->
-            <!-- https://www.google.com/recaptcha/admin/site/450433503 -->
-            <!-- account: garellanos@ultrasist.com.mx -->
+                    <div class="col-4">
+                      <label>Fecha de nacimiento:</label>
+                    </div>
 
-            <!-- button -->
-            <div class="form-group row">
-              <div class="col text-center" >
-                  <button
-                    :disabled="habilitaBoton"
-                    class="btn btn-success"
-                    data-toggle="modal"
-                    data-target="#termsModal">Registrarme</button>
 
-                <!--          Modal-->
-                  <div class="modal fade" id="termsModal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header mb-2 bg-light">
-                          <h5 class="modal-title ml-3" >
-                            <b>Términos y condiciones</b>
-                          </h5>
-                          <button type="button" class="close mr-2" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                    <div class="col">
+                      <div class="row">
+                        <div class="col-4">
+                          <select class="form-control combo" v-model="year">
+                            <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
+                          </select>
                         </div>
+                        <div class="col-4">
+                          <select class="form-control combo" v-model="month">
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                          </select>
+                        </div>
+                        <div class="col-4">
+                          <select class="form-control combo" v-model="day">
+                            <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                </div>
 
-                        <div class="modal-body mx-2">
-                          <div class="row " style="text-align: left">
-                              <div class="col">
-                                <p class=" h6">
-                                  He leido y estoy de acuerdo con:<br><br>
-                                </p>
-                                <small class="px-4">
-                                  <input type="checkbox"  required  id="agree1" v-model="servicio"/>
-                                  <a href="#"> Los términos de servicio</a><br>
-                                </small >
-                                <small class="px-4">
-                                  <input type="checkbox"  required  id="agree2" v-model="avisoP"/>
-                                  <a href="#"> El aviso de privacidad de datos personales</a><br>
-                                </small>
-                                <small class="px-4">
-                                  <input type="checkbox"  required  id="agree3" v-model="mayor"/>
-                                  <a href="#"> Que soy mayor de edad y publico por mi propia voluntad</a><br>
-                                </small>
+                <div class ="form-row form-group">
+                  <div class="col-4">
+                  </div>
+                  <div class="col">
+                    <span class="info">(debes ser mayor de 21 años para registrarte)</span>
+                  </div>
+                </div>
 
-                                <div class="row pt-3" style="padding-left: 40px">
-                                  <div class="g-recaptcha mx-auto">
-                                    <vue-recaptcha
-                                        id="solvecaptcha"
-                                        ref="recaptcha"
-                                        sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
-                                        @expired="onCaptchaExpired"
-                                        @verify="onCaptchaVerified"/>
+      
+
+                <!-- Google Re captcha V 2.0-->
+                <!-- https://www.google.com/recaptcha/admin/site/450433503 -->
+                <!-- account: garellanos@ultrasist.com.mx -->
+
+                <!-- button -->
+                <div class="form-group row">
+                  <div class="col-4"></div>
+                  <div class="col">
+                    <div class="row">
+                      <div class="col-4" >
+                          <button
+                            :disabled="habilitaBoton"
+                            class="btn btn-success"
+                            data-toggle="modal"
+                            data-target="#termsModal">Registrarme</button>
+
+                        <!--          Modal-->
+                          <div class="modal fade" id="termsModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header mb-2 bg-light">
+                                  <h5 class="modal-title ml-3" >
+                                    <b>Términos y condiciones</b>
+                                  </h5>
+                                  <button type="button" class="close mr-2" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+
+                                <div class="modal-body mx-2">
+                                  <div class="row " style="text-align: left">
+                                      <div class="col">
+                                        <p class=" h6">
+                                          He leido y estoy de acuerdo con:<br><br>
+                                        </p>
+                                        <small class="px-4">
+                                          <input type="checkbox"  required  id="agree1" v-model="servicio"/>
+                                          <a href="#"> Los términos de servicio</a><br>
+                                        </small >
+                                        <small class="px-4">
+                                          <input type="checkbox"  required  id="agree2" v-model="avisoP"/>
+                                          <a href="#"> El aviso de privacidad de datos personales</a><br>
+                                        </small>
+                                        <small class="px-4">
+                                          <input type="checkbox"  required  id="agree3" v-model="mayor"/>
+                                          <a href="#"> Que soy mayor de edad y publico por mi propia voluntad</a><br>
+                                        </small>
+
+                                        <div class="row pt-3" style="padding-left: 40px">
+                                          <div class="g-recaptcha mx-auto">
+                                            <vue-recaptcha
+                                                id="solvecaptcha"
+                                                ref="recaptcha"
+                                                sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
+                                                @expired="onCaptchaExpired"
+                                                @verify="onCaptchaVerified"/>
+                                          </div>
+                                        </div>
+                                      </div>
+
+
                                   </div>
                                 </div>
+                                <div v-if="!vacio" class="modal-footer border-top-0 d-flex justify-content-around px-0 mb-3">
+                                  <button type="button" class="btn btn-outline-info" @click="openLoginPage" data-dismiss="modal">Volver al login</button>
+                                  <button type="button" :disabled="verifyCheck" class="btn btn-outline-info" data-dismiss="modal" @click="submition">Continuar con el registro</button>
+                                </div>
                               </div>
-
-
+                            </div>
                           </div>
-                        </div>
-                        <div v-if="!vacio" class="modal-footer border-top-0 d-flex justify-content-around px-0 mb-3">
-                          <button type="button" class="btn btn-outline-info" @click="openLoginPage" data-dismiss="modal">Volver al login</button>
-                          <button type="button" :disabled="verifyCheck" class="btn btn-outline-info" data-dismiss="modal" @click="submition">Continuar con el registro</button>
-                        </div>
+                      </div>
+                      <div class="col-1"></div>
+                      <div class="col">
+                        <a href="#" class="btn btn-warning" @click="openLoginPage">Regresar a Login</a>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-        </div><!-- ends card body -->
+            </div><!-- ends card body -->
 
-      </div><!-- ends card -->
+          </div><!-- ends card -->
 
 
+        </div>
+      </div>
+
+        <Aviso
+          ref='aviso'
+          ancho='320'
+          :target=target
+          :avisoMsg=msgErr
+          :avisoTitulo=texto /> 
+
+        <ModalLogin ref='gustavo' />
+    </div>
+    <div id="footer">&copy; 2021 Este es mi custom footer.
+        Siempre pegado al bottom de la página. 
     </div>
   </div>
-
-    <Aviso
-      ref='aviso'
-      ancho='320'
-      :target=target
-      :avisoMsg=msgErr
-      :avisoTitulo=texto /> 
-
-    <ModalLogin ref='gustavo' />
-</div>
-
 </template>
 
 <script>
@@ -303,7 +322,9 @@
 
         servicio : false,
         avisoP : false,
-        mayor : false
+        mayor : false,
+
+        vacio:true
      }
     },
     watch: {
@@ -502,7 +523,8 @@
     },
     mounted() {
         store.commit('setToggleHeader', false);
-        store.commit('setToggleFooter', false); 
+        store.commit('setToggleFooter', false);
+        store.commit('setToggleSidebar', false);
     }
   }
 
@@ -571,5 +593,16 @@ input {
 .g-recaptcha {
   transform:scale(0.9);
   transform-origin: 0 0;
+}
+#footer {
+    position: fixed;
+    padding: 10px 10px 0px 10px;
+    bottom: 0;
+    width: 100%;
+    /* Height of the footer*/ 
+    height: 40px;
+    background: #444;
+    color: #fff;
+    text-align: right;
 }
 </style>
