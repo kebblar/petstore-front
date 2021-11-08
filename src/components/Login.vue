@@ -1,5 +1,5 @@
 <template>
-
+  <div>
     <div class="ancho centra">
 
         <div class="row">
@@ -8,8 +8,6 @@
             </div>
             <div class="col-sm-6">
                 <div class="card">
-
-
 
                     <div class="card-body">
                         <div class="row">
@@ -25,7 +23,7 @@
                                     <input :type=pwInputValue class="form-control" id="password" v-model="psw" />
                                     <span class="fas fa-lock errspan"></span>
                                     <div class="ojo put-right">
-                                      <a href="#" @click="oculta">
+                                      <a href="#" @click="oculta" class="a2">
                                         <div class="icon-wrapper">
                                           <i :class="[pwVisible ? 'fas fa-eye-slash' : 'fas fa-eye']"></i>
                                         </div>
@@ -36,10 +34,11 @@
                             </div>
                             <div class="col-sm-12" style="text-align: center;">
                                 <button @click="checkCredentials" class="btn btn-warning">Ingresar al sistema</button>
+                            <hr/>
                             </div>
                             <div class="col-sm-12" style="text-align: center;">
                                 <a href="#" @click="openForgotPage">Olvidé mi clave</a>
-                                <hr/>
+                                <br/>
                                 <a href="#" @click="openRegistroPage" >Deseo registrarme al sistema</a>
                             </div>
 
@@ -58,7 +57,10 @@
         avisoTitulo='Error de ingreso al sistema' />        
 
     </div>
-
+    <div id="footer">&copy; 2021 Este es mi custom footer.
+        Siempre pegado al bottom de la página. 
+    </div>
+  </div>
 
 </template>
 
@@ -154,6 +156,12 @@ export default {
 </script>
 
 <style scoped>
+.a2 {
+  color:#000;
+}
+.a2:hover {
+  color:#00f;
+}
 .ancho {
     max-width: 760px; 
 }
@@ -166,7 +174,7 @@ export default {
   margin-top: 11px;
   position: absolute;
   z-index: 2;
-  color: #0073ff;
+  color: #000;
 }
 #text-usr{
   padding-left: 33px;
@@ -182,6 +190,16 @@ export default {
   right: 28px;
   margin-top: 9px;
   z-index: 2;
-
+}
+#footer {
+    position: fixed;
+    padding: 10px 10px 0px 10px;
+    bottom: 0;
+    width: 100%;
+    /* Height of the footer*/ 
+    height: 40px;
+    background: #444;
+    color: #fff;
+    text-align: right;
 }
 </style>
