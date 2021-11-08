@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     state: {
         toggleFooter: true,
         toggleHeader: true,
+        toggleSidebar: true,
         destination: '/',
         session: {
             nombreCompleto: '',
@@ -21,6 +22,9 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
+        setToggleSidebar(state, toggle) {
+            state.toggleSidebar = toggle;
+        },
         setToggleHeader(state, toggle) {
             state.toggleHeader = toggle;
         },
