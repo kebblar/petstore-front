@@ -1,79 +1,87 @@
 <template>
-  <div class="ancho centra">
+  <div>
+    <div class="ancho centra">
 
-    <div class="row">
-      <div class="col-sm-6" >
-        <img src="../assets/forgot.png" width="100%"/>
-      </div>
-      <div class="col-sm-6">
-
-        <div class="card">
-          <div class="card-header">
-            <label class="h4">Regenera tu clave</label>
-          </div>
-          <div class="card-body align">
-              <small class="form-text text-muted text-center">Un token de 6 dígitos fue enviado a tu correo electrónico, por favor introdúcelo a continuación:</small>
-              <br>
-              <div class ="form-group form-row">
-                <div class="col-sm-4">
-                  <label for="correo">Token:</label>
-                </div>
-                <div class = "col form-group">
-                  <input type="text" class="form-control" id="token" placeholder="XXXXXX" v-model="token"/>
-                </div>
-              </div>
-
-            <hr class="dashed">
-
-              <small class="form-text text-muted text-center">Ingresa tu nueva clave y su confirmación</small>
-              <br>
-              <div class ="form-group form-row">
-                <div class="col-sm-4">
-                  <label for="clave">Clave nueva:</label>
-                </div>
-                <div class = "col form-group">
-                  <input type="password" class="form-control" id="token" placeholder="******" v-model="clave">
-                </div>
-              </div>
-
-              <div class ="form-group form-row">
-                <div class="col-sm-4">
-                  <label for="clave">Confirmación:</label>
-                </div>
-                <div class = "col form-group">
-                  <input type="password" class="form-control" id="token" placeholder="******" v-model="confirmaClave">
-                </div>
-              </div>
-
-            <div class="form-group row text-center">
-              <div class="col text-center">
-                <button type="button" class="btn btn-success" @click="cambiaClave">Cambiar mi clave</button>
-              </div>
-            </div>
-
-          </div>
-        </div> 
-
-      </div>
-    </div>
-    
-    <!-- Modal -->
-    <Aviso
-      ref='avisoComp'
-      ancho='360'
-      :avisoTitulo=modalTitulo >
-        <div>
-          <div v-if='fortalezaIncorrecta'>
-            <ul v-for="(msg, index) in modalMessage" :key="index">
-              <li>{{ msg }}</li>
-            </ul>
-          </div>
-          <div v-else>
-            {{ modalMessage }}
-          </div>
+      <div class="row">
+        <div class="col-sm-6" >
+          <img src="../assets/forgot.png" width="100%"/>
         </div>
-    </Aviso>        
+        <div class="col-sm-6">
 
+          <div class="card">
+            <div class="card-header">
+              <label class="h4">Regenera tu clave</label>
+            </div>
+            <div class="card-body align">
+                <small class="form-text text-muted text-center">Un token de 6 dígitos fue enviado a tu correo electrónico, por favor introdúcelo a continuación:</small>
+                <br>
+                <div class ="form-group form-row">
+                  <div class="col-sm-4">
+                    <label for="correo">Token:</label>
+                  </div>
+                  <div class = "col form-group">
+                    <input type="text" class="form-control" id="token" placeholder="XXXXXX" v-model="token"/>
+                  </div>
+                </div>
+
+              <hr class="dashed">
+
+                <small class="form-text text-muted text-center">Ingresa tu nueva clave y su confirmación</small>
+                <br>
+                <div class ="form-group form-row">
+                  <div class="col-sm-4">
+                    <label for="clave">Clave nueva:</label>
+                  </div>
+                  <div class = "col form-group">
+                    <input type="password" class="form-control" id="token" placeholder="******" v-model="clave">
+                  </div>
+                </div>
+
+                <div class ="form-group form-row">
+                  <div class="col-sm-4">
+                    <label for="clave">Confirmación:</label>
+                  </div>
+                  <div class = "col form-group">
+                    <input type="password" class="form-control" id="token" placeholder="******" v-model="confirmaClave">
+                  </div>
+                </div>
+
+              <div class="form-group row text-center">
+                <div class="col text-center">
+                  <button type="button" class="btn btn-success" @click="cambiaClave">Cambiar mi clave</button>
+                </div>
+                <div class="col">
+                  <button type="button" class="btn btn-warning" @click="goLogin">Ir a Login</button>
+                </div>
+              </div>
+
+            </div>
+          </div> 
+
+        </div>
+      </div>
+      
+      <!-- Modal -->
+      <Aviso
+        ref='avisoComp'
+        ancho='360'
+        :avisoTitulo=modalTitulo >
+          <div>
+            <div v-if='fortalezaIncorrecta'>
+              <ul v-for="(msg, index) in modalMessage" :key="index">
+                <li>{{ msg }}</li>
+              </ul>
+            </div>
+            <div v-else>
+              {{ modalMessage }}
+            </div>
+          </div>
+      </Aviso>        
+
+    </div>
+    <div id="footer">&copy; 2021 Este es mi custom footer.
+        Siempre pegado al bottom de la página. 
+    </div>
   </div>
 </template>
 
@@ -83,6 +91,7 @@
   import Vue from 'vue';
   import VueToast from 'vue-toast-notification';
   import Aviso from './custom/dialog/Aviso';
+  import store from '../store'
 
   Vue.use(VueToast);
 
@@ -117,6 +126,9 @@
           router.push('/ui/login');
         }
       },
+      goLogin() {
+        router.push('/ui/login');
+      },
       cambiaClave() {
         this.fortalezaIncorrecta = false;
         this.modalShowsError = true;
@@ -150,6 +162,11 @@
           this.$refs.avisoComp.abre()
         );
       }
+    },
+    mounted() {
+      store.commit('setToggleHeader', false);
+      store.commit('setToggleFooter', false);
+      store.commit('setToggleSidebar', false);
     }
   }
 </script>
@@ -160,5 +177,16 @@
 }
 hr.dashed {
   border-top: 3px dashed #bbb;
+}
+#footer {
+    position: fixed;
+    padding: 10px 10px 0px 10px;
+    bottom: 0;
+    width: 100%;
+    /* Height of the footer*/ 
+    height: 40px;
+    background: #444;
+    color: #fff;
+    text-align: right;
 }
 </style>
