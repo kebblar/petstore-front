@@ -123,8 +123,8 @@
 import def from '../assets/default.jpg';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
-import store from "../store";
-import axios from "axios";
+//import store from "../store";
+//import axios from "axios";
 // import axios from "axios";
 
 export default {
@@ -164,12 +164,13 @@ export default {
      },
 
     cropImage() {
-      let pictureCropped = this.$refs.cropper.getCroppedCanvas().toDataURL(this.fileType, 0.5);
+      this.profilePicture = this.$refs.cropper.getCroppedCanvas().toDataURL(this.fileType, 0.5);
       const fd = new FormData();
       this.$refs.cropper.getCroppedCanvas().toBlob((b) => {
         fd.append('image', b, this.fileName);
       });
       console.log(fd)
+      /*
       const headers = {
         "Content-Type": "multipart/form-data",
         "Access-Control-Allow-Origin": "*",
@@ -184,7 +185,7 @@ export default {
         this.selectedFile = null;
       }).catch(error => {
             console.log(error.response);
-      });
+      });*/
      },
 
     onFileSelected(event){
