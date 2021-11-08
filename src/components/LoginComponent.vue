@@ -1,28 +1,19 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 text-left">
+      <div class="col-sm-12 text-left my-3">
         <div class="form-group">
-          <label for="precioVenta">Usuario</label>
           <div class="row px-3">
-            <input type="text" class="form-control" id="text-usr" v-model="usr" />
+            <input type="text" placeholder="example@gmail.com" class="form-control" id="text-usr" v-model="usr" />
             <span class="fas fa-user errspan"></span>
           </div>
         </div>
         <div class="form-group">
-          <div class="row">
-            <div class=" col-2 col-sm-6 text-left">
-              <label for="cantidadVenta">Clave</label>
-            </div>
-            <div class=" col-10 col-sm-6 text-right">
-              <a href="#" @click="openForgotPage">Olvidé mi clave</a>
-            </div>
-          </div>
           <div class="row px-3">
-            <input :type=pwInputValue class="form-control" id="password" v-model="psw" />
+            <input :type=pwInputValue placeholder="*****" class="form-control" id="password" v-model="psw" />
             <span class="fas fa-lock errspan"></span>
             <div class="ojo put-right">
-              <a href="#" @click="oculta">
+              <a href="#" @click="oculta" class="a2">
                 <div class="icon-wrapper">
                   <i :class="[pwVisible ? 'fas fa-eye-slash' : 'fas fa-eye']"></i>
                 </div>
@@ -31,12 +22,12 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12" style="text-align: center;">
-        <button @click="checkCredentials" class="btn btn-warning">Ingresar al sistema</button>
-      </div>
-      <div class="col-sm-12" style="text-align: center;">
+      <div class="col-sm-12 w-100 mt-2">
+        <button @click="checkCredentials" class="btn btn-block btn-outline-success">Ingresar al sistema</button>
         <hr/>
-        <a href="#" @click="openRegistroPage" >Deseo registrarme al sistema</a>
+      </div>
+      <div class="col-sm-12">
+        <small class="float-right text-primary vinculo" @click="openForgotPage">Olvidé mi clave</small>
       </div>
 
     </div>
@@ -57,10 +48,6 @@ import Aviso from './custom/dialog/Aviso'
 export default {
   components: {
     'Aviso': Aviso
-  },
-  mounted() {
-    // store.commit('setToggleHeader', false);
-    // store.commit('setToggleFooter', false);
   },
   data: function () {
     return {
@@ -94,9 +81,6 @@ export default {
     },
     closeModal: function() {
       this.$modal.hide('mensaje-login');
-    },
-    openRegistroPage: function() {
-      router.push({'name':'registro'});
     },
     openForgotPage: function() {
       router.push({'name':'regenera-clave'});
@@ -138,19 +122,25 @@ export default {
 }
 </script>
 <style>
-.ancho {
-  max-width: 760px;
+.a2 {
+  color:#000;
 }
-.centra {
-  margin: auto;
-  padding-top: 10%;
+.a2:hover {
+  color:#00f;
+}
+.vinculo {
+  cursor: pointer;
+}
+.vinculo:hover {
+  text-decoration: underline;
+  text-decoration-color: #0073ff;
 }
 .errspan{
   left: 29px;
   margin-top: 11px;
   position: absolute;
   z-index: 2;
-  color: #0073ff;
+  color: #000;
 }
 #text-usr{
   padding-left: 33px;
@@ -166,5 +156,16 @@ export default {
   right: 28px;
   margin-top: 9px;
   z-index: 2;
+}
+#footer {
+  position: fixed;
+  padding: 10px 10px 0px 10px;
+  bottom: 0;
+  width: 100%;
+  /* Height of the footer*/
+  height: 40px;
+  background: #444;
+  color: #fff;
+  text-align: right;
 }
 </style>

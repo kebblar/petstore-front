@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid px-5 w-100 h-100 my-4">
+  <div class="container-fluid px-5 w-100 h-100 my-5">
     <div class="anuncios">
         {{msgToast}}
     </div>
@@ -17,34 +17,47 @@
         <div class="col-12 col-sm-12 col-md-5">
           <div class="ingresos">
             <div class="btn-group w-100" role="group">
-              <button type="button" class="btn btn-secondary">Ingresar</button>
-              <button type="button" class="btn btn-secondary">Registrarse</button>
+              <button type="button" class="btn btn-light" @click="switchToLogin">Ingresar</button>
+              <button type="button" class="btn btn-light" @click="switchToSignUp">Registrarse</button>
             </div>
             <div class="componentes">
-              <Registro></Registro>
-              <LoginComponent></LoginComponent>
+              <LoginComponent v-if="loginChosen"></LoginComponent>
+              <Registro v-else></Registro>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div id="footer">&copy; 2021 Este es mi custom footer.
+      Siempre pegado al bottom de la página.
     </div>
   </div>
 </template>
 <script>
 import Registro from "./RegistroComponent";
 import LoginComponent from "./LoginComponent";
+import store from "../store";
 
 export default {
 
   name : 'acceso',
   components: {Registro, LoginComponent},
+  mounted() {
+    store.commit('setToggleSidebar', false);
+  },
   data () {
     return {
-      msgToast : 'viva mexico prros'
+      msgToast : 'Aqui van avisos y cosas por el estilo',
+      loginChosen: true,
     }
   },
   methods: {
-
+    switchToLogin () {
+      this.loginChosen = true;
+    },
+    switchToSignUp () {
+      this.loginChosen = false;
+    }
   }
 }
 </script>
@@ -56,8 +69,16 @@ export default {
   padding: 5px 20%;
   left: -20%;
   height: auto;
-  width: 140%
+  width: 140%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
-
+.ingresos {
+  /*border: 1px solid rgba(128, 128, 128, 0.58);*/
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.componentes {
+  padding: 12% 2%;
+}
 
 </style>
