@@ -13,46 +13,46 @@
           <span class="tooltip">Buscar</span>
         </li>
         <li>
-          <a href="#" @click="goLocation('/ui/cambia-datos-personales')">
+          <a href="#" @click="goLocation('/')">
             <i class='bx bx-grid-alt'></i>
             <span class="links_name">Tablero</span>
           </a>
           <span class="tooltip">Tablero</span>
         </li>
         <li>
-        <a href="#" @click="goLocation('/ui/perfil')">
+        <a href="#" @click="goLocation('/ui/cambia-datos-personales')">
           <i class='bx bx-user' ></i>
           <span class="links_name">Usuario</span>
         </a>
         <span class="tooltip">Usuario</span>
       </li>
       <li>
-        <a href="#" @click="goLocation('/ui/up3')">
-          <i class='bx bx-chat' ></i>
-          <span class="links_name">Mensajes</span>
+        <a href="#" @click="goLocation('/ui/cambia-clave')">
+          <i class='bx bx-lock' ></i>
+          <span class="links_name">Cambia clave</span>
         </a>
-        <span class="tooltip">Mensajes</span>
+        <span class="tooltip">Cambia clave</span>
       </li>
       <li>
-        <a href="#" @click="goLocation('/ui/cambia-clave')">
-          <i class='bx bx-pie-chart-alt-2' ></i>
-          <span class="links_name">Gráficas</span>
+        <a href="#" @click="goLocation('/ui/perfil')">
+          <i class='bx bx-face' ></i>
+          <span class="links_name">Foto perfil</span>
         </a>
-        <span class="tooltip">Gráfcas</span>
+        <span class="tooltip">Foto perfil</span>
       </li>
       <li>
         <a href="#" @click="goLocation('/ui/cortador')">
-          <i class='bx bx-folder' ></i>
-          <span class="links_name">Upload</span>
+          <i class='bx bx-upload' ></i>
+          <span class="links_name">Sube media</span>
         </a>
-        <span class="tooltip">Upload</span>
+        <span class="tooltip">Sube media</span>
       </li>
       <li>
-        <a href="#" @click="goLocation('/ui/up2')">
-          <i class='bx bx-cart-alt'></i>
-          <span class="links_name">Carrito</span>
+        <a href="#" @click="goLocation('/ui/dropdowns')">
+          <i class='bx bx-task'></i>
+          <span class="links_name">Criterios</span>
         </a>
-        <span class="tooltip">Carrito</span>
+        <span class="tooltip">Criterios</span>
       </li>
       <li>
         <a href="#" @click="goLocation('/ui/creditos')">
@@ -62,11 +62,18 @@
         <span class="tooltip">Favoritos</span>
       </li>
       <li>
-        <a href="#" @click="goLocation('/ui/dropdowns')">
+        <a href="#" @click="goLocation('/ui/cortador')">
           <i class='bx bx-cog'></i>
           <span class="links_name">Ajustes</span>
         </a>
         <span class="tooltip">Ajustes</span>
+      </li>
+      <li>
+        <a href="#" @click="goLocation('/ui/login')">
+          <i class='bx bx-exit'></i>
+          <span class="links_name">Salir</span>
+        </a>
+        <span class="tooltip">Salir</span>
       </li>
       </ul>
     </div>
@@ -106,7 +113,7 @@
   }
 </script>
 
-<style scoped>  
+<style scoped>
 @import 'https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 *{
