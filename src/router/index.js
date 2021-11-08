@@ -27,6 +27,9 @@ import MisMetodosPago from '@/components/MisMetodosPago'
 import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras'
 import CompraConfirmada from '@/components/CompraConfirmada'
+import Perfil from '@/components/Perfil'
+
+import Dropdowns from '@/components/Dropdowns'
 
 //import Pruebas from '@/components/Pruebas'
 import DetalleProducto from '@/components/DetalleProducto'
@@ -62,6 +65,17 @@ const routes = [
     path: '/ui/cortador',
     name: 'cortador',
     component: Cortador
+  },
+  {
+    path: '/ui/perfil',
+    name: 'perfil',
+    component: Perfil
+  },
+  {
+    path: '/ui/dropdowns',
+    name: 'dropdowns',
+    component: Dropdowns,
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/not-found',
@@ -328,20 +342,22 @@ function checaJwt(jwt, active) {
             });
             store.commit('setDestination', '/');
         } else {
-            const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
-            console.log('Tiempo para que expire:' + timeToExpire);
+            //const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
+            //console.log('Tiempo para que expire:' + timeToExpire);
         }
     }
 }
 
 router.beforeEach((to, from, next) => {
-  store.commit('setToggleFooter', true);
-  store.commit('setToggleHeader', true);
+  store.commit('setToggleFooter', true); // Siempre muestra el footer, luego lo puedes quitar
+  store.commit('setToggleHeader', true); // Siempre muestra el header, luego lo puedes quitar
+  store.commit('setToggleSidebar', true); // Siempre muestra el sidebar, luego lo puedes quitar
 
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   axios.defaults.headers.common = {"jwt": store.state.session.jwt};
   checaJwt(store.state.session.jwt, true);
 
+  /*
   axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {
     // no le mando parámetros .... ni headers aqui...
   }).then(response => {
@@ -349,7 +365,7 @@ router.beforeEach((to, from, next) => {
   }).catch(e => {
     console.log(e);
   });
-
+*/
   if (to.matched.some(record => record.meta.allowedRoles )) { // *** El recurso SI requiere autenticación ya que pide ciertos roles
     // NO estás autenticado actualmente:
     if (store.state.session.jwt==='') {

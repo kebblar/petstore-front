@@ -1,7 +1,5 @@
 <template>
-
-    <div>
-
+  <div>
     <div class="ancho centra">
 
         <div class="row">
@@ -11,38 +9,21 @@
             <div class="col-sm-6">
                 <div class="card">
 
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label>Ingresar al sistema</label>
-                            </div>
-                        </div>
-                    </div><!-- ends header-->
-
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 text-left">
                                 <div class="form-group">
-                                    <label for="precioVenta">Usuario</label>
                                   <div class="row px-3">
                                     <input type="text" class="form-control" id="text-usr" v-model="usr" />
                                     <span class="fas fa-user errspan"></span>
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class=" col-2 col-sm-6 text-left">
-                                            <label for="cantidadVenta">Clave</label>
-                                        </div>
-                                        <div class=" col-10 col-sm-6 text-right">
-                                            <a href="#" @click="openForgotPage">Olvidé mi clave</a>
-                                        </div>
-                                    </div>
                                   <div class="row px-3">
                                     <input :type=pwInputValue class="form-control" id="password" v-model="psw" />
                                     <span class="fas fa-lock errspan"></span>
                                     <div class="ojo put-right">
-                                      <a href="#" @click="oculta">
+                                      <a href="#" @click="oculta" class="a2">
                                         <div class="icon-wrapper">
                                           <i :class="[pwVisible ? 'fas fa-eye-slash' : 'fas fa-eye']"></i>
                                         </div>
@@ -53,9 +34,11 @@
                             </div>
                             <div class="col-sm-12" style="text-align: center;">
                                 <button @click="checkCredentials" class="btn btn-warning">Ingresar al sistema</button>
+                            <hr/>
                             </div>
                             <div class="col-sm-12" style="text-align: center;">
-                                <hr/>
+                                <a href="#" @click="openForgotPage">Olvidé mi clave</a>
+                                <br/>
                                 <a href="#" @click="openRegistroPage" >Deseo registrarme al sistema</a>
                             </div>
 
@@ -66,8 +49,6 @@
             </div>
         </div>
 
-        
-
         <Aviso
         ref='avisoComponente'
         ancho='320'
@@ -76,9 +57,10 @@
         avisoTitulo='Error de ingreso al sistema' />        
 
     </div>
-
-    <div id="footer-login">Hola</div>
+    <div id="footer">&copy; 2021 Este es mi custom footer.
+        Siempre pegado al bottom de la página. 
     </div>
+  </div>
 
 </template>
 
@@ -95,6 +77,7 @@ export default {
     mounted() {
       store.commit('setToggleHeader', false);
       store.commit('setToggleFooter', false);
+      store.commit('setToggleSidebar', false);
     },
     data: function () {
         return {
@@ -173,6 +156,12 @@ export default {
 </script>
 
 <style scoped>
+.a2 {
+  color:#000;
+}
+.a2:hover {
+  color:#00f;
+}
 .ancho {
     max-width: 760px; 
 }
@@ -185,7 +174,7 @@ export default {
   margin-top: 11px;
   position: absolute;
   z-index: 2;
-  color: #0073ff;
+  color: #000;
 }
 #text-usr{
   padding-left: 33px;
@@ -202,11 +191,15 @@ export default {
   margin-top: 9px;
   z-index: 2;
 }
-#footer-login {
-   position:fixed;
-   bottom:0;
-   width:100%;
-   height:40px;   /* Height of the footer */
-   background:#b6b6b6;
+#footer {
+    position: fixed;
+    padding: 10px 10px 0px 10px;
+    bottom: 0;
+    width: 100%;
+    /* Height of the footer*/ 
+    height: 40px;
+    background: #444;
+    color: #fff;
+    text-align: right;
 }
 </style>
