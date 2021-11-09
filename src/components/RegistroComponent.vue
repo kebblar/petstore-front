@@ -50,14 +50,14 @@
           <div class="row no-gutters px-3">
             <div class="col-4 col-sm-3 col-md-4 pr-3 pr-sm-3 pr-md-2 col-lg-3">
               <label class="my-0">Dia</label>
-              <select @click="activoClave=false" class="form-control combo" v-model="day">
+              <select @click="activoClave=false" class="form-control" v-model="day">
                 <option v-for="i in diasDelMes" :key="i">{{ i }}</option>
               </select>
             </div>
 
             <div class="col-8 col-sm-6 col-md-8 pr-0 pr-sm-3 pr-md-0 col-lg-6 pr-lg-2">
               <label class="my-0">Mes</label>
-              <select @click="activoClave=false" class="form-control combo" v-model="month">
+              <select @click="activoClave=false" class="form-control" v-model="month">
                 <option value="1">Enero</option>
                 <option value="2">Febrero</option>
                 <option value="3">Marzo</option>
@@ -73,8 +73,8 @@
               </select>
             </div>
             <div class="col-12 col-sm-3 col-md-12 col-lg-3">
-              <label class="my-0">Año</label>
-              <select @click="activoClave=false" id="dia" class="form-control combo" v-model="year">
+              <label class="my-0 ">Año</label>
+              <select @click="activoClave=false" id="dia" class="form-control" v-model="year">
                 <option v-for="i in 70" :key="i">{{ 2002 - i }}</option>
               </select>
             </div>
@@ -146,9 +146,10 @@
 
             </div>
           </div>
-          <div v-if="!vacio" class="modal-footer border-top-0 d-flex justify-content-around px-0 mb-3">
+          <div class="modal-footer border-top-0 d-flex justify-content-around px-0 mb-3">
             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
             <button type="button" :disabled="verifyCheck" class="btn btn-outline-info" data-dismiss="modal" @click="submition">Continuar con el registro</button>
+
           </div>
         </div>
       </div>
@@ -223,12 +224,6 @@ export default {
     }
   },
   watch: {
-    month() {
-      this.day=1;
-    },
-    year() {
-      this.day=1;
-    },
     name(){
       this.msgName="";
       this.className="ok";
@@ -262,9 +257,6 @@ export default {
       this.styleNum = (value.replace(/[*0-9]/g, "").length) < value.length ? green : red;
       this.styleSpecial = (value.replace(regularExpression, "").length) < value.length ? green : red;
     },
-    fNacimiento(){
-      this.styleCalendar='correct';
-    }
   },
   computed:{
     verifyCheck() {
@@ -312,9 +304,6 @@ export default {
     }
   },
   methods: {
-    closeModal: function() {
-      this.$modal.hide('aviso');
-    },
     oculta () {
       this.pwVisible = !this.pwVisible;
       this.pwInputValue = (this.pwVisible) ? "text" : "password";
@@ -388,7 +377,6 @@ export default {
   font-size: 12px;
   line-height: 2;
   border: 0;
-  border-bottom: 1px solid #dddedf;
   font-family: inherit;
 }
 #password{
@@ -401,7 +389,6 @@ export default {
   font-size: 12px;
   line-height: 2;
   border: 0;
-  border-bottom: 1px solid #dddedf;
   font-family: inherit;
   transition: 0.5s all;
 }
@@ -412,16 +399,28 @@ label {
 }
 .ok {
   box-shadow: 1px 1px 3px #8cc968;
+  border-bottom: 1px solid #5e6e5e;
 }
 .not-ok {
   box-shadow: 1px 1px 3px #d37474;
+  border-bottom: 1px solid #7e5151;
 }
 .defaultColor {
   background-color: white;
   box-shadow: 1px 1px 3px #d8dcdd;
+  border-bottom: 1px solid #dddedf;
 }
+
+select {
+  border: 0;
+  outline: 0;
+  box-shadow: 1px 1px 3px #8cc968;  font-family: inherit;
+  transition: 0.5s all;
+  font-size: 12px;
+}
+
 .form-control:focus {
-  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.075), 0 0 5px rgba(0, 255, 196, 0.44);
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(168, 161, 161, 0.58);
 }
 .a2 {
   color:#000;

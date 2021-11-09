@@ -44,6 +44,7 @@ export default {
   components: {Registro, LoginComponent},
   mounted() {
     store.commit('setToggleSidebar', false);
+    store.commit('setToggleFooter', false);
   },
   data () {
     return {
@@ -79,6 +80,18 @@ export default {
 }
 .componentes {
   padding: 12% 2%;
+}
+#footer {
+  position: fixed;
+  padding: 10px 10px 0px 10px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* Height of the footer*/
+  height: 40px;
+  background: #444;
+  color: #fff;
+  text-align: right;
 }
 
 </style>
