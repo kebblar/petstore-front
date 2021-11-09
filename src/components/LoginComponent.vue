@@ -121,7 +121,7 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
 .a2 {
   color:#000;
 }
@@ -135,28 +135,6 @@ export default {
   text-decoration: underline;
   text-decoration-color: #0073ff;
 }
-.errspan{
-  left: 29px;
-  margin-top: 11px;
-  position: absolute;
-  z-index: 2;
-  color: #000;
-}
-#text-usr{
-  padding-left: 33px;
-  padding-top: 11px;
-}
-#password{
-  padding-left: 33px;
-  padding-top: 10px;
-  padding-right: 37px;
-}
-.put-right{
-  position: absolute;
-  right: 28px;
-  margin-top: 9px;
-  z-index: 2;
-}
 #footer {
   position: fixed;
   padding: 10px 10px 0px 10px;
@@ -168,4 +146,50 @@ export default {
   color: #fff;
   text-align: right;
 }
+#text-usr{
+  padding-left: 33px;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  font-size: 12px;
+  line-height: 2;
+  border: 0;
+  border-bottom: 1px solid #dddedf;
+  font-family: inherit;
+}
+#password{
+  padding-left: 33px;
+  padding-top: 10px;
+  padding-right: 37px;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  font-size: 12px;
+  line-height: 2;
+  border: 0;
+  border-bottom: 1px solid #dddedf;
+  font-family: inherit;
+  transition: 0.5s all;
+}
+.a2 {
+  color:#000;
+}
+.a2:hover {
+  color:#00f;
+}
+.put-right{
+  position: absolute;
+  right: 28px;
+  margin-top: 9px;
+  z-index: 2;
+}
+.errspan{
+  left: 29px;
+  margin-top: 7px;
+  position: absolute;
+  z-index: 2;
+  color: #000;
+  font-size: 13px;
+}
+
 </style>

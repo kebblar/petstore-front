@@ -61,7 +61,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .anuncios {
   background-color: #0b9984;
   color: white;
