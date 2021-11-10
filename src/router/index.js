@@ -6,7 +6,7 @@ import axios from 'axios';
 // Importación de cada componente
 import Inicio from '@/components/Inicio'
 import Login from '@/components/Login'
-// ************************************************************
+// ********************************************************************
 import Registro from '@/components/Registro2'
 
 import ConfirmaRegistro from '@/components/ConfirmaRegistro'
@@ -28,10 +28,8 @@ import HistorialPedidos from '@/components/HistorialPedidos'
 import AdministracionCompras from '@/components/AdministracionCompras'
 import CompraConfirmada from '@/components/CompraConfirmada'
 import Perfil from '@/components/Perfil'
-
 import Dropdowns from '@/components/Dropdowns'
-
-//import Pruebas from '@/components/Pruebas'
+import Acceso from '@/components/Acceso'
 import DetalleProducto from '@/components/DetalleProducto'
 import AdminConsultaAnuncio from '@/components/admin/ConsultaAnuncio'
 import AdminAnuncio from '@/components/admin/Anuncio'
@@ -67,9 +65,15 @@ const routes = [
     component: Cortador
   },
   {
+    path : '/ui/acceso',
+    name: 'acceso',
+    component: Acceso
+  },
+  {
     path: '/ui/perfil',
     name: 'perfil',
-    component: Perfil
+    component: Perfil,
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/dropdowns',
