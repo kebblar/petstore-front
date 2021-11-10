@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid px-5 w-100 h-100 my-5">
+    <div class="elementos">
     <div class="anuncios">
         {{msgToast}}
     </div>
-    <div class="elementos">
       <div class="row mt-5">
         <div class="col-12 col-sm-12 col-md-7 mb-3">
           <h3>Texto de bienvenido</h3>
@@ -66,12 +66,7 @@ export default {
 .anuncios {
   background-color: #0b9984;
   color: white;
-  position: relative;
-  padding: 5px 20%;
-  left: -20%;
-  height: auto;
-  width: 140%;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  padding: 5px;
 }
 .ingresos {
   /*border: 1px solid rgba(128, 128, 128, 0.58);*/
