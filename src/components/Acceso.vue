@@ -88,14 +88,14 @@ button{
   transition: 0.5s all;
 }
 button:hover{
-  border-bottom: 4px solid rgba(0, 100, 0, 0.75);
+  border-bottom: 3px solid rgba(0, 100, 0, 0.75);
   color: #236510;
 }
 button:focus{
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 .clicked{
-  border-bottom: 4px solid rgba(0, 100, 0, 0.75);
+  border-bottom: 3px solid rgba(0, 100, 0, 0.75);
   color: #236510;
 }
 .anuncios {
