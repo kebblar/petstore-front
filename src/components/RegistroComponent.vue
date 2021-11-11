@@ -24,7 +24,7 @@
             <input @click="activoClave=true" :type=pwInputValue :class="classPasswd" placeholder="*****" class="form-control" id="password" v-model="password" />
             <span class="fas fa-lock errspan"></span>
             <div class="ojo put-right">
-              <a href="#" @click="oculta" class="a2">
+              <a @click="oculta" class="a2" style="cursor:pointer;">
                 <div class="icon-wrapper">
                   <i :class="[pwVisible ? 'fas fa-eye-slash' : 'fas fa-eye']"></i>
                 </div>
@@ -87,7 +87,7 @@
         <button :disabled="habilitaBoton"
                 data-toggle="modal"
                 data-target="#termsModal"
-                class="btn btn-block btn-outline-success">Registrarme</button>
+                class="btn btn-block btn-success">Registrarme</button>
         <hr/>
       </div>
 

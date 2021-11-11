@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="col-sm-12 w-100 mt-2">
-        <button @click="checkCredentials" class="btn btn-block btn-outline-success">Ingresar al sistema</button>
+        <button @click="checkCredentials" class="btn btn-block btn-success">Ingresar al sistema</button>
         <hr/>
       </div>
       <div class="col-sm-12">

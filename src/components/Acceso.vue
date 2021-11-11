@@ -17,11 +17,11 @@
         <div class="col-12 col-sm-12 col-md-5">
           <div class="ingresos">
             <div class="btn-group w-100" role="group">
-              <button type="button" class="btn btn-light" @click="switchToLogin">Ingresar</button>
-              <button type="button" class="btn btn-light" @click="switchToSignUp">Registrarse</button>
+              <button type="button" class="btn" :class="loginChosen" @click="switchToLogin">Ingresar</button>
+              <button type="button" class="btn" :class="regChosen" @click="switchToSignUp">Registrarse</button>
             </div>
             <div class="componentes">
-              <LoginComponent v-if="loginChosen"></LoginComponent>
+              <LoginComponent v-if="loginActive"></LoginComponent>
               <Registro v-else></Registro>
             </div>
           </div>
@@ -49,20 +49,55 @@ export default {
   data () {
     return {
       msgToast : 'Aqui van avisos y cosas por el estilo',
-      loginChosen: true,
+      loginSel: true,
+      regSel:false,
+      loginActive:true
+    }
+  },
+  computed : {
+    loginChosen() {
+      return this.loginSel ? 'clicked' : 'none';
+    },
+    regChosen() {
+      return this.regSel ? 'clicked' : 'none';
     }
   },
   methods: {
     switchToLogin () {
-      this.loginChosen = true;
+      this.loginActive = true;
+      this.regSel=false;
+      this.loginSel= true;
     },
     switchToSignUp () {
-      this.loginChosen = false;
+      this.loginActive = false;
+      this.regSel=true;
+      this.loginSel= false;
     }
   }
 }
 </script>
 <style scoped>
+
+button{
+  background: none;
+  color: #000000;
+  padding: 5px 5px;
+  width: 30%;
+  text-align: center;
+  outline: none;
+  transition: 0.5s all;
+}
+button:hover{
+  border-bottom: 4px solid rgba(0, 100, 0, 0.75);
+  color: #236510;
+}
+button:focus{
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+.clicked{
+  border-bottom: 4px solid rgba(0, 100, 0, 0.75);
+  color: #236510;
+}
 .anuncios {
   background-color: #0b9984;
   color: white;
