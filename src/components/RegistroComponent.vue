@@ -57,7 +57,7 @@
 
             <div class="col-8 col-sm-6 col-md-8 pr-0 pr-sm-3 pr-md-0 col-lg-6 pr-lg-2">
               <label class="my-0">Mes</label>
-              <select @click="activoClave=false" class="form-control" v-model="month">
+              <select class="form-control" v-model="month">
                 <option value="1">Enero</option>
                 <option value="2">Febrero</option>
                 <option value="3">Marzo</option>
@@ -158,6 +158,7 @@
   </div>
 
 </template>
+
 <script>
 import VueRecaptcha from 'vue-recaptcha';
 import "vue-range-slider/dist/vue-range-slider.css";
@@ -174,7 +175,7 @@ const HTTP_STATUS = {
 const emaiRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 const passRegex = new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
 const regularExpression = new RegExp(/[&\\#, +(\-\\_)$~%.'":*?<>{}]/g);
-const nameRegExp = new RegExp(/^([A-Za-z0-9]{3,8})$/);
+const nameRegExp = new RegExp(/^([A-Za-z0-9]{3,18})$/);
 
 export default {
   components: {
@@ -220,22 +221,29 @@ export default {
       mayor : false,
 
       pwVisible: false,
-      pwInputValue : "password"
+      pwInputValue : "password",
+      diasDelMes: 31
     }
   },
   watch: {
+    year(){
+      this.diasDelMes = this.calculaDiasDelMes();
+    },
+    month() {
+      this.diasDelMes = this.calculaDiasDelMes();
+    },
     name(){
       this.msgName="";
       this.className="ok";
       if (!nameRegExp.test(this.name)){
-        this.msgName="El nick debe mayor a 3 caracteres, sin espacios ni caracteres especiales. Puede contener números.";
+        this.msgName="El nick debe mayor a 3 caracteres y menor a 18, sin espacios ni caracteres especiales. Puede contener números.";
         this.className="not-ok";
       }
     },
     email(){
       this.msgMail="";
       this.classMail="ok";
-      if(!emaiRegex.test(this.email)) {
+      if(this.email.length>30 || !emaiRegex.test(this.email)) {
         this.msgMail="El correo ingresado no es valido";
         this.classMail="not-ok";
       }
@@ -265,36 +273,6 @@ export default {
     estiloClave1 (){
       return this.activoClave ? 'show' : 'hidden';
     },
-    diasDelMes: function() {
-      if(this.month===1) return 31;
-      if(this.month===2) {
-        if(this.year===2000) return 29;
-        if(this.year===1996) return 29;
-        if(this.year===1992) return 29;
-        if(this.year===1988) return 29;
-        if(this.year===1984) return 29;
-
-        if(this.year===1980) return 29;
-        if(this.year===1976) return 29;
-        if(this.year===1972) return 29;
-        if(this.year===1968) return 29;
-        if(this.year===1964) return 29;
-
-        if(this.year===1960) return 29;
-        return 28;
-      }
-      if(this.month===3) return 31;
-      if(this.month===4) return 30;
-      if(this.month===5) return 31;
-      if(this.month===6) return 30;
-      if(this.month===7) return 31;
-      if(this.month===8) return 31;
-      if(this.month===9) return 30;
-      if(this.month===10) return 31;
-      if(this.month===11) return 30;
-      if(this.month===12) return 31;
-      return 28;
-    },
     habilitaBoton: function() {
       var dato = true
           && this.name && this.name.length>2
@@ -304,6 +282,16 @@ export default {
     }
   },
   methods: {
+    calculaDiasDelMes() {
+      this.day = 1;
+      var mes = this.month;
+      if(mes==4 || mes==6 || mes==9 || mes==11) return 30;
+      if(mes==2) {
+        if(this.year%4==0) return 29;
+        return 28;
+      }
+      return 31;
+    },
     oculta () {
       this.pwVisible = !this.pwVisible;
       this.pwInputValue = (this.pwVisible) ? "text" : "password";
@@ -367,6 +355,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 
 #text-usr{
