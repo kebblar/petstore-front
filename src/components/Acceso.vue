@@ -56,10 +56,10 @@ export default {
   },
   computed : {
     loginChosen() {
-      return this.loginSel ? 'clicked' : 'none';
+      return this.loginSel ? 'clicked' : '';
     },
     regChosen() {
-      return this.regSel ? 'clicked' : 'none';
+      return this.regSel ? 'clicked' : '';
     }
   },
   methods: {
