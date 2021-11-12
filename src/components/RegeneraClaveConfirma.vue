@@ -32,7 +32,7 @@
                   </div>
                   <div class = "col">
                     <div class="row px-3">
-                      <input type="text" class="form-control caja" id="token" placeholder="XXXXXX" v-model="token"/>
+                      <input type="text" class="form-control caja" id="token" maxlength="6" placeholder="XXXXXX" v-model="token"/>
                       <span class="fas fa-key errspan"></span>
                     </div>
                   </div>

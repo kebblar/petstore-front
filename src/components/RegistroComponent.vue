@@ -249,9 +249,9 @@ export default {
       }
     },
     password(value) {
+      this.isVisible = 'show';
       this.msgPasswd = "Clave incorrecta";
       this.classPasswd = "not-ok";
-      this.isVisible = 'show';
       if (passRegex.test(this.password) && regularExpression.test(this.password)) {
         this.msgPasswd = "";
         this.classPasswd = "ok";
@@ -277,7 +277,7 @@ export default {
       var dato = true
           && this.name && this.name.length>2
           && this.email && emaiRegex.test(this.email)
-          && this.password && passRegex.test(this.password);
+          && this.password && passRegex.test(this.password) && regularExpression.test(this.password);
       return !dato;
     }
   },
