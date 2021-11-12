@@ -22,12 +22,15 @@
           </div>
         </div>
       </div>
+
+      <div class="col-sm-6">
+        <small class="float-left text-primary"><input type="checkbox" name="vehicle3" value="Boat" checked /> Recuérdame</small>
+      </div>
+      <div class="col-sm-6">
+        <small class="float-right text-primary vinculo" @click="openForgotPage">Olvidé mi clave</small>
+      </div>
       <div class="col-sm-12 w-100 mt-2">
         <button @click="checkCredentials" class="btn btn-block btn-success">Ingresar al sistema</button>
-        <hr/>
-      </div>
-      <div class="col-sm-12">
-        <small class="float-right text-primary vinculo" @click="openForgotPage">Olvidé mi clave</small>
       </div>
 
     </div>
@@ -37,8 +40,10 @@
         target=''
         :avisoMsg=msgErr
         avisoTitulo='Error de ingreso al sistema' />
+        
   </div>
 </template>
+
 <script>
 import axios from 'axios';
 import router from '../router'
@@ -121,6 +126,7 @@ export default {
   },
 }
 </script>
+
 <style scoped>
 .a2 {
   color:#000;

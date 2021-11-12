@@ -33,6 +33,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Registro from "./RegistroComponent";
 import LoginComponent from "./LoginComponent";
@@ -43,8 +44,9 @@ export default {
   name : 'acceso',
   components: {Registro, LoginComponent},
   mounted() {
-    store.commit('setToggleSidebar', false);
+    store.commit('setToggleHeader', false);
     store.commit('setToggleFooter', false);
+    store.commit('setToggleSidebar', false);
   },
   data () {
     return {
@@ -56,7 +58,7 @@ export default {
   },
   computed : {
     loginChosen() {
-      return this.loginSel ? 'clicked' : 'none';
+      return this.loginSel ? 'clicked' : '';
     },
     regChosen() {
       return this.regSel ? 'clicked' : '';
@@ -76,6 +78,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 
 button{
