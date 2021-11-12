@@ -9,18 +9,22 @@
       <div class="row w-50 mx-auto mb-3">
           <div class="foto">
             <input style="display: none" type="file" @change="onFileSelected" ref="fileInput" accept="image/*">
-            <img :src=profilePicture
+            <img :src="profilePicture"
                  class="imagen"
                  data-toggle="modal"
                  data-target="#uploadModal"
                 @click="resetImage">
             <small id="black-label">Cambiar foto</small>
           </div>
+        <div class="row mx-auto text-center text-justify mt-2">
+          <small v-if="!finished && !pictureChosen" class="text-secondary">Haz clic en la imagen para modificar tu foto</small>
+          <p v-if="finished" class="text-primary">Tu foto ha sido actualizada!</p>
+          <p class="text-danger">{{errorMsg}}</p>
+        </div>
       </div>
       <div v-if="pictureChosen" class="container text-center my-2 mb-5">
         <p class="text-primary">{{niceMessage}}</p>
-        <p class="text-danger">{{errorMsg}}</p>
-        <button class="btn btn-primary" type="button" @click="sendPicture">Elegir foto</button>
+        <button :disabled="bigPic" class="btn btn-primary" type="button" @click="sendPicture">Elegir foto</button>
       </div>
     </div>
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog">
@@ -36,6 +40,7 @@
             <div v-if="selectedFile===null" class="container square text-primary" @click="$refs.fileInput.click()">
               <i class="fas fa-upload fa-6x"></i>
               <p class="pt-4">Haz clic para subir una imagen</p>
+              <small class="text-secondary ">Tu foto no debe pesar mas de 2mb</small>
               <p class="text-danger">{{message}}</p>
             </div>
             <div v-else class="img-cropper">
@@ -139,7 +144,9 @@ export default {
        niceMessage:'',
        niceMessageArray:["Wow! Excelente elección", "Me encanta esa foto!", "Te ves genial!", "Gran cambio!"],
        errorMsg:'',
-       ruta : ''
+       ruta : '',
+       finished : false,
+       bigPic : true
      }
    } ,
   mounted() {
@@ -151,13 +158,16 @@ export default {
       this.message='';
       this.selectedFile=null;
       this.niceMessage='';
+      this.pictureChosen=false;
+      this.bigPic=true;
+      this.errorMsg='';
     },
      getPicture() {
        axios.get('/api/get-foto-perfil/'+store.state.session.idUser+'.json', {"jwt":store.state.session.jwt}).then(response => {
-         if (response.data !== null) {
-           this.profilePicture = this.ruta + response.data.foto;
-           console.log(this.profilePicture);
-           this.fileName = response.data;
+         if (response.data !== null && response.data.foto !== null) {
+           this.profilePicture = this.ruta+response.data.foto;
+           this.originalPic = this.ruta+response.data.foto;
+           this.fileName = response.data.foto;
          } else {
            this.profilePicture = def;
            this.fileName = 'demo';
@@ -171,11 +181,18 @@ export default {
 
     cropImage() {
       this.profilePicture = this.$refs.cropper.getCroppedCanvas().toDataURL(this.fileType, 0.5);
-      this.niceMessage = this.niceMessageArray[Math.floor((Math.random()*this.niceMessageArray.length))]
       this.pictureChosen = true;
       this.fd = new FormData();
       this.$refs.cropper.getCroppedCanvas().toBlob((b) => {
-        this.fd.append('image', b);
+        if(b.size>20097152){
+          this.errorMsg='El archivo seleccionado es demasiado grande, recortalo por favor';
+        } else {
+          this.bigPic=false;
+          this.fd.append('image', b);
+          this.niceMessage = this.niceMessageArray[Math.floor((Math.random()*this.niceMessageArray.length))]
+          this.errorMsg='';
+
+        }
       });
      },
     sendPicture(){
@@ -189,17 +206,22 @@ export default {
         headers
       }).then(response =>{
         console.log(response.data);
-        this.profilePicture = this.ruta + response.data.nuevoNombre;
+        this.profilePicture = this.ruta+response.data.nuevoNombre;
+        this.originalPic = this.ruta+response.data.nuevoNombre;
         this.resetImage();
+        this.finished =true;
       }).catch(error => {
             console.log(error.response);
-            this.errorMsg = (error.response.data['invalid-token']===null)
-                ? 'Tu sesión ha expirado, por favor recarga la página' :
-                ( error.response.data.exceptionTypeNumber===1020 ?
-                    'El archivo pesa mas de 2MB':
-                    'Error cargando tu foto, por favor intentalo más tarde');
+            if (error.response.data['invalid-token']===null) {
+              this.errorMsg = 'Tu sesión ha expirado, por favor recarga la página';
+            }
+            if( error.response.data.exceptionTypeNumber===1020) {
+              this.errorMsg= error.response.data.exceptionLongDescription;
+            } else {
+             this.errorMsg = 'Ha ocurrido un error con tu archivo, inténtalo más tarde';
+            }
             this.profilePicture = this.originalPic;
-            this.niceMessage ='';
+            this.resetImage();
       });
     },
     onFileSelected(event){
