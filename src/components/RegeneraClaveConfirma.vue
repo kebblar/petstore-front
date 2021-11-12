@@ -1,17 +1,28 @@
 <template>
-  <div>
-    <div class="ancho centra">
-
-      <div class="row">
-        <div class="col-sm-6" >
-          <img src="../assets/forgot.png" width="100%"/>
+  <div class="container-fluid px-5 w-100 h-100 my-5">
+    <div class="elementos">
+      <div class="anuncios">
+          Hola Mundo
+      </div>
+      <div class="row mt-5">
+        <div class="col-12 col-sm-12 col-md-7 mb-3">
+          <h3>Reestablece tu clave de acceso</h3>
+          <div class="row">
+            <div class="col">
+              <img src="../assets/forgot.png" width="100%"/>
+            </div>
+            <div class="col">
+              <p class="text-justify">
+                Si el correo que proporcionaste se encuentra en nuestra base de datos, un token de 6 dígitos habrá sido enviado a dicho correo.
+                Procede a capturarlo y en seguida teclea una clave de al menos 8 digitos de longitud, con al menos un número, una mayúscula y 
+                un caracter especial. 
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-12 col-sm-12 col-md-5">
 
           <div class="card">
-            <div class="card-header">
-              <label class="h4">Regenera tu clave</label>
-            </div>
             <div class="card-body align">
                 <small class="form-text text-muted text-center">Un token de 6 dígitos fue enviado a tu correo electrónico, por favor introdúcelo a continuación:</small>
                 <br>
@@ -19,8 +30,11 @@
                   <div class="col-sm-4">
                     <label for="correo">Token:</label>
                   </div>
-                  <div class = "col form-group">
-                    <input type="text" class="form-control" id="token" placeholder="XXXXXX" v-model="token"/>
+                  <div class = "col">
+                    <div class="row px-3">
+                      <input type="text" class="form-control caja" id="token" placeholder="XXXXXX" v-model="token"/>
+                      <span class="fas fa-key errspan"></span>
+                    </div>
                   </div>
                 </div>
 
@@ -33,7 +47,10 @@
                     <label for="clave">Clave nueva:</label>
                   </div>
                   <div class = "col form-group">
-                    <input type="password" class="form-control" id="token" placeholder="******" v-model="clave">
+                    <div class="row px-3">
+                      <input type="password" class="form-control caja" id="token" placeholder="******" v-model="clave">
+                      <span class="fas fa-lock errspan"></span>
+                    </div>
                   </div>
                 </div>
 
@@ -42,7 +59,10 @@
                     <label for="clave">Confirmación:</label>
                   </div>
                   <div class = "col form-group">
-                    <input type="password" class="form-control" id="token" placeholder="******" v-model="confirmaClave">
+                    <div class="row px-3">
+                      <input type="password" class="form-control caja" id="token" placeholder="******" v-model="confirmaClave">
+                      <span class="fas fa-lock errspan"></span>
+                    </div>
                   </div>
                 </div>
 
@@ -79,8 +99,8 @@
       </Aviso>        
 
     </div>
-    <div id="footer">&copy; 2021 Este es mi custom footer.
-        Siempre pegado al bottom de la página. 
+    <div id="footer">
+      &copy; 2021 Este es mi custom footer.
     </div>
   </div>
 </template>
@@ -178,15 +198,43 @@
 hr.dashed {
   border-top: 3px dashed #bbb;
 }
+.ok {
+  box-shadow: 1px 1px 3px #8cc968;
+  border-bottom: 1px solid #5e6e5e;
+}
+.not-ok {
+  box-shadow: 1px 1px 3px #d37474;
+  border-bottom: 1px solid #7e5151;
+}
 #footer {
-    position: fixed;
-    padding: 10px 10px 0px 10px;
-    bottom: 0;
-    width: 100%;
-    /* Height of the footer*/ 
-    height: 40px;
-    background: #444;
-    color: #fff;
-    text-align: right;
+  position: fixed;
+  padding: 10px 10px 0px 10px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* Height of the footer*/
+  height: 40px;
+  background: #444;
+  color: #fff;
+  text-align: right;
+}
+.anuncios {
+  background-color: #0b9984;
+  color: white;
+  padding: 5px;
+}
+.form-control:focus {
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(168, 161, 161, 0.58);
+}
+.caja{
+  padding-left: 43px;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  font-size: 12px;
+  line-height: 2;
+  border: 0;
+  border-bottom: 1px solid #dddedf;
+  font-family: inherit;
 }
 </style>

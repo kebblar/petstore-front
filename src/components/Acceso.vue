@@ -1,18 +1,18 @@
 <template>
   <div class="container-fluid px-5 w-100 h-100 my-5">
     <div class="elementos">
-    <div class="anuncios">
-        {{msgToast}}
-    </div>
+      <div class="anuncios">
+          {{msgToast}}
+      </div>
       <div class="row mt-5">
         <div class="col-12 col-sm-12 col-md-7 mb-3">
-          <h3>Texto de bienvenido</h3>
-          <p class="text-justify">Hmm. We’re having trouble finding that site.
-            We can’t connect to the server at www.google.com.
-            If that address is correct, here are three other things you can try:
-            Try again later.
-            Check your network connection.
-            If you are connected but behind a firewall, check that Firefox has permission to access the Web.</p>
+          <h3>Bienvenido al sistema</h3>
+          <p class="text-justify">
+            En esta interfaz podrás ingresar al sistema con tu usuariio (correo) y con la clave que elegiste al momento de registrarte.
+            Si no estás aun registrado, podrás realizar tu registro en este misma página, en la opción de "registrarse".<br/><br/>
+            Adicionalmente, si ya estás registrado pero no recuerdas tu clave de acceso al sistema, podrás recuperarla sigiendo los
+            pasos de la interfaz a la que llegas con la liga "Olvidé mi clave". 
+          </p>
         </div>
         <div class="col-12 col-sm-12 col-md-5">
           <div class="ingresos">
