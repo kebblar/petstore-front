@@ -4,14 +4,14 @@
       <div class="col-sm-12 text-left my-3">
         <div class="form-group">
           <div class="row px-3">
-            <input type="text" placeholder="example@gmail.com" class="form-control" id="text-usr" v-model="usr" />
+            <input type="text" placeholder="example@gmail.com" class="form-control" maxlength="35" id="text-usr" v-model="usr" />
             <span class="fas fa-user errspan"></span>
           </div>
         </div>
         
         <div class="form-group">
           <div class="row px-3">
-            <input :type=pwInputValue placeholder="*****" class="form-control" id="password" v-model="psw" />
+            <input :type=pwInputValue placeholder="*****" class="form-control" id="password" maxlength="20" v-model="psw" />
             <span class="fas fa-lock errspan"></span>
             <div class="ojo put-right">
               <a href="#" @click="oculta" class="a2">
