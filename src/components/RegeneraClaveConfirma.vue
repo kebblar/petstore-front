@@ -48,8 +48,20 @@
                   </div>
                   <div class = "col form-group">
                     <div class="row px-3">
-                      <input type="password" class="form-control caja" id="token" placeholder="******" v-model="clave">
+                      <input :class="classPasswd" type="password" class="form-control caja" id="token" placeholder="******" v-model="password">
                       <span class="fas fa-lock errspan"></span>
+                    </div>
+                    <!--varificacion dinamica de clave-->
+                    <div class="col">
+                      <small id="clave" class="form-text text-muted">
+                        <b>La clave contiene:</b>
+                        <ul>
+                          <li :style="styleCarac">8 carateres como mínimo</li>
+                          <li :style="styleUpper">Una mayúscula</li>
+                          <li :style="styleNum">Un número</li>
+                          <li :style="styleSpecial">Un caracte especial, como _, -, #, etc.</li>
+                        </ul>
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -60,15 +72,16 @@
                   </div>
                   <div class = "col form-group">
                     <div class="row px-3">
-                      <input type="password" class="form-control caja" id="token" placeholder="******" v-model="confirmaClave">
+                      <input type="password" :class="classConf" class="form-control caja" id="token" placeholder="******" v-model="confirmaClave">
                       <span class="fas fa-lock errspan"></span>
+                      <small :style="colorMsg">{{msgConf}}</small>
                     </div>
                   </div>
                 </div>
 
               <div class="form-group row text-center">
                 <div class="col text-center">
-                  <button type="button" class="btn btn-success" @click="cambiaClave">Cambiar mi clave</button>
+                  <button :disabled="validaDatos" type="button" class="btn btn-success" @click="cambiaClave">Cambiar mi clave</button>
                 </div>
                 <div class="col">
                   <button type="button" class="btn btn-warning" @click="goLogin">Ir a Login</button>
@@ -113,22 +126,68 @@
   import Aviso from './custom/dialog/Aviso';
   import store from '../store'
 
+  const passRegex = new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})");
+  const regularExpression = new RegExp(/[&\\#, +(\-\\_)$~%.'":*?<>{}]/g);
+
   Vue.use(VueToast);
 
   export default {
     components: {
       'Aviso': Aviso
     },
+    watch:{
+      confirmaClave(value) {
+        this.classConf = "not-ok";
+        this.msgConf = "Las claves no coinciden";
+        this.colorMsg='color:red';
+        if(this.password === value){
+          this.classConf = "ok";
+          this.msgConf = "Las claves coinciden";
+          this.colorMsg='color:green';
+        }
+      },
+      password(value) {
+        this.classPasswd = "not-ok";
+        if (passRegex.test(this.password) && regularExpression.test(this.password)) {
+          this.classPasswd = "ok";
+        }
+        //Estilo para los requerimientos de la clave
+        const red = 'color :  rgb(235, 74, 74) ;'
+        const green = 'color : green  ;'
+
+        this.styleCarac = value.length < 8 ? red : green;
+        this.styleUpper = (value.replace(/[*A-Z]/g, "").length) < value.length ? green : red;
+        this.styleNum = (value.replace(/[*0-9]/g, "").length) < value.length ? green : red;
+        this.styleSpecial = (value.replace(regularExpression, "").length) < value.length ? green : red;
+      }
+    },
     data() {
       return {
         token: '',
-        clave: '',
+        password: '',
         confirmaClave: '',
         modalShowsError: false,
         modalTitulo:'',
         modalMessage: '',
         fortalezaIncorrecta: false,
+
+        styleCarac : 'color:grey;',
+        styleUpper : 'color:grey;',
+        styleNum : 'color:grey;',
+        styleSpecial : 'color:grey',
+        classPasswd: 'defaultColor',
+        classConf:'defaultColor',
+        msgConf:'',
+        colorMsg:'color:red'
       }
+    },
+    computed : {
+      validaDatos(){
+        return !(this.token &&
+            this.password === this.confirmaClave &&
+            passRegex.test(this.password) &&
+            regularExpression.test(this.password));
+      },
     },
     methods: {
       abreToast(msg) {
@@ -153,15 +212,15 @@
         this.fortalezaIncorrecta = false;
         this.modalShowsError = true;
 
-        if(this.clave.length<4) {
+        if(this.password.length<4) {
           this.abreToast('La clave debe poseer al menos 4 caracteres');
           return;
         }
-        if(this.clave != this.confirmaClave) {
+        if(this.password !== this.confirmaClave) {
           this.abreToast('La clave y su confirmación deben coincidir');
           return;
         }
-        axios.get('api/confirma-regenera-clave.json?token='+this.token+'&clave='+this.clave, {
+        axios.get('api/confirma-regenera-clave.json?token='+this.token+'&clave='+this.password, {
         }).then(response => {
           if(response) console.log('ok');
           this.modalShowsError = false;
@@ -225,6 +284,19 @@ hr.dashed {
 }
 .form-control:focus {
   box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(168, 161, 161, 0.58);
+}
+.ok {
+  box-shadow: 1px 1px 3px #8cc968;
+  border-bottom: 1px solid #5e6e5e;
+}
+.not-ok {
+  box-shadow: 1px 1px 3px #d37474;
+  border-bottom: 1px solid #7e5151;
+}
+.defaultColor {
+  background-color: white;
+  box-shadow: 1px 1px 3px #d8dcdd;
+  border-bottom: 1px solid #dddedf;
 }
 .caja{
   padding-left: 43px;
