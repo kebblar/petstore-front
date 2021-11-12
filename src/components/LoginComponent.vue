@@ -8,6 +8,7 @@
             <span class="fas fa-user errspan"></span>
           </div>
         </div>
+        
         <div class="form-group">
           <div class="row px-3">
             <input :type=pwInputValue placeholder="*****" class="form-control" id="password" v-model="psw" />
@@ -21,6 +22,7 @@
             </div>
           </div>
         </div>
+
       </div>
 
       <div class="col-sm-6">
@@ -40,7 +42,7 @@
         target=''
         :avisoMsg=msgErr
         avisoTitulo='Error de ingreso al sistema' />
-        
+
   </div>
 </template>
 

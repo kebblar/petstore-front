@@ -67,7 +67,7 @@ const routes = [
   {
     path : '/ui/acceso',
     name: 'acceso',
-    component: Acceso
+    component: Login
   },
   {
     path: '/ui/perfil',
@@ -206,7 +206,7 @@ const routes = [
   {
     path: '/ui/login',
     name: 'login',
-    component: Login
+    component: Acceso
   },
   {
     path: '/ui/registro',
