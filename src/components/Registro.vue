@@ -249,7 +249,7 @@
         this.msgName="";
         this.className="greenColor correct";
         if (!nameRegExp.test(this.name)){
-          this.msgName="El nombre debe mayor a 3 caracteres, sin espacios ni caracteres especiales. Puede contener números.";
+          this.msgName="El nombre debe ser mayor a 3 caracteres, sin espacios ni caracteres especiales. Puede contener números.";
           this.className="redColor incorrect";
         }
         //this.name= this.name.length===1 ? this.name.toUpperCase() : this.name;

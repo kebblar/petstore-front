@@ -236,7 +236,7 @@ export default {
       this.msgName="";
       this.className="ok";
       if (!nameRegExp.test(this.name)){
-        this.msgName="El nick debe mayor a 3 caracteres y menor a 18, sin espacios ni caracteres especiales. Puede contener números.";
+        this.msgName="El nick debe ser mayor a 3 caracteres y menor a 18, sin espacios ni caracteres especiales. Puede contener números.";
         this.className="not-ok";
       }
     },
