@@ -1,31 +1,26 @@
 <template>
-  <div class="background">
+  <div class="background ">
     <div class="contenedor">
-      <div class="row">
-        <div class="col-sm-4 col-md-4 col-lg-3">
+      <div class="row py-3 mx-auto">
+        <div class="col text-center">
+          <h3>Modificar foto de perfil</h3>
+          </div>
+      </div>
+      <div class="row w-50 mx-auto mb-3">
           <div class="foto">
             <input style="display: none" type="file" @change="onFileSelected" ref="fileInput" accept="image/*">
             <img :src=profilePicture
                  class="imagen"
                  data-toggle="modal"
-                 data-target="#uploadModal">
+                 data-target="#uploadModal"
+                @click="resetImage">
             <small id="black-label">Cambiar foto</small>
           </div>
-
-          <div class="mini-menu py-2">
-            <ul class="options">
-              <li>Mi cuenta</li>
-              <li>Mis compras</li>
-              <li>Cambio de clave</li>
-            </ul>
-          </div>
-        </div>
-        <div class="offset-md-1 col-sm-8 col-md-7 col-lg-8">
-          <div class="container py-3 px-5">
-            <h3>Mi cuenta</h3>
-          </div>
-
-        </div>
+      </div>
+      <div v-if="pictureChosen" class="container text-center my-2 mb-5">
+        <p class="text-primary">{{niceMessage}}</p>
+        <p class="text-danger">{{errorMsg}}</p>
+        <button class="btn btn-primary" type="button" @click="sendPicture">Elegir foto</button>
       </div>
     </div>
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog">
@@ -118,14 +113,11 @@
   </div>
 </template>
 <script>
-// import store from "../store";
-// import axios from 'axios';
+import store from "../store";
+import axios from 'axios';
 import def from '../assets/default.jpg';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
-//import store from "../store";
-//import axios from "axios";
-// import axios from "axios";
 
 export default {
 
@@ -135,59 +127,81 @@ export default {
   },
    data() {
      return {
+       originalPic : def,
        profilePicture : '',
        selectedFile : null,
        fileType : '',
        message : '',
        fileName : '',
        fileSize : 0,
+       pictureChosen: false,
+       fd:null,
+       niceMessage:'',
+       niceMessageArray:["Wow! Excelente elección", "Me encanta esa foto!", "Te ves genial!", "Gran cambio!"],
+       errorMsg:'',
+       ruta : ''
      }
    } ,
   mounted() {
-     this.getPicture();
+    this.getPicture();
+    this.ruta = process.env.VUE_APP_URL_MEDIA;
   },
   methods: {
+    resetImage() {
+      this.message='';
+      this.selectedFile=null;
+      this.niceMessage='';
+    },
      getPicture() {
-       // axios.get('/api/fotoPerfil/'+store.state.session.idUser+'.json', {"jwt":store.session.jwt}).then(response => {
-       //   if (response.data.length > 1) {
-       //     this.profilePicture = response.data.imgSrc;
-       //     this.fileName = response.data.imgName;
-       //   } else {
-       //     this.profilePicture = '../assets/default.jpg';
-       //     this.fileName = 'demo';
-       //   }
-       // }).catch(error => {
-       //   console.log(error);
-       //   this.profilePicture = '../assets/default.jpg';
-       // })
-       this.profilePicture = def;
+       axios.get('/api/get-foto-perfil/'+store.state.session.idUser+'.json', {"jwt":store.state.session.jwt}).then(response => {
+         if (response.data !== null) {
+           this.profilePicture = this.ruta + response.data.foto;
+           console.log(this.profilePicture);
+           this.fileName = response.data;
+         } else {
+           this.profilePicture = def;
+           this.fileName = 'demo';
+         }
+       }).catch(error => {
+         console.log(error);
+         this.profilePicture = def;
+         this.msgErr = "No podemos cargar tu configuración en este momento";
+       })
      },
 
     cropImage() {
       this.profilePicture = this.$refs.cropper.getCroppedCanvas().toDataURL(this.fileType, 0.5);
-      const fd = new FormData();
+      this.niceMessage = this.niceMessageArray[Math.floor((Math.random()*this.niceMessageArray.length))]
+      this.pictureChosen = true;
+      this.fd = new FormData();
       this.$refs.cropper.getCroppedCanvas().toBlob((b) => {
-        fd.append('image', b, this.fileName);
+        this.fd.append('image', b);
       });
-      console.log(fd)
-      /*
+     },
+    sendPicture(){
       const headers = {
         "Content-Type": "multipart/form-data",
         "Access-Control-Allow-Origin": "*",
         "jwt": store.state.session.jwt,
         "idUser": store.state.session.idUser
       };
-      axios.post("/api/foto-perfil.json", fd, {
+      axios.post("/api/foto-perfil.json", this.fd, {
         headers
       }).then(response =>{
         console.log(response.data);
-        this.profilePicture = pictureCropped;
-        this.selectedFile = null;
+        this.profilePicture = this.ruta + response.data.nuevoNombre;
+        this.resetImage();
       }).catch(error => {
             console.log(error.response);
-      });*/
-     },
-
+            this.errorMsg = (error.response.data['invalid-token']===null)
+                ? 'Tu sesión ha expirado, por favor recarga la página' :
+                ( error.response.data.exceptionTypeNumber===1020 ?
+                    'El archivo pesa mas de 2MB':
+                    'Error cargando tu foto, por favor intentalo más tarde');
+            this.profilePicture = this.originalPic;
+            this.niceMessage ='';
+      });
+    },
     onFileSelected(event){
       this.message ='';
       let blob = event.target.files[0];
@@ -272,16 +286,16 @@ export default {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  padding: 3% 0;
+  padding: 5% 0;
 }
 
 .contenedor {
   height: auto;
-  width: 80%;
+  width: 70%;
   background: white;
   position: relative;
   right: 10%;
-  left: 10%;
+  left: 15%;
   border-radius: 5px;
   padding: 2% 2%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -295,7 +309,7 @@ export default {
   overflow: hidden;
   position: relative;
   transition: transform .2s;
-  }
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;  }
 
 .foto:hover {
   transform: scale(1.1);
@@ -363,12 +377,12 @@ li {
 
 @media only screen and (max-width: 575px) {
   #black-label {
-    font-size: 130%;
+    font-size: 65%;
   }
 }
-@media only screen and (min-width: 775px) {
+@media only screen and (min-width: 675px) {
     #black-label {
-      font-size: 85%;
+      font-size: 100%;
     }
   }
 
