@@ -2,6 +2,7 @@
   <div class="ancho centra">
     <div class="card" >
       <div class="card-header">
+        <img :src="getGravatarURL('arellano.gustavo@gmail.com')" class="avatar" />
         <label class="h4">Créditos</label>
       </div>
 
@@ -78,6 +79,7 @@
 <script>
 import axios from 'axios'
 import Aviso from './custom/dialog/Aviso';
+import md5 from 'md5';
 
 export default {
     data: function () {
@@ -97,6 +99,18 @@ export default {
       'Aviso': Aviso
     },
     methods: {
+      getGravatarURL( email ) {
+        // Trim leading and trailing whitespace from
+        // an email address and force all characters
+        // to lower case
+        const address = String( email ).trim().toLowerCase();
+
+        // Create an MD5 hash of the final string
+        const hash = md5( address );
+
+        // Grab the actual image URL
+        return `https://www.gravatar.com/avatar/${ hash }`;
+      },      
       open: function() {
         this.$refs.avisoComp.abre();
       },
@@ -136,5 +150,9 @@ export default {
 .info {
   font-size: 10px;
   color: #330000;
+}
+.avatar {
+  padding-right: 10px;
+  margin-right: 10px;
 }
 </style>

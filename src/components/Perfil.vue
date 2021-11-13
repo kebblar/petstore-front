@@ -4,7 +4,7 @@
       <div class="row py-3 mx-auto">
         <div class="col text-center">
           <h3>Modificar foto de perfil</h3>
-          </div>
+        </div>
       </div>
       <div class="row w-50 mx-auto mb-3">
           <div class="foto">
