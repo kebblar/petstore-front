@@ -5,7 +5,7 @@
 <!--        Nickname-->
         <div class="form-group">
           <div class="row px-3">
-            <input autocomplete="xxxx" @click="activoClave=false" type="text" required placeholder="Mi nickname" maxlength="20" class="form-control" :class="className" id="text-usr" v-model="name" />
+            <input autocomplete="off" @click="activoClave=false" type="text" required placeholder="Mi nickname" maxlength="20" class="form-control" :class="className" id="text-usr" v-model="name" />
             <span class="fas fa-user errspan"></span>
             <small class="notValid">{{msgName}}</small>
           </div>
@@ -13,7 +13,7 @@
 <!--        Correo-->
         <div class="form-group">
           <div class="row px-3">
-            <input autocomplete="xxxx" @click="activoClave=false" type="email" required class="form-control" maxlength="35" :class="classMail" id="text-usr" placeholder="ejemplo@gmail.com" v-model="email">
+            <input autocomplete="off" @click="activoClave=false" type="email" required class="form-control" maxlength="35" :class="classMail" id="text-usr" placeholder="ejemplo@gmail.com" v-model="email">
             <span class="fas fa-envelope errspan"></span>
             <small class="notValid">{{msgMail}}</small>
           </div>
@@ -21,7 +21,7 @@
 <!--        Password-->
         <div class="form-group">
           <div class="row px-3">
-            <input autocomplete="xxxx" @keydown="activoClave=true" :type=pwInputValue :class="classPasswd" maxlength="20" placeholder="*****" class="form-control" id="password" v-model="password" />
+            <input autocomplete="off" @keydown="activoClave=true" :type=pwInputValue :class="classPasswd" maxlength="20" placeholder="*****" class="form-control" id="password" v-model="password" />
             <span class="fas fa-lock errspan"></span>
             <div class="ojo put-right">
               <a @click="oculta" class="a2" style="cursor:pointer;">
@@ -182,6 +182,11 @@ export default {
     VueRecaptcha,
     Aviso
   },
+  mounted() {
+    this.name = '';
+    this.password = '';
+    this.email = '';
+    },
   data () {
     return {
       msgErr:'',
