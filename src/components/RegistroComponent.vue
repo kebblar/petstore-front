@@ -422,13 +422,13 @@ select {
   position: absolute;
   right: 28px;
   margin-top: 9px;
-  z-index: 2;
+  z-index: 1;
 }
 .errspan{
   left: 29px;
   margin-top: 7px;
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   color: #000;
   font-size: 13px;
 }
