@@ -48,7 +48,8 @@
                   ref="cropper"
                   :src="selectedFile"
                   preview=".preview"
-                  :viewMode="3"
+                  :viewMode="4"
+                  :img-style="{width: '100%', height: fileheight}"
                   :zoomable="true"
                   :aspectRatio="1/1"
                   :auto-zoom="true"
@@ -102,11 +103,13 @@
                 </div>
               </div>
               <div class="d-flex container justify-content-around p-2">
-                <p>Nombre: {{fileName}}</p>
-                <p>{{fileSize/1000}}MB</p>
+                <div class="row">
+                  <p>Nombre: {{fileName}}</p>
+                </div>
               </div>
 
               <div class="container text-center mt-1">
+                <small class="text-secondary">Recuerda que la imagen no debe pasar de 2MB</small>
                 <button type="button" class="btn btn-dark" data-dismiss="modal" @click="cropImage">Seleccionar como foto de perfil</button>
               </div>
 
@@ -146,7 +149,8 @@ export default {
        errorMsg:'',
        ruta : '',
        finished : false,
-       bigPic : true
+       bigPic : true,
+       fileheight : 0
      }
    } ,
   mounted() {
@@ -187,6 +191,7 @@ export default {
         if(b.size>20097152){
           this.errorMsg='El archivo seleccionado es demasiado grande, recortalo por favor';
         } else {
+          this.fileSize = b.size;
           this.bigPic=false;
           this.fd.append('image', b);
           this.niceMessage = this.niceMessageArray[Math.floor((Math.random()*this.niceMessageArray.length))]
@@ -247,6 +252,7 @@ export default {
            this.selectedFile = URL.createObjectURL(blob);
            this.fileName = blob.name;
            this.fileSize = blob.size;
+           this.fileheight = blob.height;
            this.message='';
          } else {
            reader.abort();

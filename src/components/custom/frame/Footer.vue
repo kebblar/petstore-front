@@ -108,20 +108,134 @@
         <modal
             name="advertencia"
             :clickToClose="false"
-            width=89%
-            height="auto"> 
+            width="80%"
+            :shiftX=0.5
+            :shiftY=1
+            height="auto"
+            style="z-index: 50">
             <div class="caja-advertencia">
-                <div class="row contenedor">
-                    <div class="col-sm-8 izq">
-                        <!-- Este sitio es sólo para mayores de edad y hace uso de cookies -->
-                        <label>Este sitio hace uso de cookies</label>
-                    </div>
-                    <div class="col-sm-4 der">
+                <div class="row m-3 mx-auto">
+                  <div class="col mx-auto">
+                    <h4>Pet Store</h4>
+                  </div>
+                </div>
+              <div class="container">
+                <p>Debes de tener 21 años o más para poder usar este sitio.</p>
+
+                <p> Utilizamos cookies técnicas para el correcto funcionamiento de este sitio.
+                  No recabamos ningún dato de carácter personal con las cookies de analítica web.</p>
+              </div>
+
+              <a data-toggle="collapse" href="#collapseCookies" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Política de Cookies
+              </a>
+
+              <div class="collapse" id="collapseCookies">
+                <div class="card card-body w-100" style="overflow: scroll; max-height: 250px">
+                  <small class="text-justify">
+                    <b>Política de cookies</b>
+                    <p>PROVEEDOR DE SERVICIOS informa acerca del uso de las cookies en su página web: SITIO WEB</p>
+                    <br>
+                    <b>¿Qué son las cookies?</b>
+                    <p>Las cookies son archivos que se pueden descargar en su equipo a través de las páginas web. Son herramientas que tienen un papel esencial para la prestación de numerosos servicios de la sociedad de la información. Entre otros, permiten a una página web almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo y, dependiendo de la información obtenida, se pueden utilizar para reconocer al usuario y mejorar el servicio ofrecido</p>
+                    <br>
+                    <b>Tipos de cookies</b>
+                    <p>Según quien sea la entidad que gestione el dominio desde donde se envían las cookies y trate los datos que se obtengan se pueden distinguir dos tipos:</p>
+                    <ul>
+                      <li><u>Cookies propias:</u> Aquéllas que se envían al equipo terminal del usuario desde un equipo o dominio gestionado por el propio editor y desde el que se presta el servicio solicitado por el usuario.</li>
+                      <li><u>Cookies de terceros:</u> Aquéllas que se envían al equipo terminal del usuario desde un equipo o dominio que no es gestionado por el editor, sino por otra entidad que trata los datos obtenidos través de las cookies.</li>
+                    </ul>
+                    <br>
+                    <p>
+                      En el caso de que las cookies sean instaladas desde un equipo o dominio gestionado por el propio editor, pero la información que se recoja mediante éstas sea gestionada por un tercero, no pueden ser consideradas como cookies propias.
+                    </p>
+                    <p>Existe también una segunda clasificación según el plazo de tiempo que permanecen almacenadas en el navegador del cliente, pudiendo tratarse de:</p>
+                    <ul>
+                      <li><u>Cookies de sesión:</u> Diseñadas para recabar y almacenar datos mientras el usuario accede a una página web. Se suelen emplear para almacenar información que solo interesa conservar para la prestación del servicio solicitado por el usuario en una sola ocasión (p.e. una lista de productos adquiridos).</li>
+                      <li><u>Cookies persistentes:</u> Los datos siguen almacenados en el terminal y pueden ser accedidos y tratados durante un periodo definido por el responsable de la cookie, y que puede ir de unos minutos a varios años.</li>
+                    </ul>
+                    <br>
+                    <p>Por último, existe otra clasificación con seis tipos de cookies según la finalidad para la que se traten los datos obtenidos:</p>
+                    <ul>
+                      <li><u>Cookies técnicas:</u> Aquellas que permiten al usuario la navegación a través de una página web, plataforma o aplicación y la utilización de las diferentes opciones o servicios que en ella existan como, por ejemplo, controlar el tráfico y la comunicación de datos, identificar la sesión, acceder a partes de acceso restringido, recordar los elementos que integran un pedido, realizar el proceso de compra de un pedido, realizar la solicitud de inscripción o participación en un evento, utilizar elementos de seguridad durante la navegación, almacenar contenidos para la difusión de vídeos o sonido o compartir contenidos a través de redes sociales.</li>
+                      <li><u>Cookies de personalización:</u> Permiten al usuario acceder al servicio con algunas características de carácter general predefinidas en función de una serie de criterios en el terminal del usuario como por ejemplo serian el idioma, el tipo de navegador a través del cual accede al servicio, la configuración regional desde donde accede al servicio, etc.</li>
+                      <li><u>Cookies de análisis:</u> Permiten al responsable de estas, el seguimiento y análisis del comportamiento de los usuarios de los sitios web a los que están vinculadas. La información recogida mediante este tipo de cookies se utiliza en la medición de la actividad de los sitios web, aplicación o plataforma y para la elaboración de perfiles de navegación de los usuarios de dichos sitios, aplicaciones y plataformas, con el fin de introducir mejoras en función del análisis de los datos de uso que hacen los usuarios del servicio.</li>
+                      <li><u>Cookies publicitarias:</u> Permiten la gestión, de la forma más eficaz posible, de los espacios publicitarios.</li>
+                      <li><u>Cookies de publicidad comportamental:</u> Almacenan información del comportamiento de los usuarios obtenida a través de la observación continuada de sus hábitos de navegación, lo que permite desarrollar un perfil específico para mostrar publicidad en función de este.</li>
+                      <li><u>Cookies de redes sociales externas:</u> Se utilizan para que los visitantes puedan interactuar con el contenido de diferentes plataformas sociales (facebook, youtube, twitter, linkedIn, etc..) y que se generen únicamente para los usuarios de dichas redes sociales. Las condiciones de utilización de estas cookies y la información recopilada se regula por la política de privacidad de la plataforma social correspondiente.</li>
+                    </ul>
+                    <br>
+                    <b>Desactivación y eliminación de cookies</b>
+                    <p>Tienes la opción de permitir, bloquear o eliminar las cookies instaladas en tu equipo mediante la configuración de las opciones del navegador instalado en su equipo. Al desactivar cookies, algunos de los servicios disponibles podrían dejar de estar operativos. La forma de deshabilitar las cookies es diferente para cada navegador, pero normalmente puede hacerse desde el menú Herramientas u Opciones. También puede consultarse el menú de Ayuda del navegador dónde puedes encontrar instrucciones. El usuario podrá en cualquier momento elegir qué cookies quiere que funcionen en este sitio web.</p>
+                    <p>Puede usted permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador instalado en su ordenador:</p>
+                    <ul>
+                      <li><a href="http://windows.microsoft.com/es-es/windows-vista/Block-or-allow-cookies">Microsoft Internet Explorer o Microsoft Edge</a></li>
+                      <li><a href="http://support.mozilla.org/es/kb/impedir-que-los-sitios-web-guarden-sus-preferencia">Mozilla Firefox</a></li>
+                      <li><a href="https://support.google.com/accounts/answer/61416?hl=es">Google Chrome</a></li>
+                      <li><a href="http://safari.helpmax.net/es/privacidad-y-seguridad/como-gestionar-las-cookies/">Safari</a></li>
+                      <li><a href="http://help.opera.com/Linux/10.60/es-ES/cookies.html">Opera</a></li>
+                    </ul>
+                    <br>
+                    <p>Además, también puede gestionar el almacén de cookies en su navegador a través de herramientas como las siguientes:</p>
+                    <ul>
+                      <li><a href="www.ghostery.com">Ghostery</a></li>
+                      <li><a href="www.youronlinechoices.com/es/">Your Online Choices</a></li>
+                    </ul>
+                    <br>
+                    <b>Cookies utilizadas en SITIO WEB</b>
+                    <p>No recabamos ningún dato de carácter personal con la analítica web y así lo hemos configurado.</p>
+                    <p>A continuación, se identifican las cookies que están siendo utilizadas en este portal, así como su tipología y función:</p>
+                    <ul>
+                      <li><u>Cookies propias:</u>
+                        <ol>
+                          <li><b>__me:</b> Asigna un número de usuario en caso que publiques una página web o uses un formulario. En caso contrario, no se le identificará en ningún caso. Caducidad de 1 año. </li>
+                          <li><b>PHPSESSID:</b> Cookie tecnica de php. Caducidad de sesión de navegador.</li>
+                          <li><b>__mayoriadeedad:</b> Aceptación mayoría de edad.</li>
+                          <li><b>__eucookie:</b> Aceptación de cookies.</li>
+                        </ol></li>
+                      <li><u>Cookies de terceros:</u>
+                        <br>
+                          <ol><li>Google Analithics</li></ol></li>
+                    </ul>
+                    <br>
+                    <p>Estas cookies son usadas en su formato de IP anónima. Los datos no los compartimos con terceros, ni en la web usamos plugins de terceros que puedan acceder a estos datos. Por este motivo pueden ser creadas sin consentimiento expreso. No obstante puedes desactivarlas si así lo deseas.</p>
+                    <a href="https://support.google.com/analytics/answer/2763052?hl=es">https://support.google.com/analytics/answer/2763052?hl=es</a>
+                    <br>
+                    <p>El usuario puede revocar su consentimiento para el uso de cookies en su navegador a través de las opciones del desarrollador del navegador que esté utilizando, o bien instalando un sistema de rechazo ("opt-out") a través de los enlaces de algunos terceros que instalan cookies en la página web.</p>
+                    <p>Opt-out de Google Analytics: <a href="https://tools.google.com/dlpage/gaoptout?hl=None">https://tools.google.com/dlpage/gaoptout?hl=None</a> </p>
+                    <ol>
+                      <li>_ga: Diferencia a los usuarios. Caducidad de 2 años.</li>
+                      <li>_gat: Limita el porcentaje de solicitudes. Caducida de 1 minuto.</li>
+                      <li>_gid: Diferencia a los usuarios. Caducidad de 24 horas.</li>
+                      <li>__utma: Diferencia los diferentes usuarios y sesiones. Caducidad de 2 años.</li>
+                      <li>__utmb: Diferencia las nuevas sesiones. Caducidad de 30 minutos.</li>
+                      <li>__utmc: Determina las nuevas sesiones, en colaboración con __utmb. Caducidad de sesión de navegador.</li>
+                      <li>__utmt: Se usa para acelerar la tasa de solicitud. Duración de 10 minutos.</li>
+                      <li>__utmz: Almacena la explicación de cómo el usuario llegó al sitio web. Caducidad de 6 meses.</li>
+                      <li>__asc: Estas cookies permiten certificar el trafico para las métricas y comparativas globales del sitio web en esta herramienta. Caducidad de 1 año.</li>
+                      <li>__auc: Estas cookies permiten certificar el trafico para las métricas y comparativas globales del sitio web en esta herramienta. Caducidad de 1 año.</li>
+                    </ol>
+                    <br>
+                    <b>
+                      Aceptación de la Política de cookies
+                    </b>
+                    <p>SITIO WEB, asume que usted acepta el uso de cookies. No obstante, muestra información sobre su Política de cookies en la parte inferior o superior de cualquier página del portal con cada inicio de sesión con el objeto de que usted sea consciente</p>
+                    <p>Ante esta información es posible llevar a cabo las siguientes acciones:</p>
+                    <p>
+                      <b>Aceptar cookies:</b> No se volverá a visualizar este aviso al acceder a cualquier página del portal durante la presente sesión.
+                    </p>
+                    <p><b>Salir:</b> Será redirigido fuera del portal.</p>
+                  </small>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="col d-flex justify-content-around my-2">
                         <button class="btn btn-outline-success" @click="ok()">Aceptar</button>
                         &nbsp;
                         <a class="btn btn-outline-danger" href="https://www.google.com">Rechazar</a>
                     </div>
-                </div>
             </div>
         </modal>
 
@@ -528,14 +642,11 @@ import store from '../../../store'
     text-align: left;
 }
 .caja-advertencia {
-    width: 100%;
     height: auto;
-    text-align: right;
-    background-color:#ffc850;
+    text-align: center;
+    background-color: rgba(213, 248, 234, 0.45);
     padding:12px;
-    border: 2px solid #f8ab04;
-    border-radius: 2px;
-    margin:auto;
+    border-radius: 5px;
 }
 .caja-aviso {
     padding:12px;
