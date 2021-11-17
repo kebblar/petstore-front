@@ -136,7 +136,7 @@
                     <vue-recaptcha
                         id="solvecaptcha"
                         ref="recaptcha"
-                        sitekey="6LffEdkaAAAAAOJllar3d53MdUh3qOZLhdQ8GuQs"
+                        sitekey="6LeypzsdAAAAAD716pR1WaBMWpPCmdYWOjKyPkoM"
                         @expired="onCaptchaExpired"
                         @verify="onCaptchaVerified"/>
                   </div>
@@ -148,8 +148,8 @@
           </div>
           <div class="modal-footer border-top-0 d-flex justify-content-around px-0 mb-3">
             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-            <button type="button" :disabled="verifyCheck" class="btn btn-outline-info" data-dismiss="modal" @click="submition">Continuar con el registro</button>
-
+            <button type="button" :disabled="!verifyCheck" class="btn btn-outline-info" data-dismiss="modal" @click="submition">Continuar con el registro</button>
+            {{captcha}}, {{mayor}}, {{servicio}}, {{avisoP}}
           </div>
         </div>
       </div>
@@ -182,11 +182,6 @@ export default {
     VueRecaptcha,
     Aviso
   },
-  mounted() {
-    this.name = '';
-    this.password = '';
-    this.email = '';
-    },
   data () {
     return {
       msgErr:'',
@@ -273,7 +268,9 @@ export default {
   },
   computed:{
     verifyCheck() {
-      return !(this.captcha && this.servicio && this.avisoP && this.mayor);
+      let x = true && this.captcha && this.servicio && this.avisoP && this.mayor;
+      console.log(x);
+      return x;
     },
     estiloClave1 (){
       return this.activoClave ? 'show' : 'hidden';
