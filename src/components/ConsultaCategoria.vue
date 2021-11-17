@@ -384,18 +384,18 @@
                 this.$modal.hide('modal-general');
             },
             openAddAtributo(idAtributoNuevo) {
-                axios.post('api/categoria-atributo.json', {
+                axios.post('api/categoria-atributo', {
                     idCategoria : this.idActual,
                     idAtributo:idAtributoNuevo
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                    axios.get('api/categoria-atributo/categoria/'+this.idActual+'.json', {
+                    axios.get('api/categoria-atributo/categoria/'+this.idActual, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
                        this.atributosCategoria=response.data;
-                       axios.get('api/categoria-atributos-faltantes/categoria/'+this.idActual+'.json', {
+                       axios.get('api/categoria-atributos-faltantes/categoria/'+this.idActual, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -421,7 +421,7 @@
                 })
             },
             eliminarAtributo(idAtributoDelete) {
-                axios.delete('api/categoria-atributo.json', {
+                axios.delete('api/categoria-atributo', {
                     data:{
                         idCategoria:this.idActual,
                         idAtributo:idAtributoDelete
@@ -430,12 +430,12 @@
                     console.log("enviado");
                     console.log(response);
 
-                     axios.get('api/categoria-atributo/categoria/'+this.idActual+'.json', {
+                     axios.get('api/categoria-atributo/categoria/'+this.idActual, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
                        this.atributosCategoria=response.data;
-                       axios.get('api/categoria-atributos-faltantes/categoria/'+this.idActual+'.json', {
+                       axios.get('api/categoria-atributos-faltantes/categoria/'+this.idActual, {
                         }).then(response => {
                             this.atributosFaltantes=response.data;
                         }) 
@@ -457,12 +457,12 @@
                 this.$modal.show('agregarModificarAtributo');
                 this.titleModal=nombreCategoria;
                 this.idActual=id;
-                axios.get('api/categoria-atributo/categoria/'+id+'.json',{
+                axios.get('api/categoria-atributo/categoria/'+id,{
                 }).then(response => {
                     this.atributosCategoria = response.data
                 })
                
-                axios.get('api/categoria-atributos-faltantes/categoria/'+id+'.json',{
+                axios.get('api/categoria-atributos-faltantes/categoria/'+id,{
                 }).then(response => {
                     this.atributosFaltantes = response.data;
                 })
@@ -509,7 +509,7 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/categorias/list/'+this.name+'.json', {
+                    axios.get('api/categorias/list/'+this.name, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -524,7 +524,7 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/categorias.json', {
+                    axios.get('api/categorias', {
                     }).then(response => {
                         console.log("enviado-categorias");
                         console.log(response);
@@ -539,7 +539,7 @@
                 }
             },
             modificarCategoria() {
-                axios.put('api/categoria.json', {
+                axios.put('api/categoria', {
                     id:this.idActual,
                     categoria : this.nombreActual,
                     activo: this.estatusActual
@@ -556,7 +556,7 @@
             },
             agregarCategoria() {
                 console.log(store.state);
-                axios.post('api/categoria.json', {
+                axios.post('api/categoria', {
                     categoria : this.nombreNuevo,
                     activo:1
                 }).then(response => {
@@ -573,7 +573,7 @@
                 })
             },
             eliminarCategoria() {
-                axios.delete('api/categoria.json', {
+                axios.delete('api/categoria', {
                     data:{id:this.idActual}
                 }).then(response => {
                     console.log("enviado");

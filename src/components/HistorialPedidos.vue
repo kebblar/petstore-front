@@ -111,7 +111,7 @@ methods: {
       this.page=numero;
     },
     getHistorial(){
-      axios.get('api/historial-compras.json/'.concat(store.state.session.idUser)).then(response => {
+      axios.get('api/historial-compras/'.concat(store.state.session.idUser)).then(response => {
           response.data.forEach((value) => {
             if(!value.estadoEnvio){
               this.comprasActivas.push(value);

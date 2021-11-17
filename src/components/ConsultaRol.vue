@@ -330,7 +330,7 @@
                 this.$modal.show('eliminarRegistro');
             },
             getroles(){
-                axios.get('api/roles.json', {
+                axios.get('api/roles', {
                     }).then(response => {
                         this.roles=response.data;
                     }).catch(error => {
@@ -368,7 +368,7 @@
                     console.log("...")
                 }
                 else {
-                    axios.get('api/roles.json', {
+                    axios.get('api/roles', {
                     }).then(response => {
                         this.roles=response.data;
                     }).catch(error => {
@@ -381,7 +381,7 @@
                 }
             },
             modificarRegistro() {
-                axios.put('api/rol.json', {
+                axios.put('api/rol', {
                     id:this.idActual,
                     nombre : this.nombreActual,
                     activo: this.activo,
@@ -397,7 +397,7 @@
             },
             agregarRegistro() {
                 console.log(store.state);
-                axios.post('api/rol.json', {
+                axios.post('api/rol', {
                     nombre : this.nombreNuevo,
                     activo : 1,
                 }).then(response => {
@@ -414,7 +414,7 @@
                 })
             },
             eliminarRegistro() {
-                axios.delete('api/rol.json', {
+                axios.delete('api/rol', {
                     data: {
                         id:this.idActual
                     }

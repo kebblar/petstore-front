@@ -149,7 +149,6 @@
           <div class="modal-footer border-top-0 d-flex justify-content-around px-0 mb-3">
             <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
             <button type="button" :disabled="!verifyCheck" class="btn btn-outline-info" data-dismiss="modal" @click="submition">Continuar con el registro</button>
-            {{captcha}}, {{mayor}}, {{servicio}}, {{avisoP}}
           </div>
         </div>
       </div>
@@ -299,7 +298,7 @@ export default {
       this.pwInputValue = (this.pwVisible) ? "text" : "password";
     },
     onCaptchaVerified(recaptchaToken) {
-      axios.post('api/check-captcha.json', {
+      axios.post('api/check-captcha', {
         response: recaptchaToken,
         ip: '127.0.0.1'
       })
@@ -324,7 +323,7 @@ export default {
     },
     submition() {
       this.loading = true;
-      axios.post('api/usuario-preregistro2.json', {
+      axios.post('api/usuario-preregistro2', {
         id:0,
         nick: this.name,
         claveHash: this.password,

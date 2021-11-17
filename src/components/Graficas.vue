@@ -238,7 +238,7 @@ export default {
             return data
         },
         async compradorG(){
-            const { data } = await axios.get('/api/grafica-comprador-asiduo.json')
+            const { data } = await axios.get('/api/grafica-comprador-asiduo')
             let colores = this.coloresGenerador()
             this.compradorPie = {
                 labels: data.chart.label,
@@ -250,7 +250,7 @@ export default {
             this.hideMeCMAG = false
         },
         async mascotaVendidaG(){
-            const { data } = await axios.get('/api/grafica-mascota-mas-vendida.json')
+            const { data } = await axios.get('/api/grafica-mascota-mas-vendida')
             let colores = this.coloresGenerador()
             const source = {
                         fill: false,
@@ -272,7 +272,7 @@ export default {
             this.hideMe = false
         },
         async paqueteriaUtilizadaG(){
-            const { data } = await axios.get('/api/grafica-paqueteria.json')
+            const { data } = await axios.get('/api/grafica-paqueteria')
             console.log("data de paqueteria: " + JSON.stringify(data))
             this.paqueteriaBar = this.generadorDataset(data)
             this.hideMePMPG = false
@@ -326,7 +326,7 @@ export default {
         },
         async findComprador(){
             let fechas = this.generadorFechas(this.selectedMonthComprador)
-            const { data } = await axios.get('/api/grafica-comprador-asiduo-rango/'+fechas[0]+'/'+fechas[1]+'.json')
+            const { data } = await axios.get('/api/grafica-comprador-asiduo-rango/'+fechas[0]+'/'+fechas[1])
             console.log("se Filtra usando Comprador fechas:\n" + fechas[0] + ' - ' + fechas[1] + "\nCon los siguientes datos:" + JSON.stringify(data))
             if(!data){
                 this.$modal.show('info');
@@ -336,7 +336,7 @@ export default {
         },
         async findMascotaVendida(){
             let fechas = this.generadorFechas(this.selectedMonthMascota)
-            const { data } = await axios.get('/api/grafica-mascota-mas-vendida-rango/'+fechas[0]+'/'+fechas[1]+'.json')
+            const { data } = await axios.get('/api/grafica-mascota-mas-vendida-rango/'+fechas[0]+'/'+fechas[1])
             console.log("se Filtra usando MascotaVendida fechas:\n" + fechas[0] + ' - ' + fechas[1] + "\nCon los siguientes datos:" + JSON.stringify(data))
             if(data.chart.length == 0){
                 this.$modal.show('info');
@@ -346,7 +346,7 @@ export default {
         },
         async findPaqueteriaUtilizada(){
             let fechas = this.generadorFechas(this.selectedMonthPaqueteria)
-            const { data } = await axios.get('/api/grafica-paqueteria-rango/'+fechas[0]+'/'+fechas[1]+'.json')
+            const { data } = await axios.get('/api/grafica-paqueteria-rango/'+fechas[0]+'/'+fechas[1])
             console.log("se Filtra usando PaqueteriaUtilizada fechas:\n" + fechas[0] + ' - ' + fechas[1] + "\nCon los siguientes datos:" + JSON.stringify(data))
             if(data.chart.length == 0){
                 this.$modal.show('info');

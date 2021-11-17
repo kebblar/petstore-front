@@ -295,7 +295,7 @@
       },
       submition() {
         this.loading = true;
-        axios.put('api/usuario-detalles.json', {
+        axios.put('api/usuario-detalles', {
           id: this.idUser,
           nickName: this.modelNick,
           nombre: this.modelName,

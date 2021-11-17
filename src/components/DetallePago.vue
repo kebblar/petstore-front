@@ -447,7 +447,7 @@ export default {
       return url.replace(this.url_img, this.url_video);
     },
     getCartera(){
-      axios.get('/api/wallet/'+this.usuario+'.json', {}).then(response => {
+      axios.get('/api/wallet/'+this.usuario, {}).then(response => {
         this.cartera = response.data;
         this.getQR(response.data);
         this.getMontoBtc();
@@ -463,7 +463,7 @@ export default {
     },
 
     getMontoBtc(){
-      axios.get('/api/monto-btc/'+(this.total + this.getPrecioEnvio)+'.json').then(response => {
+      axios.get('/api/monto-btc/'+(this.total + this.getPrecioEnvio)).then(response => {
         this.precioEnCripto = response.data;
         console.log(response.data);
       }).catch(e => {
@@ -521,7 +521,7 @@ export default {
         descripcion : "Compra por criptomonedas",
         lastBalance : 0
       };
-      axios.post('/api/orden.json', data).then(response => {
+      axios.post('/api/orden', data).then(response => {
         this.loading=true;
         console.log(response);
         router.push({'name':'compra-confirmada'});
@@ -545,7 +545,7 @@ export default {
                   recibo : ""
                   };
       console.log(data);
-      axios.post('/api/procesa-orden.json', data).then(response => {
+      axios.post('/api/procesa-orden', data).then(response => {
         console.log(response);
       }).catch(e => {
         console.log(e.response.data);
@@ -553,7 +553,7 @@ export default {
     },
 
     guardaDireccion() {
-      axios.post('/api/nueva-direccion.json', this.nuevaDireccion).then(response => {
+      axios.post('/api/nueva-direccion', this.nuevaDireccion).then(response => {
         console.log("post enviado");
         console.log(response.data);
         this.getDirecciones();
@@ -564,7 +564,7 @@ export default {
       });
     },
     cargaMunicipios(){
-      axios.get('/api/municipio-por-estado/'+this.nuevaDireccion.idEstado+'.json', {}).then(response => {
+      axios.get('/api/municipio-por-estado/'+this.nuevaDireccion.idEstado, {}).then(response => {
         console.log(response.data);
         this.municipios = response.data;
         this.nuevaDireccion.idMunicipio=this.municipios[0].id;
@@ -576,7 +576,7 @@ export default {
     },
     cargaEstados() {
       this.setEdoMun();
-      axios.get('/api/estado-por-pais/'+this.nuevaDireccion.idPais+'.json', {}).then(response => {
+      axios.get('/api/estado-por-pais/'+this.nuevaDireccion.idPais, {}).then(response => {
         console.log(response.data);
         this.estados = response.data;
         this.estados.unshift({'id' : -1, 'nombre' : 'Selecciona uno'});
@@ -586,14 +586,14 @@ export default {
       });
     },
     cargaDatos(){
-      axios.get('/api/tipo-direcciones.json', {}).then(response => {
+      axios.get('/api/tipo-direcciones', {}).then(response => {
         console.log(response.data);
         this.tipoDirecciones = response.data;
       }).catch(e => {
         console.log(e.response.status);
         console.log(e.response.data);
       });
-      axios.get('/api/paises.json', {}).then(response => {
+      axios.get('/api/paises', {}).then(response => {
         console.log(response.data);
         this.paises =response.data;
         this.paises.unshift({'id' : 0, 'nombre' : 'Selecciona uno'});
@@ -604,7 +604,7 @@ export default {
     },
 
     getCarrito() {
-      axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+      axios.get('/api/carritoVista/'+store.state.session.idUser, {}).then(response => {
         this.shoppingKart = response.data;
         this.total = this.getTotal(response.data);
       }).catch(e => {
@@ -631,7 +631,7 @@ export default {
     },
 
     getPaqueterias(){
-      axios.get('/api/paqueterias.json', {}).then(response => {
+      axios.get('/api/paqueterias', {}).then(response => {
         console.log(response.data);
         this.paqueterias=response.data;
       }).catch(e => {
@@ -640,7 +640,7 @@ export default {
       });
     },
     getDirecciones(){
-      axios.get('/api/direcciones-con-nombre/'+this.usuario+'.json', {}).then(response => {
+      axios.get('/api/direcciones-con-nombre/'+this.usuario, {}).then(response => {
         console.log(response.data);
         this.direcciones=response.data;
       }).catch(e => {

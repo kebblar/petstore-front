@@ -115,7 +115,7 @@ export default {
   }, 
   methods: {
         calcula: function() {
-            return axios.defaults.baseURL + 'api/anuncios/imagen.json';
+            return axios.defaults.baseURL + 'api/anuncios/imagen';
         },
         sube: function() {
             console.log('subeeeeeeeee');
@@ -139,7 +139,7 @@ export default {
             console.log("--> errorEvent "+file );
         },
         eliminarImagen(index,item){
-           axios.delete('api/anuncios/imagen.json',{headers: {uuid: item.uuid}
+           axios.delete('api/anuncios/imagen',{headers: {uuid: item.uuid}
            }).then(response => {
                console.log("--> "+response);
                this.$delete(this.imagenes, index);
@@ -160,7 +160,7 @@ export default {
             element.principal = false;
           });
           item.principal = true;
-          axios.put('api/anuncios/imagen/principal.json',  { 
+          axios.put('api/anuncios/imagen/principal',  { 
             idAnuncio:item.idAnuncio,
             uuid: item.uuid
           }).then(response => {

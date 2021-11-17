@@ -163,7 +163,7 @@ export default {
       this.errorMsg='';
     },
      getPicture() {
-       axios.get('/api/get-foto-perfil/'+store.state.session.idUser+'.json', {"jwt":store.state.session.jwt}).then(response => {
+       axios.get('/api/get-foto-perfil/'+store.state.session.idUser, {"jwt":store.state.session.jwt}).then(response => {
          if (response.data !== null && response.data.foto !== null) {
            this.profilePicture = this.ruta+response.data.foto;
            this.originalPic = this.ruta+response.data.foto;
@@ -202,7 +202,7 @@ export default {
         "jwt": store.state.session.jwt,
         "idUser": store.state.session.idUser
       };
-      axios.post("/api/foto-perfil.json", this.fd, {
+      axios.post("/api/foto-perfil", this.fd, {
         headers
       }).then(response =>{
         console.log(response.data);

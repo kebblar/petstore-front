@@ -162,7 +162,7 @@ export default {
     async graficar(){
       this.loaded_filtro = false
       try {
-          const path_filtro = "/api/grafica-total-fechas-categoria-filtro.json?fechaFin="+this.fechaFin+"&fechaInicio="+this.fechaInicio
+          const path_filtro = "/api/grafica-total-fechas-categoria-filtro?fechaFin="+this.fechaFin+"&fechaInicio="+this.fechaInicio
           console.log(path_filtro)
           const response = await fetch(path_filtro).then(response => response.json())
           this.chartdata_filtro = response.chartdata
@@ -185,7 +185,7 @@ export default {
     this.loaded = false;
     try {
       const response = await fetch(
-        "http://127.0.0.1:9999/api/grafica-total-fechas-categoria.json"
+        "http://127.0.0.1:9999/api/grafica-total-fechas-categoria"
       ).then((response) => response.json());
       this.chartdata = response.chartdata;
       this.loaded = true;
@@ -195,7 +195,7 @@ export default {
     this.loaded_filtro = false;
     try {
       const path_filtro =
-        "http://127.0.0.1:9999/api/grafica-total-fechas-categoria-filtro.json?fechaFin=" +
+        "http://127.0.0.1:9999/api/grafica-total-fechas-categoria-filtro?fechaFin=" +
         this.fechaFin +
         "&fechaInicio=" +
         this.fechaInicio;

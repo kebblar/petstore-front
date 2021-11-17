@@ -18,7 +18,7 @@
     v-model="files"
     :multiple=true
     post-action="/post"
-    put-action="http://localhost:9999/api/upload2.json"
+    put-action="http://localhost:9999/api/upload2"
     @input-file="inputFile"
     @input-filter="inputFilter"
   >

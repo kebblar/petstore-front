@@ -57,7 +57,7 @@ export default {
     store.commit('setToggleHeader', false);
     store.commit('setToggleFooter', false);
 
-    axios.get('/api/consulta.json', {
+    axios.get('/api/consulta', {
     },
     {
       headers: {
@@ -103,7 +103,7 @@ export default {
   methods: {
     enviaSeleccion(){
       console.log('se envia al back:',this.consulta);
-      axios.post('api/guarda.json', this.consulta,
+      axios.post('api/guarda', this.consulta,
           {
             headers: {
               'jwt': store.state.session.jwt

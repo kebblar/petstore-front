@@ -235,7 +235,7 @@ export default {
         "jwt": store.state.session.jwt,
         "idAnuncio":1
       }; 
-      axios.post("/api/up/imagen2.json", this.formData, { 
+      axios.post("/api/up/imagen2", this.formData, { 
         headers 
       }).then(response =>{ 
         this.respuesta = response.data;

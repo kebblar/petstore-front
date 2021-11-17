@@ -61,7 +61,7 @@ export default {
   },
   methods: {
         calcula: function() {
-            return axios.defaults.baseURL + 'api/upload.json';
+            return axios.defaults.baseURL + 'api/upload';
         },
         sube: function() {
             console.log('subeeeeeeeee');
@@ -78,7 +78,7 @@ export default {
 
 /*
     @PostMapping(
-            path = "/upload.json",
+            path = "/upload",
             produces = "application/json; charset=utf-8"
             )
     public UploadModel handleFileUploadWithKDMCopy(

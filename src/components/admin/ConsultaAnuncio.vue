@@ -301,12 +301,12 @@ Vue.component('vue-confirm-dialog', VueConfirmDialog.default);
 export default {
   name: "ConsultaAnuncio.vue",
   mounted() {
-    axios.get('api/categorias.json').then(response => {
+    axios.get('api/categorias').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.categorias2, key, { id: obj.id, valor:obj.categoria});
         });
     });
-    axios.get('api/estatus-anuncios.json').then(response => {
+    axios.get('api/estatus-anuncios').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.estatus2, key, { id: obj.id, valor:obj.descripcion});
         });
@@ -422,7 +422,7 @@ export default {
   methods: {
     handlePageChange(numero) {
       let folioBack2= this.folio;
-      axios.post("/api/anuncio/search.json", {
+      axios.post("/api/anuncio/search", {
           folio: folioBack2,
           titulo: this.titulo,
           fechaInicioVigencia: this.fInicialV,
@@ -456,7 +456,7 @@ export default {
       //  folioBack = 0;
       //}
       axios
-        .post("/api/anuncio/search.json", {
+        .post("/api/anuncio/search", {
           folio: folioBack,
           titulo: this.titulo,
           fechaInicioVigencia: this.fInicialV,
@@ -502,7 +502,7 @@ export default {
     eliminar (idAnuncio,idFolio) {
         this.loading = true;
         console.log(idFolio);
-        axios.delete('/api/anuncios.json?id='+ idAnuncio, {
+        axios.delete('/api/anuncios?id='+ idAnuncio, {
           id : idAnuncio
         }).then(response => {
           console.log(response);

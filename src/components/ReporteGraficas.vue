@@ -635,7 +635,7 @@ export default {
       this.loaded_monto_categoria_filtro = false;
       try {
         const path_filtro =
-          "/api/grafica-total-fechas-categoria-filtro.json?fechaFin=" +
+          "/api/grafica-total-fechas-categoria-filtro?fechaFin=" +
           this.fechaFin_monto_categoria +
           "&fechaInicio=" +
           this.fechaInicio_monto_categoria;
@@ -655,7 +655,7 @@ export default {
       this.loaded_monto_categoria_filtro = false;
       try {
         const response = await fetch(
-          "/api/grafica-total-fechas-categoria.json"
+          "/api/grafica-total-fechas-categoria"
         ).then((response) => response.json());
         this.chartdata_monto_categoria_filtro = response.chartdata;
         this.error_fecha_monto_categoria = false;
@@ -669,7 +669,7 @@ export default {
       this.loaded_tipo_pago_filtro = false;
       try {
         const response = await fetch(
-          "/api/grafica-tipo-pago.json"
+          "/api/grafica-tipo-pago"
         ).then((response) => response.json());
         this.chartdata_tipo_pago_filtro = response.chartdata;
         this.error_fecha_tipo_pago = false;
@@ -683,7 +683,7 @@ export default {
       this.loaded_tipo_pago_filtro = false;
       try {
         const path_filtro =
-          "/api/grafica-tipo-pago-rango.json?fechaFin=" +
+          "/api/grafica-tipo-pago-rango?fechaFin=" +
           this.fechaFin_tipo_pago +
           "&fechaInicio=" +
           this.fechaInicio_tipo_pago;
@@ -703,7 +703,7 @@ export default {
       this.loaded_importe_total_ventas_filtro = false;
       try {
         const response = await fetch(
-          "/api/grafica-total-importe-ventas.json"
+          "/api/grafica-total-importe-ventas"
         ).then((response) => response.json());
         console.log("response");
         console.log(response);
@@ -719,7 +719,7 @@ export default {
       this.loaded_importe_total_ventas_filtro = false;
       try {
         const path_filtro =
-          "/api/grafica-total-importe-ventas-filtro.json?fechaFin=" +
+          "/api/grafica-total-importe-ventas-filtro?fechaFin=" +
           this.fechaFin_importe_total_ventas +
           "&fechaInicio=" +
           this.fechaInicio_importe_total_ventas;
@@ -741,7 +741,7 @@ export default {
       this.loaded_numero_ordenes_total_ventas_filtro = false;
       try {
         const response = await fetch(
-          "/api/grafica-total-numero-ordenes-ventas.json"
+          "/api/grafica-total-numero-ordenes-ventas"
         ).then((response) => response.json());
         response.chartdata.datasets[0].borderColor = "#17a2b8";
         this.chartdata_numero_ordenes_total_ventas_filtro = response.chartdata;
@@ -756,7 +756,7 @@ export default {
       this.loaded_numero_ordenes_total_ventas_filtro = false;
       try {
         const path_filtro =
-          "/api/grafica-total-numero-ordenes-ventas-filtro.json?fechaFin=" +
+          "/api/grafica-total-numero-ordenes-ventas-filtro?fechaFin=" +
           this.fechaFin_numero_ordenes_total_ventas +
           "&fechaInicio=" +
           this.fechaInicio_numero_ordenes_total_ventas;
@@ -794,7 +794,7 @@ export default {
     },
     async compradorG() {
       this.loaded_comprador = false;
-      const { data } = await axios.get("/api/grafica-comprador-asiduo.json");
+      const { data } = await axios.get("/api/grafica-comprador-asiduo");
       let colores = this.coloresGenerador();
       this.compradorPie = {
         labels: data.chart.label,
@@ -810,7 +810,7 @@ export default {
     },
     async mascotaVendidaG() {
       this.loaded_mascota = false;
-      const { data } = await axios.get("/api/grafica-mascota-mas-vendida.json");
+      const { data } = await axios.get("/api/grafica-mascota-mas-vendida");
       let colores = ["", "", "", "", ""];
       let i = 0;
       for (let index in data.chart.label) {
@@ -831,7 +831,7 @@ export default {
     },
     async paqueteriaUtilizadaG() {
       this.loaded_paqueteria = false;
-      const { data } = await axios.get("/api/grafica-paqueteria.json");
+      const { data } = await axios.get("/api/grafica-paqueteria");
       let colores = this.coloresGenerador();
       this.paqueteriaBar = {
         labels: data.chart.label,
@@ -948,7 +948,7 @@ export default {
       this.loaded_paqueteria = false;
       let fechas = this.generadorFechas(this.selectedMonthPaqueteria);
       const { data } = await axios.get(
-        "/api/grafica-paqueteria-rango/" + fechas[0] + "/" + fechas[1] + ".json"
+        "/api/grafica-paqueteria-rango/" + fechas[0] + "/" + fechas[1] 
       );
       console.log(
         "Se filtra usando PaqueteriaUtilizada fechas:\n" +

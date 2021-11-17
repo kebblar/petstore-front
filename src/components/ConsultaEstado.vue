@@ -361,7 +361,7 @@
                 this.$modal.hide('modal-general');
             },
             onInitPaises(){
-                axios.get('api/paises.json', {
+                axios.get('api/paises', {
                 }).then(response => {
                     this.paises=response.data;
                 })
@@ -371,7 +371,7 @@
 
             },
             openEdit(id, nombre, idPais){
-                axios.get('api/paises.json', {
+                axios.get('api/paises', {
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
@@ -403,7 +403,7 @@
             openAdd(){
                 this.nombreNuevo ="";
                 this.idPais = 0;
-                axios.get('api/paises.json', {
+                axios.get('api/paises', {
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
@@ -428,7 +428,7 @@
             },
             submition() {
                 if ((this.name && this.filtroPaisValue > 0)||this.name) {
-                    axios.get('api/estados/list/'+this.name+'/'+this.filtroPaisValue+'.json', {
+                    axios.get('api/estados/list/'+this.name+'/'+this.filtroPaisValue, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -444,7 +444,7 @@
                         this.$modal.show('modal-general');
                     })
                 }  else if( this.filtroPaisValue > 0) {
-                     axios.get('api/estados/pais/'+this.filtroPaisValue+'.json', {
+                     axios.get('api/estados/pais/'+this.filtroPaisValue, {
                     }).then(response => {
                         this.estados=response.data;
                         this.perPage= 15;
@@ -454,7 +454,7 @@
                 }
                 else {
                     console.log(store.state)
-                    axios.get('api/estados-nombre-pais.json', {
+                    axios.get('api/estados-nombre-pais', {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -472,7 +472,7 @@
                 }
             },
             modificarEstado() {
-                axios.put('api/estado.json', {
+                axios.put('api/estado', {
                     id:this.idActual,
                     idPais: this.idPaisNuevo,
                     nombre : this.nombreActual
@@ -489,7 +489,7 @@
             },
             agregarEstado() {
                 console.log(store.state);
-                axios.post('api/estado.json', {
+                axios.post('api/estado', {
                     nombre : this.nombreNuevo,
                     idPais : this.idPais
                 }).then(response => {
@@ -506,7 +506,7 @@
                 })
             },
             eliminarEstado() {
-                axios.delete('api/estado.json', {
+                axios.delete('api/estado', {
                     data: {
                         id:this.idActual
                     }

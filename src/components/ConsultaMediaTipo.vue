@@ -334,7 +334,7 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/mediatipos/list/'+this.name+'.json', {
+                    axios.get('api/mediatipos/list/'+this.name, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -349,7 +349,7 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/media-tipos.json', {
+                    axios.get('api/media-tipos', {
                     }).then(response => {
                         console.log("enviado-mediatipos");
                         console.log(response);
@@ -364,7 +364,7 @@
                 }
             },
             modificarMediatipo() {
-                axios.put('api/media-tipo.json', {
+                axios.put('api/media-tipo', {
                     id:this.idActual,
                     descripcion : this.nombreActual,
                     activo: this.estatusActual
@@ -381,7 +381,7 @@
             },
             agregarMediatipo() {
                 console.log(store.state);
-                axios.post('api/media-tipo.json', {
+                axios.post('api/media-tipo', {
                     descripcion : this.nombreNuevo,
                     activo:1
                 }).then(response => {
@@ -397,7 +397,7 @@
                 })
             },
             eliminarMediatipo() {
-                axios.delete('api/media-tipo.json', {
+                axios.delete('api/media-tipo', {
                     data:{id:this.idActual}
                 }).then(response => {
                     console.log("enviado");

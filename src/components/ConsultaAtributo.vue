@@ -549,7 +549,7 @@
                 this.titleModal=nombre;
                 this.nombreNuevoRango="";
                 this.estatusRango=0;
-                axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', {
+                axios.get('api/valor-atributo/atributo/'+this.idActual, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -564,14 +564,14 @@
             },
             openAddRango() {
                console.log(store.state);
-                axios.post('api/valor-atributo.json', {
+                axios.post('api/valor-atributo', {
                     idAtributo:this.idActual,
                     rango : this.nombreNuevoRango,
                     activo:1
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                   axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', {
+                   axios.get('api/valor-atributo/atributo/'+this.idActual, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -593,7 +593,7 @@
 
             editRango() {
                console.log(store.state);
-                axios.put('api/valor-atributo.json', {
+                axios.put('api/valor-atributo', {
                     idAtributo:this.idActual,
                     id:this.idRangoActual,
                     rango : this.nombreNuevoRango,
@@ -601,7 +601,7 @@
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
-                   axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', {
+                   axios.get('api/valor-atributo/atributo/'+this.idActual, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -621,7 +621,7 @@
                 })
             },
             eliminarAtributoRango() {
-                axios.delete('api/valor-atributo.json', {
+                axios.delete('api/valor-atributo', {
                     data:{id:this.idRangoActual}
                 }).then(response => {
                     console.log("enviado");
@@ -629,7 +629,7 @@
                     //this.atributos=response.data;
                     this.$modal.hide('eliminarRango');
                     this.$modal.show('mensaje-exito-delete-rango');
-                    axios.get('api/valor-atributo/atributo/'+this.idActual+'.json', {
+                    axios.get('api/valor-atributo/atributo/'+this.idActual, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -702,7 +702,7 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/atributos/list/'+this.name+'.json', {
+                    axios.get('api/atributos/list/'+this.name, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -717,7 +717,7 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/atributos.json', {
+                    axios.get('api/atributos', {
                     }).then(response => {
                         console.log("enviado-atributos");
                         console.log(response);
@@ -732,7 +732,7 @@
                 }
             },
             modificarAtributo() {
-                axios.put('api/atributo.json', {
+                axios.put('api/atributo', {
                     id:this.idActual,
                     nombre : this.nombreActual,
                     activo: this.estatusActual
@@ -749,7 +749,7 @@
             },
             agregarAtributo() {
                 console.log(store.state);
-                axios.post('api/atributo.json', {
+                axios.post('api/atributo', {
                     nombre : this.nombreNuevo,
                     activo:1//this.estatus
                 }).then(response => {
@@ -765,7 +765,7 @@
                 })
             },
             eliminarAtributo() {
-                axios.delete('api/atributo.json', {
+                axios.delete('api/atributo', {
                     data:{id:this.idActual}
                 }).then(response => {
                     console.log("enviado");

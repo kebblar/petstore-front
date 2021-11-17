@@ -100,7 +100,7 @@ export default {
       if(ok) router.push('/ui/login');
     },
     confirma() {
-      axios.get("api/confirma-preregistro.json?token=" + this.token, {
+      axios.get("api/confirma-preregistro?token=" + this.token, {
         token: this.token,
       })
       .then((response) => {

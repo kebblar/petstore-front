@@ -115,7 +115,7 @@ export default {
         this.$refs.avisoComp.abre();
       },
       obten: function() {
-        axios.get('/api/health.json?inputData=ls', {
+        axios.get('/api/health?inputData=ls', {
         }).then(response => {
             this.version = response.data['app.backend.version'];
             this.ambiente= response.data['app.profile.identifier'];

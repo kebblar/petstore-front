@@ -220,7 +220,7 @@
           this.abreToast('La clave y su confirmación deben coincidir');
           return;
         }
-        axios.get('api/confirma-regenera-clave.json?token='+this.token+'&clave='+this.password, {
+        axios.get('api/confirma-regenera-clave?token='+this.token+'&clave='+this.password, {
         }).then(response => {
           if(response) console.log('ok');
           this.modalShowsError = false;

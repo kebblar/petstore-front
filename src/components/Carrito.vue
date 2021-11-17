@@ -115,7 +115,7 @@ export default {
       return url.replace(this.url_img, this.url_video);
     },
     actualiza() {
-      axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+      axios.get('/api/carritoVista/'+store.state.session.idUser, {}).then(response => {
         store.commit('setCarrito', response.data);
         this.shoppingKart = response.data;
         this.calcula();
@@ -124,7 +124,7 @@ export default {
       });
     },
     deleteElement(i) {
-      axios.delete('/api/carrito/'+i+'.json').then (response => {
+      axios.delete('/api/carrito/'+i).then (response => {
         if(response!=null) {console.log("OK");}
         this.actualiza();
       }).catch(e => {

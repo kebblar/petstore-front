@@ -244,42 +244,42 @@ export default {
     this.ruta      = process.env.VUE_APP_URL_MEDIA;
     this.rutaVideo = process.env.VUE_APP_URL_MEDIA_VIDEO;
 
-    axios.get('api/categorias.json').then(response => {
+    axios.get('api/categorias').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.categorias, key, { id: obj.id, valor:obj.categoria});
         });
     });
-    axios.get('api/valor-atributo/atributo/1.json').then(response => {
+    axios.get('api/valor-atributo/atributo/1').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.pesos, key, { id: obj.id, valor:obj.rango});
         });
     });
-    axios.get('api/valor-atributo/atributo/2.json').then(response => {
+    axios.get('api/valor-atributo/atributo/2').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.razas, key, { id: obj.id, valor:obj.rango});
         });
     });
-    axios.get('api/valor-atributo/atributo/3.json').then(response => {
+    axios.get('api/valor-atributo/atributo/3').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.colores, key, { id: obj.id, valor:obj.rango});
         });
     });
-    axios.get('api/valor-atributo/atributo/4.json').then(response => {
+    axios.get('api/valor-atributo/atributo/4').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.tamanos, key, { id: obj.id, valor:obj.rango});
         });
     });
-    axios.get('api/valor-atributo/atributo/5.json').then(response => {
+    axios.get('api/valor-atributo/atributo/5').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.edades, key, { id: obj.id, valor:obj.rango});
         });
     });
-    axios.get('api/valor-atributo/atributo/6.json').then(response => {
+    axios.get('api/valor-atributo/atributo/6').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.longevidades, key, { id: obj.id, valor:obj.rango});
         });
     });
-    axios.get('api/valor-atributo/atributo/7.json').then(response => {
+    axios.get('api/valor-atributo/atributo/7').then(response => {
         response.data.forEach((obj, key) => {
             Vue.set(this.aguas, key, { id: obj.id, valor:obj.rango});
         });
@@ -432,7 +432,7 @@ export default {
       if(this.idAguas != ''){
         envio.push(this.idAguas)
       }
-      axios.post("/api/anuncio/filter.json", {
+      axios.post("/api/anuncio/filter", {
           precio: this.precio,
           idCategoria: this.idCategoria,
           numPaginas: numero,

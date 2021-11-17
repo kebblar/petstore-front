@@ -200,7 +200,7 @@ export default {
   },
   methods: {
     actualiza() {
-      axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {}).then(response => {
+      axios.get('/api/carritoVista/'+store.state.session.idUser, {}).then(response => {
         store.commit('setCarrito', response.data);
         console.log(response.data);
       }).catch(e => {
@@ -220,7 +220,7 @@ export default {
     },
     cargarDetalle(idProd) {
       axios
-        .get("/api/anuncios/" + idProd + ".json", {})
+        .get("/api/anuncios/" + idProd, {})
         .then((response) => {
           this.error = false;
           this.titulo = response.data.titulo;
@@ -251,7 +251,7 @@ export default {
     },
     comprar() {
       let id = this.idprod;
-      axios.post("/api/carrito.json", {"cveOrdenCompra": "string",
+      axios.post("/api/carrito", {"cveOrdenCompra": "string",
                                        "id": 0,
                                        "idAnuncio": id,
                                        "idUsuario": store.state.session.idUser}).then(response => {

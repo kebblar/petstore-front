@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     checkCredentials: function() {
-      axios.post('/api/login.json', {
+      axios.post('/api/login', {
         usuario: this.usr,
         clave: this.psw
       }).then(response => {

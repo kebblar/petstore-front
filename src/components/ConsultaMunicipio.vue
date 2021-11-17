@@ -396,7 +396,7 @@
             openGen(){
                 this.$modal.hide('modal-general');
             }, onInitPaises(){
-                axios.get('api/paises.json', {
+                axios.get('api/paises', {
                 }).then(response => {
                     this.paises=response.data;
                 })
@@ -405,13 +405,13 @@
                 this.idActual=id;
                 this.nombreActual=nombre;
                 this.idEstadoNuevo=idEstado;
-                axios.get('api/estado/'+idEstado+'.json', {
+                axios.get('api/estado/'+idEstado, {
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
                     this.estado=response.data;
                     this.idPaisNuevo = this.estado.idPais;
-                    axios.get('api/estados/pais/'+this.idPaisNuevo +'.json', {
+                    axios.get('api/estados/pais/'+this.idPaisNuevo, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -426,7 +426,7 @@
                     console.log(error.response.data);
                     this.msgErr = error.response.data['exceptionLongDescription'];
                 });
-                axios.get('api/paises.json', {
+                axios.get('api/paises', {
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
@@ -456,7 +456,7 @@
                 this.nombreNuevo = null;
                 this.idEstado = 0;
                 this.idPais = 0;
-                axios.get('api/paises.json', {
+                axios.get('api/paises', {
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
@@ -483,7 +483,7 @@
                 this.filtrarEstado();
             },
             modificarMunicipio() {
-                axios.put('api/municipio.json', {
+                axios.put('api/municipio', {
                     id:this.idActual,
                     idEstado: this.idEstadoNuevo,
                     nombre : this.nombreActual
@@ -502,7 +502,7 @@
             },
             agregarMunicipio() {
                 console.log(store.state);
-                axios.post('api/municipio.json', {
+                axios.post('api/municipio', {
                     nombre : this.nombreNuevo,
                     idEstado : this.idEstado
                 }).then(response => {
@@ -518,7 +518,7 @@
                 })
             },
             eliminarMunicipio() {
-                axios.delete('api/municipio.json', {
+                axios.delete('api/municipio', {
                     data : {
                         id : this.idActual
                     }
@@ -542,7 +542,7 @@
             findEstadoByPais(pais){
                 this.idEstadoNuevo= 0;
                 this.idEstado=0;
-                axios.get('api/estados/pais/'+pais+'.json', {
+                axios.get('api/estados/pais/'+pais, {
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
@@ -555,7 +555,7 @@
 
 
             },filtrarPais(){
-               axios.get('api/estados/pais/'+this.filtroPaisValue+'.json', {
+               axios.get('api/estados/pais/'+this.filtroPaisValue, {
                 }).then(response => {
                     console.log("enviado");
                     console.log(response);
@@ -566,7 +566,7 @@
                     this.msgErr = error.response.data['exceptionLongDescription'];
                 });
 
-                      axios.get('api/municipios/pais/'+this.filtroPaisValue+'/'+this.name+'.json', {
+                    axios.get('api/municipios/pais/'+this.filtroPaisValue+'/'+this.name, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -585,7 +585,7 @@
             },
             filtrarEstado(){
                     if(this.filtroEstadoValue > 0) {
-                        axios.get('api/municipios/estado/'+this.filtroEstadoValue+'/'+this.name+'.json', {
+                        axios.get('api/municipios/estado/'+this.filtroEstadoValue+'/'+this.name, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);

@@ -95,7 +95,7 @@ export default {
                 return;
             }
 
-            axios.put('/api/cambia-clave.json', {
+            axios.put('/api/cambia-clave', {
                 usuario: store.state.session.correo,
                 clave: this.clave,
             },

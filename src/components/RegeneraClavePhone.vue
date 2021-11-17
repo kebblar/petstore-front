@@ -57,7 +57,7 @@
       },
       methods: {
       cambiaClave() {
-        axios.get('api/regenera-clave.json?correo='+this.correo, {
+        axios.get('api/regenera-clave?correo='+this.correo, {
         }).then(response => {
           console.log(response);
           console.log(response.data);

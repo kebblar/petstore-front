@@ -422,7 +422,7 @@
                 this.$modal.show('editarRegistro');
             },
             async getInfoEdit(id){
-                const { data } = await axios.get('api/paqueteria/'+id+'.json')
+                const { data } = await axios.get('api/paqueteria/'+id)
                 this.idActual=id;
                 this.nombreActual=data.nombre;
                 this.descripcionN=data.breveDescripcion;
@@ -436,7 +436,7 @@
                 this.$modal.show('eliminarRegistro');
             },
             getPaqueterias(){
-                axios.get('api/paqueterias.json', {
+                axios.get('api/paqueterias', {
                     }).then(response => {
                         this.paqueterias=response.data;
                     }).catch(error => {
@@ -480,7 +480,7 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/paqueteria/list/'+this.name+'.json', {
+                    axios.get('api/paqueteria/list/'+this.name, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -495,7 +495,7 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/paqueterias.json', {
+                    axios.get('api/paqueterias', {
                     }).then(response => {
                         console.log(response);
                         this.paqueterias=response.data;
@@ -509,7 +509,7 @@
                 }
             },
             modificarRegistro() {
-                axios.put('api/paqueteria.json', {
+                axios.put('api/paqueteria', {
                     id:this.idActual,
                     nombre : this.nombreActual,
                     breveDescripcion : this.descripcionN,
@@ -528,7 +528,7 @@
             },
             agregarRegistro() {
                 console.log(store.state);
-                axios.post('api/paqueteria.json', {
+                axios.post('api/paqueteria', {
                     nombre : this.nombreNuevo,
                     breveDescripcion : this.descripcion,
                     htmlDescripcion : this.detalladaDescripcion,
@@ -547,7 +547,7 @@
                 })
             },
             eliminarRegistro() {
-                axios.delete('api/paqueteria.json', {
+                axios.delete('api/paqueteria', {
                     data: {
                         id:this.idActual
                     }

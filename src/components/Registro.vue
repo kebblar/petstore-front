@@ -342,7 +342,7 @@
         this.$modal.hide('aviso');
       },
       onCaptchaVerified(recaptchaToken) {
-          axios.post('api/check-captcha.json', {
+          axios.post('api/check-captcha', {
             response: recaptchaToken,
             ip: '127.0.0.1'
           })
@@ -367,7 +367,7 @@
       },
       submition() {
         this.loading = true;
-        axios.post('api/usuario-preregistro.json', {
+        axios.post('api/usuario-preregistro', {
           id:0,
           nick: this.name,
           claveHash: this.password,

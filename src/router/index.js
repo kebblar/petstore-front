@@ -362,7 +362,7 @@ router.beforeEach((to, from, next) => {
   checaJwt(store.state.session.jwt, true);
 
   /*
-  axios.get('/api/carritoVista/'+store.state.session.idUser+'.json', {
+  axios.get('/api/carritoVista/'+store.state.session.idUser, {
     // no le mando parámetros .... ni headers aqui...
   }).then(response => {
     store.commit('setCarrito', response.data);

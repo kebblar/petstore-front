@@ -93,7 +93,7 @@ methods: {
       this.page=numero;
     },
     getHistorial(){
-      axios.get('api/administracion-compras.json/').then(response => {
+      axios.get('api/administracion-compras/').then(response => {
           response.data.forEach((value) => {
               this.compras.push(value);
           });
@@ -109,7 +109,7 @@ methods: {
       })
     },
     sent(cve_orden, index){
-      axios.post('api/administracion-compras-update.json/1/'.concat(cve_orden)).then(() => {
+      axios.post('api/administracion-compras-update/1/'.concat(cve_orden)).then(() => {
           this.$modal.show('aviso');
           this.titulo = "Exito!";
           this.compras[index].estadoEnvio = true;

@@ -352,7 +352,7 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/estatusanuncios/list/'+this.name+'.json', {
+                    axios.get('api/estatusanuncios/list/'+this.name, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -367,7 +367,7 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/estatus-anuncios.json', {
+                    axios.get('api/estatus-anuncios', {
                     }).then(response => {
                         console.log("enviado-estatusanuncios");
                         console.log(response);
@@ -382,7 +382,7 @@
                 }
             },
             modificarEstatusanuncio() {
-                axios.put('api/estatus-anuncio.json', {
+                axios.put('api/estatus-anuncio', {
                     id:this.idActual,
                     descripcion : this.nombreActual,
                 }).then(response => {
@@ -400,7 +400,7 @@
             },
             agregarEstatusanuncio() {
                 console.log(store.state);
-                axios.post('api/estatus-anuncio.json', {
+                axios.post('api/estatus-anuncio', {
                     descripcion : this.nombreNuevo,
                 }).then(response => {
                     console.log("enviado");
@@ -417,7 +417,7 @@
                 })
             },
             eliminarEstatusanuncio() {
-                axios.delete('api/estatus-anuncio.json', {
+                axios.delete('api/estatus-anuncio', {
                     data:{id:this.idActual}
                 }).then(response => {
                     console.log("enviado");

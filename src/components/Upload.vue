@@ -437,8 +437,8 @@ export default {
       addIndex: false,
       thread: 3,
       name: 'file',
-      postAction: 'http://localhost:9999/' +'api/upload.json', // OJO: aqui lo repito el de abajo porque NO tengo mas que 1 endpoint !!!!!!!!
-      putAction: 'http://localhost:9999/' +'api/upload2.json',
+      postAction: 'http://localhost:9999/' +'api/upload', // OJO: aqui lo repito el de abajo porque NO tengo mas que 1 endpoint !!!!!!!!
+      putAction: 'http://localhost:9999/' +'api/upload2',
       headers: {
         'X-Csrf-Token': 'xxxx',
       },

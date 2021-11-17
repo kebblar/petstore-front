@@ -296,13 +296,13 @@ export default {
     };
   },
   created() {
-    axios.get('api/categorias.json').then(response => {
+    axios.get('api/categorias').then(response => {
         response.data.forEach((obj, key) => {
             console.log("--> Obj "+obj +" Key "+key);
             Vue.set(this.tipoCategorias, key, { id: obj.id, valor:obj.categoria});
         });
     });
-     axios.get('api/atributos-detalles.json').then(response => {
+     axios.get('api/atributos-detalles').then(response => {
         response.data.forEach((obj) => {
             let optionsS = [];
             obj.rangos.forEach((obj) => {
@@ -318,7 +318,7 @@ export default {
         });
     });
 
-    axios.get('api/categoria-atributos.json').then(response => {
+    axios.get('api/categoria-atributos').then(response => {
         let idCategoria = 0;
         let atributosGenerales = response.data;
         response.data.forEach((obj) => {
@@ -351,7 +351,7 @@ export default {
       this.tituloProceso = "Actualización del anuncio";
       this.id = this.$route.params.id;
       //Realizamos la consulta al servicio para consultar la información
-       axios.get('api/anuncios/'+this.id+'.json').then(response => {
+       axios.get('api/anuncios/'+this.id).then(response => {
           console.log(response.data);
           this.$refs.wizard.activeTabIndex=2;
           this.$refs.wizard.changeTab(0,2);
@@ -372,7 +372,7 @@ export default {
           anuncio.atributos.forEach((aux) => {
               this.atributos.push({idValorAtributo: aux.idAtributo, valor: aux.valor });
           });
-          axios.get('api/categoria-atributos.json').then(response => {
+          axios.get('api/categoria-atributos').then(response => {
               let idCategoria = 0;
               let atributosGenerales = response.data;
               response.data.forEach((obj) => {
@@ -424,7 +424,7 @@ export default {
       console.log("--> Guardando datos --- ");
       console.log(this.atributos);
       if(this.id == 0){ //Registro
-        axios.post('api/anuncios.json',  {
+        axios.post('api/anuncios',  {
           titulo: this.titulo,
           descripcion: this.descripcion,
           fechaInicioVigencia: this.fechaInicioVigencia,
@@ -468,7 +468,7 @@ export default {
           });
         });
       }else{
-        axios.put('api/anuncios.json',  {
+        axios.put('api/anuncios',  {
           id:this.id,
           titulo: this.titulo,
           descripcion: this.descripcion,
@@ -506,7 +506,7 @@ export default {
     },
     onComplete() {
       let msgOK = '<center>Se confirma el anuncio de manera correcta para su publicación <br/> FOLIO <strong> '+this.folio +' </strong></center>';
-      axios.put('api/anuncios/confirmar/'+this.id+'.json').then(response => {
+      axios.put('api/anuncios/confirmar/'+this.id).then(response => {
           console.log(response.data);
           Vue.$toast.open({
             message: msgOK,

@@ -326,7 +326,7 @@
             submition() {
                 console.log("submition");
                 if (this.name) {
-                    axios.get('api/paises/list/'+this.name+'.json', {
+                    axios.get('api/paises/list/'+this.name, {
                     }).then(response => {
                         console.log("enviado");
                         console.log(response);
@@ -341,7 +341,7 @@
                 }
                 else {
                     console.log(store.state);
-                    axios.get('api/paises.json', {
+                    axios.get('api/paises', {
                     }).then(response => {
                         console.log("enviado-paises");
                         console.log(response);
@@ -356,7 +356,7 @@
                 }
             },
             modificarPais() {
-                axios.put('api/pais.json', {
+                axios.put('api/pais', {
                     id:this.idActual,
                     nombre : this.nombreActual
                 }).then(response => {
@@ -372,7 +372,7 @@
             },
             agregarPais() {
                 console.log(store.state);
-                axios.post('api/pais.json', {
+                axios.post('api/pais', {
                     nombre : this.nombreNuevo
                 }).then(response => {
                     console.log("enviado");
@@ -388,7 +388,7 @@
                 })
             },
             eliminarPais() {
-                axios.delete('api/pais.json', {
+                axios.delete('api/pais', {
                     data: {
                         id:this.idActual
                     }
