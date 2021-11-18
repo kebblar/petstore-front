@@ -110,7 +110,7 @@
             :clickToClose="false"
             width="40%"
             :shiftX=0.5
-            :shiftY=1
+            :shiftY=0.5
             height="auto"
             style="z-index: 50">
             <div class="caja-advertencia">

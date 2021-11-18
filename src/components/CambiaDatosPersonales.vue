@@ -6,104 +6,117 @@
     <div class="card defaultColor">
 
       <div class="card-header">
-          <label class="control-label h4">Actualizar mis datos persoales</label>
+          <label class="control-label h4">Actualizar mis datos personales</label>
       </div><!-- ends header-->
       
-      <div class="card-body align">
+      <div class="card-body align p-4">
 
-          <!-- Nick -->
-          <div class ="form-row form-group">
-            <div class="col-md-4" style="text-align: right;">
-              <label for="nick">Nick:</label>
+        <!-- correo -->
+        <div class ="form-group">
+          <div class="row">
+            <div class= "col-sm-12 col-md-5">
+              <label>Correo:</label>
             </div>
-            <div class="col">
-              <input type="text" required class="form-control" :class="classNick" placeholder="ejemplo: Goose" v-model="modelNick">
+            <div class="col-md-7">
+              <input type="email" disabled class="form-control" :class="classMail" v-model="modelCorreo">
+              <small class="notValid">{{msgMail}}</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nick -->
+        <div class ="form-group">
+          <div class="row">
+            <div class="col-sm-12 col-md-5">
+              <label>Nick:</label>
+            </div>
+            <div class="col-md-7">
+              <input type="text" required class="form-control" maxlength="35" :class="classNick" placeholder="ejemplo: Goose" v-model="modelNick">
               <small class="notValid">{{msgNick}}</small>
             </div>
           </div>
+        </div>
 
-          <!-- Nombre -->
-          <div class ="form-row form-group">
-            <div class="col-md-4" style="text-align: right;">
-              <label for="nombre">Nombre:</label>
+        <!-- Nombre -->
+        <div class ="form-group">
+          <div class="row">
+            <div class="col-sm-12 col-md-5">
+              <label>Nombre:</label>
             </div>
-            <div class="col">
+            <div class="col-md-7">
               <input type="text" required class="form-control" :class="className" placeholder="ejemplo: luis" v-model="modelName">
               <small class="notValid">{{msgName}}</small>
             </div>
           </div>
-
-          <!-- correo -->
-          <div class ="form-row form-group">
-            <div class= "col-md-4" style="text-align: right;">
-              <label for="modelCorreo">Correo:</label>
-            </div>
-            <div class="col">
-              <input type="email" disabled required class="form-control" :class="classMail" id="modelCorreo" placeholder="ejemplo: luis@gmail.com" v-model="modelCorreo">
-              <small class="notValid">{{msgMail}}</small>
-            </div>
-          </div>
+        </div>
 
           <!-- apellido paterno -->
-          <div class ="form-row form-group">
-            <div class="col-md-4" style="text-align: right;">
-              <label for="modelApPat">Apellido Paterno:</label>
-            </div>
-            <div class="col">
-              <input type="text" required :class="classApPat" class="form-control" id="modelApPat" placeholder="ejemplo: López" v-model="modelApPat">
-              <small class="notValid">{{msgApPat}}</small>
+          <div class ="form-group">
+            <div class="row">
+              <div class="col-sm-12 col-md-5">
+                <label>Apellido Paterno:</label>
+              </div>
+              <div class="col-md-7">
+                <input type="text" required :class="classApPat" class="form-control" placeholder="ejemplo: López" v-model="modelApPat">
+                <small class="notValid">{{msgApPat}}</small>
+              </div>
             </div>
           </div>
 
           <!-- apellido materno -->
-          <div class ="form-row form-group">
-            <div class="col-md-4" style="text-align: right;">
-              <label for="modelApMat">Apellido Materno:</label>
+          <div class ="form-group">
+            <div class="row">
+              <div class="col-sm-12 col-md-5">
+                <label>Apellido Materno:</label>
+              </div>
+              <div class="col-md-7">
+                <input type="text" required :class="classApMat" class="form-control" placeholder="ejemplo: Pérez" v-model="modelApMat">
+              </div>
             </div>
-            <div class="col">
-              <input type="text" required :class="classApMat" class="form-control" id="modelApMat" placeholder="ejemplo: Pérez" v-model="modelApMat">
-          </div>
           </div>
 
           <!-- f nacimiento -->
-          <div class ="form-row form-group">
-            <div class="col-md-4" style="text-align: right;">
-              <label> Fecha de nacimiento:</label>
+          <div class ="form-group">
+            <div class="row">
+              <div class="col-sm-12 col-md-5">
+                <label>Fecha de nacimiento:</label>
+              </div>
+              <div class="col-md-7">
+                <b-form-datepicker
+                    id="fecha-nacimiento"
+                    v-model="fNacimiento"
+                    :initial-date="dateConfig.initial"
+                    :max="dateConfig.max"
+                    :min="dateConfig.min"
+                    calendar-width="100%"
+                    class="styleCalendar mb-2"
+                    hide-header
+                    locale="es"
+                    menu-class="w-100"
+                    nav-button-variant="secondary"
+                    placeholder="MM-DD-YYYY"
+                    show-decade-nav
+                    v-bind:value-as-date=true
+                    />
+                  </div>
             </div>
-            <div class="col">
-              <b-form-datepicker
-                  id="fecha-nacimiento"
-                  v-model="fNacimiento"
-                  :initial-date="dateConfig.initial"
-                  :max="dateConfig.max"
-                  :min="dateConfig.min"
-                  calendar-width="100%"
-                  class="mb-2"
-                  :class="styleCalendar"
-                  hide-header
-                  locale="es"
-                  menu-class="w-100"
-                  nav-button-variant="secondary"
-                  placeholder="MM-DD-YYYY"
-                  show-decade-nav
-                  v-bind:value-as-date=true
-                  />
-                </div>
           </div>
 
           <!-- telefono -->
-          <div class ="form-row form-group">
-            <div class="col-md-4" style="text-align: right;">
-            <label for="telefono">Telefono:</label>
-            </div>
-            <div class="col">
-            <input type="tel" class="form-control" required :class="classTel" id="telefono" placeholder="XX XXXX XXXX" v-model="tel">
-            <small class="notValid">{{msgTel}}</small>
+          <div class ="form-group">
+            <div class="row">
+              <div class="col-sm-12 col-md-5">
+              <label>Telefono:</label>
+              </div>
+              <div class="col">
+              <input type="tel" class="form-control" required :class="classTel" placeholder="XX XXXX XXXX" v-model="tel">
+              <small class="notValid">{{msgTel}}</small>
+              </div>
             </div>
           </div>
 
           <!-- button -->
-          <div class="form-group row">
+          <div class="form-group row my-4">
             <div class="col text-center" >
                 <button
                   :disabled="habilitaBoton"
@@ -177,7 +190,6 @@
         styleUpper2 : 'show',
         styleNum2 : 'show',
 
-        styleCalendar : '',
         isVisible : 'hidden',
         activoClave : true, //Cambia el valor del booleano para ver las distintas versiones de validaciones de la clave
 
@@ -227,11 +239,6 @@
           this.msgConfirm="El Apellido Materno debe contener más de 3 letras";
           this.classApMat="redColor incorrect";
         }
-      },
-
-      fNacimiento(){
-        this.msgCalendar="";
-        this.styleCalendar='greenColor correct';
       },
 
       tel(){
@@ -345,37 +352,69 @@
 }
 
 .notValid {
-  color:rgb(235, 74, 74);
+  color: rgb(213, 95, 95);
+}
+
+input {
+  padding-left: 10px;
+  padding-right: 35px;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  font-size: 13px;
+  line-height: 2;
+  border: 0;
+  border-bottom: 1px solid #dddedf;
+  font-family: inherit;
+}
+
+input:focus {
+  margin: 0 0 15px 0;
+  height: 37px;
+  font-size: 100%;
+}
+
+.styleCalendar {
+  font-size: 12px;
+  border: 0;
+  border-bottom: 1px solid #dddedf;
+}
+
+label {
+  font-size: 15px;
 }
 
 .greenColor:focus {
-  background-color: #eefaee;
-  box-shadow: 2px 1px 4px #bdd3ae;
+  background-color: rgba(238, 250, 238, 0.84);
+  box-shadow: 2px 1px 4px #d2eac1;
+  border: 1px solid rgb(183, 232, 170);
 }
 
 .correct {
-  border-color:rgb(96, 161, 99);
   border-width: 1px;
   box-shadow: 1px 1px 3px #d8dcdd;
   background: url(../assets/check.png) no-repeat scroll;
   background-position:right ;
   background-size: 17px;
   background-position-x: 96%;
+  transition: 0.3s;
 }
 
 .redColor:focus {
-  background-color: #fff3f3  ;
-  box-shadow: 2px 1px 4px #dba6a6;
+  background-color: rgba(250, 241, 238, 0.84);
+  box-shadow: 2px 1px 4px #e8cccc;
+  border: 1px solid #d5a1a1;
 }
 
 .incorrect {
-  border-color:rgb(235, 74, 74);
+  border-color: rgb(236, 127, 127);
   border-width: 1px;
   box-shadow: 1px 1px 3px #d8dcdd;
   background: url(../assets/danger.jpg) no-repeat scroll;
   background-position:right ;
   background-size: 20px;
   background-position-x: 96%;
+  transition: 0.3s;
 }
 
 .defaultColor {
