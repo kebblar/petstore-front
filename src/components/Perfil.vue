@@ -47,12 +47,8 @@
               <vue-cropper
                   ref="cropper"
                   :src="selectedFile"
-                  preview=".preview"
-                  :viewMode="4"
-                  :img-style="{width: '100%', height: fileheight}"
-                  :zoomable="true"
                   :aspectRatio="1/1"
-                  :auto-zoom="true"
+                  preview=".preview"
               />
               <div class="container bg-dark text-light toolSet" >
                 <div class="d-flex align-content-center flex-wrap flex-row justify-content-around pt-1" >
@@ -166,22 +162,23 @@ export default {
       this.bigPic=true;
       this.errorMsg='';
     },
-     getPicture() {
-       axios.get('/api/get-foto-perfil/'+store.state.session.idUser, {"jwt":store.state.session.jwt}).then(response => {
-         if (response.data !== null && response.data.foto !== null) {
-           this.profilePicture = this.ruta+response.data.foto;
-           this.originalPic = this.ruta+response.data.foto;
-           this.fileName = response.data.foto;
-         } else {
-           this.profilePicture = def;
-           this.fileName = 'demo';
-         }
-       }).catch(error => {
-         console.log(error);
-         this.profilePicture = def;
-         this.msgErr = "No podemos cargar tu configuración en este momento";
-       })
-     },
+
+    getPicture() {
+      axios.get('/api/get-foto-perfil/'+store.state.session.idUser, {"jwt":store.state.session.jwt}).then(response => {
+        if (response.data !== null && response.data.foto !== null) {
+          this.profilePicture = this.ruta+response.data.foto;
+          this.originalPic = this.ruta+response.data.foto;
+          this.fileName = response.data.foto;
+        } else {
+          this.profilePicture = def;
+          this.fileName = 'demo';
+        }
+      }).catch(error => {
+        console.log(error);
+        this.profilePicture = def;
+        this.msgErr = "No podemos cargar tu configuración en este momento";
+      })
+    },
 
     cropImage() {
       this.profilePicture = this.$refs.cropper.getCroppedCanvas().toDataURL(this.fileType, 0.5);
@@ -196,7 +193,6 @@ export default {
           this.fd.append('image', b);
           this.niceMessage = this.niceMessageArray[Math.floor((Math.random()*this.niceMessageArray.length))]
           this.errorMsg='';
-
         }
       });
      },
@@ -277,34 +273,40 @@ export default {
       }
     },
 
-      flipX() {
-        const dom = this.$refs.flipX;
-        let scale = dom.getAttribute('data-scale');
-        scale = scale ? -scale : -1;
-        this.$refs.cropper.scaleX(scale);
-        dom.setAttribute('data-scale', scale);
-      },
-      flipY() {
-        const dom = this.$refs.flipY;
-        let scale = dom.getAttribute('data-scale');
-        scale = scale ? -scale : -1;
-        this.$refs.cropper.scaleY(scale);
-        dom.setAttribute('data-scale', scale);
-      },
-      rotate(deg) {
-        this.$refs.cropper.rotate(deg);
-      },
-      move(offsetX, offsetY) {
-        this.$refs.cropper.move(offsetX, offsetY);
-      },
-      zoom(percent) {
-        this.$refs.cropper.relativeZoom(percent);
-      },
+    flipX() {
+      const dom = this.$refs.flipX;
+      let scale = dom.getAttribute('data-scale');
+      scale = scale ? -scale : -1;
+      this.$refs.cropper.scaleX(scale);
+      dom.setAttribute('data-scale', scale);
+    },
+    flipY() {
+      const dom = this.$refs.flipY;
+      let scale = dom.getAttribute('data-scale');
+      scale = scale ? -scale : -1;
+      this.$refs.cropper.scaleY(scale);
+      dom.setAttribute('data-scale', scale);
+    },
+    rotate(deg) {
+      this.$refs.cropper.rotate(deg);
+    },
+    move(offsetX, offsetY) {
+      this.$refs.cropper.move(offsetX, offsetY);
+    },
+    zoom(percent) {
+      this.$refs.cropper.relativeZoom(percent);
+    },
     }
   }
 </script>
 <style scoped>
-
+.modal-content {
+  width: 50%;
+}
+.img-cropper{
+  width: 100%;
+  height: 100%;
+}
 .background {
   background-image: url(https://images.adsttc.com/media/images/5d44/14fa/284d/d1fd/3a00/003d/large_jpg/eiffel-tower-in-paris-151-medium.jpg?1564742900);
   background-repeat: no-repeat;

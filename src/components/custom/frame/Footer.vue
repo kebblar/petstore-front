@@ -108,7 +108,7 @@
         <modal
             name="advertencia"
             :clickToClose="false"
-            width="80%"
+            width="40%"
             :shiftX=0.5
             :shiftY=1
             height="auto"
@@ -131,7 +131,7 @@
               </a>
 
               <div class="collapse" id="collapseCookies">
-                <div class="card card-body w-100" style="overflow: scroll; max-height: 250px">
+                <div class="card card-body w-100" style="overflow: scroll; max-height: 150px">
                   <small class="text-justify">
                     <b>Política de cookies</b>
                     <p>PROVEEDOR DE SERVICIOS informa acerca del uso de las cookies en su página web: SITIO WEB</p>
@@ -232,10 +232,10 @@
               <hr>
 
               <div class="col d-flex justify-content-around my-2">
-                        <button class="btn btn-outline-success" @click="ok()">Aceptar</button>
-                        &nbsp;
-                        <a class="btn btn-outline-danger" href="https://www.google.com">Rechazar</a>
-                    </div>
+                <button class="btn btn-outline-success" @click="ok()">Aceptar</button>
+                &nbsp;
+                <a class="btn btn-outline-danger" href="https://www.google.com">Rechazar</a>
+              </div>
             </div>
         </modal>
 
