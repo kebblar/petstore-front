@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="float-right bg-light">
             <button type="button" class="close mr-2" data-dismiss="modal" aria-label="Close">
@@ -36,7 +36,7 @@
             </button>
           </div>
 
-          <div class="modal-body mx-4 pb-4" style="height: auto">
+          <div class="modal-body mx-4 pb-4 " style="height: auto">
             <div v-if="selectedFile===null" class="container square text-primary" @click="$refs.fileInput.click()">
               <i class="fas fa-upload fa-6x"></i>
               <p class="pt-4">Haz clic para subir una imagen</p>
@@ -300,9 +300,7 @@ export default {
   }
 </script>
 <style scoped>
-.modal-content {
-  width: 50%;
-}
+
 .img-cropper{
   width: 100%;
   height: 100%;
@@ -317,6 +315,19 @@ export default {
   -o-background-size: cover;
   background-size: cover;
   padding: 5% 0;
+}
+
+@media only screen and (max-width: 575px) {
+  .modal-dialog{
+    position: relative;
+    left: 20%;
+    top:25%;
+    display: table; /* This is important */
+    overflow-y: auto;
+    overflow-x: auto;
+    width: auto;
+    min-width: 300px;
+  }
 }
 
 .contenedor {

@@ -131,7 +131,7 @@
               </a>
 
               <div class="collapse" id="collapseCookies">
-                <div class="card card-body w-100" style="overflow: scroll; max-height: 150px">
+                <div class="card card-body w-100" style="overflow: scroll; max-height: 180px">
                   <small class="text-justify">
                     <b>Política de cookies</b>
                     <p>PROVEEDOR DE SERVICIOS informa acerca del uso de las cookies en su página web: SITIO WEB</p>
@@ -630,17 +630,7 @@ import store from '../../../store'
 </script>
 
 <style scoped>
-.Cookie {
-    background-color:rgb(60,60,60,0.5);
-    height: 100%;
-}
-.der {
-    padding-right: 0px;
-    margin-right: 0px;
-}
-.izq {
-    text-align: left;
-}
+
 .caja-advertencia {
     height: auto;
     text-align: center;
