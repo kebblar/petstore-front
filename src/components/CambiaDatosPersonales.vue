@@ -18,7 +18,7 @@
               <label>Correo:</label>
             </div>
             <div class="col-md-7">
-              <input type="email" disabled class="form-control" :class="classMail" v-model="modelCorreo">
+              <input type="email" disabled :class="classMail" v-model="modelCorreo">
               <small class="notValid">{{msgMail}}</small>
             </div>
           </div>
@@ -31,7 +31,7 @@
               <label>Nick:</label>
             </div>
             <div class="col-md-7">
-              <input type="text" required class="form-control" maxlength="35" :class="classNick" placeholder="ejemplo: Goose" v-model="modelNick">
+              <input type="text" required :class="classNick" maxlength="35"  placeholder="ejemplo: Goose" v-model="modelNick">
               <small class="notValid">{{msgNick}}</small>
             </div>
           </div>
@@ -44,7 +44,7 @@
               <label>Nombre:</label>
             </div>
             <div class="col-md-7">
-              <input type="text" required class="form-control" :class="className" placeholder="ejemplo: luis" v-model="modelName">
+              <input type="text" required :class="className" placeholder="ejemplo: luis" v-model="modelName">
               <small class="notValid">{{msgName}}</small>
             </div>
           </div>
@@ -71,6 +71,7 @@
               </div>
               <div class="col-md-7">
                 <input type="text" required :class="classApMat" class="form-control" placeholder="ejemplo: Pérez" v-model="modelApMat">
+                <small class="notValid">{{msgApMat}}</small>
               </div>
             </div>
           </div>
@@ -170,17 +171,17 @@
         msgName : null,
         msgMail : null,
         msgApPat : null,
-        msgConfirm : null,
+        msgApMat : null,
         msgCalendar : null,
         msgTel : null,
 
-        classNick: 'defaultColor',
-        className: 'defaultColor',
-        classMail: 'defaultColor',
-        classApPat: 'defaultColor',
-        classApMat: 'defaultColor',
+        classNick: 'form-control partida limpio',
+        className: 'form-control partida limpio',
+        classMail: 'form-control partida',
+        classApPat: 'form-control partida limpio',
+        classApMat: 'form-control partida limpio',
         classCalendar: 'defaultColor',
-        classTel: 'defaultColor',
+        classTel: 'form-control partida limpio',
 
         styleCarac : 'color:grey;',
         styleUpper : 'color:grey;',
@@ -205,50 +206,45 @@
     watch: {
       modelName(){
         this.msgName="";
-        this.className="greenColor correct";
+        this.className="form-control partida limpio";
         if (this.modelName.trim().length<4){
-          this.msgName="El nombre debe contener más de 3 letras";
-          this.className="redColor incorrect";
+          this.msgName="El nombre debe ser de más de 3 letras";
+          this.className="form-control partida aviso";
         }
         this.modelName= this.modelName.length===1 ? this.modelName.toUpperCase() : this.modelName;
       },
       modelNick(){
         this.msgNick="";
-        this.classNick="greenColor correct";
+        this.classNick="form-control partida limpio";
         if (this.modelNick.trim().length<4){
-          this.msgNick="El nick debe contener más de 3 letras";
-          this.classNick="redColor incorrect";
+          this.msgNick="El nick debe ser de más de 3 letras";
+          this.classNick="form-control partida aviso";
         }
       },
-
-
-
       modelApPat(){
         this.msgApPat="";
-        this.classApPat="greenColor correct";
+        this.classApPat="form-control partida limpio";
         if(this.modelApPat.length<4) {
-          this.msgApPat="El Apellido Paterno debe contener más de 3 letras";
-          this.classApPat="redColor incorrect";
+          this.msgApPat="El Apellido Paterno debe ser de más de 3 letras";
+          this.classApPat="form-control partida aviso";
         }
       },
-
       modelApMat(){
-        this.msgConfirm="";
-        this.classApMat="greenColor correct";
+        this.msgApMat="";
+        this.classApMat="form-control partida limpio";
         if(this.modelApMat.length<4) {
-          this.msgConfirm="El Apellido Materno debe contener más de 3 letras";
-          this.classApMat="redColor incorrect";
+          this.msgApMat="El Apellido Materno debe ser de más de 3 letras";
+          this.classApMat="form-control partida aviso";
         }
       },
-
       tel(){
         var x = this.tel.replace(/\D/g, '').match(/(\d{0,2})(\d{0,4})(\d{0,4})/);
         this.tel = !x[2] && !x[3] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
         this.msgTel="";
-        this.classTel="greenColor correct";
+        this.classTel="form-control partida limpio";
         if(this.tel.length!=14) {  // mejor poner aqui una expresion regular
           this.msgTel="El teléfono es incorrecto";
-          this.classTel="redColor incorrect";
+          this.classTel="form-control partida aviso";
         }
       },
     },
@@ -346,16 +342,23 @@
     max-width: 570px;
     padding: 20px;
 }
-
 .align {
  text-align: left;
 }
-
 .notValid {
   color: rgb(213, 95, 95);
 }
+label {
+  font-size: 15px;
+}
+.hidden {
+  display: none;
+}
+.show {
+  display: block;
+}
 
-input {
+.partida {
   padding-left: 10px;
   padding-right: 35px;
   display: block;
@@ -363,73 +366,42 @@ input {
   margin-bottom: 4px;
   font-size: 13px;
   line-height: 2;
-  border: 0;
-  border-bottom: 1px solid #dddedf;
   font-family: inherit;
+  transition: 0.5s;
+  border: 0;
 }
 
-input:focus {
-  margin: 0 0 15px 0;
-  height: 37px;
-  font-size: 100%;
+.limpio {
+  background-color: #ffffff;
+  border-bottom: 1px solid #009900;
+  background: url(../assets/check.png) no-repeat scroll;
+  background-position:right;
+  background-size: 17px;
+  background-position-x: 96%;
+}
+
+.aviso {
+  background-color: #ffffff;
+  border-bottom: 1px solid #990000;
+  background: url(../assets/danger.jpg) no-repeat scroll;
+  background-position:right;
+  background-size: 17px;
+  background-position-x: 96%;
+}
+
+.limpio:focus {
+  box-shadow: 2px 1px 4px #d2eac1;
+  border: 1px solid rgb(183, 232, 170);
+}
+
+.aviso:focus {
+  box-shadow: 2px 1px 4px #ffbbaa;
+  border: 1px solid #bb0000;
 }
 
 .styleCalendar {
   font-size: 12px;
   border: 0;
-  border-bottom: 1px solid #dddedf;
+  border-bottom: 1px solid #009900;
 }
-
-label {
-  font-size: 15px;
-}
-
-.greenColor:focus {
-  background-color: rgba(238, 250, 238, 0.84);
-  box-shadow: 2px 1px 4px #d2eac1;
-  border: 1px solid rgb(183, 232, 170);
-}
-
-.correct {
-  border-width: 1px;
-  box-shadow: 1px 1px 3px #d8dcdd;
-  background: url(../assets/check.png) no-repeat scroll;
-  background-position:right ;
-  background-size: 17px;
-  background-position-x: 96%;
-  transition: 0.3s;
-}
-
-.redColor:focus {
-  background-color: rgba(250, 241, 238, 0.84);
-  box-shadow: 2px 1px 4px #e8cccc;
-  border: 1px solid #d5a1a1;
-}
-
-.incorrect {
-  border-color: rgb(236, 127, 127);
-  border-width: 1px;
-  box-shadow: 1px 1px 3px #d8dcdd;
-  background: url(../assets/danger.jpg) no-repeat scroll;
-  background-position:right ;
-  background-size: 20px;
-  background-position-x: 96%;
-  transition: 0.3s;
-}
-
-.defaultColor {
-  background-color: white;
-  box-shadow: 1px 1px 3px #d8dcdd;
-}
-
-.hidden {
-  display: none;
-}
-
-.show {
-  display: block;
-}
-
-
-
 </style>
