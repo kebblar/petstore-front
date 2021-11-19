@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-md modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="float-right bg-light">
             <button type="button" class="close mr-2" data-dismiss="modal" aria-label="Close">
@@ -53,47 +53,47 @@
               <div class="container bg-dark text-light toolSet" >
                 <div class="d-flex align-content-center flex-wrap flex-row justify-content-around pt-1" >
                   <div>
-                    <a href="#" @click.prevent="zoom(0.3)" >
+                    <a href="#" @click.prevent="zoom(0.3)" title="zoom in">
                       <i class="fa fa-search-plus text-light" aria-hidden="true"></i>
                     </a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="zoom(-0.3)">
+                    <a href="#" @click.prevent="zoom(-0.3)" title="zoom out">
                       <i class="fa fa-search-minus text-light" aria-hidden="true"></i>
                     </a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="rotate(45)">
+                    <a href="#" @click.prevent="rotate(45)" title="rotate right">
                       <i class="fa fa-undo fa-flip-horizontal text-light" aria-hidden="true"></i>
                     </a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="rotate(-45)">
+                    <a href="#" @click.prevent="rotate(-45)" title="rotate left">
                       <i class="fa fa-undo text-light" aria-hidden="true"></i>
                     </a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="move(-10, 0)">
+                    <a href="#" @click.prevent="move(-10, 0)" title="move left">
                       <i class="fa fa-arrow-left text-light" aria-hidden="true"></i></a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="move(10, 0)">
+                    <a href="#" @click.prevent="move(10, 0)" title="move right">
                       <i class="fa fa-arrow-right text-light" aria-hidden="true"></i></a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="move(0, -10)">
+                    <a href="#" @click.prevent="move(0, -10)" title="move up">
                       <i class="fa fa-arrow-up text-light" aria-hidden="true"></i></a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="move(0, 10)">
+                    <a href="#" @click.prevent="move(0, 10)" title="move down">
                       <i class="fa fa-arrow-down text-light" aria-hidden="true"></i></a>
                   </div>
                   <div>
-                    <a ref="flipX" href="#" @click.prevent="flipX">
+                    <a ref="flipX" href="#" @click.prevent="flipX" title="flip vertical">
                       <i class="fas fa-ruler-vertical text-light"></i></a>
                   </div>
                   <div>
-                    <a ref="flipY" href="#" @click.prevent="flipY">
+                    <a ref="flipY" href="#" @click.prevent="flipY" title="flip horizontal">
                       <i class="fas fa-ruler-horizontal text-light"></i></a>
                   </div>
                 </div>

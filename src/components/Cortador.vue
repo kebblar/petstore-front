@@ -19,28 +19,28 @@
               <div class="col-md-6 col-12">
                 <div class="d-flex align-content-center flex-wrap flex-sm-row justify-content-around pt-1" >
                   <div>
-                    <a href="#" @click.prevent="zoom(0.2)" >
+                    <a href="#" @click.prevent="zoom(0.2)" title="zoom in">
                       <i class="fa fa-search-plus text-light" aria-hidden="true"></i>
                     </a>
                   </div>
 
                   <div>
-                    <a href="#" @click.prevent="zoom(-0.2)">
+                    <a href="#" @click.prevent="zoom(-0.2)" title="zoom out">
                       <i class="fa fa-search-minus text-light" aria-hidden="true"></i>
                     </a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="rotate(45)">
+                    <a href="#" @click.prevent="rotate(45)"  title="rotate right">
                       <i class="fa fa-undo fa-flip-horizontal text-light" aria-hidden="true"></i>
                     </a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="rotate(-45)">
+                    <a href="#" @click.prevent="rotate(-45)"  title="rotate left">
                       <i class="fa fa-undo text-light" aria-hidden="true"></i>
                     </a>
                   </div>
                   <div>
-                    <a href="#" @click.prevent="move(-10, 0)">
+                    <a href="#" @click.prevent="move(-10, 0)" title="move left">
                       <i class="fa fa-arrow-left text-light" aria-hidden="true"></i></a>
                   </div>
                 </div>
@@ -48,23 +48,23 @@
             <div class="col">
               <div class="d-flex align-content-center flex-wrap flex-sm-row justify-content-around pt-1" >
                 <div>
-                  <a href="#" @click.prevent="move(10, 0)">
+                  <a href="#" @click.prevent="move(10, 0)" title="move right">
                     <i class="fa fa-arrow-right text-light" aria-hidden="true"></i></a>
                 </div>
                 <div>
-                  <a href="#" @click.prevent="move(0, -10)">
+                  <a href="#" @click.prevent="move(0, -10)" title="move up">
                     <i class="fa fa-arrow-up text-light" aria-hidden="true"></i></a>
                 </div>
                 <div>
-                  <a href="#" @click.prevent="move(0, 10)">
+                  <a href="#" @click.prevent="move(0, 10)" title="move down">
                     <i class="fa fa-arrow-down text-light" aria-hidden="true"></i></a>
                 </div>
                 <div>
-                  <a ref="flipX" href="#" @click.prevent="flipX">
+                  <a ref="flipX" href="#" @click.prevent="flipX" title="Mirror H">
                     <i class="fas fa-ruler-vertical text-light"></i></a>
                 </div>
                 <div>
-                  <a ref="flipY" href="#" @click.prevent="flipY">
+                  <a ref="flipY" href="#" @click.prevent="flipY" title="Mirror V">
                     <i class="fas fa-ruler-horizontal text-light"></i></a>
                 </div>
               </div>
@@ -86,17 +86,17 @@
           <div class="container-fluid bg-dark my-1 w-50">
             <div class="d-flex align-content-center flex-nowrap flex-row justify-content-center pt-1">
               <div class="mx-0">
-                <a href="#" class="btn" @click.prevent="cropImage">
+                <a href="#" class="btn" @click.prevent="cropImage" title="Accept selection">
                   <i class="fas fa-check text-light"></i>
                 </a>
               </div>
               <div class="mx-0">
-                <a href="#" class="btn" @click.prevent="showFileChooser">
+                <a href="#" class="btn" @click.prevent="showFileChooser" title="Load new Image">
                   <i class="fa fa-camera text-light" aria-hidden="true"></i>
                 </a>
               </div>
               <div class="mx-0">
-                <a href="#" class="btn" @click.prevent="reset">
+                <a href="#" class="btn" @click.prevent="reset" title="reset default">
                   <i class="fas fa-window-close text-light"></i>
                 </a>
               </div>
@@ -141,7 +141,7 @@
                   <tbody>
                   <tr class="text-center" v-for="(renglon, index) in caja" :key="index">
                     <td>
-                      <img :src=renglon.picture width="40" height="40" />
+                      <img :src=renglon.picture width="40" />
                     </td>
                     <td>
                       {{ renglon.tam }} kb
@@ -226,7 +226,8 @@ export default {
       fileId: 0,
       newSize: 0,
       caja:[],
-      respuesta:[]
+      respuesta:[],
+      url_img: process.env.VUE_APP_URL_MEDIA
     };
   },
   computed: {
@@ -467,7 +468,7 @@ export default {
       return num.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
     },
     salta(url) {
-      return 'https://photos.ci.ultrasist.net/_'+url
+      return this.url_img+'_'+url
     }
   },
 
