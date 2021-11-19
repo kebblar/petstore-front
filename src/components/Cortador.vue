@@ -1,58 +1,29 @@
 <template>
   <div class="centra">
-
+<!--input referenciado para la subida de imagenes-->
     <input ref="input" type="file" name="image" accept="image/*" @change="setImage" />
 
-    <div class="section w-75 mx-auto">
-      <div class="card w-100">
-        <div class="card-header card-custom-header" >
-          <div class="container-fluid">
-            <div class="row align-items-center">
-              <div class="col-12 col-md-9 col-lg-10">
-                <div class="h5 my-auto">Ajuste y carga de imagenes a la nube</div>
-              </div>
-
-              <div class="col-12 col-md-3 col-lg-2">
-                <div class="d-flex flex-row justify-content-around align-items-center">
-
-                  <div class="p-2">
-                    <a href="#" class="btn" @click.prevent="cropImage">
-                      <i class="fas fa-check text-light"></i>
-                    </a>
-                  </div>
-                  <div class="p-2">
-                    <a href="#" class="btn" @click.prevent="showFileChooser">
-                      <i class="fa fa-camera text-light" aria-hidden="true"></i>
-                    </a>
-                  </div>
-                  <div class="p-2">
-                    <a href="#" class="btn" @click.prevent="reset">
-                      <i class="fas fa-window-close text-light"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
+    <div class="section mx-auto mt-3 p-0 p-md-2 p-lg-5" style="width: 90%; box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;">
+      <div class="card w-100" style="border: 0">
+        <div class="card-header" style="border: 0">
+          <div class="row">
+            <div class="col mx-auto text-center">
+              <div class="h5 my-auto">Ajuste y carga de imagenes a la nube</div>
             </div>
           </div>
         </div>
-        <div class="card-body p-0" style="position: relative">
-          <div class="actions w-100">
-
-            <div class="img-cropper">
-              <vue-cropper
-                  ref="cropper"
-                  :src="imgSrc"
-                  preview=".preview"
-              />
-            </div>
-
-              <div class="container rounded bg-dark text-light " style="position: absolute; top: 1%; right: 0; left: 0; z-index: 1; box-sizing:border-box; opacity: 0.5; width: 100%;">
-                <div class="d-flex align-content-center flex-wrap flex-row justify-content-around pt-1" >
+        <div class="card-body pt-2" style="position: relative">
+<!--          Toolset -->
+          <div class="container bg-dark text-light toolset my-1">
+            <div class="row no-gutters">
+              <div class="col-md-6 col-12">
+                <div class="d-flex align-content-center flex-wrap flex-sm-row justify-content-around pt-1" >
                   <div>
                     <a href="#" @click.prevent="zoom(0.2)" >
                       <i class="fa fa-search-plus text-light" aria-hidden="true"></i>
                     </a>
                   </div>
+
                   <div>
                     <a href="#" @click.prevent="zoom(-0.2)">
                       <i class="fa fa-search-minus text-light" aria-hidden="true"></i>
@@ -72,31 +43,68 @@
                     <a href="#" @click.prevent="move(-10, 0)">
                       <i class="fa fa-arrow-left text-light" aria-hidden="true"></i></a>
                   </div>
-                  <div>
-                    <a href="#" @click.prevent="move(10, 0)">
-                      <i class="fa fa-arrow-right text-light" aria-hidden="true"></i></a>
-                  </div>
-                  <div>
-                    <a href="#" @click.prevent="move(0, -10)">
-                      <i class="fa fa-arrow-up text-light" aria-hidden="true"></i></a>
-                  </div>
-                  <div>
-                    <a href="#" @click.prevent="move(0, 10)">
-                      <i class="fa fa-arrow-down text-light" aria-hidden="true"></i></a>
-                  </div>
-                  <div>
-                    <a ref="flipX" href="#" @click.prevent="flipX">
-                      <i class="fas fa-ruler-vertical text-light"></i></a>
-                  </div>
-                  <div>
-                    <a ref="flipY" href="#" @click.prevent="flipY">
-                      <i class="fas fa-ruler-horizontal text-light"></i></a>
-                  </div>
                 </div>
+              </div>
+            <div class="col">
+              <div class="d-flex align-content-center flex-wrap flex-sm-row justify-content-around pt-1" >
+                <div>
+                  <a href="#" @click.prevent="move(10, 0)">
+                    <i class="fa fa-arrow-right text-light" aria-hidden="true"></i></a>
+                </div>
+                <div>
+                  <a href="#" @click.prevent="move(0, -10)">
+                    <i class="fa fa-arrow-up text-light" aria-hidden="true"></i></a>
+                </div>
+                <div>
+                  <a href="#" @click.prevent="move(0, 10)">
+                    <i class="fa fa-arrow-down text-light" aria-hidden="true"></i></a>
+                </div>
+                <div>
+                  <a ref="flipX" href="#" @click.prevent="flipX">
+                    <i class="fas fa-ruler-vertical text-light"></i></a>
+                </div>
+                <div>
+                  <a ref="flipY" href="#" @click.prevent="flipY">
+                    <i class="fas fa-ruler-horizontal text-light"></i></a>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+<!--          Toolset end-->
+          <div class="w-100">
+            <div class="img-cropper">
+              <vue-cropper
+                  ref="cropper"
+                  :src="imgSrc"
+                  preview=".preview"
+              />
+            </div>
+            </div>
 
+<!--          Barra herramientas inferior-->
+          <div class="container-fluid bg-dark my-1 w-50">
+            <div class="d-flex align-content-center flex-nowrap flex-row justify-content-center pt-1">
+              <div class="mx-0">
+                <a href="#" class="btn" @click.prevent="cropImage">
+                  <i class="fas fa-check text-light"></i>
+                </a>
+              </div>
+              <div class="mx-0">
+                <a href="#" class="btn" @click.prevent="showFileChooser">
+                  <i class="fa fa-camera text-light" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div class="mx-0">
+                <a href="#" class="btn" @click.prevent="reset">
+                  <i class="fas fa-window-close text-light"></i>
+                </a>
               </div>
             </div>
           </div>
+          <!--        End barra de herramientas inferior-->
+          </div>
+
 
         <div class="container-fluid">
 
@@ -478,6 +486,15 @@ input[type="file"] {
   display: none;
 }
 
+.toolset {
+  position: relative;
+  right: 0;
+  left: 0;
+  box-sizing:border-box;
+  width: 100%;
+  padding-top: 3px;
+}
+
 .content {
   display: flex;
   justify-content: space-between;
@@ -491,7 +508,29 @@ input[type="file"] {
   margin: 0;
 }
 
+/*.tooltip {*/
+/*  position: relative;*/
+/*  display: inline-block;*/
+/*  border-bottom: 1px dotted black;*/
+/*}*/
 
+/*.tooltip .tooltiptext {*/
+/*  visibility: hidden;*/
+/*  width: 120px;*/
+/*  background-color: black;*/
+/*  color: #fff;*/
+/*  text-align: center;*/
+/*  border-radius: 6px;*/
+/*  padding: 5px 0;*/
+
+/*  !* Position the tooltip *!*/
+/*  position: absolute;*/
+/*  z-index: 1;*/
+/*}*/
+
+/*.tooltip:hover .tooltiptext {*/
+/*  visibility: visible;*/
+/*}*/
 
 .seleccion {
   margin-top: 1rem;
