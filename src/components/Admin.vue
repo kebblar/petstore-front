@@ -40,7 +40,14 @@
         </div>
         <div class="col d-flex my-2">
           <botonAdmin colorTarjeta="rgba(0,170,200,0.4)" titulo="Editar Anuncio" descripcion="Modifica un anuncio ya existente"
-                      link="admin-consulta-anuncio" icono="fas fa-pencil-alt fa-4x icono shrink" color="btn btn-info btn-block">
+                      link="admin-consulta-anuncio" icono="fas fa-pencil-alt fa-4x icono shrink" color="btn btn-light btn-block">
+          </botonAdmin>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col d-flex my-2">
+          <botonAdmin colorTarjeta="#3C8F88FF" titulo="Ver Usuarios" descripcion="Gestionar los usuarios del sistema"
+                      link="admin-consulta-usuarios" icono="fas fa-user fa-4x icono shrink" color="btn btn-dark btn-block">
           </botonAdmin>
         </div>
       </div>
