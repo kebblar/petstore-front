@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-flex" style="min-width: 885px">
     <div class="data w100">
 
       <div class="container text-center mt-4">
@@ -17,13 +17,13 @@
         <table class="table table-striped table-hover table-sm table-dark">
           <thead class="text-justify">
           <tr>
-            <th class="pl-3" scope="col">Id</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Telefono</th>
-            <th scope="col">Ultimo acceso</th>
-            <th scope="col">Creado</th>
-            <th class="pr-2" scope="col">Activo</th>
+            <th class="pl-3" scope="col">Id <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
+            <th scope="col">Nombre <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
+            <th scope="col">Correo <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
+            <th scope="col">Telefono <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
+            <th scope="col">Ultimo acceso <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
+            <th scope="col">Creado <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
+            <th class="pr-2" scope="col">Activo <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
           </tr>
           </thead>
           <tbody>
@@ -122,5 +122,13 @@ export default {
 td {
   color: #c79b9b;
   font-size: 12px;
+}
+.up {
+  position: relative;
+}
+.down {
+  position: relative;
+  left: -10px;
+  top: 2px;
 }
 </style>
