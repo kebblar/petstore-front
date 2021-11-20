@@ -1,5 +1,5 @@
 <template>
-  <div class="ancho centra">
+  <div class="anchu centra">
 
     <div v-if="loading" class="loader"/>
 
@@ -9,7 +9,7 @@
           <label class="control-label h4">Actualizar mis datos personales</label>
       </div><!-- ends header-->
       
-      <div class="card-body align p-4">
+      <div class="card-body alineado p-4">
 
         <!-- correo -->
         <div class ="form-group">
@@ -56,7 +56,7 @@
                 <label>Apellido Paterno:</label>
               </div>
               <div class="col-md-7">
-                <input :class="classInputApPat" type="text" required maxlength="40" placeholder="ejemplo: López" v-model="modelApPat">
+                <input :class="classInputApPat" type="text" required maxlength="40" placeholder="ejemplo: López" v-model="modelApPaterno">
                 <small :class="classMsgApPat">El Apellido Paterno debe ser de más de 3 letras</small>
               </div>
             </div>
@@ -69,7 +69,7 @@
                 <label>Apellido Materno:</label>
               </div>
               <div class="col-md-7">
-                <input :class="classInputApMat" type="text" required maxlength="40" placeholder="ejemplo: Pérez" v-model="modelApMat">
+                <input :class="classInputApMat" type="text" required maxlength="40" placeholder="ejemplo: Pérez" v-model="modelApMaterno">
                 <small :class="classMsgApMat">El Apellido Materno debe ser de más de 3 letras</small>
               </div>
             </div>
@@ -84,7 +84,7 @@
               <div class="col-md-7">
                 <b-form-datepicker
                     id="fecha-nacimiento"
-                    v-model="fNacimiento"
+                    v-model="modelFechaNacimiento"
                     :initial-date="dateConfig.initial"
                     :max="dateConfig.max"
                     :min="dateConfig.min"
@@ -109,7 +109,7 @@
               <label>Telefono:</label>
               </div>
               <div class="col">
-              <input :class="classInputTel" type="text" required maxlength="20" placeholder="XX XXXX XXXX" v-model="modelTel">
+              <input :class="classInputTel" type="text" required maxlength="20" placeholder="XX XXXX XXXX" v-model="modelTelefono">
               <small :class="classMsgTel">El Teléfono es incorrecto</small>
               </div>
             </div>
@@ -156,43 +156,47 @@
     data() {
       return {
         idUser: '',
+        msgErr : '',
+        loading: false,
+
         modelNick: '',
         modelName: '',
         modelCorreo : '',
-        modelApPat : '',
-        modelApMat : '',
-        modelTel : '',
-        fNacimiento : '',
-        msgErr : '',
+        modelTelefono : '',
+        modelApPaterno : '',
+        modelApMaterno : '',
+        modelFechaNacimiento : '',
 
         msgValid: 'msgValidClass',
         msgInvalid: 'msgNotValidClass',
 
+        classMsgTel : this.msgValid,
         classMsgNick : this.msgValid,
         classMsgName : this.msgValid,
         classMsgApPat : this.msgValid,
         classMsgApMat : this.msgValid,
-        classMsgTel : this.msgValid,
 
-        inputAccepted: 'form-control partida limpio',
-        inputRejected: 'form-control partida aviso',
+        inputAccepted: 'form-control input-base input-correct',
+        inputRejected: 'form-control input-base input-wrong',
 
+        classInputTel: this.inputAccepted,
         classInputNick: this.inputAccepted,
         classInputName: this.inputAccepted,
         classInputApPat: this.inputAccepted,
         classInputApMat: this.inputAccepted,
-        classInputTel: this.inputAccepted,
 
         dateConfig : {
           initial : new Date(2000,0,1),
           min : new Date(1930,0,1),
           max : new Date(2003,11,30)
-        },
-        loading: false,
+        }
      }
     },
+    mounted() {
+      this.setValues();
+    },
     watch: {
-      modelName(){
+      modelName() {
         this.classMsgName=this.msgValid;
         this.classInputName=this.inputAccepted;
         if (this.modelName.trim().length<4){
@@ -201,7 +205,7 @@
         }
         this.modelName= this.modelName.length===1 ? this.modelName.toUpperCase() : this.modelName;
       },
-      modelNick(){
+      modelNick() {
         this.classMsgNick=this.msgValid;
         this.classInputNick=this.inputAccepted;
         if (this.modelNick.trim().length<4){
@@ -209,28 +213,28 @@
           this.classInputNick=this.inputRejected;
         }
       },
-      modelApPat(){
+      modelApPaterno() {
         this.classMsgApPat=this.msgValid;
         this.classInputApPat=this.inputAccepted;
-        if(this.modelApPat.length<4) {
+        if(this.modelApPaterno.length<4) {
           this.classMsgApPat=this.msgInvalid;
           this.classInputApPat=this.inputRejected;
         }
       },
-      modelApMat(){
+      modelApMaterno() {
         this.classMsgApMat=this.msgValid;
         this.classInputApMat=this.inputAccepted;
-        if(this.modelApMat.length<4) {
+        if(this.modelApMaterno.length<4) {
           this.classMsgApMat=this.msgInvalid;
           this.classInputApMat=this.inputRejected;
         }
       },
-      modelTel(){
-        var x = this.modelTel.replace(/\D/g, '').match(/(\d{0,2})(\d{0,4})(\d{0,4})/);
-        this.modelTel = !x[2] && !x[3] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+      modelTelefono() {
+        var x = this.modelTelefono.replace(/\D/g, '').match(/(\d{0,2})(\d{0,4})(\d{0,4})/);
+        this.modelTelefono = !x[2] && !x[3] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
         this.classMsgTel=this.msgValid;
         this.classInputTel=this.inputAccepted;
-        if(this.modelTel.length!=14) {  // mejor poner aqui una expresion regular
+        if(this.modelTelefono.length!=14) {  // mejor poner aqui una expresion regular
           this.classMsgTel=this.msgInvalid;
           this.classInputTel=this.inputRejected;
         }
@@ -241,14 +245,12 @@
         var dato = true
           && this.modelNick  && this.modelNick.length>=4
           && this.modelName  && this.modelName.length>=4
-          && this.modelApPat && this.modelApPat.length>=4
-          && this.modelApMat && this.modelApMat.length>=4
-          && this.modelTel && this.modelTel.length==14
-          && this.fNacimiento
-          //console.log(dato);
+          && this.modelApPaterno && this.modelApPaterno.length>=4
+          && this.modelApMaterno && this.modelApMaterno.length>=4
+          && this.modelTelefono && this.modelTelefono.length==14
+          && this.modelFechaNacimiento
           return !dato;
       }
-
     },
     methods: {
       setValues() {
@@ -256,10 +258,10 @@
         this.modelNick= store.state.session.detalles.nickName
         this.modelName= store.state.session.detalles.nombre
         this.modelCorreo = store.state.session.correo
-        this.modelApPat = store.state.session.detalles.apellidoPaterno
-        this.modelApMat = store.state.session.detalles.apellidoMaterno
-        this.fNacimiento = store.state.session.detalles.fechaNacimiento
-        this.modelTel = store.state.session.detalles.telefonoCelular
+        this.modelApPaterno = store.state.session.detalles.apellidoPaterno
+        this.modelApMaterno = store.state.session.detalles.apellidoMaterno
+        this.modelFechaNacimiento = store.state.session.detalles.fechaNacimiento
+        this.modelTelefono = store.state.session.detalles.telefonoCelular
       },
       paddingZeros(v, k) {
         const valor = v.toString();
@@ -284,14 +286,13 @@
           id: this.idUser,
           nickName: this.modelNick,
           nombre: this.modelName,
-          apellidoPaterno: this.modelApPat,
-          apellidoMaterno: this.modelApMat,
-          telefonoCelular : this.modelTel,
-          fechaNacimiento : this.formatDate(this.fNacimiento),
+          apellidoPaterno: this.modelApPaterno,
+          apellidoMaterno: this.modelApMaterno,
+          telefonoCelular : this.modelTelefono,
+          fechaNacimiento : this.formatDate(this.modelFechaNacimiento),
           hash: 0
         }).then(response => {
           this.loading = false
-          //console.log(response.data);
           // actualiza el store
               var ud = response.data;
               var nombreCompleto = ud.nickName; //ud.nombre + ' ' + ud.apellidoPaterno + ' ' + ud.apellidoMaterno;
@@ -300,98 +301,33 @@
           // Redirige al home
           this.setValues();
           this.msgErr = 'Sus datos han sido cambiados exitosamente';
-          this.$refs.avisoComp.abre()
+          this.$refs.avisoComp.abre();
         }).catch(error => {
           this.loading = false
-          this.msgErr = error;
+          this.msgErr = 'Error';
           if(error.response) {
-              this.msgErr = error.response.data['exceptionLongDescription'];
+              var info = error.response.data.exceptionLongDescription;
+              console.log(info);
+              this.msgErr = info;
           }
           this.$refs.avisoComp.abre();
         });
       }
-    },
-    mounted() {
-      this.setValues();
     }
   }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.ancho {
-    max-width: 570px;
-    padding: 20px;
+.anchu {
+  max-width: 570px;
+  padding: 20px;
 }
-.align {
- text-align: left;
-}
-.notValid {
-  color: rgb(213, 95, 95);
-}
-
-.msgValidClass {
-  display: none;
-}
-.msgNotValidClass {
-  color: rgb(213, 95, 95);
-}
-
-label {
-  font-size: 15px;
-}
-.hidden {
-  display: none;
-}
-.show {
-  display: block;
-}
-
-.partida {
-  padding-left: 10px;
-  padding-right: 35px;
-  display: block;
-  box-sizing: border-box;
-  margin-bottom: 4px;
+.alineado {
+  text-align: right;
   font-size: 13px;
-  line-height: 2;
-  font-family: inherit;
-  transition: 0.5s;
-  border: 0;
 }
-
-.limpio {
-  background-color: #ffffff;
-  border-bottom: 1px solid #009900;
-  background: url(../assets/check.png) no-repeat scroll;
-  background-position:right;
-  background-size: 17px;
-  background-position-x: 96%;
-}
-
-.aviso {
-  background-color: #ffffff;
-  border-bottom: 1px solid #990000;
-  background: url(../assets/danger.jpg) no-repeat scroll;
-  background-position:right;
-  background-size: 17px;
-  background-position-x: 96%;
-}
-
-.limpio:focus {
-  box-shadow: 2px 1px 4px #d2eac1;
-  border: 1px solid rgb(183, 232, 170);
-}
-
-.aviso:focus {
-  box-shadow: 2px 1px 4px #ffbbaa;
-  border: 1px solid #bb0000;
-}
-
-.styleCalendar {
-  font-size: 12px;
-  border: 0;
-  border-bottom: 1px solid #009900;
+label {
+  padding-top: 6px;
 }
 </style>

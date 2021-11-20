@@ -39,7 +39,6 @@ html,body {
   height:100%;
   background-color: #fff;
 }
-
 #app {
   position: relative;
   color: #2c3e50;
@@ -88,5 +87,54 @@ html,body {
 .fade-enter,
 .fade-leave-active {
   opacity: 0
+}
+
+/* Global Style for input text validation process */
+.msgValidClass {
+  display: none;
+}
+.msgNotValidClass {
+  color: rgb(213, 95, 95);
+}
+.input-base {
+  padding-left: 10px;
+  padding-right: 35px;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  font-size: 13px;
+  line-height: 2;
+  font-family: inherit;
+  transition: 0.5s;
+  border: 0;
+}
+.input-correct {
+  background-color: #ffffff;
+  border-bottom: 1px solid #009900;
+  background: url(./assets/check.png) no-repeat scroll;
+  background-position:right;
+  background-size: 17px;
+  background-position-x: 96%;
+}
+.input-wrong {
+  background-color: #ffffff;
+  border-bottom: 1px solid #990000;
+  background: url(./assets/danger.jpg) no-repeat scroll;
+  background-position:right;
+  background-size: 17px;
+  background-position-x: 96%;
+}
+.input-correct:focus {
+  box-shadow: 2px 1px 4px #d2eac1;
+  border: 1px solid rgb(183, 232, 170);
+}
+.input-wrong:focus {
+  box-shadow: 2px 1px 4px #ffbbaa;
+  border: 1px solid #bb0000;
+}
+.styleCalendar {
+  font-size: 12px;
+  border: 0;
+  border-bottom: 1px solid #009900;
 }
 </style>
