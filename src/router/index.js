@@ -55,6 +55,7 @@ import PostsList from'@/components/PostsList'
 import PostDetail from'@/components/PostDetail'
 import NotFound from'@/components/NotFound'
 import Cortador from'@/components/Cortador'
+import AdministracionUsuarios from "../components/AdministracionUsuarios";
 
 Vue.use(Router);
 
@@ -233,6 +234,12 @@ const routes = [
     path: '/ui/admin-anuncio/:id?',
     name: 'anuncio',
     component: AdminAnuncio,
+    meta: { allowedRoles: ['admin'] }
+  },
+  {
+    path: '/ui/admin-consulta-usuarios',
+    name: 'admin-consulta-usuarios',
+    component: AdministracionUsuarios,
     meta: { allowedRoles: ['admin'] }
   },
   {
