@@ -18,8 +18,7 @@
               <label>Correo:</label>
             </div>
             <div class="col-md-7">
-              <input type="email" disabled :class="classMail" v-model="modelCorreo">
-              <small class="notValid">{{msgMail}}</small>
+              <label>{{modelCorreo}}</label>
             </div>
           </div>
         </div>
@@ -31,8 +30,8 @@
               <label>Nick:</label>
             </div>
             <div class="col-md-7">
-              <input type="text" required :class="classNick" maxlength="35"  placeholder="ejemplo: Goose" v-model="modelNick">
-              <small class="notValid">{{msgNick}}</small>
+              <input :class="classInputNick" type="text" required maxlength="15" placeholder="ejemplo: Goose" v-model="modelNick">
+              <small :class="classMsgNick">El nick debe ser de más de 3 letras</small>
             </div>
           </div>
         </div>
@@ -44,8 +43,8 @@
               <label>Nombre:</label>
             </div>
             <div class="col-md-7">
-              <input type="text" required :class="className" placeholder="ejemplo: luis" v-model="modelName">
-              <small class="notValid">{{msgName}}</small>
+              <input :class="classInputName" type="text" required maxlength="40" placeholder="ejemplo: luis" v-model="modelName">
+              <small :class="classMsgName">El nombre debe ser de más de 3 letras</small>
             </div>
           </div>
         </div>
@@ -57,8 +56,8 @@
                 <label>Apellido Paterno:</label>
               </div>
               <div class="col-md-7">
-                <input type="text" required :class="classApPat" class="form-control" placeholder="ejemplo: López" v-model="modelApPat">
-                <small class="notValid">{{msgApPat}}</small>
+                <input :class="classInputApPat" type="text" required maxlength="40" placeholder="ejemplo: López" v-model="modelApPat">
+                <small :class="classMsgApPat">El Apellido Paterno debe ser de más de 3 letras</small>
               </div>
             </div>
           </div>
@@ -70,8 +69,8 @@
                 <label>Apellido Materno:</label>
               </div>
               <div class="col-md-7">
-                <input type="text" required :class="classApMat" class="form-control" placeholder="ejemplo: Pérez" v-model="modelApMat">
-                <small class="notValid">{{msgApMat}}</small>
+                <input :class="classInputApMat" type="text" required maxlength="40" placeholder="ejemplo: Pérez" v-model="modelApMat">
+                <small :class="classMsgApMat">El Apellido Materno debe ser de más de 3 letras</small>
               </div>
             </div>
           </div>
@@ -103,15 +102,15 @@
             </div>
           </div>
 
-          <!-- telefono -->
+          <!-- Telefono -->
           <div class ="form-group">
             <div class="row">
               <div class="col-sm-12 col-md-5">
               <label>Telefono:</label>
               </div>
               <div class="col">
-              <input type="tel" class="form-control" required :class="classTel" placeholder="XX XXXX XXXX" v-model="tel">
-              <small class="notValid">{{msgTel}}</small>
+              <input :class="classInputTel" type="text" required maxlength="20" placeholder="XX XXXX XXXX" v-model="modelTel">
+              <small :class="classMsgTel">El Teléfono es incorrecto</small>
               </div>
             </div>
           </div>
@@ -148,7 +147,6 @@
 <script>
   import axios from 'axios';
   import store from '../store';
-  import "vue-range-slider/dist/vue-range-slider.css";
   import Aviso from './custom/dialog/Aviso';
 
   export default {
@@ -163,88 +161,78 @@
         modelCorreo : '',
         modelApPat : '',
         modelApMat : '',
+        modelTel : '',
         fNacimiento : '',
-        tel : '',
+        msgErr : '',
 
-        msgErr : null,
-        msgNick : null,
-        msgName : null,
-        msgMail : null,
-        msgApPat : null,
-        msgApMat : null,
-        msgCalendar : null,
-        msgTel : null,
+        msgValid: 'msgValidClass',
+        msgInvalid: 'msgNotValidClass',
 
-        classNick: 'form-control partida limpio',
-        className: 'form-control partida limpio',
-        classMail: 'form-control partida',
-        classApPat: 'form-control partida limpio',
-        classApMat: 'form-control partida limpio',
-        classCalendar: 'defaultColor',
-        classTel: 'form-control partida limpio',
+        classMsgNick : this.msgValid,
+        classMsgName : this.msgValid,
+        classMsgApPat : this.msgValid,
+        classMsgApMat : this.msgValid,
+        classMsgTel : this.msgValid,
 
-        styleCarac : 'color:grey;',
-        styleUpper : 'color:grey;',
-        styleNum : 'color:grey;',
+        inputAccepted: 'form-control partida limpio',
+        inputRejected: 'form-control partida aviso',
 
-        styleCarac2 : 'show',
-        styleUpper2 : 'show',
-        styleNum2 : 'show',
-
-        isVisible : 'hidden',
-        activoClave : true, //Cambia el valor del booleano para ver las distintas versiones de validaciones de la clave
+        classInputNick: this.inputAccepted,
+        classInputName: this.inputAccepted,
+        classInputApPat: this.inputAccepted,
+        classInputApMat: this.inputAccepted,
+        classInputTel: this.inputAccepted,
 
         dateConfig : {
           initial : new Date(2000,0,1),
           min : new Date(1930,0,1),
           max : new Date(2003,11,30)
         },
-        pwConfDisabled: true, 
         loading: false,
      }
     },
     watch: {
       modelName(){
-        this.msgName="";
-        this.className="form-control partida limpio";
+        this.classMsgName=this.msgValid;
+        this.classInputName=this.inputAccepted;
         if (this.modelName.trim().length<4){
-          this.msgName="El nombre debe ser de más de 3 letras";
-          this.className="form-control partida aviso";
+          this.classMsgName=this.msgInvalid;
+          this.classInputName=this.inputRejected;
         }
         this.modelName= this.modelName.length===1 ? this.modelName.toUpperCase() : this.modelName;
       },
       modelNick(){
-        this.msgNick="";
-        this.classNick="form-control partida limpio";
+        this.classMsgNick=this.msgValid;
+        this.classInputNick=this.inputAccepted;
         if (this.modelNick.trim().length<4){
-          this.msgNick="El nick debe ser de más de 3 letras";
-          this.classNick="form-control partida aviso";
+          this.classMsgNick=this.msgInvalid;
+          this.classInputNick=this.inputRejected;
         }
       },
       modelApPat(){
-        this.msgApPat="";
-        this.classApPat="form-control partida limpio";
+        this.classMsgApPat=this.msgValid;
+        this.classInputApPat=this.inputAccepted;
         if(this.modelApPat.length<4) {
-          this.msgApPat="El Apellido Paterno debe ser de más de 3 letras";
-          this.classApPat="form-control partida aviso";
+          this.classMsgApPat=this.msgInvalid;
+          this.classInputApPat=this.inputRejected;
         }
       },
       modelApMat(){
-        this.msgApMat="";
-        this.classApMat="form-control partida limpio";
+        this.classMsgApMat=this.msgValid;
+        this.classInputApMat=this.inputAccepted;
         if(this.modelApMat.length<4) {
-          this.msgApMat="El Apellido Materno debe ser de más de 3 letras";
-          this.classApMat="form-control partida aviso";
+          this.classMsgApMat=this.msgInvalid;
+          this.classInputApMat=this.inputRejected;
         }
       },
-      tel(){
-        var x = this.tel.replace(/\D/g, '').match(/(\d{0,2})(\d{0,4})(\d{0,4})/);
-        this.tel = !x[2] && !x[3] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        this.msgTel="";
-        this.classTel="form-control partida limpio";
-        if(this.tel.length!=14) {  // mejor poner aqui una expresion regular
-          this.msgTel="El teléfono es incorrecto";
-          this.classTel="form-control partida aviso";
+      modelTel(){
+        var x = this.modelTel.replace(/\D/g, '').match(/(\d{0,2})(\d{0,4})(\d{0,4})/);
+        this.modelTel = !x[2] && !x[3] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        this.classMsgTel=this.msgValid;
+        this.classInputTel=this.inputAccepted;
+        if(this.modelTel.length!=14) {  // mejor poner aqui una expresion regular
+          this.classMsgTel=this.msgInvalid;
+          this.classInputTel=this.inputRejected;
         }
       },
     },
@@ -255,16 +243,10 @@
           && this.modelName  && this.modelName.length>=4
           && this.modelApPat && this.modelApPat.length>=4
           && this.modelApMat && this.modelApMat.length>=4
-          && this.tel && this.tel.length==14
+          && this.modelTel && this.modelTel.length==14
           && this.fNacimiento
           //console.log(dato);
           return !dato;
-      },
-      estiloClave1 (){
-          return this.activoClave ? 'show' : 'hidden';
-      },
-      estiloClave2 (){
-          return !this.activoClave ? 'show' : 'hidden';
       }
 
     },
@@ -277,7 +259,7 @@
         this.modelApPat = store.state.session.detalles.apellidoPaterno
         this.modelApMat = store.state.session.detalles.apellidoMaterno
         this.fNacimiento = store.state.session.detalles.fechaNacimiento
-        this.tel = store.state.session.detalles.telefonoCelular
+        this.modelTel = store.state.session.detalles.telefonoCelular
       },
       paddingZeros(v, k) {
         const valor = v.toString();
@@ -304,7 +286,7 @@
           nombre: this.modelName,
           apellidoPaterno: this.modelApPat,
           apellidoMaterno: this.modelApMat,
-          telefonoCelular : this.tel,
+          telefonoCelular : this.modelTel,
           fechaNacimiento : this.formatDate(this.fNacimiento),
           hash: 0
         }).then(response => {
@@ -348,6 +330,14 @@
 .notValid {
   color: rgb(213, 95, 95);
 }
+
+.msgValidClass {
+  display: none;
+}
+.msgNotValidClass {
+  color: rgb(213, 95, 95);
+}
+
 label {
   font-size: 15px;
 }
