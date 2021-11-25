@@ -18,10 +18,34 @@
         <table class="anchoTable table table-striped table-hover table-sm table-dark">
           <thead class="text-justify">
             <tr>
-              <th scope="col">Nombre <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
-              <th scope="col">Correo <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
-              <th scope="col">Telefono <i class="fas fa-sort-up up"></i><i class="fas fa-sort-down down"></i></th>
-              <th scope="col">Editar </th>
+              <th scope="col">Nombre
+                <div @click="sortP(1, 'asc')" class="up">
+                  <i class="fas fa-sort-up"></i>
+                </div>
+                <div @click="sortP(1, 'desc')" class="down">
+                  <i class="fas fa-sort-down"></i>
+                </div>
+              </th>
+
+              <th scope="col">Correo
+                <div @click="sortP(2, 'asc')" class="up">
+                  <i class="fas fa-sort-up" ></i>
+                </div>
+                <div @click="sortP(2, 'desc')" class="down">
+                  <i class="fas fa-sort-down"></i>
+                </div>
+              </th>
+              <th scope="col">Telefono
+                <div @click="sortP(3, 'asc')" class="up">
+                  <i class="fas fa-sort-up" ></i>
+                </div>
+                <div  @click="sortP(3, 'desc')" class="down">
+                  <i class="fas fa-sort-down"></i>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="ml-3" style="position: relative; top: -8px">Editar</div>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -29,7 +53,7 @@
               <td>{{user.nombre}} {{user.apellidoPaterno}} {{user.apellidoMaterno}}</td>
               <td>{{user.correo}}</td>
               <td>{{user.telefonoCelular}}</td>
-              <td><input type="button" value="Editar" /></td>
+              <td><input class="ml-3" type="button" value="Editar" /></td>
             </tr>
           </tbody>
         </table>
@@ -72,6 +96,9 @@ export default {
     pageElems(value) {
       this.getList(value, this.pageNum);
       this.calculaPaginas(this.total, value);
+    },
+    datosUsuario () {
+
     }
   },
   data () {
@@ -87,6 +114,21 @@ export default {
     obtenFecha(valor) {
       let d = new Date(valor);
       return d.toLocaleString();
+    },
+    sortP(val, order){
+      axios.get('api/usuario-order?element='+val+'&order='+order+'&pageNumber='+this.pageNum+'&pageSize='+this.pageElems, {}).then(response => {
+        const sorted = response.data.sort(function (a,b) {
+          return a.num < b.num ? -1 : 1;
+        });
+        console.log(sorted)
+        this.datosUsuario = sorted;
+      }).catch(error => {
+        if (error.response) {
+          console.log(error.response);
+        } else {
+          console.log(error);
+        }
+      });
     },
     getList(items, pag) {
       axios.get('api/usuario-completos-paginated?pageNumber='+pag+'&pageSize='+items, {}).then(response => {
@@ -118,11 +160,17 @@ td {
 }
 .up {
   position: relative;
+  left: 80px;
+  top: -28px;
+  cursor: pointer;
+  height: 0;
 }
 .down {
   position: relative;
-  left: -10px;
-  top: 2px;
+  left: 80px;
+  top: -18px;
+  cursor: pointer;
+  height: 10px;
 }
 .anchoTable {
   width: 600px;
