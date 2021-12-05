@@ -73,7 +73,7 @@
           axios.post('api/descripcion', {
             descripcion: this.descripcion,
             correo: store.state.session.correo,
-            descripcionPlaneText: this.dpt
+            descripcionPlaneText: this.dpt.substring(0,this.limite)
           }).then(response => {
             console.log(response);
             console.log(response.data);
