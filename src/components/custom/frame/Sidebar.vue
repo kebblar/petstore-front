@@ -62,7 +62,7 @@
         <span class="tooltip">Favoritos</span>
       </li>
       <li>
-        <a href="#" @click="goLocation('/ui/decripcion')">
+        <a href="#" @click="goLocation('/ui/descripcion')">
           <i class='bx bx-cog'></i>
           <span class="links_name">Ajustes</span>
         </a>
