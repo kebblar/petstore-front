@@ -63,6 +63,7 @@
             ["link"],
             ["clean"] // remove formatting button
           ],
+          dpt:'',
           limite: 2000,
           longitudDescripcion: this.limite
         }
@@ -71,7 +72,8 @@
         guardar() {
           axios.post('api/descripcion', {
             descripcion: this.descripcion,
-            correo: store.state.session.correo
+            correo: store.state.session.correo,
+            descripcionPlaneText: this.dpt
           }).then(response => {
             console.log(response);
             console.log(response.data);
@@ -91,8 +93,9 @@
         onEditorInput(data){
           var element = this.$refs.innerTextDescripcion;
           if(data!=''){
-            //console.log("valor longitud: "+element.quill.container.innerText.length);
-            console.log(this.descripcion.length)
+            console.log("valor longitud: "+element.quill.container.innerText.length);
+            this.dpt = this.$refs.innerTextDescripcion.quill.container.innerText;
+            console.log(this.dpt);
             this.longitudDescripcion=this.limite - element.quill.container.innerText.length;
             //this.longitudDescripcion=100*this.descripcion.length
           }else{
