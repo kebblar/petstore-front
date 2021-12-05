@@ -50,11 +50,16 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"; 
+import store from "../store";
 
 export default {
   name: "AdministracionUsuarios.vue",
-
+  mounted() {
+    store.commit('setToggleHeader', false);
+    store.commit('setToggleFooter', false);
+    //store.commit('setToggleSidebar', false);
+  },
   created() {
     this.getList(10,1);
     axios.get('api/count-users', {}).then(response => {
@@ -106,7 +111,7 @@ export default {
     calculaPaginas(tot,elems) {
       this.numerosPaginas = Math.ceil(tot/elems);
       console.log(this.numerosPaginas)
-    }
+    },
   }
 }
 </script>

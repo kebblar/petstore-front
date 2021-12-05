@@ -56,10 +56,17 @@ import PostDetail from'@/components/PostDetail'
 import NotFound from'@/components/NotFound'
 import Cortador from'@/components/Cortador'
 import AdministracionUsuarios from "../components/AdministracionUsuarios";
+import GestionDescripcion from'@/components/GestionDescripcion'
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/descripcion',
+    name: 'descripcion',
+    component: GestionDescripcion,
+    meta: { allowedRoles: ['admin','normal'] }
+  },
   {
     path: '/ui/cortador',
     name: 'cortador',
@@ -334,8 +341,9 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 }
 
-function checaJwt(jwt, active) {
-    if (active && jwt && jwt !== undefined && jwt.length > 0) {
+function checaJwt() {
+    var jwt = store.state.session.jwt;
+    if (jwt && jwt !== undefined && jwt.length > 0) {
         //console.log(jwt);
         const jwtPayload = parseJwt(jwt);
         //jwtPayload.exp=1625505833-28*60;
@@ -366,7 +374,7 @@ router.beforeEach((to, from, next) => {
 
   axios.defaults.headers.common = {"X-CSRFToken": store.state.session.jwt};
   axios.defaults.headers.common = {"jwt": store.state.session.jwt};
-  checaJwt(store.state.session.jwt, true);
+  checaJwt();
 
   /*
   axios.get('/api/carritoVista/'+store.state.session.idUser, {

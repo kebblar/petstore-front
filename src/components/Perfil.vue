@@ -116,6 +116,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import store from "../store";
 import axios from 'axios';
@@ -299,6 +300,7 @@ export default {
     }
   }
 </script>
+
 <style scoped>
 
 .img-cropper{
