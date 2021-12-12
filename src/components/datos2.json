@@ -1,0 +1,87 @@
+{
+    "selection":[0,0,0,0],
+    "data": [
+        {
+            "ordinal":0, 
+            "cabecera": {
+                "id": "radio-group-0", 
+                "name": "radio-options-0", 
+                "idacc":"accordion-0", 
+                "desc": "Estatura", 
+                "longdesc":"Por favor, selecciona tu estatura"
+            },
+            "contenido":[
+                { "leyenda": "No deseo indicar mi Estatura", "valor": 0 },
+                { "leyenda": "Menor a 1 metro y 40 centimetros", "valor": 1 },
+                { "leyenda": "Entre 140 y 145", "valor": 2 },
+                { "leyenda": "Entre 145 y 155", "valor": 3 },
+                { "leyenda": "Entre 155 y 165", "valor": 4 },
+                { "leyenda": "Entre 165 y 175", "valor": 5 },
+                { "leyenda": "Entre 175 y 190", "valor": 6 },
+                { "leyenda": "Mayor a 1 metro y 90 centimetros", "valor": 7}
+            ]
+        },
+        {
+            "ordinal":1, 
+            "cabecera": {
+                "id": "radio-group-1", 
+                "name": "radio-options-1", 
+                "idacc":"accordion-1", 
+                "desc": "Peso", 
+                "longdesc":"Por favor, selecciona tu peso"
+            },
+            "contenido":[
+                { "leyenda": "No deseo indicar mi peso", "valor": 0},
+                { "leyenda": "Menor a 40 kiogramos",     "valor": 1 },
+                { "leyenda": "Entre 40 y 45 kilogramos", "valor": 2 },
+                { "leyenda": "Entre 45 y 55 kilogramos", "valor": 3 },
+                { "leyenda": "Entre 55 y 65 kilogramos", "valor": 4 },
+                { "leyenda": "Entre 65 y 75 kilogramos", "valor": 5 },
+                { "leyenda": "Entre 75 y 90 kilogramos", "valor": 6 },
+                { "leyenda": "Mayor a 90 kilogramos",    "valor": 7 }
+            ]
+        },
+        {
+            "ordinal":2, 
+            "cabecera": {
+                "id": "radio-group-2", 
+                "name": "radio-options-2", 
+                "idacc":"accordion-2", 
+                "desc": "Edad", 
+                "longdesc":"Por favor, selecciona tu edad"
+            },
+            "contenido":[
+                { "leyenda": "No deseo indicar mi edad", "valor": 0 },
+                { "leyenda": "Menor a 20 años",     "valor": 1 },
+                { "leyenda": "Entre 20 y 30 años", "valor": 2 },
+                { "leyenda": "Entre 30 y 40 años", "valor": 3 },
+                { "leyenda": "Entre 40 y 50 años", "valor": 4 },
+                { "leyenda": "Entre 50 y 60 años", "valor": 5 },
+                { "leyenda": "Entre 60 y 70 años", "valor": 6 },
+                { "leyenda": "Mayor a 70 años",    "valor": 7}
+            ]
+        },
+
+        {
+            "ordinal":3, 
+            "cabecera": {
+                "id": "radio-group-3", 
+                "name": "radio-options-3", 
+                "idacc":"accordion-3", 
+                "desc": "Ojos", 
+                "longdesc":"Por favor, selecciona el color de tus ojos"
+            },
+            "contenido":[
+                { "leyenda": "No deseo indicar mi edad", "valor": 0 },
+                { "leyenda": "Negros",     "valor": 1 },
+                { "leyenda": "Verdes", "valor": 2 },
+                { "leyenda": "Azules", "valor": 3 },
+                { "leyenda": "Café", "valor": 4 },
+                { "leyenda": "Grises", "valor": 5 },
+                { "leyenda": "Lila", "valor": 6 },
+                { "leyenda": "Multicolor",    "valor": 7}
+            ]
+        }
+
+    ]
+}

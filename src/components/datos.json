@@ -4,7 +4,7 @@
         "name" : "estatus",
         "options" : [
            {"ordinal" : 0, "value" : "nuevo"},
-            {"ordinal" : 1, "value" : "usado"}
+           {"ordinal" : 1, "value" : "usado"}
         ]
     },
     {

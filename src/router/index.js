@@ -57,10 +57,17 @@ import NotFound from'@/components/NotFound'
 import Cortador from'@/components/Cortador'
 import AdministracionUsuarios from "../components/AdministracionUsuarios";
 import GestionDescripcion from'@/components/GestionDescripcion'
+import PersonalData from'@/components/PersonalData'
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/personal-data',
+    name: 'personal-data',
+    component: PersonalData,
+    meta: { allowedRoles: ['admin','normal'] }
+  },
   {
     path: '/ui/descripcion',
     name: 'descripcion',
