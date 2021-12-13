@@ -90,7 +90,7 @@
       info: function(index) {
         var radio_seleccionado = this.sel[index];
         var ley = this.datos[index].contenido[radio_seleccionado].leyenda;
-        console.log(ley);
+        //console.log(ley);
         // si el this.sel[index] es 0, entonces no hay seleccion para el índice 'index':
         return (this.sel[index]<1)?"sin selección":ley;
       },
@@ -103,7 +103,7 @@
         return -1;
       },
       carga: function() {
-        console.log("cargando....");
+        //console.log("cargando....");
         // el siguiente json debe provenir del backend, de la base de datos.
         // OJO: NO trae los "ord" cuyo val es "0":
         //const loads = [{'id':2, 'selected':3},{'id':0, 'selected':2}];
@@ -135,7 +135,7 @@
           }
         }).catch(error => {
           this.answer =error;
-          console.log(error);
+          //console.log(error);
         });
       }
     } // methods
