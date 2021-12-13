@@ -73,7 +73,7 @@
                         router.push('/ui/login');
                     } else {
                       // si hay jwt, pero no ha expirado
-                      console.log('WAIT  ' + delta);
+                      if(delta<150) console.log('WAIT  ' + delta);
                         //const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
                         //console.log('Tiempo para que expire:' + timeToExpire);
                     }

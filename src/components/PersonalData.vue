@@ -5,7 +5,12 @@
     <div v-for="(e, index) in datos" :key="index">
       <b-card no-body class="mb-1">
         <b-card-header header-tag="header" class="p-1" role="tab">
-          <b-button :class="cambia(sel[index])" block v-b-toggle="e.cabecera.idacc">{{ e.cabecera.desc }}::: {{ info(e.ordinal, sel[index]) }} </b-button>          
+          <b-button 
+            :class="cambia(sel[index])" 
+            block 
+            v-b-toggle="e.cabecera.idacc">
+              {{ e.cabecera.desc }}: {{ info(index) }} 
+          </b-button>          
         </b-card-header>
         <b-collapse :id="e.cabecera.idacc" accordion="my-accordion" role="tabpanel">
           <b-card-body>
@@ -82,10 +87,23 @@
       cambia: function(index) {
         return (index<1)?"warning":"done";
       },
-      info: function(ordinal, sel_de_index) {
-        return (sel_de_index<1)?"Sin seleccion":this.datos[ordinal].contenido[sel_de_index].leyenda; 
+      info: function(index) {
+        var radio_seleccionado = this.sel[index];
+        var ley = this.datos[index].contenido[radio_seleccionado].leyenda;
+        console.log(ley);
+        // si el this.sel[index] es 0, entonces no hay seleccion para el índice 'index':
+        return (this.sel[index]<1)?"sin selección":ley;
+      },
+      busca: function(n) {
+        for(var i=0; i<this.datos.length; i++) {
+          if(this.datos[i].ordinal === n) {
+            return i;
+          }
+        }
+        return -1;
       },
       carga: function() {
+        console.log("cargando....");
         // el siguiente json debe provenir del backend, de la base de datos.
         // OJO: NO trae los "ord" cuyo val es "0":
         //const loads = [{'id':2, 'selected':3},{'id':0, 'selected':2}];
@@ -99,21 +117,26 @@
         }).then(response => {
           loads = response.data;
           this.answer =loads;
-
           // ahora, procedemos a gargar la selección:
-
           for(var i=0; i<loads.length; i++) {
-            this.sel[loads[i].id] = loads[i].selected;
+            // Supongamos loads = { (3,7) (5,2) (2,2) (4,5) }
+            // para i=0 ---> loads[0] = (3,7)
+            // entonces loads[0].id = 3
+            // para qué n se tiene que datos[n].ordinal == 3 ?
+            // respuesta: n=2
+            // entonces this.sel[2] = loads[i].selected;
+            var m = loads[i].id;
+            var t = loads[i].selected;
+            //console.log("Para el contador de i = "+i+", tenemos que la primer coordenadaes: "+m+" y la segunda coordenada es: "+ t);
+            var n = this.busca(m);
+            //console.log("la primer coordenada fue encontrada en 'data' en la posición: " +n);
+            if(n>=0) this.sel[n] = t;
+            //console.log("sel va asi: " + this.sel);
           }
-
         }).catch(error => {
           this.answer =error;
           console.log(error);
         });
-
-        
-        
-
       }
     } // methods
   }
