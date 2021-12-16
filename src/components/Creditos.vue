@@ -51,7 +51,8 @@
           <div class="col">
             <a href='#' @click="open">Aprender, Enseñar y Trascender... esa es la misión.</a>
             <div class="info">
-              <br><label>Versión: {{ version }}</label>
+              <br><label>Backend Versión: {{ version }}</label>
+              <br><label>Frontend Versión: {{ frontVersion }}</label>
               <br><label>Ambiente: {{ ambiente }}</label>
               <br><label>Deployment node address: {{ address }}</label>
               <br><label>Perfil: {{ profile }}</label>
@@ -84,6 +85,7 @@ import md5 from 'md5';
 export default {
     data: function () {
         return {
+          frontVersion: process.env.VUE_APP_VERSION, 
           version: 'v',
           ambiente: 'am',
           address: 'ad',

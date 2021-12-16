@@ -51,13 +51,13 @@
     data() {
       return {
         datos: json.data,
-        sel: json.selection,
+        sel: json.seleccion,
         result:'',
         answer:''
       }
     },
     mounted() {
-      this.carga();
+      this.atributos();
     },  
     methods: {
       pinta: function() {
@@ -88,11 +88,15 @@
         return (index<1)?"warning":"done";
       },
       info: function(index) {
-        var radio_seleccionado = this.sel[index];
+        if (this.sel[index]<1) return "sin selección";
+        //console.log(index);
+        var radio_seleccionado = this.sel[index]-1;
+        //console.log(this.sel[index]);
         var ley = this.datos[index].contenido[radio_seleccionado].leyenda;
         //console.log(ley);
         // si el this.sel[index] es 0, entonces no hay seleccion para el índice 'index':
-        return (this.sel[index]<1)?"sin selección":ley;
+        //var ley = index + " *** " + this.sel[index];
+        return ley;
       },
       busca: function(n) {
         for(var i=0; i<this.datos.length; i++) {
@@ -101,6 +105,18 @@
           }
         }
         return -1;
+      },
+      atributos: function() {
+        axios.get('/api/attribute-list', {
+        }).then(response => {
+          var r = response.data;
+          // console.log(r);
+          this.datos = r.data;
+          this.sel = r.seleccion;
+          this.carga();
+        }).catch(error => {
+          this.answer=error;
+        })
       },
       carga: function() {
         //console.log("cargando....");
