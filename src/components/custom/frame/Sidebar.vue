@@ -15,9 +15,9 @@
         <li>
           <a href="#" @click="goLocation('/')">
             <i class='bx bx-grid-alt'></i>
-            <span class="links_name">Tablero</span>
+            <span class="links_name">Principal</span>
           </a>
-          <span class="tooltip">Tablero</span>
+          <span class="tooltip">Principal</span>
         </li>
         <li>
         <a href="#" @click="goLocation('/ui/cambia-datos-personales')">
@@ -48,25 +48,25 @@
         <span class="tooltip">Sube media</span>
       </li>
       <li>
-        <a href="#" @click="goLocation('/ui/dropdowns')">
+        <a href="#" @click="goLocation('/ui/personal-data')">
           <i class='bx bx-task'></i>
-          <span class="links_name">Criterios</span>
+          <span class="links_name">Descríbete</span>
         </a>
-        <span class="tooltip">Criterios</span>
+        <span class="tooltip">Descríbete</span>
       </li>
       <li>
         <a href="#" @click="goLocation('/ui/creditos')">
           <i class='bx bx-heart'></i>
-          <span class="links_name">Favoritos</span>
+          <span class="links_name">Créditos</span>
         </a>
-        <span class="tooltip">Favoritos</span>
+        <span class="tooltip">Créditos</span>
       </li>
       <li>
         <a href="#" @click="goLocation('/ui/descripcion')">
           <i class='bx bx-cog'></i>
-          <span class="links_name">Ajustes</span>
+          <span class="links_name">Biografía</span>
         </a>
-        <span class="tooltip">Ajustes</span>
+        <span class="tooltip">Biografía</span>
       </li>
       <li>
         <a href="#" @click="goLocation('/ui/login')">
