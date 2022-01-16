@@ -1,22 +1,7 @@
 [
     {
         "id" : 0,
-        "label" : "futbol",
+        "label" : ".",
         "val": 1
-    },
-    {
-        "id" : 1,
-        "label" : "tenis",
-        "val": 2
-    },
-    {
-        "id" : 2,
-        "label" : "golf",
-        "val": 1
-    },
-    {
-        "id" : 3,
-        "label" : "ajedrez",
-        "val": 2
     }
 ]
