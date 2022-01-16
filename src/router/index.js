@@ -58,10 +58,16 @@ import Cortador from'@/components/Cortador'
 import AdministracionUsuarios from "../components/AdministracionUsuarios";
 import GestionDescripcion from'@/components/GestionDescripcion'
 import PersonalData from'@/components/PersonalData'
+import Skills from'@/components/Skills'
 
 Vue.use(Router);
 
 const routes = [
+  {
+    path: '/ui/skills',
+    name: 'skills',
+    component: Skills
+  },
   {
     path: '/ui/personal-data',
     name: 'personal-data',

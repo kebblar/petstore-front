@@ -1,46 +1,22 @@
 [
     {
         "id" : 0,
-        "name" : "estatus",
-        "options" : [
-           {"ordinal" : 0, "value" : "nuevo"},
-           {"ordinal" : 1, "value" : "usado"}
-        ]
+        "label" : "futbol",
+        "val": 1
     },
     {
         "id" : 1,
-        "name" : "color",
-        "options" : [
-            {"ordinal" : 0, "value": "rojo"},
-            {"ordinal" : 1, "value": "verde"},
-            {"ordinal" : 2, "value": "amarillo"},
-            {"ordinal" : 3, "value": "azul"},
-            {"ordinal" : 4, "value": "negro"},
-            {"ordinal" : 5, "value": "rosa"}
-        ]
+        "label" : "tenis",
+        "val": 2
     },
     {
         "id" : 2,
-        "name" : "nacionalidad",
-        "options" : [
-            {"ordinal" : 0, "value": "colombiana"},
-            {"ordinal" : 1, "value": "mexicana"},
-            {"ordinal" : 2, "value": "canadiense"}, 
-            {"ordinal" : 3, "value": "inglesa"},
-            {"ordinal" : 4, "value": "pakistani"},
-            {"ordinal" : 5, "value": "australiana"}
-        ]
+        "label" : "golf",
+        "val": 1
     },
     {
         "id" : 3,
-        "name" : "edad",
-        "options" : [
-            {"ordinal" : 0, "value": "de 12 a 17"},
-            {"ordinal" : 1, "value": "de 18 a 29"},
-            {"ordinal" : 2, "value": "de 30 a 39"},
-            {"ordinal" : 3, "value": "de 40 a 49"},
-            {"ordinal" : 4, "value": "de 50 a 59"},
-            {"ordinal" : 5, "value": "60+"}
-        ]
+        "label" : "ajedrez",
+        "val": 2
     }
 ]
