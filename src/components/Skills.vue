@@ -1,14 +1,14 @@
 <template>
     <div class="ancho centra">
-        <label class="p-1">Cuéntanos qué habilidades tienes...</label>
+        <label class="p-1">Cuéntanos qué servicios ofreces</label>
 
         <table class="anchoTable table table-striped table-hover table-sm table-dark">
             <thead>
                 <tr>
                     <th></th>
-                    <th>No ofrezco este servicio</th>
-                    <th>Servicio incluido en el precio</th>
-                    <th>Servicio con costo adicional</th>
+                    <th>Servicio no disponible</th>
+                    <th>Incluido en el precio</th>
+                    <th>Con costo adicional</th>
                 </tr>    
             </thead>
             <tbody>
