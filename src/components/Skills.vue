@@ -1,6 +1,6 @@
 <template>
     <div class="ancho centra">
-        <label class="p-1">Cuéntanos qué servicios ofreces</label>
+        <label class="p-1">Cuéntanos qué servicios ofreces por una iguala mensual</label>
 
         <table class="anchoTable table table-striped table-hover table-sm table-dark">
             <thead>
