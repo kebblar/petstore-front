@@ -26,19 +26,18 @@
 </template>
 
 <script>
-import json from './datos.json'
+//import json from './datos.json'
 import axios from 'axios';
 
 export default {
     data() {
       return {
-        datos: json,
+        datos: [],
         result: [],
       }
     },
     mounted() {
       this.obten();
-      this.reemplaza();
     },
     methods: {
         guarda: function() {
@@ -55,6 +54,7 @@ export default {
             axios.get('/api/habilidad', {
             }).then(response => {
                 this.datos = response.data;
+                this.reemplaza();
             }).catch(error => {
                 console.log(error);
             })
