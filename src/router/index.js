@@ -66,7 +66,8 @@ const routes = [
   {
     path: '/ui/skills',
     name: 'skills',
-    component: Skills
+    component: Skills,
+    meta: { allowedRoles: ['admin','normal'] }
   },
   {
     path: '/ui/personal-data',

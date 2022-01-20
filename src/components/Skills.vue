@@ -27,6 +27,7 @@
 
 <script>
 //import json from './datos.json'
+import store from '../store';
 import axios from 'axios';
 
 export default {
@@ -41,8 +42,19 @@ export default {
     },
     methods: {
         guarda: function() {
-            this.result[0] = -1;
+            // El primer valor del arreglo SIEMPRE será el user ID:
+            this.result[0] = store.state.session.idUser;
             console.log(this.result);
+
+            axios.post('api/habilidad', this.result, {
+                headers: {
+                    'jwt': store.state.session.jwt 
+                }
+            }).then(response => {
+                console.log(response.data);
+            }).catch(error => {
+                console.log(error.response.data);
+            });
         },
         asigna: function(index, value) {
             this.result[index] = value;
@@ -60,7 +72,9 @@ export default {
             })
         },
         reemplaza: function() {
-            axios.get('/api/habilidad/2', {
+            var id = store.state.session.idUser;
+            console.log("User id: "+id);
+            axios.get('/api/habilidad/'+id, {
             }).then(response => {
                 for(var j=1; j<=19; j++) {
                     this.result[j] = 0;
