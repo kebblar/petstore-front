@@ -26,9 +26,12 @@
 </template>
 
 <script>
-//import json from './datos.json'
+import VueToast from 'vue-toast-notification';
 import store from '../store';
 import axios from 'axios';
+import Vue from 'vue'
+
+Vue.use(VueToast);
 
 export default {
     data() {
@@ -41,6 +44,14 @@ export default {
       this.obten();
     },
     methods: {
+        abreToast: function() {
+            Vue.$toast.open({
+            message: 'Datos Guardados exitosamente',
+            type: 'error',
+            duration: 4000,
+            position:'top'
+            });
+        },
         guarda: function() {
             // El primer valor del arreglo SIEMPRE será el user ID:
             this.result[0] = store.state.session.idUser;
@@ -52,6 +63,7 @@ export default {
                 }
             }).then(response => {
                 console.log(response.data);
+                this.abreToast();
             }).catch(error => {
                 console.log(error.response.data);
             });

@@ -13,7 +13,7 @@
           <span class="tooltip">Buscar</span>
         </li>
         <li>
-          <a href="#" @click="goLocation('/')">
+          <a href="#" @click="goLocation('/ui/skills')">
             <i class='bx bx-grid-alt'></i>
             <span class="links_name">Principal</span>
           </a>

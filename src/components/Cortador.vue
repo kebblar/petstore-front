@@ -188,6 +188,11 @@
                   <a :href=salta(url.nuevoNombre) target="_blank">liga {{ index }}</a>
                 </li>
               </ul>
+              <ul v-for="(picture, index) in galeria" :key="index">
+                <li>
+                  <img :src=salta(picture.nuevoNombre) width="50px"/>
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -227,22 +232,35 @@ export default {
       newSize: 0,
       caja:[],
       respuesta:[],
+      galeria:[],
       url_img: process.env.VUE_APP_URL_MEDIA
     };
   },
   computed: {
-    verifica(){
+    verifica() {
       return (this.caja.length !== 0)
-      }
+    }
+  },
+  mounted() {
+    this.getFotos();
   },
   methods: {
-
-    sube() {
+    getFotos: function() {
+      let id = store.state.session.idUser;
+      axios.get('/api/get-media/'+id, {
+      }).then(response => {
+          console.log(response.data);
+          this.galeria = response.data;
+      }).catch(error => {
+          console.log(error);
+      })  
+    },
+    sube: function() {
       const headers = {
         "Content-Type": "multipart/form-data",
         "Access-Control-Allow-Origin": "*",
         "jwt": store.state.session.jwt,
-        "idAnuncio":1
+        "idAnuncio":store.state.session.idUser
       }; 
       axios.post("/api/up/imagen2", this.formData, { 
         headers 
