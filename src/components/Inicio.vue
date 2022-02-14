@@ -4,7 +4,7 @@
       <div class="card-header card-custom-header"> 
         <label class="control-label h4" >Categorías</label>
         <br/>
-        <label class="control-label" >Una selección de las mascotas mas buscadas 686</label>
+        <label class="control-label" >Una selección de las mascotas mas buscadas</label>
       </div>
       <div class="card-body align">
         <div class="row">
