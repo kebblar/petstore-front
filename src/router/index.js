@@ -59,6 +59,7 @@ import AdministracionUsuarios from "../components/AdministracionUsuarios";
 import GestionDescripcion from'@/components/GestionDescripcion'
 import PersonalData from'@/components/PersonalData'
 import Skills from'@/components/Skills'
+import GooseModal from'@/components/GooseModal'
 
 Vue.use(Router);
 
@@ -68,6 +69,11 @@ const routes = [
     name: 'skills',
     component: Skills,
     meta: { allowedRoles: ['admin','normal'] }
+  },
+  {
+    path: '/goose',
+    name: 'goose',
+    component: GooseModal
   },
   {
     path: '/ui/personal-data',
