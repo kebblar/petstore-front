@@ -8,3 +8,5 @@ npm run serve
 
 # then go to:
 http://localhost:8888
+
+END
