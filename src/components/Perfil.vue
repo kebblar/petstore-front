@@ -132,13 +132,15 @@ export default {
   },
    data() {
      return {
-       originalPic : def,
        profilePicture : '',
-       selectedFile : null,
-       fileType : '',
-       message : '',
+       originalPic : def,
        fileName : '',
        fileSize : 0,
+       fileheight : 0,
+       selectedFile : null,
+       message : '',
+
+       fileType : '',
        pictureChosen: false,
        fd:null,
        niceMessage:'',
@@ -147,7 +149,6 @@ export default {
        ruta : '',
        finished : false,
        bigPic : true,
-       fileheight : 0
      }
    } ,
   mounted() {
@@ -301,6 +302,7 @@ export default {
   }
 </script>
 
+
 <style scoped>
 
 .img-cropper{
@@ -432,3 +434,6 @@ li {
 
 
 </style>
+
+
+
