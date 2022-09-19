@@ -1,6 +1,6 @@
 <template>
     <div>  
-        <!-- TODO es ta perfecto!!! Hidden input file chooser -->
+        <!-- Hidden input file chooser -->
         <input 
             style="display: none" 
             type="file" 
@@ -8,7 +8,9 @@
             ref="fileInput" 
             accept="image/*" />
 
+        <!-- Hidden auxiliar button for us to open the modal -->
         <input
+            style="display: none" 
             ref="abreVentana"
             type="button"
             data-toggle="modal"
@@ -29,14 +31,12 @@
         </div>
         
         <!-- Modal for us to crop the given image -->
+        <!-- TODO Make this componente reusable -->
         <div id="uploadModal"
             class="modal fade"
-            data-bs-backdrop="static" 
-            data-bs-keyboard="false"
-            :class="{ show: active, 'd-block': active }"
             tabindex="-1"
             role="dialog">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Ajustes de imagen</h5>
@@ -47,91 +47,94 @@
                             data-target="#uploadModal"
                             aria-label="Close">&times;</button>
                     </div>
-                    <div class="modal-body">        
+                    <div class="modal-body mx-4 pb-4">
                         <div class="img-cropper">
                             <vue-cropper
-                                id="cropper"
                                 ref="cropper"
                                 :src="selectedFile"
                                 :aspectRatio="1/1"
-                                preview=".preview"/>
+                                :min-container-width="418"
+                                :min-container-height="418"                                 
+                                :guides="true"
+                                :view-mode="2"                                                               
+                                :img-style="{ 'width': '418px', 'height': '418' }">
+                                >
+                            </vue-cropper>
                             <div class="container bg-dark2 text-light toolSet" >
                                 <div class="d-flex align-content-center flex-wrap flex-row justify-content-around pt-1" >
                                     <div>
                                         <a href="#" @click.prevent="zoom(0.3)" title="zoom in" class="link">
-                                            <i class="fa fa-search-plus text-light" aria-hidden="true"></i>
+                                            <i class="fa fa-search-plus" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="#" @click.prevent="zoom(-0.3)" title="zoom out" class="link">
-                                            <i class="fa fa-search-minus text-light" aria-hidden="true"></i>
+                                            <i class="fa fa-search-minus" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="#" @click.prevent="rotate(45)" title="rotate right" class="link">
-                                            <i class="fa fa-undo fa-flip-horizontal text-light" aria-hidden="true"></i>
+                                            <i class="fa fa-redo" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="#" @click.prevent="rotate(-45)" title="rotate left" class="link">
-                                            <i class="fa fa-undo text-light" aria-hidden="true"></i>
+                                            <i class="fa fa-undo" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="#" @click.prevent="move(-10, 0)" title="move left" class="link">
-                                            <i class="fa fa-arrow-left text-light" aria-hidden="true"></i>
+                                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="#" @click.prevent="move(10, 0)" title="move right" class="link">
-                                            <i class="fa fa-arrow-right text-light" aria-hidden="true"></i>
+                                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="#" @click.prevent="move(0, -10)" title="move up" class="link">
-                                            <i class="fa fa-arrow-up text-light" aria-hidden="true"></i>
+                                            <i class="fa fa-arrow-up" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="#" @click.prevent="move(0, 10)" title="move down" class="link">
-                                            <i class="fa fa-arrow-down text-light" aria-hidden="true"></i>
+                                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
                                         </a>
                                     </div>
                                     <div>
                                         <a ref="flipX" href="#" @click.prevent="flipX" title="flip vertical" class="link">
-                                            <i class="fas fa-ruler-vertical text-light"></i>
+                                            <i class="fas fa-ruler-vertical"></i>
                                         </a>
                                     </div>
                                     <div>
                                         <a ref="flipY" href="#" @click.prevent="flipY" title="flip horizontal" class="link">
-                                            <i class="fas fa-ruler-horizontal text-light"></i>
+                                            <i class="fas fa-ruler-horizontal"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex container justify-content-around p-2">
+                            <div class="container justify-content-around p-2">
                                 <div class="row">
-                                <small><i class="fas fa-file text-light"></i>{{fileName}}</small>
+                                    <div class="col">
+                                        <small><i class="fas fa-file"></i>  {{fileName}}</small>
+                                    </div>                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <small><i class="fas fa-ruler"></i>  {{ Math.trunc(fileSize/1024) }} kilo bytes</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-
-                        <button 
-                            type="button" 
-                            class="btn btn-dark"
-                            @click="fireChooser">take file</button>
-
-
-
                         <button 
                             type="button" 
                             class="btn btn-dark" 
                             data-toggle="modal"
                             data-target="#uploadModal"                            
                             @click="cropImage">Select</button>
-                            
                         <button 
                             type="button" 
                             class="btn btn-dark"
@@ -141,9 +144,8 @@
                     </div>
                 </div>
             </div>
-            <div v-if="active" class="modal-backdrop fade show"></div>
         </div>
-        
+
     </div>
 </template>
 
@@ -158,64 +160,45 @@ export default {
     },
     data() {
         return {
-            active: false,
             profilePicture : def,
-            originalPic : def,
+            selectedFile : def,
             fileName : '',
-            fileSize : '',
-            fileHeight : '',
-            selectedFile : '',
-            message :''
+            fileSize : 0
         }
     },
-    //TODO es correcto
+    //TODO we can make every validation much more detailed ....
     methods: {
+        invalid(file) {
+            let kb = 1024
+            this.fileName = file.name;
+            this.fileSize = file.size
+
+            if(file.size<16 || file.size>9000*kb) return "image too small or image too large: " + file.size
+            if(file.height<16 || file.height>8000*kb) return "Image Height to big or image too small: " + file.height
+            if(file.width<16 || file.width>8000*kb) return "Image Width to big or image too small: " + file.width
+            if(!file.type.includes('image')) return "This is not an image file: " + file.type
+            return "";
+        },
         setImage(e) {
             const file = e.target.files[0];
-            console.log(file.type)
-            if (file.type.indexOf('image/') === -1) {
-                console.log('Lo que se subió no era una imágen')
-                this.message = "Por favor solamente elegir imagenes"
-                return;
+            
+            let message = this.invalid(file)
+            if(message.length>0) {
+                alert(message)
+                return
             }
+
             if (typeof FileReader === 'function') {
                 const reader = new FileReader();
-                reader.onload = (event) => {
-                    /*
-                    let header = "";
-                    let arr = (new Uint8Array(e.target.result)).subarray(0, 4);
-                    for (let i = 0; i < arr.length; i++) {
-                        header += arr[i].toString(16)
-                    }
-                    this.fileType = this.getMimeType(header);
-                    if (this.fileType === 'unknown') {
-                        console.log('Lo que se subió no era una imágen')
-                        this.message = "Por favor solamente elegir imagenes"
-                        reader.abort();
-                        return;
-                     }
-                    */
-                    this.fileType = this.getMimeType(file.type);
-                    this.imgSrc = event.target.result;
-                    // rebuild cropperjs with the updated source
-                    this.$refs.cropper.replace(event.target.result);
-                    //this.$refs.abreVentana.click();
+                reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    console.log(e.isTrusted)
                 };
-                reader.onloadend = (a) => {
-                    console.log(a);
-                    if (this.message.length<1) {
-                        this.selectedFile = URL.createObjectURL(file);
-                        this.fileName = file.name;
-                        this.fileSize = file.size;
-                        this.fileheight = file.height;
-                    } else {
-                        reader.abort();
-                        return;
-                    }
+                reader.onloadend = (f) => {
+                    this.$refs.cropper.replace(f.target.result);
+                    this.selectedFile = URL.createObjectURL(file);
+                    this.$refs.abreVentana.click();
                 };
-                if(this.message.length<1) {
-                    reader.readAsDataURL(file);
-                }
             } else {
                 alert('Sorry, FileReader API not supported');
             }
@@ -264,7 +247,6 @@ export default {
         },        
         cropImage() { 
             this.profilePicture = this.$refs.cropper.getCroppedCanvas().toDataURL();
-            //this.modalToggle();
         }
     }
 }
@@ -275,10 +257,6 @@ export default {
         color:#fff;
         font-size: .7em;
     }
-    .show777 {
-        height: 300;
-        width: 300;
-    }   
     .link {
         color: green;
     }
@@ -305,10 +283,6 @@ export default {
     }
     .foto:hover {
         transform: scale(1.1);
-    }
-    .modal-dialog777 {
-        max-width: 350px;
-        margin: 2rem auto;
     }
 </style>
 
