@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <Header/>
-    <div class="row">
-      <Sidebar/>
-      <div class="col">
         <!--
         <transition
           name="fade"
@@ -12,86 +8,14 @@
         </transition>
         -->
         <router-view/>
-      </div>
-    </div>
-    <Footer/>
   </div>
 </template>
 
 <script>
-  import Footer from './components/custom/frame/Footer';
-  import Header from './components/custom/frame/Header';
-  import Sidebar from './components/custom/frame/Sidebar';
-  import store from "./store";
-  import router from "./router";
+  //import router from "./router";
 
   export default {
     name: "App",
-    components: {
-      'Header': Header,
-      'Footer' : Footer,
-      'Sidebar': Sidebar
-    },
-    mounted() {
-        this.todo();
-    },
-    beforeDestroy () {
-       clearInterval(this.interval);
-    },
-    methods: {
-        todo(){          
-            this.interval = setInterval(
-              function() {
-                var jwt = store.state.session.jwt;
-                if (jwt && jwt !== undefined && jwt.length > 0) {
-                    //console.log(jwt);
-                    //const jwtPayload = this.parseJwt(jwt);
-
-                    var base64Url = jwt.split('.')[1];
-                    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                    }).join(''));
-                    const jwtPayload = JSON.parse(jsonPayload);
-
-                    //jwtPayload.exp=1625505833-28*60;
-                    //console.log(jwtPayload);
-                    const limite = (Date.now() / 1000)-(2*60); // fecha actual menos dos minutos
-                    const delta = jwtPayload.exp - limite;
-                    if (delta < 0) {
-                        store.commit('setSession', {
-                            nombreCompleto: '',
-                            roles: [],
-                            correo: '',
-                            ultimoAcceso: '',
-                            idUser: 0,
-                            jwt: '', // jwt: jwtPayload.exp
-                            carrito: []
-                        });
-                        //store.commit('setDestination', '/');
-                        console.log('REDIRECT  ' +  delta);
-                        router.push('/ui/login');
-                    } else {
-                      // si hay jwt, pero no ha expirado
-                      if(delta<150) console.log('WAIT  ' + delta);
-                        //const timeToExpire =  jwtPayload.exp - (Date.now()/1000);
-                        //console.log('Tiempo para que expire:' + timeToExpire);
-                    }
-                } else {
-                  // no hay jwt. Entonces no hagas nada
-                }
-              }, 
-            3000);
-        },
-        parseJwt: function(token) {
-            var base64Url = token.split('.')[1];
-            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            return JSON.parse(jsonPayload);
-        }
-    }
   }
 </script>
 
@@ -126,7 +50,6 @@ html,body {
   width:100%;
   height:100%;
   background-color:#ffffff;
-  background-image: url('assets/wait.gif');
   background-repeat:no-repeat;
   background-position:center;
   z-index:10000000;
@@ -173,7 +96,6 @@ html,body {
 .input-correct {
   background-color: #ffffff;
   border-bottom: 1px solid #009900;
-  background: url(./assets/check.png) no-repeat scroll;
   background-position:right;
   background-size: 17px;
   background-position-x: 96%;
@@ -181,7 +103,6 @@ html,body {
 .input-wrong {
   background-color: #ffffff;
   border-bottom: 1px solid #990000;
-  background: url(./assets/danger.jpg) no-repeat scroll;
   background-position:right;
   background-size: 17px;
   background-position-x: 96%;

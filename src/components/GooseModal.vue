@@ -1,5 +1,6 @@
 <template>
-    <div>  
+  <div>  
+    <div class="background">
         <!-- TODO es ta perfecto!!! Hidden input file chooser -->
         <input 
             style="display: none" 
@@ -31,12 +32,9 @@
         <!-- Modal for us to crop the given image -->
         <div id="uploadModal"
             class="modal fade"
-            data-bs-backdrop="static" 
-            data-bs-keyboard="false"
-            :class="{ show: active, 'd-block': active }"
             tabindex="-1"
             role="dialog">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Ajustes de imagen</h5>
@@ -47,7 +45,7 @@
                             data-target="#uploadModal"
                             aria-label="Close">&times;</button>
                     </div>
-                    <div class="modal-body">        
+                    <div class="modal-body mx-4 pb-4 " style="height: auto">
                         <div class="img-cropper">
                             <vue-cropper
                                 id="cropper"
@@ -145,6 +143,7 @@
         </div>
         
     </div>
+  </div>
 </template>
 
 <script>
@@ -159,17 +158,75 @@ export default {
     data() {
         return {
             active: false,
-            profilePicture : def,
+            profilePicture : '',
             originalPic : def,
             fileName : '',
-            fileSize : '',
-            fileHeight : '',
-            selectedFile : '',
-            message :''
+            fileSize : 0,
+            fileheight : 0,
+            selectedFile : null,
+            message :'',
+
+            fileType : '',
+            pictureChosen: false,
+            fd:null,
+            niceMessage:'',
+            niceMessageArray:["Wow! Excelente elección", "Me encanta esa foto!", "Te ves genial!", "Gran cambio!"],
+            errorMsg:'',
+            ruta : '',
+            finished : false,
+            bigPic : true,
         }
+    },
+    mounted() {
+        this.profilePicture = def;
     },
     //TODO es correcto
     methods: {
+        resetImage() {
+            this.message='';
+            this.selectedFile=null;
+            this.niceMessage='';
+            this.pictureChosen=false;
+            this.bigPic=true;
+            this.errorMsg='';
+        },
+
+        setImage1(event){
+            this.message ='';
+            let file = event.target.files[0];
+            let reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            reader.onload = (e) => {
+                let header = "";
+                let arr = (new Uint8Array(e.target.result)).subarray(0, 4);
+                for (let i = 0; i < arr.length; i++) {
+                header += arr[i].toString(16);
+                }
+                this.fileType = this.getMimeType(header);
+                if (this.fileType === 'unknown') {
+                console.log('Lo que se subió no era una imágen');
+                this.message = "Por favor solamente elegir imagenes";
+                }
+            };
+            reader.onloadend = (a) => {
+                console.log(a);
+                if (this.message==='') {
+                    this.selectedFile = URL.createObjectURL(file);
+                    this.fileName = file.name;
+                    this.fileSize = file.size;
+                    this.fileheight = file.height;
+                    this.message='';
+                    this.$refs.abreVentana.click();
+                    this.$refs.cropper.replace(event.target.result);
+                } else {
+                    reader.abort();
+                }
+            }
+            if(this.message.length<1) {
+                reader.readAsDataURL(file);
+            }
+        },
+
         setImage(e) {
             const file = e.target.files[0];
             console.log(file.type)
@@ -180,6 +237,7 @@ export default {
             }
             if (typeof FileReader === 'function') {
                 const reader = new FileReader();
+                reader.readAsArrayBuffer(file);
                 reader.onload = (event) => {
                     /*
                     let header = "";
@@ -195,11 +253,12 @@ export default {
                         return;
                      }
                     */
-                    this.fileType = this.getMimeType(file.type);
-                    this.imgSrc = event.target.result;
+                    //this.fileType = this.getMimeType(file.type);
+                    //this.imgSrc = event.target.result;
                     // rebuild cropperjs with the updated source
+                    this.$refs.abreVentana.click();
                     this.$refs.cropper.replace(event.target.result);
-                    //this.$refs.abreVentana.click();
+                    
                 };
                 reader.onloadend = (a) => {
                     console.log(a);
@@ -270,49 +329,141 @@ export default {
 }
 </script>
 
-<style>
-    #black-label {
-        color:#fff;
-        font-size: .7em;
+<style scoped>
+
+    .img-cropper{
+      width: 100%;
+      height: 100%;
     }
-    .show777 {
-        height: 300;
-        width: 300;
-    }   
-    .link {
-        color: green;
+    .background {
+      background-image: url(https://images.adsttc.com/media/images/5d44/14fa/284d/d1fd/3a00/003d/large_jpg/eiffel-tower-in-paris-151-medium.jpg?1564742900);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      padding: 5% 0;
     }
-    .link:hover {
-        color: red;
-    }
-    .bg-dark2 {
-        background-color: #ccc;
-    } 
-    .croppedImage {
-        display: block;
-        width: 300px;
-        height: auto;
-    }
-    .foto {
+    
+    @media only screen and (max-width: 575px) {
+      .modal-dialog{
         position: relative;
-        background-color: #ff0000;
-        display: inline-block;
-        text-align: center;
-        border-radius: 50%;
-        overflow: hidden;
-        transition: transform .2s;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;  
+        left: 20%;
+        top:25%;
+        display: table; /* This is important */
+        overflow-y: auto;
+        overflow-x: auto;
+        width: auto;
+        min-width: 300px;
+      }
     }
+    
+    .contenedor {
+      height: auto;
+      width: 70%;
+      background: white;
+      position: relative;
+      right: 10%;
+      left: 15%;
+      border-radius: 5px;
+      padding: 2% 2%;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    }
+    
+    .foto {
+      margin: 8%;
+      width: 84%;
+      text-align: center;
+      border-radius: 50%;
+      overflow: hidden;
+      position: relative;
+      transition: transform .2s;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;  }
+    
     .foto:hover {
-        transform: scale(1.1);
+      transform: scale(1.1);
     }
-    .modal-dialog777 {
-        max-width: 350px;
-        margin: 2rem auto;
+    
+    .square {
+      height: auto;
+      width: 100%;
+      background-color: #e6ebef;
+      text-align: center;
+      border-radius: 10px;
+      padding: 10% 2%;
+      cursor: pointer;
     }
-</style>
-
-
+    
+    .toolSet {
+      position: relative;
+      top: 1%;
+      right: 0;
+      left: 0;
+      z-index: 1;
+      box-sizing:border-box;
+      opacity: 0.8;
+      width: 100%;
+      border-radius: 0 0 10px 10px;
+    }
+    
+    .imagen {
+      width: 100%;
+      object-fit: contain;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      cursor: pointer;
+    }
+    
+    .options{
+      list-style-type: none;
+      padding-left: 15%;
+    }
+    
+    li {
+      margin-top: 15%;
+      line-height: 95%;
+    }
+    #black-label {
+      position: absolute;
+      margin: auto auto;
+      left: 0;
+      right: 0;
+      bottom: -25%;
+      height: 25%;
+      padding-top: 5%;
+      text-align: center;
+      display: block;
+      color: #f5eded;
+      font-size: 10px;
+      background-color: rgba(21, 21, 21, 0.44);
+      transition: .5s ease;
+    }
+    
+    .imagen:hover ~ #black-label {
+      position: absolute;
+      bottom: 0%;
+    }
+    
+    
+    @media only screen and (max-width: 575px) {
+      #black-label {
+        font-size: 65%;
+      }
+    }
+    @media only screen and (min-width: 675px) {
+        #black-label {
+          font-size: 100%;
+        }
+      }
+    
+    
+    
+    </style>
+    
+    
+    
+    
 
 
 <!-- 
