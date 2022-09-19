@@ -15,8 +15,7 @@
             type="button"
             data-toggle="modal"
             data-target="#uploadModal"
-            value="Abre ventana"
-        />
+            value="Abre ventana" />
 
         <!-- Result after crop -->
         <div class="cropped-image">
