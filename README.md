@@ -1,10 +1,24 @@
-# petstore-front
-Frontend del proyecto de petstore
+# hola
 
-# Run container as:
-docker run -it -p8888:8080 -v /Users/garellano/Desktop/petstore-front:/app -w /app gustavoarellano/vue2 bash
-# then, run:
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
 npm run serve
+```
 
-# then go to:
-http://localhost:8888
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

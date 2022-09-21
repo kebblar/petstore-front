@@ -1,123 +1,32 @@
 <template>
-  <div id="app">
-        <!--
-        <transition
-          name="fade"
-          mode="out-in">
-            <router-view/>
-        </transition>
-        -->
-        <router-view/>
+  <div>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
 
-<script>
-  //import router from "./router";
-
-  export default {
-    name: "App",
-  }
-</script>
-
 <style>
-
-html,body {
-  height:100%;
-  background-color: #fff;
-}
 #app {
-  position: relative;
-  color: #2c3e50;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 1px;
-}
-#contenedor {
-  width: 100%;
-  background-color: transparent;
-  padding-bottom: 60px;
-  padding-top: 0px;
-}
-.centra {
-  margin: auto;
-  padding: 20px;
-}
-.loader {
-  position: fixed;
-  top:0px;
-  right:0px;
-  width:100%;
-  height:100%;
-  background-color:#ffffff;
-  background-repeat:no-repeat;
-  background-position:center;
-  z-index:10000000;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
-}
-.card-custom-header {
-  color: #fff;
-  text-align: center; 
-  background-color: #363636; 
+  text-align: center;
+  color: #2c3e50;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition-duration: 0.3s;
-  transition-property: opacity;
-  transition-timing-function: ease;
+nav {
+  padding: 30px;
 }
 
-.fade-enter,
-.fade-leave-active {
-  opacity: 0
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
 }
 
-/* Global Style for input text validation process */
-.msgValidClass {
-  display: none;
-}
-.msgNotValidClass {
-  color: rgb(213, 95, 95);
-}
-.input-base {
-  padding-left: 10px;
-  padding-right: 35px;
-  display: block;
-  box-sizing: border-box;
-  margin-bottom: 4px;
-  font-size: 13px;
-  line-height: 2;
-  font-family: inherit;
-  transition: 0.5s;
-  border: 0;
-}
-.input-correct {
-  background-color: #ffffff;
-  border-bottom: 1px solid #009900;
-  background-position:right;
-  background-size: 17px;
-  background-position-x: 96%;
-}
-.input-wrong {
-  background-color: #ffffff;
-  border-bottom: 1px solid #990000;
-  background-position:right;
-  background-size: 17px;
-  background-position-x: 96%;
-}
-.input-correct:focus {
-  box-shadow: 2px 1px 4px #d2eac1;
-  border: 1px solid rgb(183, 232, 170);
-}
-.input-wrong:focus {
-  box-shadow: 2px 1px 4px #ffbbaa;
-  border: 1px solid #bb0000;
-}
-.styleCalendar {
-  font-size: 12px;
-  border: 0;
-  border-bottom: 1px solid #009900;
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

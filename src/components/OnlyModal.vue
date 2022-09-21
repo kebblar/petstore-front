@@ -120,7 +120,7 @@ import def from '../assets/default.jpg';
 //import test from './uploadFunction';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
-import Vue from 'vue';
+
 
 export default {
   props: ['aspRad'],
@@ -235,13 +235,6 @@ export default {
         //      let result = uploadComponent.uploadImage('/api/upload', img); // internamente, es un axcios call
         //      if (result.length>0) message(result)
         //console.log(test.pba())
-        
-        Vue.$toast.open({
-            message: 'holaaaaaaaaaa',
-            type: 'error',
-            duration: 5000,
-            position:'top'
-        });
 
       } // para este método, podría haber una propiedad que indique si hacer lo primero, lo segundo o ambos
   }
