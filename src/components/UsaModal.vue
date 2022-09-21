@@ -1,5 +1,7 @@
 <template>
     <div class="container">
+        <a href="#" @click="toast">test</a>
+
         <div class="foto" @click="fireChooser">
             <img class="croppedImage"
                 v-if="profilePicture" 
@@ -14,6 +16,9 @@
 <script>
 import def from '../assets/default.jpg';
 import OnlyModal from './OnlyModal.vue'
+//import Vue from 'vue';
+import VueToast from 'vue-toast-notification'
+
 
 export default {
   components: {
@@ -40,6 +45,15 @@ export default {
         fireChooser() {
             this.$refs.onlyModal.fireChooser();
         },
+        toast() {
+                    
+        VueToast.$toast.open({
+            message: 'holaaaaaaaaaa',
+            type: 'error',
+            duration: 5000,
+            position:'top'
+        });
+        }
   }
 }
 </script>

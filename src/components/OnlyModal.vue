@@ -120,15 +120,12 @@ import def from '../assets/default.jpg';
 //import test from './uploadFunction';
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
-//import Vue from 'vue';
-
-import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-default.css';
+import Vue from 'vue';
 
 export default {
   props: ['aspRad'],
   components: {
-      VueCropper, VueToast
+      VueCropper
   },
   data() {
       return {
@@ -239,8 +236,12 @@ export default {
         //      if (result.length>0) message(result)
         //console.log(test.pba())
         
-        VueToast.open('Howdy!');
-
+        Vue.$toast.open({
+            message: 'holaaaaaaaaaa',
+            type: 'error',
+            duration: 5000,
+            position:'top'
+        });
 
       } // para este método, podría haber una propiedad que indique si hacer lo primero, lo segundo o ambos
   }
