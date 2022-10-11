@@ -1,24 +1,19 @@
 <template>
     <div class="container">
 
-        <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+        <div style="width=600px;">
+          <Carousel>
+            <Slide v-for="slide in 42" :key="slide">
+              <div class="carousel__item"><img :src="hola(slide)"  /></div>
+            </Slide>
+            <template #addons>
+              <Navigation />
+              <Pagination />
+            </template>
+          </Carousel>
+        </div>
 
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-  <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <strong class="me-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      Hello, world! This is a toast message.
-    </div>
-  </div>
-</div>
-
-
-
-        <a href="#" class="btn  btn-warning" @click="toast">test</a>
+        <a href="#" class="btn  btn-warning" @click="abreToast">test</a>
 
         <div class="foto" @click="fireChooser">
             <img class="croppedImage"
@@ -27,6 +22,7 @@
                 alt="Cropped Image" />
             <small class="black-label">Change Image</small>
         </div>
+
         <OnlyModal :asp-rad=aspectRadio ref="onlyModal" @procesa-imagen="procesa" />
     </div>
 </template>
@@ -35,31 +31,26 @@
 import def from '@/assets/default.jpg';
 import OnlyModal from '@/components/OnlyModal.vue'
 
-//import Vue from 'vue';
-//import VueToast from 'vue-toast-notification';
-//import 'vue-toast-notification/dist/theme-sugar.css'
-//Vue.use(VueToast);
+// from: https://github.com/Maronato/vue-toastification#installation
+import { useToast } from "vue-toastification";
 
-
-/*
-import {createApp} from 'vue';
-import {useToast} from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
-
-const app = createApp({});
-app.mount('#app');
-
-const $toast = useToast();
-let instance = $toast.success('You did it!');
-*/
-//import {useToast} from 'vue-toast-notification';
-
-//const $toast = useToast();
+// from: https://ismail9k.github.io/vue3-carousel/examples.html#hiddenarrows
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
 export default {
-    
+  setup() {
+      // Get toast interface
+      const toast = useToast();
+      // Make it available inside methods
+      return { toast }
+  },    
   components: {
-    OnlyModal
+    OnlyModal,
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
   },
   data() {
     return {
@@ -73,6 +64,11 @@ export default {
     }
   },
   methods: {
+    hola(n){
+      let z = n+10
+      //return "https://media.visitanos.net/video/2022/09/04/"+z+".jpg"
+      return "http://localhost:9876/"+z+".jpg"
+    },
         procesa(imagen) {
             // se puede hacer esto:
             this.profilePicture = imagen;
@@ -82,22 +78,23 @@ export default {
         fireChooser() {
             this.$refs.onlyModal.fireChooser();
         },
-        toast() {    
+        abreToast() {    
+            //this.toast.info("I'm an info toast!");
             // from: https://vue-toastification.maronato.dev/
-            // $toast("I'm a toast!", {
-            //     position: "top-right",
-            //     timeout: 5000,
-            //     closeOnClick: true,
-            //     pauseOnFocusLoss: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     draggablePercent: 0.6,
-            //     showCloseButtonOnHover: false,
-            //     hideProgressBar: true,
-            //     closeButton: "button",
-            //     icon: true,
-            //     rtl: false
-            // });
+            this.toast.error("Yo soy super gus!", {
+                position: "bottom-right",
+                timeout: 5000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: false,
+                closeButton: "button",
+                icon: true,
+                rtl: false
+            });
         }
   }
 }
@@ -126,5 +123,37 @@ export default {
     .foto:hover {
         transform: scale(1.1);
     }
+
+
+
+
+
+
+
+.carousel__item {
+  min-height: 200px;
+  width: 400px;
+  background-color: var(--vc-clr-primary);
+  color:  var(--vc-clr-white);
+  font-size: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  height: 300px;
+}
+
+.carousel__slide {
+  padding: 10px;
+}
+
+.carousel__prev,
+.carousel__next {
+  box-sizing: content-box;
+  border: 5px solid white;
+}
 
 </style>

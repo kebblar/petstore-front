@@ -1,13 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-//import { createRouter } from 'vue-router'
-
-//import * as Vue from 'vue'
-//import Router from 'vue-router'
 
 import HomeView from '../views/HomeView.vue'
 import UsaModal from '../views/UsaModal.vue'
-
-//Vue.use(Router);
 
 const routes = [
   {
